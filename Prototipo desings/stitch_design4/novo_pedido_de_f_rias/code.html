@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, .font-headline {
+            font-family: 'Manrope', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#191c1e",
+                        "tertiary": "#943700",
+                        "inverse-primary": "#b4c5ff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-tertiary-fixed": "#360f00",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e6e8ea",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#b8c4ff",
+                        "on-secondary-container": "#00217a",
+                        "tertiary-fixed": "#ffdbcd",
+                        "surface-bright": "#f7f9fb",
+                        "on-background": "#191c1e",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "surface-container-low": "#f2f4f6",
+                        "secondary": "#3755c3",
+                        "surface": "#f7f9fb",
+                        "on-tertiary-container": "#ffede6",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#708cfd",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "primary-container": "#2563eb",
+                        "outline-variant": "#c3c6d7",
+                        "on-surface-variant": "#434655",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-surface": "#2d3133",
+                        "surface-dim": "#d8dadc",
+                        "on-primary-fixed": "#00174b",
+                        "on-secondary-fixed-variant": "#173bab",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "background": "#f7f9fb",
+                        "secondary-fixed": "#dde1ff",
+                        "on-secondary-fixed": "#001453",
+                        "primary-fixed": "#dbe1ff",
+                        "outline": "#737686",
+                        "tertiary-container": "#bc4800",
+                        "primary": "#004ac6",
+                        "surface-tint": "#0053db",
+                        "on-error": "#ffffff",
+                        "surface-container": "#eceef0",
+                        "surface-variant": "#e0e3e5",
+                        "on-primary-container": "#eeefff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface antialiased overflow-hidden">
+<!-- Background: Blurred Férias Screen -->
+<div class="fixed inset-0 z-0 flex blur-md">
+<!-- Predicted SideNavBar (Static/Inactive) -->
+<aside class="h-screen w-64 bg-slate-50 flex flex-col py-6 shrink-0 border-r border-outline-variant/10">
+<div class="px-6 mb-10">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-lg">event_available</span>
+</div>
+<span class="text-lg font-bold text-blue-600">PontoPrecise</span>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<div class="flex items-center px-6 py-3 text-slate-500 font-medium">
+<span class="material-symbols-outlined mr-3">dashboard</span> Dashboard
+                </div>
+<div class="flex items-center px-6 py-3 text-blue-600 font-bold border-r-2 border-blue-600 bg-slate-100">
+<span class="material-symbols-outlined mr-3">event_available</span> Férias
+                </div>
+<div class="flex items-center px-6 py-3 text-slate-500 font-medium">
+<span class="material-symbols-outlined mr-3">group</span> Funcionários
+                </div>
+</nav>
+</aside>
+<!-- Main Content (Blurred) -->
+<main class="flex-1 p-10 bg-surface">
+<header class="mb-10 flex justify-between items-end">
+<div>
+<h1 class="text-4xl font-extrabold tracking-tight text-on-surface">Férias</h1>
+<p class="text-on-surface-variant mt-2">Gestão de períodos aquisitivos e solicitações.</p>
+</div>
+</header>
+<div class="grid grid-cols-3 gap-6 mb-8">
+<div class="bg-surface-container-lowest p-6 rounded-xl">
+<div class="text-sm text-on-surface-variant font-medium mb-2">Solicitações Pendentes</div>
+<div class="text-3xl font-bold">12</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl">
+<div class="text-sm text-on-surface-variant font-medium mb-2">Em Gozo de Férias</div>
+<div class="text-3xl font-bold">8</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl">
+<div class="text-sm text-on-surface-variant font-medium mb-2">Próximos Vencimentos</div>
+<div class="text-3xl font-bold">4</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden">
+<div class="h-64 bg-surface-container"></div>
+</div>
+</main>
+</div>
+<!-- Modal Overlay Backdrop -->
+<div class="fixed inset-0 z-40 bg-on-surface/20 backdrop-blur-sm flex items-center justify-center p-4">
+<!-- Modal Container -->
+<div class="bg-surface-container-lowest w-full max-w-2xl rounded-full shadow-[0_20px_40px_rgba(0,74,198,0.06)] flex flex-col overflow-hidden max-h-[921px]">
+<!-- Modal Header -->
+<div class="px-8 pt-8 pb-4 flex items-center justify-between">
+<div>
+<h2 class="text-2xl font-extrabold tracking-tight text-on-surface leading-none">Nova Solicitação de Férias</h2>
+<p class="text-sm text-on-surface-variant mt-2 font-medium">Preencha os detalhes para registrar o novo pedido de afastamento.</p>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-outline">close</span>
+</button>
+</div>
+<!-- Modal Content (Scrollable Area) -->
+<div class="flex-1 overflow-y-auto px-8 py-4">
+<form class="space-y-6">
+<!-- Employee & Department Section (Asymmetric Grid) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Selecionar Funcionário -->
+<div class="space-y-2">
+<label class="block text-xs font-bold tracking-widest text-on-surface-variant uppercase">Selecionar Funcionário</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-lg">search</span>
+<input class="w-full pl-11 pr-4 py-3 bg-surface-container-low border-none rounded-xl focus:ring-2 focus:ring-primary-fixed outline-none transition-all placeholder:text-outline/60 text-sm font-medium" placeholder="Buscar por nome ou ID..." type="text"/>
+</div>
+</div>
+<!-- Departamento (Read-only/Auto-filled) -->
+<div class="space-y-2">
+<label class="block text-xs font-bold tracking-widest text-on-surface-variant uppercase">Departamento</label>
+<div class="w-full px-4 py-3 bg-surface-container-high/50 rounded-xl flex items-center gap-3">
+<span class="material-symbols-outlined text-outline text-lg">corporate_fare</span>
+<span class="text-sm font-semibold text-on-surface/60 italic">Selecione um funcionário...</span>
+</div>
+</div>
+</div>
+<!-- Date Range Selection -->
+<div class="p-6 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-lg">calendar_month</span>
+<span class="text-sm font-bold text-on-surface">Período de Afastamento</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="block text-[10px] font-bold text-on-surface-variant tracking-wider uppercase ml-1">Data de Início</label>
+<div class="relative">
+<input class="w-full px-4 py-2.5 bg-surface-container-lowest border border-outline-variant/20 rounded-lg focus:ring-2 focus:ring-primary-fixed outline-none transition-all text-sm font-medium" type="date"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-[10px] font-bold text-on-surface-variant tracking-wider uppercase ml-1">Data de Fim</label>
+<div class="relative">
+<input class="w-full px-4 py-2.5 bg-surface-container-lowest border border-outline-variant/20 rounded-lg focus:ring-2 focus:ring-primary-fixed outline-none transition-all text-sm font-medium" type="date"/>
+</div>
+</div>
+</div>
+<div class="mt-4 flex items-center justify-between text-xs font-medium text-on-surface-variant">
+<span>Total de dias solicitados:</span>
+<span class="text-primary font-bold">0 dias</span>
+</div>
+</div>
+<!-- Toggle Section -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container-highest rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div>
+<div class="text-sm font-bold text-on-surface">Adiantamento de 13º salário</div>
+<p class="text-xs text-on-surface-variant">Solicitar parcela antecipada junto às férias.</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-outline-variant/40 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Upload Area -->
+<div class="space-y-2">
+<label class="block text-xs font-bold tracking-widest text-on-surface-variant uppercase">Anexar Documento para Aceite</label>
+<div class="border-2 border-dashed border-outline-variant/30 hover:border-primary/50 transition-colors rounded-xl p-8 flex flex-col items-center justify-center bg-surface-container-low group cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed mb-3 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">cloud_upload</span>
+</div>
+<p class="text-sm font-semibold text-on-surface">Arraste o arquivo aqui ou clique para buscar</p>
+<p class="text-xs text-on-surface-variant mt-1">PDF, PNG ou JPG (máx. 10MB)</p>
+</div>
+</div>
+</form>
+</div>
+<!-- Modal Footer (Actions) -->
+<div class="p-8 flex items-center justify-end gap-4 bg-surface-container-low/30">
+<button class="px-6 py-2.5 text-sm font-bold text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all active:scale-95">
+                    Cancelar
+                </button>
+<button class="px-8 py-2.5 text-sm font-bold text-on-primary bg-gradient-to-br from-primary to-primary-container rounded-full shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-98">
+                    Criar Solicitação
+                </button>
+</div>
+</div>
+</div>
+</body></html>

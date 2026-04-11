@@ -1,0 +1,71 @@
+<html lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+              "background-custom": "#F8FAFC",
+              "primary": "#004ac6",
+              "surface": "#ffffff",
+              "text-muted": "#64748b",
+              "text-main": "#0f172a",
+              "border-light": "#f1f5f9"
+            },
+            "fontFamily": {
+              "headline": [ "Manrope", "sans-serif" ],
+              "body": [ "Inter", "sans-serif" ]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      @keyframes spin-slow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      .animate-spin-thin {
+        animation: spin-slow 1s linear infinite;
+      }
+    </style>
+</head>
+<body class="bg-background-custom font-body text-text-main flex items-center justify-center min-h-screen">
+<main class="w-full max-w-sm px-6">
+<!-- Re-authentication Card -->
+<div class="bg-surface rounded-2xl p-10 flex flex-col items-center text-center shadow-sm border border-border-light">
+<!-- Brand Logo -->
+<div class="mb-12">
+<span class="font-headline font-extrabold text-lg tracking-tighter text-primary">PontoPrecise</span>
+</div>
+<!-- Minimalist Spinner -->
+<div class="mb-8 relative flex items-center justify-center">
+<svg class="w-10 h-10 animate-spin-thin text-primary/20" viewbox="0 0 24 24">
+<circle class="opacity-25" cx="12" cy="12" fill="none" r="10" stroke="currentColor" stroke-width="1"></circle>
+<path class="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor" stroke="currentColor" stroke-width="1"></path>
+</svg>
+</div>
+<!-- Status Text -->
+<div class="space-y-1">
+<p class="text-sm font-medium tracking-tight text-text-main font-headline">
+                    Validando sua sessão...
+                </p>
+<p class="text-[11px] text-text-muted">Aguarde um momento</p>
+</div>
+<!-- Secure Badge -->
+<div class="mt-12 flex items-center gap-1.5 px-3 py-1 bg-slate-50 rounded-full border border-slate-100">
+<span class="material-symbols-outlined text-[14px] text-emerald-500" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="text-[9px] font-bold uppercase tracking-widest text-slate-500">Ambiente Seguro</span>
+</div>
+</div>
+<!-- Footer -->
+<footer class="mt-8 text-center">
+<p class="text-[10px] text-slate-400 tracking-wide font-medium">© 2024 PontoPrecise Enterprise</p>
+</footer>
+</main>
+</body></html>

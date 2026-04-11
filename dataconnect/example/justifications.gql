@@ -1,0 +1,142 @@
+query ListJustifications @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  justifications(orderBy: [{ createdAt: DESC }], limit: 200) {
+    id
+    employee {
+      id
+    }
+    timeRecord {
+      id
+    }
+    type
+    reason
+    status
+    requestedRecordType
+    requestedRecordedAt
+    reviewedByUser {
+      id
+    }
+    reviewedAt
+    reviewNotes
+    createdAt
+    updatedAt
+  }
+}
+
+query GetJustificationById($id: UUID!) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  justification(id: $id) {
+    id
+    employee {
+      id
+    }
+    timeRecord {
+      id
+    }
+    type
+    reason
+    status
+    requestedRecordType
+    requestedRecordedAt
+    reviewedByUser {
+      id
+    }
+    reviewedAt
+    reviewNotes
+    createdAt
+    updatedAt
+  }
+}
+
+query ListJustificationAttachments @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  justificationAttachments(orderBy: [{ createdAt: DESC }], limit: 300) {
+    id
+    justification {
+      id
+    }
+    fileName
+    fileUrl
+    contentType
+    fileSizeBytes
+    uploadedByUser {
+      id
+    }
+    createdAt
+  }
+}
+
+mutation CreateJustification(
+  $employeeId: UUID!
+  $timeRecordId: UUID
+  $type: String!
+  $reason: String!
+  $requestedRecordType: String
+  $requestedRecordedAt: Timestamp
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  justification_insert(
+    data: {
+      employee: { id: $employeeId }
+      timeRecord: { id: $timeRecordId }
+      type: $type
+      reason: $reason
+      status: "pending"
+      requestedRecordType: $requestedRecordType
+      requestedRecordedAt: $requestedRecordedAt
+      createdAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation ApproveJustification(
+  $id: UUID!
+  $reviewedByUserId: UUID!
+  $reviewNotes: String
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  justification_update(
+    id: $id
+    data: {
+      status: "approved"
+      reviewedByUser: { id: $reviewedByUserId }
+      reviewedAt_expr: "request.time"
+      reviewNotes: $reviewNotes
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation RejectJustification(
+  $id: UUID!
+  $reviewedByUserId: UUID!
+  $reviewNotes: String
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  justification_update(
+    id: $id
+    data: {
+      status: "rejected"
+      reviewedByUser: { id: $reviewedByUserId }
+      reviewedAt_expr: "request.time"
+      reviewNotes: $reviewNotes
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation AddJustificationAttachment(
+  $justificationId: UUID!
+  $fileName: String!
+  $fileUrl: String!
+  $contentType: String
+  $fileSizeBytes: Int64
+  $uploadedByUserId: UUID
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  justificationAttachment_insert(
+    data: {
+      justification: { id: $justificationId }
+      fileName: $fileName
+      fileUrl: $fileUrl
+      contentType: $contentType
+      fileSizeBytes: $fileSizeBytes
+      uploadedByUser: { id: $uploadedByUserId }
+      createdAt_expr: "request.time"
+    }
+  )
+}

@@ -1,0 +1,2044 @@
+mutation SeedRhPontoData
+@auth(
+  level: USER
+  insecureReason: "Operação de seed temporária para popular ambiente de desenvolvimento e homologação."
+)
+@transaction {
+  user_upsertMany(
+    data: [
+      {
+        id: "11111111-1111-4111-8111-111111111111"
+        firebaseUid: "firebase-admin-1"
+        name: "Caio Almeida"
+        email: "admin@empresa.com"
+        role: "admin"
+        isActive: true
+        lastLoginAt: "2026-04-04T08:10:00.000Z"
+        createdAt: "2025-01-02T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:10:00.000Z"
+      }
+      {
+        id: "22222222-2222-4222-8222-222222222222"
+        firebaseUid: "firebase-admin-2"
+        name: "Mariana Costa"
+        email: "rh@empresa.com"
+        role: "admin"
+        isActive: true
+        lastLoginAt: "2026-04-04T08:05:00.000Z"
+        createdAt: "2025-01-05T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:05:00.000Z"
+      }
+      {
+        id: "33333333-3333-4333-8333-333333333333"
+        firebaseUid: "firebase-employee-1"
+        name: "João Pereira"
+        email: "employee@empresa.com"
+        role: "employee"
+        isActive: true
+        lastLoginAt: "2026-04-03T20:10:00.000Z"
+        createdAt: "2025-02-01T12:00:00.000Z"
+        updatedAt: "2026-04-03T20:10:00.000Z"
+      }
+      {
+        id: "44444444-4444-4444-8444-444444444444"
+        firebaseUid: "firebase-kiosk-1"
+        name: "Kiosk Recepção"
+        email: "kiosk@empresa.com"
+        role: "kiosk"
+        isActive: true
+        lastLoginAt: "2026-04-04T07:59:00.000Z"
+        createdAt: "2025-03-01T12:00:00.000Z"
+        updatedAt: "2026-04-04T07:59:00.000Z"
+      }
+    ]
+  )
+
+  departmentManagers_upsertMany: department_upsertMany(
+    data: [
+      {
+        id: "12121212-1212-4121-8121-121212121211"
+        code: "DEP-OPS"
+        name: "Operações"
+        description: "Departamento responsável pelas equipes de campo e operação presencial."
+        costCenter: "CC-1001"
+        isActive: true
+        createdAt: "2025-01-02T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:10:00.000Z"
+      }
+      {
+        id: "12121212-1212-4121-8121-121212121212"
+        code: "DEP-FIN"
+        name: "Financeiro"
+        description: "Controle financeiro, fluxo de caixa e apoio à folha."
+        costCenter: "CC-1002"
+        isActive: true
+        createdAt: "2025-01-02T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:10:00.000Z"
+      }
+      {
+        id: "12121212-1212-4121-8121-121212121213"
+        code: "DEP-LOG"
+        name: "Logística"
+        description: "Suporte operacional de deslocamento, equipamentos e cobertura regional."
+        costCenter: "CC-1003"
+        isActive: true
+        createdAt: "2025-01-02T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:10:00.000Z"
+      }
+      {
+        id: "12121212-1212-4121-8121-121212121214"
+        code: "DEP-RH"
+        name: "Recursos Humanos"
+        description: "Departamento responsável por gente, folha, férias e compliance trabalhista."
+        costCenter: "CC-1004"
+        isActive: true
+        createdAt: "2025-01-02T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:10:00.000Z"
+      }
+      {
+        id: "12121212-1212-4121-8121-121212121215"
+        code: "DEP-ENG"
+        name: "Engenharia"
+        description: "Squad responsável por produto, tecnologia e evolução do ecossistema."
+        costCenter: "CC-1005"
+        isActive: true
+        createdAt: "2025-01-02T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:10:00.000Z"
+      }
+      {
+        id: "12121212-1212-4121-8121-121212121216"
+        code: "DEP-MKT"
+        name: "Marketing"
+        description: "Conteúdo, campanhas e posicionamento institucional."
+        costCenter: "CC-1006"
+        isActive: true
+        createdAt: "2025-01-02T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:10:00.000Z"
+      }
+      {
+        id: "12121212-1212-4121-8121-121212121217"
+        code: "DEP-COM"
+        name: "Comercial"
+        description: "Gestão de carteira, expansão e relacionamento comercial."
+        costCenter: "CC-1007"
+        isActive: true
+        createdAt: "2025-01-02T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:10:00.000Z"
+      }
+      {
+        id: "12121212-1212-4121-8121-121212121218"
+        code: "DEP-ATE"
+        name: "Atendimento"
+        description: "Time responsável por relacionamento, suporte e jornada do colaborador."
+        costCenter: "CC-1008"
+        isActive: true
+        createdAt: "2025-01-02T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:10:00.000Z"
+      }
+    ]
+  )
+
+  employee_upsertMany(
+    data: [
+      {
+        id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1"
+        userId: "33333333-3333-4333-8333-333333333333"
+        registrationNumber: "1001"
+        fullName: "João Pereira"
+        cpf: "12345678901"
+        email: "joao@empresa.com"
+        phone: "11999990001"
+        birthDate: "1991-04-10"
+        hireDate: "2023-01-16"
+        department: { id: "12121212-1212-4121-8121-121212121211" }
+        position: "Analista de Campo"
+        profilePhotoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e"
+        pinCode: "1234"
+        isActive: true
+        createdAt: "2024-01-12T08:00:00.000Z"
+        updatedAt: "2026-04-03T08:00:00.000Z"
+      }
+      {
+        id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2"
+        userId: null
+        registrationNumber: "1002"
+        fullName: "Ana Ribeiro"
+        cpf: "98765432100"
+        email: "ana@empresa.com"
+        phone: "11999990002"
+        birthDate: "1988-11-20"
+        hireDate: "2022-09-01"
+        department: { id: "12121212-1212-4121-8121-121212121212" }
+        position: "Assistente Financeira"
+        profilePhotoUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330"
+        pinCode: "4321"
+        isActive: true
+        createdAt: "2024-01-12T08:00:00.000Z"
+        updatedAt: "2026-04-03T08:10:00.000Z"
+      }
+      {
+        id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3"
+        userId: null
+        registrationNumber: "1003"
+        fullName: "Carlos Mendes"
+        cpf: "11122233344"
+        email: "carlos@empresa.com"
+        phone: "11999990003"
+        birthDate: "1994-08-02"
+        hireDate: "2024-02-14"
+        department: { id: "12121212-1212-4121-8121-121212121213" }
+        position: "Supervisor"
+        profilePhotoUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"
+        pinCode: "8765"
+        isActive: false
+        createdAt: "2024-02-14T08:00:00.000Z"
+        updatedAt: "2026-03-01T08:00:00.000Z"
+      }
+      {
+        id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa4"
+        userId: null
+        registrationNumber: "1004"
+        fullName: "Beatriz Santos"
+        cpf: "55566677788"
+        email: "beatriz.santos@empresa.com"
+        phone: "11999990004"
+        birthDate: "1992-01-18"
+        hireDate: "2025-01-06"
+        department: { id: "12121212-1212-4121-8121-121212121214" }
+        position: "Business Partner"
+        profilePhotoUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80"
+        pinCode: "2468"
+        isActive: true
+        createdAt: "2025-01-06T09:00:00.000Z"
+        updatedAt: "2026-04-02T09:00:00.000Z"
+      }
+      {
+        id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa5"
+        userId: null
+        registrationNumber: "1005"
+        fullName: "Lucas Ferreira"
+        cpf: "44455566677"
+        email: "lucas.ferreira@empresa.com"
+        phone: "11999990005"
+        birthDate: "1996-06-27"
+        hireDate: "2026-02-10"
+        department: { id: "12121212-1212-4121-8121-121212121215" }
+        position: "Desenvolvedor Pleno"
+        profilePhotoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e"
+        pinCode: "1357"
+        isActive: true
+        createdAt: "2026-02-10T10:00:00.000Z"
+        updatedAt: "2026-04-01T08:45:00.000Z"
+      }
+      {
+        id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa6"
+        userId: null
+        registrationNumber: "1006"
+        fullName: "Juliana Costa"
+        cpf: "33344455566"
+        email: "juliana.costa@empresa.com"
+        phone: "11999990006"
+        birthDate: "1990-09-09"
+        hireDate: "2023-08-21"
+        department: { id: "12121212-1212-4121-8121-121212121216" }
+        position: "Coordenadora de Conteúdo"
+        profilePhotoUrl: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df"
+        pinCode: "9753"
+        isActive: true
+        createdAt: "2023-08-21T08:00:00.000Z"
+        updatedAt: "2026-04-02T13:10:00.000Z"
+      }
+      {
+        id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa7"
+        userId: null
+        registrationNumber: "1007"
+        fullName: "Ricardo Almeida"
+        cpf: "22233344455"
+        email: "ricardo.almeida@empresa.com"
+        phone: "11999990007"
+        birthDate: "1987-03-12"
+        hireDate: "2021-11-03"
+        department: { id: "12121212-1212-4121-8121-121212121217" }
+        position: "Executivo de Contas"
+        profilePhotoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
+        pinCode: "8642"
+        isActive: true
+        createdAt: "2021-11-03T08:00:00.000Z"
+        updatedAt: "2026-04-03T09:20:00.000Z"
+      }
+      {
+        id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa8"
+        userId: null
+        registrationNumber: "1008"
+        fullName: "Fernanda Lima"
+        cpf: "11133355577"
+        email: "fernanda.lima@empresa.com"
+        phone: "11999990008"
+        birthDate: "1995-12-05"
+        hireDate: "2024-10-01"
+        department: { id: "12121212-1212-4121-8121-121212121218" }
+        position: "Supervisora de Relacionamento"
+        profilePhotoUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2"
+        pinCode: "6428"
+        isActive: true
+        createdAt: "2024-10-01T09:00:00.000Z"
+        updatedAt: "2026-04-02T16:12:00.000Z"
+      }
+      {
+        id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa9"
+        userId: null
+        registrationNumber: "1009"
+        fullName: "Paula Nogueira"
+        cpf: "77788899900"
+        email: "paula.nogueira@empresa.com"
+        phone: "11999990009"
+        birthDate: "1989-07-03"
+        hireDate: "2022-04-19"
+        department: { id: "12121212-1212-4121-8121-121212121214" }
+        position: "Analista Jurídica Trabalhista"
+        profilePhotoUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9"
+        pinCode: "3141"
+        isActive: true
+        createdAt: "2022-04-19T08:00:00.000Z"
+        updatedAt: "2026-04-04T09:05:00.000Z"
+      }
+      {
+        id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa10"
+        userId: null
+        registrationNumber: "1010"
+        fullName: "Gustavo Rocha"
+        cpf: "66677788899"
+        email: "gustavo.rocha@empresa.com"
+        phone: "11999990010"
+        birthDate: "1993-05-15"
+        hireDate: "2023-03-01"
+        department: { id: "12121212-1212-4121-8121-121212121215" }
+        position: "Product Manager"
+        profilePhotoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e"
+        pinCode: "8080"
+        isActive: true
+        createdAt: "2023-03-01T08:00:00.000Z"
+        updatedAt: "2026-04-03T11:20:00.000Z"
+      }
+      {
+        id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa11"
+        userId: null
+        registrationNumber: "1011"
+        fullName: "Helena Martins"
+        cpf: "55577799911"
+        email: "helena.martins@empresa.com"
+        phone: "11999990011"
+        birthDate: "1991-10-29"
+        hireDate: "2024-06-03"
+        department: { id: "12121212-1212-4121-8121-121212121212" }
+        position: "Compradora Sênior"
+        profilePhotoUrl: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df"
+        pinCode: "5050"
+        isActive: true
+        createdAt: "2024-06-03T08:00:00.000Z"
+        updatedAt: "2026-04-03T15:10:00.000Z"
+      }
+      {
+        id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa12"
+        userId: null
+        registrationNumber: "1012"
+        fullName: "Diego Barros"
+        cpf: "44466688800"
+        email: "diego.barros@empresa.com"
+        phone: "11999990012"
+        birthDate: "1986-02-08"
+        hireDate: "2022-12-12"
+        department: { id: "12121212-1212-4121-8121-121212121211" }
+        position: "Coordenador de Facilities"
+        profilePhotoUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"
+        pinCode: "9090"
+        isActive: true
+        createdAt: "2022-12-12T08:00:00.000Z"
+        updatedAt: "2026-04-01T14:20:00.000Z"
+      }
+    ]
+  )
+
+  departmentLeads_upsertMany: department_upsertMany(
+    data: [
+      {
+        id: "12121212-1212-4121-8121-121212121211"
+        code: "DEP-OPS"
+        name: "Operações"
+        manager: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1" }
+        description: "Departamento responsável pelas equipes de campo e operação presencial."
+        costCenter: "CC-1001"
+        isActive: true
+        createdAt: "2025-01-02T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:10:00.000Z"
+      }
+      {
+        id: "12121212-1212-4121-8121-121212121212"
+        code: "DEP-FIN"
+        name: "Financeiro"
+        manager: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2" }
+        description: "Controle financeiro, fluxo de caixa e apoio à folha."
+        costCenter: "CC-1002"
+        isActive: true
+        createdAt: "2025-01-02T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:10:00.000Z"
+      }
+      {
+        id: "12121212-1212-4121-8121-121212121213"
+        code: "DEP-LOG"
+        name: "Logística"
+        manager: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3" }
+        description: "Suporte operacional de deslocamento, equipamentos e cobertura regional."
+        costCenter: "CC-1003"
+        isActive: true
+        createdAt: "2025-01-02T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:10:00.000Z"
+      }
+      {
+        id: "12121212-1212-4121-8121-121212121214"
+        code: "DEP-RH"
+        name: "Recursos Humanos"
+        manager: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa4" }
+        description: "Departamento responsável por gente, folha, férias e compliance trabalhista."
+        costCenter: "CC-1004"
+        isActive: true
+        createdAt: "2025-01-02T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:10:00.000Z"
+      }
+      {
+        id: "12121212-1212-4121-8121-121212121215"
+        code: "DEP-ENG"
+        name: "Engenharia"
+        manager: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa5" }
+        description: "Squad responsável por produto, tecnologia e evolução do ecossistema."
+        costCenter: "CC-1005"
+        isActive: true
+        createdAt: "2025-01-02T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:10:00.000Z"
+      }
+      {
+        id: "12121212-1212-4121-8121-121212121216"
+        code: "DEP-MKT"
+        name: "Marketing"
+        manager: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa6" }
+        description: "Conteúdo, campanhas e posicionamento institucional."
+        costCenter: "CC-1006"
+        isActive: true
+        createdAt: "2025-01-02T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:10:00.000Z"
+      }
+      {
+        id: "12121212-1212-4121-8121-121212121217"
+        code: "DEP-COM"
+        name: "Comercial"
+        manager: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa7" }
+        description: "Gestão de carteira, expansão e relacionamento comercial."
+        costCenter: "CC-1007"
+        isActive: true
+        createdAt: "2025-01-02T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:10:00.000Z"
+      }
+      {
+        id: "12121212-1212-4121-8121-121212121218"
+        code: "DEP-ATE"
+        name: "Atendimento"
+        manager: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa8" }
+        description: "Time responsável por relacionamento, suporte e jornada do colaborador."
+        costCenter: "CC-1008"
+        isActive: true
+        createdAt: "2025-01-02T12:00:00.000Z"
+        updatedAt: "2026-04-04T08:10:00.000Z"
+      }
+    ]
+  )
+
+  device_upsertMany(
+    data: [
+      {
+        id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1"
+        name: "Kiosk Recepção"
+        identifier: "tablet-recepcao-01"
+        type: "kiosk"
+        locationName: "Recepção Matriz"
+        description: "Tablet principal para marcação presencial."
+        isActive: true
+        lastSyncAt: "2026-04-04T08:00:00.000Z"
+        createdAt: "2025-03-01T08:00:00.000Z"
+        updatedAt: "2026-04-04T08:00:00.000Z"
+      }
+      {
+        id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2"
+        name: "App Funcionário"
+        identifier: "employee-app-mobile"
+        type: "mobile"
+        locationName: "Campo"
+        description: "Origem de marcação remota pelo aplicativo do funcionário."
+        isActive: true
+        lastSyncAt: "2026-04-04T07:58:00.000Z"
+        createdAt: "2025-03-10T08:00:00.000Z"
+        updatedAt: "2026-04-04T07:58:00.000Z"
+      }
+      {
+        id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb3"
+        name: "Painel Administrativo"
+        identifier: "admin-web-adjustments"
+        type: "web"
+        locationName: "RH Interno"
+        description: "Origem de ajustes administrativos."
+        isActive: true
+        lastSyncAt: "2026-04-04T08:01:00.000Z"
+        createdAt: "2025-03-15T08:00:00.000Z"
+        updatedAt: "2026-04-04T08:01:00.000Z"
+      }
+    ]
+  )
+
+  workSchedule_upsertMany(
+    data: [
+      {
+        id: "cccccccc-cccc-4ccc-8ccc-ccccccccccc1"
+        name: "Administrativo 08h às 17h"
+        startTime: "08:00"
+        breakStartTime: "12:00"
+        breakEndTime: "13:00"
+        endTime: "17:00"
+        toleranceMinutes: 10
+        expectedDailyMinutes: 480
+        isActive: true
+        createdAt: "2025-01-02T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "cccccccc-cccc-4ccc-8ccc-ccccccccccc2"
+        name: "Comercial Flexível"
+        startTime: "09:00"
+        breakStartTime: "12:30"
+        breakEndTime: "13:30"
+        endTime: "18:00"
+        toleranceMinutes: 15
+        expectedDailyMinutes: 480
+        isActive: true
+        createdAt: "2025-01-02T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "cccccccc-cccc-4ccc-8ccc-ccccccccccc3"
+        name: "Operação Campo"
+        startTime: "07:00"
+        breakStartTime: "12:00"
+        breakEndTime: "13:00"
+        endTime: "16:00"
+        toleranceMinutes: 5
+        expectedDailyMinutes: 480
+        isActive: true
+        createdAt: "2025-01-02T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+    ]
+  )
+
+  employeeScheduleHistory_upsertMany(
+    data: [
+      {
+        id: "dddddddd-dddd-4ddd-8ddd-ddddddddddd1"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1" }
+        workSchedule: { id: "cccccccc-cccc-4ccc-8ccc-ccccccccccc3" }
+        startDate: "2025-01-01"
+        isCurrent: true
+        createdAt: "2025-01-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "dddddddd-dddd-4ddd-8ddd-ddddddddddd2"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2" }
+        workSchedule: { id: "cccccccc-cccc-4ccc-8ccc-ccccccccccc1" }
+        startDate: "2025-01-01"
+        isCurrent: true
+        createdAt: "2025-01-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "dddddddd-dddd-4ddd-8ddd-ddddddddddd3"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa4" }
+        workSchedule: { id: "cccccccc-cccc-4ccc-8ccc-ccccccccccc1" }
+        startDate: "2025-01-06"
+        isCurrent: true
+        createdAt: "2025-01-06T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "dddddddd-dddd-4ddd-8ddd-ddddddddddd4"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa5" }
+        workSchedule: { id: "cccccccc-cccc-4ccc-8ccc-ccccccccccc1" }
+        startDate: "2026-02-10"
+        isCurrent: true
+        createdAt: "2026-02-10T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "dddddddd-dddd-4ddd-8ddd-ddddddddddd5"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa6" }
+        workSchedule: { id: "cccccccc-cccc-4ccc-8ccc-ccccccccccc1" }
+        startDate: "2023-08-21"
+        isCurrent: true
+        createdAt: "2023-08-21T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "dddddddd-dddd-4ddd-8ddd-ddddddddddd6"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa7" }
+        workSchedule: { id: "cccccccc-cccc-4ccc-8ccc-ccccccccccc2" }
+        startDate: "2021-11-03"
+        isCurrent: true
+        createdAt: "2021-11-03T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "dddddddd-dddd-4ddd-8ddd-ddddddddddd7"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa8" }
+        workSchedule: { id: "cccccccc-cccc-4ccc-8ccc-ccccccccccc1" }
+        startDate: "2024-10-01"
+        isCurrent: true
+        createdAt: "2024-10-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "dddddddd-dddd-4ddd-8ddd-ddddddddddd8"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa9" }
+        workSchedule: { id: "cccccccc-cccc-4ccc-8ccc-ccccccccccc1" }
+        startDate: "2022-04-19"
+        isCurrent: true
+        createdAt: "2022-04-19T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "dddddddd-dddd-4ddd-8ddd-ddddddddddd9"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa10" }
+        workSchedule: { id: "cccccccc-cccc-4ccc-8ccc-ccccccccccc1" }
+        startDate: "2023-03-01"
+        isCurrent: true
+        createdAt: "2023-03-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "dddddddd-dddd-4ddd-8ddd-dddddddddddA"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa11" }
+        workSchedule: { id: "cccccccc-cccc-4ccc-8ccc-ccccccccccc1" }
+        startDate: "2024-06-03"
+        isCurrent: true
+        createdAt: "2024-06-03T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "dddddddd-dddd-4ddd-8ddd-dddddddddddB"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa12" }
+        workSchedule: { id: "cccccccc-cccc-4ccc-8ccc-ccccccccccc3" }
+        startDate: "2022-12-12"
+        isCurrent: true
+        createdAt: "2022-12-12T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+    ]
+  )
+
+  timeRecord_upsertMany(
+    data: [
+      {
+        id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee1"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1" }
+        device: { id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1" }
+        recordedByUserId: null
+        recordType: "entry"
+        source: "kiosk"
+        status: "valid"
+        recordedAt: "2026-04-03T10:58:00.000Z"
+        originalRecordedAt: null
+        notes: null
+        isManual: false
+        latitude: null
+        longitude: null
+        ipAddress: "10.0.0.10"
+        createdAt: "2026-04-03T10:58:00.000Z"
+        updatedAt: "2026-04-03T10:58:00.000Z"
+      }
+      {
+        id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee2"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa7" }
+        device: { id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1" }
+        recordedByUserId: null
+        recordType: "entry"
+        source: "kiosk"
+        status: "pending_review"
+        recordedAt: "2026-04-03T12:18:00.000Z"
+        originalRecordedAt: null
+        notes: "Entrada com 18 minutos de atraso. Solicitada justificativa."
+        isManual: false
+        latitude: -23.55052
+        longitude: -46.633308
+        ipAddress: "10.0.0.18"
+        createdAt: "2026-04-03T12:18:00.000Z"
+        updatedAt: "2026-04-03T12:18:00.000Z"
+      }
+      {
+        id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee3"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa4" }
+        device: { id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1" }
+        recordedByUserId: null
+        recordType: "entry"
+        source: "kiosk"
+        status: "valid"
+        recordedAt: "2026-04-03T11:02:00.000Z"
+        originalRecordedAt: null
+        notes: null
+        isManual: false
+        latitude: -23.55052
+        longitude: -46.633308
+        ipAddress: "10.0.0.14"
+        createdAt: "2026-04-03T11:02:00.000Z"
+        updatedAt: "2026-04-03T11:02:00.000Z"
+      }
+      {
+        id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee4"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1" }
+        device: { id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1" }
+        recordedByUserId: null
+        recordType: "break_start"
+        source: "kiosk"
+        status: "valid"
+        recordedAt: "2026-04-03T15:01:00.000Z"
+        originalRecordedAt: null
+        notes: null
+        isManual: false
+        latitude: null
+        longitude: null
+        ipAddress: "10.0.0.10"
+        createdAt: "2026-04-03T15:01:00.000Z"
+        updatedAt: "2026-04-03T15:01:00.000Z"
+      }
+      {
+        id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee5"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1" }
+        device: { id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1" }
+        recordedByUserId: null
+        recordType: "break_end"
+        source: "kiosk"
+        status: "valid"
+        recordedAt: "2026-04-03T16:03:00.000Z"
+        originalRecordedAt: null
+        notes: null
+        isManual: false
+        latitude: null
+        longitude: null
+        ipAddress: "10.0.0.10"
+        createdAt: "2026-04-03T16:03:00.000Z"
+        updatedAt: "2026-04-03T16:03:00.000Z"
+      }
+      {
+        id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee6"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa8" }
+        device: { id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb3" }
+        recordedByUserId: "11111111-1111-4111-8111-111111111111"
+        recordType: "entry"
+        source: "admin_adjustment"
+        status: "adjusted"
+        recordedAt: "2026-04-03T11:05:00.000Z"
+        originalRecordedAt: "2026-04-03T11:33:00.000Z"
+        notes: "Ajuste manual após comprovação de indisponibilidade no kiosk."
+        isManual: true
+        latitude: null
+        longitude: null
+        ipAddress: "177.10.10.20"
+        createdAt: "2026-04-03T11:36:00.000Z"
+        updatedAt: "2026-04-03T11:40:00.000Z"
+      }
+      {
+        id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee7"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa5" }
+        device: { id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb3" }
+        recordedByUserId: "11111111-1111-4111-8111-111111111111"
+        recordType: "entry"
+        source: "admin_adjustment"
+        status: "adjusted"
+        recordedAt: "2026-04-02T12:00:00.000Z"
+        originalRecordedAt: null
+        notes: "Registro criado manualmente após declaração de reunião externa."
+        isManual: true
+        latitude: null
+        longitude: null
+        ipAddress: "177.10.10.21"
+        createdAt: "2026-04-02T12:10:00.000Z"
+        updatedAt: "2026-04-02T12:10:00.000Z"
+      }
+      {
+        id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee8"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa6" }
+        device: { id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2" }
+        recordedByUserId: null
+        recordType: "entry"
+        source: "employee_app"
+        status: "pending_review"
+        recordedAt: "2026-04-02T12:14:00.000Z"
+        originalRecordedAt: null
+        notes: "Selfie com baixa iluminação. Validação humana solicitada."
+        isManual: false
+        latitude: -23.56415
+        longitude: -46.65242
+        ipAddress: "177.55.10.10"
+        createdAt: "2026-04-02T12:14:00.000Z"
+        updatedAt: "2026-04-02T12:14:00.000Z"
+      }
+      {
+        id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee9"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2" }
+        device: { id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1" }
+        recordedByUserId: null
+        recordType: "entry"
+        source: "kiosk"
+        status: "pending_review"
+        recordedAt: "2026-03-31T12:17:00.000Z"
+        originalRecordedAt: null
+        notes: "Entrada fora da tolerância."
+        isManual: false
+        latitude: null
+        longitude: null
+        ipAddress: "10.0.0.12"
+        createdAt: "2026-03-31T12:17:00.000Z"
+        updatedAt: "2026-03-31T12:17:00.000Z"
+      }
+      {
+        id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeee10"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2" }
+        device: { id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2" }
+        recordedByUserId: null
+        recordType: "exit"
+        source: "employee_app"
+        status: "rejected"
+        recordedAt: "2026-04-02T21:41:00.000Z"
+        originalRecordedAt: null
+        notes: "Solicitação rejeitada por divergência com geolocalização informada."
+        isManual: false
+        latitude: -23.5912
+        longitude: -46.6761
+        ipAddress: "177.55.10.14"
+        createdAt: "2026-04-02T21:41:00.000Z"
+        updatedAt: "2026-04-02T22:12:00.000Z"
+      }
+      {
+        id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeee11"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa9" }
+        device: { id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb3" }
+        recordedByUserId: "22222222-2222-4222-8222-222222222222"
+        recordType: "entry"
+        source: "admin_adjustment"
+        status: "adjusted"
+        recordedAt: "2026-04-04T11:01:00.000Z"
+        originalRecordedAt: null
+        notes: "Entrada lançada após audiência externa validada pelo RH."
+        isManual: true
+        latitude: null
+        longitude: null
+        ipAddress: "177.10.10.30"
+        createdAt: "2026-04-04T11:20:00.000Z"
+        updatedAt: "2026-04-04T11:20:00.000Z"
+      }
+      {
+        id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeee12"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa10" }
+        device: { id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2" }
+        recordedByUserId: null
+        recordType: "entry"
+        source: "employee_app"
+        status: "valid"
+        recordedAt: "2026-04-01T12:31:00.000Z"
+        originalRecordedAt: null
+        notes: "Trabalho híbrido aprovado para discovery com fornecedor."
+        isManual: false
+        latitude: -23.567
+        longitude: -46.648
+        ipAddress: "177.20.10.20"
+        createdAt: "2026-04-01T12:31:00.000Z"
+        updatedAt: "2026-04-01T12:31:00.000Z"
+      }
+      {
+        id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeee13"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa10" }
+        device: { id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2" }
+        recordedByUserId: null
+        recordType: "exit"
+        source: "employee_app"
+        status: "valid"
+        recordedAt: "2026-04-01T21:06:00.000Z"
+        originalRecordedAt: null
+        notes: "Fechamento remoto do dia com cerimônia de produto."
+        isManual: false
+        latitude: -23.567
+        longitude: -46.648
+        ipAddress: "177.20.10.20"
+        createdAt: "2026-04-01T21:06:00.000Z"
+        updatedAt: "2026-04-01T21:06:00.000Z"
+      }
+      {
+        id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeee14"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa11" }
+        device: { id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1" }
+        recordedByUserId: null
+        recordType: "entry"
+        source: "kiosk"
+        status: "valid"
+        recordedAt: "2026-04-04T10:59:00.000Z"
+        originalRecordedAt: null
+        notes: null
+        isManual: false
+        latitude: null
+        longitude: null
+        ipAddress: "10.0.0.22"
+        createdAt: "2026-04-04T10:59:00.000Z"
+        updatedAt: "2026-04-04T10:59:00.000Z"
+      }
+      {
+        id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeee15"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa11" }
+        device: { id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1" }
+        recordedByUserId: null
+        recordType: "exit"
+        source: "kiosk"
+        status: "valid"
+        recordedAt: "2026-04-04T20:15:00.000Z"
+        originalRecordedAt: null
+        notes: "Fechamento com 15 minutos de hora extra."
+        isManual: false
+        latitude: null
+        longitude: null
+        ipAddress: "10.0.0.22"
+        createdAt: "2026-04-04T20:15:00.000Z"
+        updatedAt: "2026-04-04T20:15:00.000Z"
+      }
+      {
+        id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeee16"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa12" }
+        device: { id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb3" }
+        recordedByUserId: "22222222-2222-4222-8222-222222222222"
+        recordType: "entry"
+        source: "admin_adjustment"
+        status: "adjusted"
+        recordedAt: "2026-04-01T01:00:00.000Z"
+        originalRecordedAt: null
+        notes: "Correção de plantão após falha de sincronização do tablet noturno."
+        isManual: true
+        latitude: null
+        longitude: null
+        ipAddress: "177.10.10.31"
+        createdAt: "2026-04-01T08:04:00.000Z"
+        updatedAt: "2026-04-01T08:04:00.000Z"
+      }
+    ]
+  )
+
+  timeRecordPhoto_upsertMany(
+    data: [
+      {
+        id: "ffffffff-ffff-4fff-8fff-fffffffffff1"
+        timeRecord: { id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee2" }
+        fileUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
+        fileName: "entry-ricardo.jpg"
+        contentType: "image/jpeg"
+        fileSizeBytes: 211402
+        isPrimary: true
+        createdAt: "2026-04-03T12:18:00.000Z"
+      }
+      {
+        id: "ffffffff-ffff-4fff-8fff-fffffffffff2"
+        timeRecord: { id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee3" }
+        fileUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80"
+        fileName: "entry-beatriz.jpg"
+        contentType: "image/jpeg"
+        fileSizeBytes: 203500
+        isPrimary: true
+        createdAt: "2026-04-03T11:02:00.000Z"
+      }
+      {
+        id: "ffffffff-ffff-4fff-8fff-fffffffffff3"
+        timeRecord: { id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee6" }
+        fileUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2"
+        fileName: "adjusted-fernanda.jpg"
+        contentType: "image/jpeg"
+        fileSizeBytes: 198320
+        isPrimary: true
+        createdAt: "2026-04-03T11:36:00.000Z"
+      }
+      {
+        id: "ffffffff-ffff-4fff-8fff-fffffffffff4"
+        timeRecord: { id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee8" }
+        fileUrl: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df"
+        fileName: "entry-juliana-low-light.jpg"
+        contentType: "image/jpeg"
+        fileSizeBytes: 188410
+        isPrimary: true
+        createdAt: "2026-04-02T12:14:00.000Z"
+      }
+      {
+        id: "ffffffff-ffff-4fff-8fff-fffffffffff5"
+        timeRecord: { id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeee10" }
+        fileUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330"
+        fileName: "exit-ana.jpg"
+        contentType: "image/jpeg"
+        fileSizeBytes: 194870
+        isPrimary: true
+        createdAt: "2026-04-02T21:41:00.000Z"
+      }
+      {
+        id: "ffffffff-ffff-4fff-8fff-fffffffffff6"
+        timeRecord: { id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeee11" }
+        fileUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9"
+        fileName: "entry-paula.jpg"
+        contentType: "image/jpeg"
+        fileSizeBytes: 202990
+        isPrimary: true
+        createdAt: "2026-04-04T11:20:00.000Z"
+      }
+      {
+        id: "ffffffff-ffff-4fff-8fff-fffffffffff7"
+        timeRecord: { id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeee12" }
+        fileUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e"
+        fileName: "entry-gustavo-home-office.jpg"
+        contentType: "image/jpeg"
+        fileSizeBytes: 205440
+        isPrimary: true
+        createdAt: "2026-04-01T12:31:00.000Z"
+      }
+      {
+        id: "ffffffff-ffff-4fff-8fff-fffffffffff8"
+        timeRecord: { id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeee16" }
+        fileUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"
+        fileName: "entry-diego-shift.jpg"
+        contentType: "image/jpeg"
+        fileSizeBytes: 198770
+        isPrimary: true
+        createdAt: "2026-04-01T08:04:00.000Z"
+      }
+    ]
+  )
+
+  justification_upsertMany(
+    data: [
+      {
+        id: "99999999-9999-4999-8999-999999999991"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2" }
+        timeRecordId: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee9"
+        type: "late"
+        reason: "Trânsito intenso devido a acidente na marginal."
+        status: "pending"
+        requestedRecordType: "entry"
+        requestedRecordedAt: "2026-03-31T12:00:00.000Z"
+        reviewedByUserId: null
+        reviewedAt: null
+        reviewNotes: null
+        createdAt: "2026-03-31T14:00:00.000Z"
+        updatedAt: "2026-03-31T14:00:00.000Z"
+      }
+      {
+        id: "99999999-9999-4999-8999-999999999992"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1" }
+        timeRecordId: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee1"
+        type: "adjustment_request"
+        reason: "Saída registrada com horário incorreto."
+        status: "approved"
+        requestedRecordType: "exit"
+        requestedRecordedAt: "2026-03-31T21:05:00.000Z"
+        reviewedByUserId: "11111111-1111-4111-8111-111111111111"
+        reviewedAt: "2026-03-31T21:20:00.000Z"
+        reviewNotes: "Ajuste coerente com o turno."
+        createdAt: "2026-03-31T20:59:00.000Z"
+        updatedAt: "2026-03-31T21:20:00.000Z"
+      }
+      {
+        id: "99999999-9999-4999-8999-999999999993"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa5" }
+        timeRecordId: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee7"
+        type: "missing_record"
+        reason: "Declaração de reunião externa enviada para incluir entrada que não foi registrada no app."
+        status: "pending"
+        requestedRecordType: "entry"
+        requestedRecordedAt: "2026-04-02T12:00:00.000Z"
+        reviewedByUserId: null
+        reviewedAt: null
+        reviewNotes: null
+        createdAt: "2026-04-02T12:15:00.000Z"
+        updatedAt: "2026-04-02T12:15:00.000Z"
+      }
+      {
+        id: "99999999-9999-4999-8999-999999999994"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa6" }
+        timeRecordId: null
+        type: "absence"
+        reason: "A colaboradora anexou atestado médico referente à ausência do dia 02/04."
+        status: "approved"
+        requestedRecordType: null
+        requestedRecordedAt: null
+        reviewedByUserId: "22222222-2222-4222-8222-222222222222"
+        reviewedAt: "2026-04-02T18:10:00.000Z"
+        reviewNotes: "Atestado conferido e aprovado pelo RH."
+        createdAt: "2026-04-02T15:40:00.000Z"
+        updatedAt: "2026-04-02T18:10:00.000Z"
+      }
+      {
+        id: "99999999-9999-4999-8999-999999999995"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa7" }
+        timeRecordId: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee2"
+        type: "late"
+        reason: "Atraso por acidente no trajeto, sem documento comprobatório suficiente."
+        status: "rejected"
+        requestedRecordType: "entry"
+        requestedRecordedAt: "2026-04-03T12:18:00.000Z"
+        reviewedByUserId: "11111111-1111-4111-8111-111111111111"
+        reviewedAt: "2026-04-03T13:00:00.000Z"
+        reviewNotes: "Justificativa rejeitada por falta de evidências anexas."
+        createdAt: "2026-04-03T12:30:00.000Z"
+        updatedAt: "2026-04-03T13:00:00.000Z"
+      }
+      {
+        id: "99999999-9999-4999-8999-999999999996"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa8" }
+        timeRecordId: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee6"
+        type: "adjustment_request"
+        reason: "Solicitação para consolidar ajuste de entrada após falha no kiosk da recepção."
+        status: "pending"
+        requestedRecordType: "entry"
+        requestedRecordedAt: "2026-04-03T11:05:00.000Z"
+        reviewedByUserId: null
+        reviewedAt: null
+        reviewNotes: null
+        createdAt: "2026-04-03T11:45:00.000Z"
+        updatedAt: "2026-04-03T11:45:00.000Z"
+      }
+      {
+        id: "99999999-9999-4999-8999-999999999997"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa10" }
+        timeRecordId: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeee12"
+        type: "missing_record"
+        reason: "Registro remoto sem confirmação automática de saída no mesmo dia."
+        status: "approved"
+        requestedRecordType: "exit"
+        requestedRecordedAt: "2026-04-01T21:06:00.000Z"
+        reviewedByUserId: "22222222-2222-4222-8222-222222222222"
+        reviewedAt: "2026-04-01T21:20:00.000Z"
+        reviewNotes: "Home office previsto em política híbrida."
+        createdAt: "2026-04-01T17:00:00.000Z"
+        updatedAt: "2026-04-01T21:20:00.000Z"
+      }
+      {
+        id: "99999999-9999-4999-8999-999999999998"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa12" }
+        timeRecordId: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeee16"
+        type: "adjustment_request"
+        reason: "Plantão noturno sem sincronização completa no dispositivo da base."
+        status: "approved"
+        requestedRecordType: "entry"
+        requestedRecordedAt: "2026-04-01T01:00:00.000Z"
+        reviewedByUserId: "11111111-1111-4111-8111-111111111111"
+        reviewedAt: "2026-04-01T08:10:00.000Z"
+        reviewNotes: "Ajuste homologado com evidência do coordenador."
+        createdAt: "2026-04-01T08:03:00.000Z"
+        updatedAt: "2026-04-01T08:10:00.000Z"
+      }
+    ]
+  )
+
+  justificationAttachment_upsertMany(
+    data: [
+      {
+        id: "abababab-abab-4bab-8bab-ababababab01"
+        justification: { id: "99999999-9999-4999-8999-999999999991" }
+        fileName: "comprovante-transito.pdf"
+        fileUrl: "https://example.com/comprovante-transito.pdf"
+        contentType: "application/pdf"
+        fileSizeBytes: 302123
+        uploadedByUser: { id: "33333333-3333-4333-8333-333333333333" }
+        createdAt: "2026-03-31T14:00:00.000Z"
+      }
+      {
+        id: "abababab-abab-4bab-8bab-ababababab02"
+        justification: { id: "99999999-9999-4999-8999-999999999993" }
+        fileName: "declaração-reuniao-externa.pdf"
+        fileUrl: "https://example.com/declaração-reuniao-externa.pdf"
+        contentType: "application/pdf"
+        fileSizeBytes: 214550
+        uploadedByUser: { id: "11111111-1111-4111-8111-111111111111" }
+        createdAt: "2026-04-02T12:15:00.000Z"
+      }
+      {
+        id: "abababab-abab-4bab-8bab-ababababab03"
+        justification: { id: "99999999-9999-4999-8999-999999999994" }
+        fileName: "atestado-medico-juliana.pdf"
+        fileUrl: "https://example.com/atestado-medico-juliana.pdf"
+        contentType: "application/pdf"
+        fileSizeBytes: 412774
+        uploadedByUser: { id: "22222222-2222-4222-8222-222222222222" }
+        createdAt: "2026-04-02T15:40:00.000Z"
+      }
+      {
+        id: "abababab-abab-4bab-8bab-ababababab04"
+        justification: { id: "99999999-9999-4999-8999-999999999996" }
+        fileName: "foto-kiosk-indisponivel.jpg"
+        fileUrl: "https://example.com/foto-kiosk-indisponivel.jpg"
+        contentType: "image/jpeg"
+        fileSizeBytes: 185200
+        uploadedByUser: { id: "11111111-1111-4111-8111-111111111111" }
+        createdAt: "2026-04-03T11:45:00.000Z"
+      }
+      {
+        id: "abababab-abab-4bab-8bab-ababababab05"
+        justification: { id: "99999999-9999-4999-8999-999999999997" }
+        fileName: "politica-home-office.pdf"
+        fileUrl: "https://example.com/politica-home-office.pdf"
+        contentType: "application/pdf"
+        fileSizeBytes: 198004
+        uploadedByUser: { id: "22222222-2222-4222-8222-222222222222" }
+        createdAt: "2026-04-01T21:20:00.000Z"
+      }
+      {
+        id: "abababab-abab-4bab-8bab-ababababab06"
+        justification: { id: "99999999-9999-4999-8999-999999999998" }
+        fileName: "laudo-falha-dispositivo.pdf"
+        fileUrl: "https://example.com/laudo-falha-dispositivo.pdf"
+        contentType: "application/pdf"
+        fileSizeBytes: 255780
+        uploadedByUser: { id: "22222222-2222-4222-8222-222222222222" }
+        createdAt: "2026-04-01T08:03:00.000Z"
+      }
+    ]
+  )
+
+  auditLog_upsertMany(
+    data: [
+      {
+        id: "cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcd01"
+        user: { id: "11111111-1111-4111-8111-111111111111" }
+        entityName: "justification"
+        entityId: "99999999-9999-4999-8999-999999999992"
+        action: "approve"
+        description: "Caio Almeida aprovou ajuste de saída do colaborador João Pereira."
+        ipAddress: "177.10.10.10"
+        deviceInfo: "Chrome Windows"
+        createdAt: "2026-03-31T21:20:00.000Z"
+      }
+      {
+        id: "cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcd02"
+        user: { id: "22222222-2222-4222-8222-222222222222" }
+        entityName: "justification"
+        entityId: "99999999-9999-4999-8999-999999999994"
+        action: "approve"
+        description: "Mariana Costa aprovou ausência com atestado médico."
+        ipAddress: "177.10.10.15"
+        deviceInfo: "Chrome macOS"
+        createdAt: "2026-04-02T18:10:00.000Z"
+      }
+      {
+        id: "cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcd03"
+        user: { id: "11111111-1111-4111-8111-111111111111" }
+        entityName: "time_record"
+        entityId: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee6"
+        action: "adjust"
+        description: "Caio Almeida realizou ajuste manual de marcação para Fernanda Lima."
+        ipAddress: "177.10.10.20"
+        deviceInfo: "Chrome Windows"
+        createdAt: "2026-04-03T11:40:00.000Z"
+      }
+      {
+        id: "cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcd04"
+        user: { id: "11111111-1111-4111-8111-111111111111" }
+        entityName: "justification"
+        entityId: "99999999-9999-4999-8999-999999999995"
+        action: "reject"
+        description: "Caio Almeida reprovou justificativa de atraso de Ricardo Almeida."
+        ipAddress: "177.10.10.20"
+        deviceInfo: "Chrome Windows"
+        createdAt: "2026-04-03T13:00:00.000Z"
+      }
+      {
+        id: "cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcd05"
+        user: { id: "22222222-2222-4222-8222-222222222222" }
+        entityName: "employee"
+        entityId: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa4"
+        action: "update"
+        description: "Mariana Costa atualizou dados cadastrais de Beatriz Santos."
+        ipAddress: "177.10.10.15"
+        deviceInfo: "Chrome macOS"
+        createdAt: "2026-04-02T09:10:00.000Z"
+      }
+      {
+        id: "cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcd06"
+        user: { id: "22222222-2222-4222-8222-222222222222" }
+        entityName: "vacation_request"
+        entityId: "edededed-eded-4ded-8ded-ededededed02"
+        action: "approve"
+        description: "Mariana Costa aprovou a solicitação de férias de Ricardo Almeida."
+        ipAddress: "177.10.10.15"
+        deviceInfo: "Chrome macOS"
+        createdAt: "2026-03-14T14:00:00.000Z"
+      }
+      {
+        id: "cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcd07"
+        user: { id: "11111111-1111-4111-8111-111111111111" }
+        entityName: "department"
+        entityId: "12121212-1212-4121-8121-121212121214"
+        action: "update"
+        description: "Caio Almeida atualizou o centro de custo do departamento de Recursos Humanos."
+        ipAddress: "177.10.10.10"
+        deviceInfo: "Chrome Windows"
+        createdAt: "2026-04-02T17:00:00.000Z"
+      }
+      {
+        id: "cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcd08"
+        user: { id: "11111111-1111-4111-8111-111111111111" }
+        entityName: "document"
+        entityId: "doc-assinado-rh-001"
+        action: "sign"
+        description: "Caio Almeida assinou digitalmente o documento de política de home office."
+        ipAddress: "177.10.10.10"
+        deviceInfo: "Chrome Windows"
+        createdAt: "2026-04-02T17:45:00.000Z"
+      }
+      {
+        id: "cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcd09"
+        user: { id: "22222222-2222-4222-8222-222222222222" }
+        entityName: "work_schedule"
+        entityId: "cccccccc-cccc-4ccc-8ccc-ccccccccccc1"
+        action: "assign"
+        description: "Mariana Costa vinculou escala administrativa para Helena Martins."
+        ipAddress: "177.10.10.15"
+        deviceInfo: "Chrome macOS"
+        createdAt: "2026-04-01T09:20:00.000Z"
+      }
+    ]
+  )
+
+  vacationRequest_upsertMany(
+    data: [
+      {
+        id: "edededed-eded-4ded-8ded-ededededed01"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa4" }
+        requestedAt: "2026-03-20T12:00:00.000Z"
+        startDate: "2026-05-05"
+        endDate: "2026-05-19"
+        totalDays: 15
+        availableDays: 25
+        accrualPeriod: "2025/2026"
+        advanceThirteenthSalary: false
+        cashBonus: true
+        status: "pending"
+        attachmentFileName: "planejamento-equipe-maio.pdf"
+        attachmentFileUrl: "https://example.com/planejamento-equipe-maio.pdf"
+        coverageNotes: "Cobertura parcial com equipe de BP."
+        reviewNotes: "Aguardando aprovação final."
+        managerApprovalStatus: "completed"
+        managerApprovalActor: "Mariana Costa"
+        managerApprovalTimestamp: "2026-03-21T09:00:00.000Z"
+        managerApprovalNotes: "Time coberto para o período."
+        hrApprovalStatus: "pending"
+        hrApprovalActor: null
+        hrApprovalTimestamp: null
+        hrApprovalNotes: null
+        createdAt: "2026-03-20T12:00:00.000Z"
+        updatedAt: "2026-03-21T09:00:00.000Z"
+      }
+      {
+        id: "edededed-eded-4ded-8ded-ededededed02"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa7" }
+        requestedAt: "2026-03-12T10:00:00.000Z"
+        startDate: "2026-04-15"
+        endDate: "2026-04-29"
+        totalDays: 15
+        availableDays: 18
+        accrualPeriod: "2025/2026"
+        advanceThirteenthSalary: true
+        cashBonus: false
+        status: "approved"
+        attachmentFileName: null
+        attachmentFileUrl: null
+        coverageNotes: "Contas redistribuídas para o time regional."
+        reviewNotes: "Solicitação aprovada."
+        managerApprovalStatus: "completed"
+        managerApprovalActor: "Mariana Costa"
+        managerApprovalTimestamp: "2026-03-13T11:00:00.000Z"
+        managerApprovalNotes: "Sem impacto comercial."
+        hrApprovalStatus: "completed"
+        hrApprovalActor: "Caio Almeida"
+        hrApprovalTimestamp: "2026-03-14T14:00:00.000Z"
+        hrApprovalNotes: "Documentação regular."
+        createdAt: "2026-03-12T10:00:00.000Z"
+        updatedAt: "2026-03-14T14:00:00.000Z"
+      }
+      {
+        id: "edededed-eded-4ded-8ded-ededededed03"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa6" }
+        requestedAt: "2026-03-18T09:30:00.000Z"
+        startDate: "2026-06-01"
+        endDate: "2026-06-10"
+        totalDays: 10
+        availableDays: 20
+        accrualPeriod: "2025/2026"
+        advanceThirteenthSalary: false
+        cashBonus: false
+        status: "approved"
+        attachmentFileName: "plano-cobertura-marketing.pdf"
+        attachmentFileUrl: "https://example.com/plano-cobertura-marketing.pdf"
+        coverageNotes: "Escala de cobertura já validada pelo time."
+        reviewNotes: "Férias homologadas."
+        managerApprovalStatus: "completed"
+        managerApprovalActor: "Juliana Costa"
+        managerApprovalTimestamp: "2026-03-18T14:00:00.000Z"
+        managerApprovalNotes: "Campanhas do período já redistribuídas."
+        hrApprovalStatus: "completed"
+        hrApprovalActor: "Caio Almeida"
+        hrApprovalTimestamp: "2026-03-19T10:00:00.000Z"
+        hrApprovalNotes: "Solicitação regular."
+        createdAt: "2026-03-18T09:30:00.000Z"
+        updatedAt: "2026-03-19T10:00:00.000Z"
+      }
+      {
+        id: "edededed-eded-4ded-8ded-ededededed04"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa11" }
+        requestedAt: "2026-03-25T16:10:00.000Z"
+        startDate: "2026-04-20"
+        endDate: "2026-04-30"
+        totalDays: 11
+        availableDays: 11
+        accrualPeriod: "2025/2026"
+        advanceThirteenthSalary: false
+        cashBonus: false
+        status: "rejected"
+        attachmentFileName: "cobertura-suprimentos-abril.pdf"
+        attachmentFileUrl: "https://example.com/cobertura-suprimentos-abril.pdf"
+        coverageNotes: "Área com pico operacional para fechamento de contratos."
+        reviewNotes: "Solicitação reprovada por indisponibilidade de cobertura integral."
+        managerApprovalStatus: "completed"
+        managerApprovalActor: "Helena Martins"
+        managerApprovalTimestamp: "2026-03-26T08:30:00.000Z"
+        managerApprovalNotes: "Gestão local recomendou ajuste de período."
+        hrApprovalStatus: "completed"
+        hrApprovalActor: "Caio Almeida"
+        hrApprovalTimestamp: "2026-03-28T16:20:00.000Z"
+        hrApprovalNotes: "Período não homologado para a área."
+        createdAt: "2026-03-25T16:10:00.000Z"
+        updatedAt: "2026-03-28T16:20:00.000Z"
+      }
+    ]
+  )
+
+  workLocation_upsertMany(
+    data: [
+      {
+        id: "a1a1a1a1-a1a1-41a1-81a1-a1a1a1a1a101"
+        code: "hq-sao-paulo"
+        name: "Matriz São Paulo"
+        type: "company"
+        addressLine: "Av. Paulista, 1500"
+        addressComplement: "8º andar"
+        city: "São Paulo"
+        state: "SP"
+        postalCode: "01310-200"
+        latitude: -23.561684
+        longitude: -46.656139
+        radiusMeters: 180
+        isActive: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "a1a1a1a1-a1a1-41a1-81a1-a1a1a1a1a102"
+        code: "filial-campinas"
+        name: "Filial Campinas"
+        type: "branch"
+        addressLine: "Rua Barreto Leme, 920"
+        addressComplement: null
+        city: "Campinas"
+        state: "SP"
+        postalCode: "13010-201"
+        latitude: -22.905533
+        longitude: -47.06083
+        radiusMeters: 160
+        isActive: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "a1a1a1a1-a1a1-41a1-81a1-a1a1a1a1a103"
+        code: "home-beatriz"
+        name: "Residência Beatriz Santos"
+        type: "home"
+        addressLine: "Rua Fradique Coutinho, 720"
+        addressComplement: "Apto 74"
+        city: "São Paulo"
+        state: "SP"
+        postalCode: "05416-001"
+        latitude: -23.561994
+        longitude: -46.690227
+        radiusMeters: 120
+        isActive: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "a1a1a1a1-a1a1-41a1-81a1-a1a1a1a1a104"
+        code: "home-lucas"
+        name: "Residência Lucas Ferreira"
+        type: "home"
+        addressLine: "Alameda Mamoré, 300"
+        addressComplement: "Bloco B"
+        city: "Barueri"
+        state: "SP"
+        postalCode: "06454-040"
+        latitude: -23.503357
+        longitude: -46.848279
+        radiusMeters: 150
+        isActive: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "a1a1a1a1-a1a1-41a1-81a1-a1a1a1a1a105"
+        code: "home-ricardo"
+        name: "Residência Ricardo Almeida"
+        type: "home"
+        addressLine: "Rua das Palmeiras, 88"
+        addressComplement: null
+        city: "São Paulo"
+        state: "SP"
+        postalCode: "04544-020"
+        latitude: -23.596017
+        longitude: -46.676632
+        radiusMeters: 120
+        isActive: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+    ]
+  )
+
+  attendancePolicy_upsertMany(
+    data: [
+      {
+        id: "b2b2b2b2-b2b2-42b2-82b2-b2b2b2b2b201"
+        code: "company-only"
+        name: "Presencial restrito"
+        mode: "company_only"
+        validationStrategy: "block"
+        geolocationRequired: true
+        photoRequired: true
+        allowOffsiteClocking: false
+        requiresAllowedLocations: true
+        description: "Permite registrar ponto apenas em geofences da empresa."
+        isActive: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "b2b2b2b2-b2b2-42b2-82b2-b2b2b2b2b202"
+        code: "hybrid-company-home"
+        name: "Híbrido com casa autorizada"
+        mode: "hybrid"
+        validationStrategy: "pending_review"
+        geolocationRequired: true
+        photoRequired: true
+        allowOffsiteClocking: false
+        requiresAllowedLocations: true
+        description: "Aceita matriz, filial e residência homologada."
+        isActive: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "b2b2b2b2-b2b2-42b2-82b2-b2b2b2b2b203"
+        code: "home-free"
+        name: "Home office livre"
+        mode: "free"
+        validationStrategy: "allow"
+        geolocationRequired: true
+        photoRequired: false
+        allowOffsiteClocking: true
+        requiresAllowedLocations: false
+        description: "Permite registrar de qualquer local com trilha de auditoria."
+        isActive: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "b2b2b2b2-b2b2-42b2-82b2-b2b2b2b2b204"
+        code: "home-only"
+        name: "Home office restrito"
+        mode: "home_only"
+        validationStrategy: "block"
+        geolocationRequired: true
+        photoRequired: false
+        allowOffsiteClocking: false
+        requiresAllowedLocations: true
+        description: "Permite registrar somente na residência homologada."
+        isActive: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "b2b2b2b2-b2b2-42b2-82b2-b2b2b2b2b205"
+        code: "field-mobile"
+        name: "Externo com validação posterior"
+        mode: "field"
+        validationStrategy: "pending_review"
+        geolocationRequired: true
+        photoRequired: true
+        allowOffsiteClocking: true
+        requiresAllowedLocations: false
+        description: "Permite marcar fora da base, exigindo foto e revisão."
+        isActive: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+    ]
+  )
+
+  employeeAttendancePolicy_upsertMany(
+    data: [
+      {
+        id: "c3c3c3c3-c3c3-43c3-83c3-c3c3c3c3c301"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa4" }
+        attendancePolicy: { id: "b2b2b2b2-b2b2-42b2-82b2-b2b2b2b2b202" }
+        mode: "hybrid"
+        validationStrategy: "pending_review"
+        geolocationRequired: true
+        photoRequired: true
+        allowAnyLocation: false
+        blockOutsideAllowedLocations: true
+        notes: "Pode marcar na matriz e também em sua residência homologada."
+        startsAt: "2026-01-01"
+        endsAt: null
+        isCurrent: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "c3c3c3c3-c3c3-43c3-83c3-c3c3c3c3c302"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa5" }
+        attendancePolicy: { id: "b2b2b2b2-b2b2-42b2-82b2-b2b2b2b2b204" }
+        mode: "home_only"
+        validationStrategy: "block"
+        geolocationRequired: true
+        photoRequired: false
+        allowAnyLocation: false
+        blockOutsideAllowedLocations: true
+        notes: "Home office com exigência de geofence residencial."
+        startsAt: "2026-02-15"
+        endsAt: null
+        isCurrent: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "c3c3c3c3-c3c3-43c3-83c3-c3c3c3c3c303"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa7" }
+        attendancePolicy: { id: "b2b2b2b2-b2b2-42b2-82b2-b2b2b2b2b203" }
+        mode: "free"
+        validationStrategy: "allow"
+        geolocationRequired: true
+        photoRequired: false
+        allowAnyLocation: true
+        blockOutsideAllowedLocations: false
+        notes: "Executivo em rotina híbrida externa, com auditoria de localização sem bloqueio."
+        startsAt: "2026-01-01"
+        endsAt: null
+        isCurrent: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "c3c3c3c3-c3c3-43c3-83c3-c3c3c3c3c304"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa12" }
+        attendancePolicy: { id: "b2b2b2b2-b2b2-42b2-82b2-b2b2b2b2b201" }
+        mode: "company_only"
+        validationStrategy: "block"
+        geolocationRequired: true
+        photoRequired: true
+        allowAnyLocation: false
+        blockOutsideAllowedLocations: true
+        notes: "Facilities precisa registrar somente em unidade corporativa."
+        startsAt: "2026-01-01"
+        endsAt: null
+        isCurrent: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "c3c3c3c3-c3c3-43c3-83c3-c3c3c3c3c305"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1" }
+        attendancePolicy: { id: "b2b2b2b2-b2b2-42b2-82b2-b2b2b2b2b205" }
+        mode: "field"
+        validationStrategy: "pending_review"
+        geolocationRequired: true
+        photoRequired: true
+        allowAnyLocation: true
+        blockOutsideAllowedLocations: false
+        notes: "Atuação em campo com revisão posterior para locais fora da rota."
+        startsAt: "2026-01-01"
+        endsAt: null
+        isCurrent: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+    ]
+  )
+
+  employeeAllowedLocation_upsertMany(
+    data: [
+      {
+        id: "d4d4d4d4-d4d4-44d4-84d4-d4d4d4d4d401"
+        employeeAttendancePolicyId: "c3c3c3c3-c3c3-43c3-83c3-c3c3c3c3c301"
+        workLocation: { id: "a1a1a1a1-a1a1-41a1-81a1-a1a1a1a1a101" }
+        locationRole: "primary_company"
+        isRequired: false
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "d4d4d4d4-d4d4-44d4-84d4-d4d4d4d4d402"
+        employeeAttendancePolicyId: "c3c3c3c3-c3c3-43c3-83c3-c3c3c3c3c301"
+        workLocation: { id: "a1a1a1a1-a1a1-41a1-81a1-a1a1a1a1a103" }
+        locationRole: "home"
+        isRequired: false
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "d4d4d4d4-d4d4-44d4-84d4-d4d4d4d4d403"
+        employeeAttendancePolicyId: "c3c3c3c3-c3c3-43c3-83c3-c3c3c3c3c302"
+        workLocation: { id: "a1a1a1a1-a1a1-41a1-81a1-a1a1a1a1a104" }
+        locationRole: "home"
+        isRequired: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "d4d4d4d4-d4d4-44d4-84d4-d4d4d4d4d404"
+        employeeAttendancePolicyId: "c3c3c3c3-c3c3-43c3-83c3-c3c3c3c3c304"
+        workLocation: { id: "a1a1a1a1-a1a1-41a1-81a1-a1a1a1a1a101" }
+        locationRole: "primary_company"
+        isRequired: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+      {
+        id: "d4d4d4d4-d4d4-44d4-84d4-d4d4d4d4d405"
+        employeeAttendancePolicyId: "c3c3c3c3-c3c3-43c3-83c3-c3c3c3c3c304"
+        workLocation: { id: "a1a1a1a1-a1a1-41a1-81a1-a1a1a1a1a102" }
+        locationRole: "optional"
+        isRequired: false
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-01T08:00:00.000Z"
+      }
+    ]
+  )
+
+  onboardingJourney_upsertMany(
+    data: [
+      {
+        id: "e5e5e5e5-e5e5-45e5-85e5-e5e5e5e5e501"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa4" }
+        ownerUser: { id: "11111111-1111-4111-8111-111111111111" }
+        status: "in_progress"
+        startDate: "2026-04-08"
+        expectedEndDate: "2026-04-22"
+        completedAt: null
+        progressPercent: 75
+        currentStageLabel: "Assinaturas e acessos"
+        notes: "Admissão com documentação validada. Falta concluir assinatura contratual e acessos internos."
+        createdAt: "2026-04-08T09:00:00.000Z"
+        updatedAt: "2026-04-10T09:15:00.000Z"
+      }
+      {
+        id: "e5e5e5e5-e5e5-45e5-85e5-e5e5e5e5e502"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa5" }
+        ownerUser: { id: "11111111-1111-4111-8111-111111111111" }
+        status: "blocked"
+        startDate: "2026-04-04"
+        expectedEndDate: "2026-04-18"
+        completedAt: null
+        progressPercent: 42
+        currentStageLabel: "Entrega de equipamentos"
+        notes: "Processo impactado por atraso na entrega do notebook e assinatura de termo patrimonial."
+        createdAt: "2026-04-04T10:30:00.000Z"
+        updatedAt: "2026-04-10T08:50:00.000Z"
+      }
+      {
+        id: "e5e5e5e5-e5e5-45e5-85e5-e5e5e5e5e503"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa7" }
+        ownerUser: { id: "11111111-1111-4111-8111-111111111111" }
+        status: "completed"
+        startDate: "2026-03-18"
+        expectedEndDate: "2026-03-31"
+        completedAt: "2026-03-30T17:45:00.000Z"
+        progressPercent: 100
+        currentStageLabel: "Concluído"
+        notes: "Onboarding encerrado com assinatura, equipamentos e treinamentos concluídos."
+        createdAt: "2026-03-18T09:00:00.000Z"
+        updatedAt: "2026-03-30T17:45:00.000Z"
+      }
+      {
+        id: "e5e5e5e5-e5e5-45e5-85e5-e5e5e5e5e504"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa12" }
+        ownerUser: { id: "11111111-1111-4111-8111-111111111111" }
+        status: "pending"
+        startDate: "2026-04-15"
+        expectedEndDate: "2026-04-29"
+        completedAt: null
+        progressPercent: 12
+        currentStageLabel: "Coleta documental"
+        notes: "Admissão futura aguardando recepção de documentos e cadastro de acessos."
+        createdAt: "2026-04-10T08:20:00.000Z"
+        updatedAt: "2026-04-10T08:20:00.000Z"
+      }
+    ]
+  )
+
+  onboardingTask_upsertMany(
+    data: [
+      {
+        id: "f6f6f6f6-f6f6-46f6-86f6-f6f6f6f6f601"
+        journey: { id: "e5e5e5e5-e5e5-45e5-85e5-e5e5e5e5e501" }
+        category: "documentation"
+        title: "Receber documentos admissionais"
+        description: "Validar identidade, CPF, comprovante de endereço e dados bancários."
+        status: "completed"
+        dueDate: "2026-04-08"
+        completedAt: "2026-04-08T11:20:00.000Z"
+        assignedUser: { id: "11111111-1111-4111-8111-111111111111" }
+        isRequired: true
+        sortOrder: 1
+        blockerReason: null
+        evidenceFileName: "documentos-admissionais-ana-paula.pdf"
+        evidenceFileUrl: "https://storage.googleapis.com/rh-ponto/onboarding/documentos-admissionais-ana-paula.pdf"
+        createdAt: "2026-04-08T09:05:00.000Z"
+        updatedAt: "2026-04-08T11:20:00.000Z"
+      }
+      {
+        id: "f6f6f6f6-f6f6-46f6-86f6-f6f6f6f6f602"
+        journey: { id: "e5e5e5e5-e5e5-45e5-85e5-e5e5e5e5e501" }
+        category: "signature"
+        title: "Assinar contrato digital"
+        description: "Concluir assinatura do contrato e termo de confidencialidade."
+        status: "in_progress"
+        dueDate: "2026-04-11"
+        completedAt: null
+        assignedUser: { id: "11111111-1111-4111-8111-111111111111" }
+        isRequired: true
+        sortOrder: 2
+        blockerReason: null
+        evidenceFileName: null
+        evidenceFileUrl: null
+        createdAt: "2026-04-08T09:15:00.000Z"
+        updatedAt: "2026-04-10T09:00:00.000Z"
+      }
+      {
+        id: "f6f6f6f6-f6f6-46f6-86f6-f6f6f6f6f603"
+        journey: { id: "e5e5e5e5-e5e5-45e5-85e5-e5e5e5e5e501" }
+        category: "access"
+        title: "Liberar acessos de produto"
+        description: "Provisionar e-mail, Figma, Jira e repositórios internos."
+        status: "pending"
+        dueDate: "2026-04-12"
+        completedAt: null
+        assignedUser: { id: "11111111-1111-4111-8111-111111111111" }
+        isRequired: true
+        sortOrder: 3
+        blockerReason: null
+        evidenceFileName: null
+        evidenceFileUrl: null
+        createdAt: "2026-04-08T09:20:00.000Z"
+        updatedAt: "2026-04-10T09:15:00.000Z"
+      }
+      {
+        id: "f6f6f6f6-f6f6-46f6-86f6-f6f6f6f6f604"
+        journey: { id: "e5e5e5e5-e5e5-45e5-85e5-e5e5e5e5e502" }
+        category: "documentation"
+        title: "Conferir dados cadastrais"
+        description: "Validar telefone, endereço e dependentes do colaborador."
+        status: "completed"
+        dueDate: "2026-04-05"
+        completedAt: "2026-04-05T14:10:00.000Z"
+        assignedUser: { id: "11111111-1111-4111-8111-111111111111" }
+        isRequired: true
+        sortOrder: 1
+        blockerReason: null
+        evidenceFileName: null
+        evidenceFileUrl: null
+        createdAt: "2026-04-04T10:45:00.000Z"
+        updatedAt: "2026-04-05T14:10:00.000Z"
+      }
+      {
+        id: "f6f6f6f6-f6f6-46f6-86f6-f6f6f6f6f605"
+        journey: { id: "e5e5e5e5-e5e5-45e5-85e5-e5e5e5e5e502" }
+        category: "equipment"
+        title: "Entregar notebook e periféricos"
+        description: "Notebook, mouse, headset e termo de responsabilidade."
+        status: "blocked"
+        dueDate: "2026-04-07"
+        completedAt: null
+        assignedUser: { id: "11111111-1111-4111-8111-111111111111" }
+        isRequired: true
+        sortOrder: 2
+        blockerReason: "Fornecedor reprogramou a entrega do equipamento principal."
+        evidenceFileName: null
+        evidenceFileUrl: null
+        createdAt: "2026-04-04T11:00:00.000Z"
+        updatedAt: "2026-04-10T08:50:00.000Z"
+      }
+      {
+        id: "f6f6f6f6-f6f6-46f6-86f6-f6f6f6f6f606"
+        journey: { id: "e5e5e5e5-e5e5-45e5-85e5-e5e5e5e5e502" }
+        category: "signature"
+        title: "Assinar termo patrimonial"
+        description: "Registrar ciência de entrega dos ativos de trabalho."
+        status: "pending"
+        dueDate: "2026-04-08"
+        completedAt: null
+        assignedUser: { id: "11111111-1111-4111-8111-111111111111" }
+        isRequired: true
+        sortOrder: 3
+        blockerReason: null
+        evidenceFileName: null
+        evidenceFileUrl: null
+        createdAt: "2026-04-04T11:05:00.000Z"
+        updatedAt: "2026-04-10T08:50:00.000Z"
+      }
+      {
+        id: "f6f6f6f6-f6f6-46f6-86f6-f6f6f6f6f607"
+        journey: { id: "e5e5e5e5-e5e5-45e5-85e5-e5e5e5e5e503" }
+        category: "training"
+        title: "Treinamento institucional"
+        description: "Integração com cultura, segurança e jornada da área."
+        status: "completed"
+        dueDate: "2026-03-24"
+        completedAt: "2026-03-24T16:00:00.000Z"
+        assignedUser: { id: "11111111-1111-4111-8111-111111111111" }
+        isRequired: true
+        sortOrder: 1
+        blockerReason: null
+        evidenceFileName: "treinamento-onboarding-carlos.pdf"
+        evidenceFileUrl: "https://storage.googleapis.com/rh-ponto/onboarding/treinamento-onboarding-carlos.pdf"
+        createdAt: "2026-03-18T09:30:00.000Z"
+        updatedAt: "2026-03-24T16:00:00.000Z"
+      }
+      {
+        id: "f6f6f6f6-f6f6-46f6-86f6-f6f6f6f6f608"
+        journey: { id: "e5e5e5e5-e5e5-45e5-85e5-e5e5e5e5e503" }
+        category: "access"
+        title: "Provisionar acessos corporativos"
+        description: "Criar acessos ao e-mail, ERP, BI e ferramentas internas."
+        status: "completed"
+        dueDate: "2026-03-20"
+        completedAt: "2026-03-20T12:00:00.000Z"
+        assignedUser: { id: "11111111-1111-4111-8111-111111111111" }
+        isRequired: true
+        sortOrder: 2
+        blockerReason: null
+        evidenceFileName: null
+        evidenceFileUrl: null
+        createdAt: "2026-03-18T09:35:00.000Z"
+        updatedAt: "2026-03-20T12:00:00.000Z"
+      }
+      {
+        id: "f6f6f6f6-f6f6-46f6-86f6-f6f6f6f6f609"
+        journey: { id: "e5e5e5e5-e5e5-45e5-85e5-e5e5e5e5e504" }
+        category: "documentation"
+        title: "Receber documentos obrigatórios"
+        description: "Receber documentação base para admissão futura."
+        status: "pending"
+        dueDate: "2026-04-16"
+        completedAt: null
+        assignedUser: { id: "11111111-1111-4111-8111-111111111111" }
+        isRequired: true
+        sortOrder: 1
+        blockerReason: null
+        evidenceFileName: null
+        evidenceFileUrl: null
+        createdAt: "2026-04-10T08:25:00.000Z"
+        updatedAt: "2026-04-10T08:25:00.000Z"
+      }
+      {
+        id: "f6f6f6f6-f6f6-46f6-86f6-f6f6f6f6f610"
+        journey: { id: "e5e5e5e5-e5e5-45e5-85e5-e5e5e5e5e504" }
+        category: "access"
+        title: "Solicitar acessos internos"
+        description: "Antecipar cadastro de sistemas e credenciais básicas."
+        status: "pending"
+        dueDate: "2026-04-18"
+        completedAt: null
+        assignedUser: { id: "11111111-1111-4111-8111-111111111111" }
+        isRequired: true
+        sortOrder: 2
+        blockerReason: null
+        evidenceFileName: null
+        evidenceFileUrl: null
+        createdAt: "2026-04-10T08:30:00.000Z"
+        updatedAt: "2026-04-10T08:30:00.000Z"
+      }
+    ]
+  )
+
+  adminSettings_upsertMany(
+    data: [
+      {
+        id: "ababcdab-abcd-4bcd-8bcd-abcdabcd0001"
+        key: "default"
+        defaultWorkSchedule: { id: "cccccccc-cccc-4ccc-8ccc-ccccccccccc1" }
+        defaultAttendancePolicy: { id: "b2b2b2b2-b2b2-42b2-82b2-b2b2b2b2b201" }
+        primaryDevice: { id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1" }
+        geofenceMainArea: "Recepção Matriz"
+        geofenceRadiusMeters: 120
+        geofenceBlockingEnabled: true
+        notifyOvertimeSummary: true
+        notifyPendingVacations: true
+        notifyDeviceSync: true
+        notifyAuditSummary: true
+        createdAt: "2026-04-01T08:00:00.000Z"
+        updatedAt: "2026-04-04T08:00:00.000Z"
+      }
+    ]
+  )
+
+  adminNotification_upsertMany(
+    data: [
+      {
+        id: "f0f0f0f0-f0f0-4f0f-8f0f-f0f0f0f0f001"
+        recipientUser: { id: "11111111-1111-4111-8111-111111111111" }
+        referenceKey: "vacation:edededed-eded-4ded-8ded-ededededed01:pending"
+        category: "vacation"
+        title: "Pedido de férias aguardando aprovação"
+        description: "Beatriz Santos aguarda validação final do RH para o período solicitado."
+        href: "/vacations/edededed-eded-4ded-8ded-ededededed01"
+        entityName: "vacation_request"
+        entityId: "edededed-eded-4ded-8ded-ededededed01"
+        severity: "warning"
+        status: "unread"
+        triggeredAt: "2026-04-04T08:05:00.000Z"
+        readAt: null
+        createdAt: "2026-04-04T08:05:00.000Z"
+        updatedAt: "2026-04-04T08:05:00.000Z"
+      }
+      {
+        id: "f0f0f0f0-f0f0-4f0f-8f0f-f0f0f0f0f002"
+        recipientUser: { id: "11111111-1111-4111-8111-111111111111" }
+        referenceKey: "time-record:eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee2:review"
+        category: "time_record"
+        title: "Marcação em revisão"
+        description: "Ricardo Almeida possui marcação de entrada aguardando análise."
+        href: "/time-records"
+        entityName: "time_record"
+        entityId: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee2"
+        severity: "warning"
+        status: "unread"
+        triggeredAt: "2026-04-04T08:06:00.000Z"
+        readAt: null
+        createdAt: "2026-04-04T08:06:00.000Z"
+        updatedAt: "2026-04-04T08:06:00.000Z"
+      }
+    ]
+  )
+}

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PontoPrecise - Fechamento de Folha</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#b4c5ff",
+                        "surface-tint": "#0053db",
+                        "on-tertiary-fixed": "#360f00",
+                        "surface-container-low": "#f2f4f6",
+                        "inverse-primary": "#b4c5ff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "primary-fixed": "#dbe1ff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#434655",
+                        "surface-dim": "#d8dadc",
+                        "surface": "#f7f9fb",
+                        "on-primary-container": "#eeefff",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-secondary-container": "#00217a",
+                        "on-secondary-fixed-variant": "#173bab",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-container": "#708cfd",
+                        "tertiary": "#943700",
+                        "on-tertiary-container": "#ffede6",
+                        "tertiary-container": "#bc4800",
+                        "primary-container": "#2563eb",
+                        "background": "#f7f9fb",
+                        "surface-container": "#eceef0",
+                        "secondary-fixed": "#dde1ff",
+                        "primary": "#004ac6",
+                        "secondary": "#3755c3",
+                        "outline": "#737686",
+                        "on-surface": "#191c1e",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c3c6d7",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "surface-variant": "#e0e3e5",
+                        "on-primary-fixed": "#00174b",
+                        "on-background": "#191c1e",
+                        "secondary-fixed-dim": "#b8c4ff",
+                        "surface-container-high": "#e6e8ea",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-secondary-fixed": "#001453",
+                        "inverse-surface": "#2d3133"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-panel { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
+        .primary-gradient { background: linear-gradient(135deg, #004ac6 0%, #2563eb 100%); }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- SideNavBar -->
+<aside class="w-64 h-screen fixed left-0 top-0 bg-slate-50 dark:bg-slate-900 flex flex-col py-6 px-4 no-border bg-slate-50/80 backdrop-blur-xl z-40">
+<div class="mb-10 px-2">
+<h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100 font-headline">The Precision Archive</h1>
+<p class="text-xs font-medium Inter text-slate-500 uppercase tracking-widest mt-1">HR Administrative Shell</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:text-slate-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors rounded-xl text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:text-slate-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors rounded-xl text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="badge">badge</span>
+                Funcionários
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:text-slate-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors rounded-xl text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="timer">timer</span>
+                Marcações
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:text-slate-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors rounded-xl text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+                Justificativas
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:text-slate-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors rounded-xl text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                Analytics
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:text-slate-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors rounded-xl text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_view_day">calendar_view_day</span>
+                Escalas
+            </a>
+<!-- Active Tab: Folha -->
+<a class="flex items-center gap-3 px-3 py-2 text-blue-700 dark:text-blue-300 font-semibold border-r-4 border-blue-600 bg-blue-50/50 dark:bg-blue-900/20 scale-[0.98] transition-transform duration-150 rounded-l-xl text-xs" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+                Folha
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:text-slate-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors rounded-xl text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+                Documentos
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:text-slate-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors rounded-xl text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                Auditoria
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:text-slate-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors rounded-xl text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Configurações
+            </a>
+</nav>
+<div class="mt-auto pt-6">
+<button class="w-full py-3 px-4 primary-gradient text-white rounded-xl font-bold text-sm shadow-lg shadow-blue-600/20 active:scale-[0.98] transition-transform">
+                Clock In
+            </button>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="h-16 fixed top-0 right-0 left-64 z-30 bg-white/80 dark:bg-slate-950/80 backdrop-blur-lg flex items-center justify-between px-8">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary-fixed" placeholder="Search archives..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-tertiary rounded-full"></span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/30"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-xs font-bold font-headline leading-none">Admin User</p>
+<p class="text-[10px] text-on-surface-variant font-medium">System Manager</p>
+</div>
+<img alt="Administrator Avatar" class="w-8 h-8 rounded-full border-2 border-surface-container-highest" data-alt="close-up portrait of a professional male administrator in his 40s wearing a crisp white shirt and glasses, clean lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD58qxXX6h7nGceGrUbkqwWYz7upO3PdmQeJbwK79sD-BM0JWRdRZIxz7EBCynBNEeeIVuRzWONwyYFDNZdapw1DwMNUnBOyvi_iVevD0yg1KpH4HvLKJgNbG8YMRzkFMINDF9DfrIGtwxFIrxHNybKY1jgErFj9_gC6LjMrQPd7ki6q0_iHZETXqog49AjhFx3ie3i6SIWedqcfgvWwXwC6BPGINIn6gJoYtW2fSiEXnVw-Zn9TrrupcQBolnbllQhRBM03SeNBNI"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-24 pb-12 px-10 max-w-[1440px] mx-auto min-h-screen">
+<!-- Header Actions -->
+<div class="flex justify-between items-end mb-10">
+<div>
+<h2 class="text-3xl font-extrabold font-headline tracking-tight text-on-surface">Fechamento de Folha</h2>
+<p class="text-on-surface-variant text-sm mt-1">Consolidação de dados mensais • Outubro 2023</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2.5 rounded-xl text-primary font-bold text-sm bg-surface-container-lowest hover:bg-surface-container-high transition-colors active:scale-[0.98]">
+                    Validar Tudo
+                </button>
+<button class="px-6 py-2.5 rounded-xl primary-gradient text-white font-bold text-sm shadow-xl shadow-blue-600/10 active:scale-[0.98]">
+                    Fechar Folha
+                </button>
+</div>
+</div>
+<!-- Bento Grid Summary Cards -->
+<div class="grid grid-cols-12 gap-6 mb-10">
+<!-- Progress Card -->
+<div class="col-span-12 lg:col-span-5 bg-surface-container-lowest rounded-full p-8 flex flex-col justify-between shadow-sm">
+<div>
+<div class="flex justify-between items-center mb-4">
+<span class="text-xs font-bold uppercase tracking-wider text-on-surface-variant font-label">Progresso da Validação</span>
+<span class="text-2xl font-extrabold font-headline text-primary">84%</span>
+</div>
+<div class="w-full bg-surface-container h-3 rounded-full overflow-hidden">
+<div class="h-full primary-gradient rounded-full" style="width: 84%;"></div>
+</div>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-6 leading-relaxed">
+<span class="font-bold text-primary">128 de 152</span> colaboradores validados. Restam 24 pendências manuais para finalização do ciclo.
+                </p>
+</div>
+<!-- Hours Card -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4 bg-surface-container-lowest rounded-full p-8 shadow-sm">
+<div class="flex gap-4 items-start">
+<div class="p-3 bg-secondary-fixed rounded-full text-secondary">
+<span class="material-symbols-outlined" data-icon="schedule">schedule</span>
+</div>
+<div>
+<span class="text-xs font-bold uppercase tracking-wider text-on-surface-variant font-label">Total de Horas Extras</span>
+<div class="flex items-baseline gap-2 mt-1">
+<h3 class="text-3xl font-extrabold font-headline">1.240h</h3>
+<span class="text-[10px] font-bold text-tertiary-container">+12% vs mês anterior</span>
+</div>
+<div class="mt-4 flex gap-2">
+<span class="px-2 py-0.5 bg-surface-container text-[10px] font-medium rounded-full">50% Noturnas</span>
+<span class="px-2 py-0.5 bg-surface-container text-[10px] font-medium rounded-full">30% FDS</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Critical Issues Card -->
+<div class="col-span-12 md:col-span-6 lg:col-span-3 bg-tertiary-fixed rounded-full p-8 shadow-sm relative overflow-hidden">
+<div class="relative z-10">
+<span class="text-xs font-bold uppercase tracking-wider text-on-tertiary-fixed-variant font-label">Pendências Críticas</span>
+<h3 class="text-4xl font-extrabold font-headline text-on-tertiary-fixed mt-2">07</h3>
+<p class="text-[11px] text-on-tertiary-fixed-variant/80 mt-2 font-medium">Ações imediatas requeridas</p>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-8xl" data-icon="warning">warning</span>
+</div>
+</div>
+</div>
+<!-- Detailed Table Section -->
+<div class="bg-surface-container-lowest rounded-full shadow-sm overflow-hidden">
+<div class="px-8 py-6 flex items-center justify-between">
+<h3 class="text-base font-bold font-headline">Detalhamento por Colaborador</h3>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-slate-400" data-icon="filter_list">filter_list</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-slate-400" data-icon="download">download</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant font-label">Colaborador</th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant font-label">Horas Trabalhadas</th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant font-label">Saldo de Banco</th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant font-label">Adicionais</th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant font-label">Status</th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant font-label">Ações</th><th class="px-8 py-4 text-right"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container/50">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<img alt="Avatar" class="w-10 h-10 rounded-full bg-surface-container-high" data-alt="professional portrait of a smiling woman in business attire, studio lighting, clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGu9Mh4kHEt1x5UK3CUQNt3oCe90f-Ar3uINXkpfP7hhvIuQBzJoXbdFe5jQUBZuoiVuuUK4PDyIMAk-Nubqf5HDJzK8D9L8YVjpCADBi97j1M1ZaYjMiV8XfwOXVc8OPNqa1dP0bDmdPHi6ejPTBkJBtkzLXz1lGe-y5onqiJbaAvm-dFt2SZ0fJ9jGo8xbGTSZKUS5bROQ0CeQsrMLe6eyhpaTGY-16nBA4qu7_eSpIrxP4hBlbk1aJd2L-Soj_BWG3t9ov6v3I"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Ana Paula Mendes</p>
+<p class="text-[10px] text-on-surface-variant">Design Visual • ID: 8902</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-medium">176h 20m</p>
+<p class="text-[10px] text-tertiary-container">+8h 15m extras</p>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-primary">+12h 45m</td>
+<td class="px-6 py-5 text-sm font-medium">R$ 450,00</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-surface-container-highest text-on-tertiary-fixed-variant text-[10px] font-bold rounded-full">Validado</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<button class="p-1.5 hover:bg-surface-container rounded-lg transition-colors text-primary" title="Ver Detalhamento">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded-lg transition-colors text-error" title="Exportar PDF">
+<span class="material-symbols-outlined text-lg">picture_as_pdf</span>
+</button>
+</div>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-surface-container rounded-lg">
+<span class="material-symbols-outlined text-slate-400">chevron_right</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<img alt="Avatar" class="w-10 h-10 rounded-full bg-surface-container-high" data-alt="professional portrait of a man with a short beard wearing a blue shirt, neutral background, soft light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8xEMGNfjo1Jf5XU1ts3UjWLTCui8tZsypFXn_k6vJ6nn61Sp3wV98G0glA4odIjSmmtL0YrTyIYfGprnvgrs9us47PT486DHeeoIIdrIlcLVYjgA9aMlh5Ip2Ta24mxKMPz7oiw0Fcj_UevgsyVHUNEBgVBbVa_Y6fvzEQgcvp-DOLgD_7dNNeZFdbLvlUSCRq5VHZ04a9JIFKwDsbQUaHbhx3YTmprjhLwaRjgZDVjkUvfJBzFPbj8ZBD8lWTmD2oxJ3OM7WRxs"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Carlos Eduardo Silva</p>
+<p class="text-[10px] text-on-surface-variant">Engenharia • ID: 4421</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-medium">168h 00m</p>
+<p class="text-[10px] text-on-surface-variant">Meta atingida</p>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-error">-02h 30m</td>
+<td class="px-6 py-5 text-sm font-medium">R$ 0,00</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold rounded-full">Pendente</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<button class="p-1.5 hover:bg-surface-container rounded-lg transition-colors text-primary" title="Ver Detalhamento">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded-lg transition-colors text-error" title="Exportar PDF">
+<span class="material-symbols-outlined text-lg">picture_as_pdf</span>
+</button>
+</div>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-surface-container rounded-lg">
+<span class="material-symbols-outlined text-slate-400">chevron_right</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<img alt="Avatar" class="w-10 h-10 rounded-full bg-surface-container-high" data-alt="portrait of a confident woman with curly hair wearing a professional blazer, warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaGTedc-b5Eg-j23VD9OgQjAyaZ1zlx9cZflu00IjKCjxio1zbTl1mgI4GYbfn6pPlKAlzRMZiCpUTNXkaR04lkaHtCQJ0XNYRE0hHik24s-aRUeee_AYAMOzKUPYRkZq4kezJYfrcB4612rUnwxPU9OQnY9dMFmy6nhFrFO11RoooxxfhaxLkbPLRwc0vu8rNWhgQ2kvPPM3UH6ClSJf3yEGdlNs8XO9sLfwXfprGWHw2QHnhJrkd-cm20dRJ3X3tRjJ_4K7evT0"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Juliana Ferreira</p>
+<p class="text-[10px] text-on-surface-variant">Financeiro • ID: 1029</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-medium">182h 10m</p>
+<p class="text-[10px] text-tertiary-container">+14h 10m extras</p>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-primary">+22h 00m</td>
+<td class="px-6 py-5 text-sm font-medium">R$ 820,50</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-surface-container-highest text-on-tertiary-fixed-variant text-[10px] font-bold rounded-full">Validado</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<button class="p-1.5 hover:bg-surface-container rounded-lg transition-colors text-primary" title="Ver Detalhamento">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded-lg transition-colors text-error" title="Exportar PDF">
+<span class="material-symbols-outlined text-lg">picture_as_pdf</span>
+</button>
+</div>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-surface-container rounded-lg">
+<span class="material-symbols-outlined text-slate-400">chevron_right</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<img alt="Avatar" class="w-10 h-10 rounded-full bg-surface-container-high" data-alt="headshot of a young male professional wearing a navy sweater, clean studio light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6kTJcF_wKBOvQYoF2ztSGK-Jz69FnJrkPIbwtJKi9WYLCfbYZxz9U13ZbwLC9PcuY53qhdfdHrcsIle69NIejikxfcEoQN-dvfv5kaO0uk-yIZvl6WtAt1Hhm_aDhkCn6FVXORkxnA1PIymuEEjYAT1mryLgIB5IgnpkTWOC8gOF0puLNbXCktBmexsP90avnPpNt0e_lCYIwepflA5Q2Ib63Sbd0lSYG0pfJvKO99vr57wXOk1hwk7SOPT2RqSlStADA2UDxWZ8"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Roberto Santos</p>
+<p class="text-[10px] text-on-surface-variant">Operações • ID: 7712</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-medium">160h 00m</p>
+<p class="text-[10px] text-error font-medium">Inconsistência</p>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-error">-08h 00m</td>
+<td class="px-6 py-5 text-sm font-medium">R$ 0,00</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold rounded-full">Pendente</span>
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="error">error</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<button class="p-1.5 hover:bg-surface-container rounded-lg transition-colors text-primary" title="Ver Detalhamento">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded-lg transition-colors text-error" title="Exportar PDF">
+<span class="material-symbols-outlined text-lg">picture_as_pdf</span>
+</button>
+</div>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-surface-container rounded-lg">
+<span class="material-symbols-outlined text-slate-400">chevron_right</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-8 flex justify-center border-t border-surface-container/50">
+<button class="text-xs font-bold text-primary hover:underline transition-all">Ver todos os 152 colaboradores</button>
+</div>
+</div>
+<!-- Footer Notice -->
+<div class="mt-12 flex justify-between items-center text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="verified_user">verified_user</span>
+<p class="text-[10px] font-medium">Cálculos baseados na CCT 2023/2024 • Atualizado há 5 minutos</p>
+</div>
+<div class="flex gap-4">
+<a class="text-[10px] hover:text-primary transition-colors" href="#">Termos de Auditoria</a>
+<a class="text-[10px] hover:text-primary transition-colors" href="#">Suporte Técnico</a>
+</div>
+</div>
+</main>
+</body></html>

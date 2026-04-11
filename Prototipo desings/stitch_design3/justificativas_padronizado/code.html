@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PontoPrecise - Justificativas</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error-container": "#93000a",
+              "inverse-primary": "#b4c5ff",
+              "secondary-fixed-dim": "#b8c4ff",
+              "on-primary-fixed-variant": "#003ea8",
+              "error-container": "#ffdad6",
+              "error": "#ba1a1a",
+              "on-background": "#191c1e",
+              "tertiary-container": "#bc4800",
+              "on-tertiary-container": "#ffede6",
+              "on-secondary-container": "#00217a",
+              "secondary-container": "#708cfd",
+              "on-secondary": "#ffffff",
+              "primary-container": "#2563eb",
+              "primary-fixed-dim": "#b4c5ff",
+              "surface-bright": "#f7f9fb",
+              "on-primary-container": "#eeefff",
+              "surface-container-highest": "#e0e3e5",
+              "on-surface-variant": "#434655",
+              "surface-container-low": "#f2f4f6",
+              "secondary-fixed": "#dde1ff",
+              "on-tertiary-fixed-variant": "#7d2d00",
+              "surface-container-high": "#e6e8ea",
+              "outline": "#737686",
+              "outline-variant": "#c3c6d7",
+              "primary-fixed": "#dbe1ff",
+              "on-error": "#ffffff",
+              "surface-container": "#eceef0",
+              "surface-tint": "#0053db",
+              "surface-dim": "#d8dadc",
+              "tertiary": "#943700",
+              "tertiary-fixed": "#ffdbcd",
+              "tertiary-fixed-dim": "#ffb596",
+              "on-tertiary-fixed": "#360f00",
+              "surface-variant": "#e0e3e5",
+              "surface": "#f7f9fb",
+              "on-secondary-fixed": "#001453",
+              "inverse-on-surface": "#eff1f3",
+              "secondary": "#3755c3",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#00174b",
+              "on-primary": "#ffffff",
+              "on-secondary-fixed-variant": "#173bab",
+              "background": "#f7f9fb",
+              "surface-container-lowest": "#ffffff",
+              "on-surface": "#191c1e",
+              "primary": "#004ac6",
+              "inverse-surface": "#2d3133"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .nav-item-active {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased overflow-x-hidden">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-6 px-4 w-64 bg-slate-50 dark:bg-slate-900 font-manrope antialiased z-50 overflow-y-auto">
+<div class="mb-10 px-4 flex items-center gap-3 shrink-0">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-white shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">timer</span>
+</div>
+<div>
+<h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white leading-none">PontoPrecise</h1>
+<p class="text-[10px] font-semibold uppercase tracking-widest text-slate-400 mt-1">Precision Archive</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors scale-98 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors scale-98 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-medium">Funcionários</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors scale-98 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">timer</span>
+<span class="font-medium">Marcações</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-blue-600 dark:text-blue-400 font-semibold bg-blue-50 dark:bg-blue-900/20 scale-98 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined nav-item-active">fact_check</span>
+<span class="font-medium">Justificativas</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors scale-98 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors scale-98 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-medium">Escalas</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors scale-98 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-medium">Folha</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors scale-98 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-medium">Documentos</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors scale-98 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-medium">Auditoria</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors scale-98 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium">Configurações</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 px-4 border-t border-slate-200 dark:border-slate-800 shrink-0">
+<div class="flex items-center gap-3">
+<img alt="User Avatar" class="w-10 h-10 rounded-full object-cover" data-alt="professional portrait of a corporate executive in a business suit with soft natural lighting and a clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvfe_r8wutjGfyjZVS2OtFuA55LPeurHcANz6dDQk7ZjzntYrxqryQQL9OzrA7sbE7JfG3Ky7bq1kNEjbthAI5eSTgAiGlsID5waVqsG241N3Zkdc8n6FguFYuMTYEunRAmJ-Nij7Wupzhf9M3ZKdAvgIjg8_UyA1A19LMmlYz6hArNvRgQTnmWx68apKkPa3Z-FJlTNn3vV0uaC__h2rwEKWvU8ZZgReWVPuo4Idr9Nn2sNmjuOnOXQ1A5XeSV9OMYkXIOuXwtfQ"/>
+<div>
+<p class="text-sm font-bold text-slate-900 dark:text-white">Ricardo Mendes</p>
+<p class="text-xs text-slate-500">Administrador</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="flex items-center justify-between px-8 sticky top-0 z-40 ml-64 h-16 w-full bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-transparent">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary-fixed outline-none transition-all placeholder:text-slate-400" placeholder="Pesquisar justificativas..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-slate-500 hover:bg-surface-container-high transition-all scale-98 active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-slate-500 hover:bg-surface-container-high transition-all scale-98 active:scale-95">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 p-8 min-h-screen bg-surface">
+<div class="max-w-[1440px] mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+<div>
+<h2 class="text-3xl font-extrabold font-headline tracking-tight text-on-surface mb-2">Justificativas</h2>
+<p class="text-on-surface-variant font-medium">Analise e gerencie os pedidos de ajuste de ponto da sua equipe.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="bg-surface-container-low p-1 rounded-full flex">
+<button class="px-6 py-2 rounded-full bg-surface-container-lowest shadow-sm text-sm font-bold text-primary transition-all">Todos</button>
+<button class="px-6 py-2 rounded-full text-sm font-semibold text-on-surface-variant hover:text-on-surface transition-all">Pendentes</button>
+<button class="px-6 py-2 rounded-full text-sm font-semibold text-on-surface-variant hover:text-on-surface transition-all">Analisados</button>
+</div>
+</div>
+</div>
+<!-- Dashboard Stats Tonal Stacking -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+<div class="bg-surface-container-lowest p-6 rounded-xl transition-all">
+<p class="text-label-sm uppercase tracking-wider font-bold text-on-surface-variant mb-1">Total Recebido</p>
+<div class="flex items-end gap-2">
+<span class="text-3xl font-extrabold font-headline">142</span>
+<span class="text-sm font-bold text-secondary mb-1">Este mês</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl transition-all">
+<p class="text-label-sm uppercase tracking-wider font-bold text-on-surface-variant mb-1">Aguardando</p>
+<div class="flex items-end gap-2">
+<span class="text-3xl font-extrabold font-headline text-tertiary">12</span>
+<span class="text-sm font-bold text-tertiary mb-1">Urgente</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl transition-all">
+<p class="text-label-sm uppercase tracking-wider font-bold text-on-surface-variant mb-1">Aprovadas</p>
+<div class="flex items-end gap-2">
+<span class="text-3xl font-extrabold font-headline text-on-tertiary-fixed-variant">118</span>
+<span class="text-sm font-bold text-on-tertiary-fixed-variant mb-1">83%</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl transition-all">
+<p class="text-label-sm uppercase tracking-wider font-bold text-on-surface-variant mb-1">Tempo Médio</p>
+<div class="flex items-end gap-2">
+<span class="text-3xl font-extrabold font-headline">4.2h</span>
+<span class="text-sm font-bold text-on-surface-variant mb-1">Resposta</span>
+</div>
+</div>
+</div>
+<!-- Justifications Grid (Editorial Layout) -->
+<div class="grid grid-cols-1 gap-4">
+<!-- Header row for the list view (no lines, just spacing) -->
+<div class="grid grid-cols-12 px-6 py-2 text-xs font-extrabold uppercase tracking-widest text-on-surface-variant opacity-60">
+<div class="col-span-4">Funcionário &amp; Data</div>
+<div class="col-span-4">Motivo &amp; Justificativa</div>
+<div class="col-span-2">Status</div>
+<div class="col-span-2 text-right">Ações</div>
+</div>
+<!-- Card Item: Pending -->
+<div class="group bg-surface-container-lowest p-6 rounded-xl hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300 grid grid-cols-12 items-center">
+<div class="col-span-4 flex items-center gap-4">
+<div class="relative">
+<img alt="Employee" class="w-12 h-12 rounded-full object-cover" data-alt="close-up portrait of a woman smiling in a bright office environment with natural light and soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrxRWNjqqP51T3jKlDahkJ8Z0i_ONxoPxoT9pW3PpyC-en-wm9aZGrdr_0TR-mxB_qbpSaJkXmUdRGvBrpW6NcFycxM63ybOJT_ew8JH9w3ye-N2gdl8k3ef0ICBszk7t_k70NwJGZWZv_1rWNmt0vHuvx1-W2-izXWSW0vVZrDwHeBPz13_ZU3MsIfzwf5XIoQjSQPridUGdQUKb3ZGHxcOSX9kw-GNlQHkV2HAaI5L0bB-TxitfRH0-OGT82_lwocCf_t8IcKEw"/>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-tertiary rounded-full border-2 border-white animate-pulse"></div>
+</div>
+<div>
+<h4 class="font-bold text-on-surface group-hover:text-primary transition-colors">Ana Beatriz Costa</h4>
+<p class="text-sm text-on-surface-variant">14 de Maio, 2024 • 08:45</p>
+</div>
+</div>
+<div class="col-span-4 pr-8">
+<p class="text-sm font-bold text-on-surface mb-1">Consulta Médica</p>
+<p class="text-sm text-on-surface-variant line-clamp-1 italic">"Consulta oftalmológica agendada com antecedência. Anexo o atestado no sistema."</p>
+</div>
+<div class="col-span-2">
+<span class="px-3 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-tertiary-fixed text-on-tertiary-fixed">Pendente</span>
+</div>
+<div class="col-span-2 flex justify-end gap-2">
+<button class="p-2 rounded-xl text-error hover:bg-error-container transition-all" title="Rejeitar">
+<span class="material-symbols-outlined">close</span>
+</button>
+<button class="bg-gradient-to-br from-primary to-primary-container px-4 py-2 rounded-xl text-xs font-bold text-white shadow-lg shadow-primary/20 scale-98 active:scale-95 transition-all">Aprovar</button>
+</div>
+</div>
+<!-- Card Item: Approved -->
+<div class="group bg-surface-container-low/50 p-6 rounded-xl hover:bg-surface-container-lowest transition-all duration-300 grid grid-cols-12 items-center">
+<div class="col-span-4 flex items-center gap-4">
+<img alt="Employee" class="w-12 h-12 rounded-full object-cover opacity-80" data-alt="professional male portrait with clean lighting against a minimalist gray background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9AiFklCNpuFNHJcA_TLLWgEKwdNsm2GjHvjtiT0Bj3vXzcY-I2WKH1B56-6R5J2VAFdKJR_FrRFk7dBVk3avGnf6ZO5ppfvMQVKFUGfI0T78g6WY2djkQwj3VzT2bfJvL2pkOiisb7Nxhj9o-ItMILsgh0xu-VNKPKrUo3RA5i_4_Xy5fKHimQH81Z0M-AxiM77vD9SDdOG6wvSxOQr4h_xDugEQyC4vGz54MgUbriviR4y2zyBsWB-Y5CUy2cfklJ4X2smEKo2E"/>
+<div>
+<h4 class="font-bold text-on-surface opacity-80">Marcos Oliveira</h4>
+<p class="text-sm text-on-surface-variant">13 de Maio, 2024 • 17:10</p>
+</div>
+</div>
+<div class="col-span-4 pr-8">
+<p class="text-sm font-bold text-on-surface mb-1 opacity-80">Problemas Técnicos</p>
+<p class="text-sm text-on-surface-variant line-clamp-1 italic">"Queda de energia no bairro impossibilitou o login pontual no sistema remoto."</p>
+</div>
+<div class="col-span-2">
+<span class="px-3 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-surface-container-highest text-on-tertiary-fixed-variant">Aprovado</span>
+</div>
+<div class="col-span-2 flex justify-end gap-2">
+<button class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+<!-- Card Item: Rejected -->
+<div class="group bg-surface-container-low/50 p-6 rounded-xl hover:bg-surface-container-lowest transition-all duration-300 grid grid-cols-12 items-center">
+<div class="col-span-4 flex items-center gap-4">
+<img alt="Employee" class="w-12 h-12 rounded-full object-cover opacity-80" data-alt="woman wearing professional glasses smiling warmly with soft ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6PHTUTmmicqxYp0SdV3o3VLQfgO6FIQ7ByQVxrxzlLTWj-mdRJty4AHWL1iLcgZXdzJDrpJLpbzp67lkfHpLFwWn5BxDOZ01IObBFFg-VP6mhrAnAIMFSV3lLxiGDeZBLw4p5lFuPopxjhLnS7TKIuBgpznUVTqE863_6Z9RQs7I_vLO8JtW3979cs8bKE6WPVV_a9Qa2xd5JbmuppS3Q9cy7anxmsN49Cuhh2FiyGIbi8e36GuT8-u4j9otgTNgU_grB-ilibGg"/>
+<div>
+<h4 class="font-bold text-on-surface opacity-80">Julia Fernandes</h4>
+<p class="text-sm text-on-surface-variant">12 de Maio, 2024 • 09:02</p>
+</div>
+</div>
+<div class="col-span-4 pr-8">
+<p class="text-sm font-bold text-on-surface mb-1 opacity-80">Esquecimento</p>
+<p class="text-sm text-on-surface-variant line-clamp-1 italic">"Esqueci de registrar a saída para o intervalo de almoço."</p>
+</div>
+<div class="col-span-2">
+<span class="px-3 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-error-container text-on-error-container">Rejeitado</span>
+</div>
+<div class="col-span-2 flex justify-end gap-2">
+<button class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+<!-- Card Item: Pending Urgent -->
+<div class="group bg-surface-container-lowest p-6 rounded-xl hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300 border-l-4 border-tertiary grid grid-cols-12 items-center">
+<div class="col-span-4 flex items-center gap-4">
+<div class="relative">
+<img alt="Employee" class="w-12 h-12 rounded-full object-cover" data-alt="man in business casual attire looking thoughtful in a modern office with glass walls" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDprSbA0IT8ey9inHSCJz-0Nh-35fr934jPKxVgaYCSN8xB08CayyqUhRQl2d4KcMB6mB91FCyCI4Qp_DnQsX7jTww7DgHolF7C647pqm3qXw6vLMplhuH0aW4928KnV5YsAnU47IZfNdBswz_Bb12kDFQm-_OVzPSDbq38VbiVrG9QOfOLhHz3_JXglA6IdOobcgcEWqEhxacqRJSF19XmW8UkNm39_5EwVaxOOzIW13t7Ylw2oaV4QcszeYS_GJgwcZNSLi2n44c"/>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-tertiary rounded-full border-2 border-white animate-pulse"></div>
+</div>
+<div>
+<h4 class="font-bold text-on-surface group-hover:text-primary transition-colors">Carlos Eduardo</h4>
+<p class="text-sm text-on-surface-variant">Hoje • 07:30</p>
+</div>
+</div>
+<div class="col-span-4 pr-8">
+<p class="text-sm font-bold text-on-surface mb-1">Atestado Familiar</p>
+<p class="text-sm text-on-surface-variant line-clamp-1 italic">"Acompanhamento de dependente em emergência hospitalar durante a manhã."</p>
+</div>
+<div class="col-span-2">
+<span class="px-3 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-tertiary-fixed text-on-tertiary-fixed">Pendente</span>
+</div>
+<div class="col-span-2 flex justify-end gap-2">
+<button class="p-2 rounded-xl text-error hover:bg-error-container transition-all" title="Rejeitar">
+<span class="material-symbols-outlined">close</span>
+</button>
+<button class="bg-gradient-to-br from-primary to-primary-container px-4 py-2 rounded-xl text-xs font-bold text-white shadow-lg shadow-primary/20 scale-98 active:scale-95 transition-all">Aprovar</button>
+</div>
+</div>
+</div>
+<!-- Empty State / Pagination Hint -->
+<div class="mt-12 text-center">
+<button class="group inline-flex items-center gap-2 text-sm font-bold text-primary hover:gap-3 transition-all">
+                    Carregar mais registros
+                    <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-y-1">expand_more</span>
+</button>
+</div>
+</div>
+</main>
+<!-- FAB for quick action (contextual) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary-container text-white flex items-center justify-center shadow-2xl shadow-primary/40 hover:scale-105 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined">add</span>
+</button>
+</body></html>

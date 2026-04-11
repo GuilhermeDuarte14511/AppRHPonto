@@ -1,0 +1,8 @@
+connectorId: example
+generate:
+  javascriptSdk:
+    - outputDir: ../../packages/api-client/src/data-connect/generated
+      package: "@rh-ponto/api-client/generated"
+      packageJsonDir: ../../packages/api-client
+      react: false
+      angular: false

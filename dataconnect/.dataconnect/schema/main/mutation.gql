@@ -1,0 +1,2232 @@
+extend type Mutation {
+  """
+  ✨ Insert a single `AdminNotification` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  adminNotification_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: AdminNotification_Data!
+  ): AdminNotification_KeyOutput! @fdc_generated(from: "AdminNotification", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `AdminSettings` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  adminSettings_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: AdminSettings_Data!
+  ): AdminSettings_KeyOutput! @fdc_generated(from: "AdminSettings", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `AttendancePolicy` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  attendancePolicy_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: AttendancePolicy_Data!
+  ): AttendancePolicy_KeyOutput! @fdc_generated(from: "AttendancePolicy", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `AuditLog` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  auditLog_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: AuditLog_Data!
+  ): AuditLog_KeyOutput! @fdc_generated(from: "AuditLog", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Department` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  department_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Department_Data!
+  ): Department_KeyOutput! @fdc_generated(from: "Department", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Device` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  device_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Device_Data!
+  ): Device_KeyOutput! @fdc_generated(from: "Device", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Employee` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  employee_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Employee_Data!
+  ): Employee_KeyOutput! @fdc_generated(from: "Employee", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `EmployeeAllowedLocation` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  employeeAllowedLocation_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: EmployeeAllowedLocation_Data!
+  ): EmployeeAllowedLocation_KeyOutput! @fdc_generated(from: "EmployeeAllowedLocation", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `EmployeeAttendancePolicy` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  employeeAttendancePolicy_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: EmployeeAttendancePolicy_Data!
+  ): EmployeeAttendancePolicy_KeyOutput! @fdc_generated(from: "EmployeeAttendancePolicy", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `EmployeeScheduleHistory` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  employeeScheduleHistory_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: EmployeeScheduleHistory_Data!
+  ): EmployeeScheduleHistory_KeyOutput! @fdc_generated(from: "EmployeeScheduleHistory", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Justification` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  justification_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Justification_Data!
+  ): Justification_KeyOutput! @fdc_generated(from: "Justification", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `JustificationAttachment` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  justificationAttachment_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: JustificationAttachment_Data!
+  ): JustificationAttachment_KeyOutput! @fdc_generated(from: "JustificationAttachment", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `OnboardingJourney` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  onboardingJourney_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: OnboardingJourney_Data!
+  ): OnboardingJourney_KeyOutput! @fdc_generated(from: "OnboardingJourney", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `OnboardingTask` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  onboardingTask_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: OnboardingTask_Data!
+  ): OnboardingTask_KeyOutput! @fdc_generated(from: "OnboardingTask", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `TimeRecord` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  timeRecord_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: TimeRecord_Data!
+  ): TimeRecord_KeyOutput! @fdc_generated(from: "TimeRecord", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `TimeRecordPhoto` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  timeRecordPhoto_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: TimeRecordPhoto_Data!
+  ): TimeRecordPhoto_KeyOutput! @fdc_generated(from: "TimeRecordPhoto", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `User` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: User_Data!
+  ): User_KeyOutput! @fdc_generated(from: "User", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `VacationRequest` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  vacationRequest_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: VacationRequest_Data!
+  ): VacationRequest_KeyOutput! @fdc_generated(from: "VacationRequest", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `WorkLocation` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  workLocation_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: WorkLocation_Data!
+  ): WorkLocation_KeyOutput! @fdc_generated(from: "WorkLocation", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `WorkSchedule` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  workSchedule_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: WorkSchedule_Data!
+  ): WorkSchedule_KeyOutput! @fdc_generated(from: "WorkSchedule", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert `AdminNotification` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  adminNotification_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [AdminNotification_Data!]!
+  ): [AdminNotification_KeyOutput!]! @fdc_generated(from: "AdminNotification", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `AdminSettings` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  adminSettings_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [AdminSettings_Data!]!
+  ): [AdminSettings_KeyOutput!]! @fdc_generated(from: "AdminSettings", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `AttendancePolicy` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  attendancePolicy_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [AttendancePolicy_Data!]!
+  ): [AttendancePolicy_KeyOutput!]! @fdc_generated(from: "AttendancePolicy", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `AuditLog` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  auditLog_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [AuditLog_Data!]!
+  ): [AuditLog_KeyOutput!]! @fdc_generated(from: "AuditLog", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Department` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  department_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Department_Data!]!
+  ): [Department_KeyOutput!]! @fdc_generated(from: "Department", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Device` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  device_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Device_Data!]!
+  ): [Device_KeyOutput!]! @fdc_generated(from: "Device", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Employee` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  employee_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Employee_Data!]!
+  ): [Employee_KeyOutput!]! @fdc_generated(from: "Employee", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `EmployeeAllowedLocation` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  employeeAllowedLocation_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [EmployeeAllowedLocation_Data!]!
+  ): [EmployeeAllowedLocation_KeyOutput!]! @fdc_generated(from: "EmployeeAllowedLocation", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `EmployeeAttendancePolicy` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  employeeAttendancePolicy_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [EmployeeAttendancePolicy_Data!]!
+  ): [EmployeeAttendancePolicy_KeyOutput!]! @fdc_generated(from: "EmployeeAttendancePolicy", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `EmployeeScheduleHistory` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  employeeScheduleHistory_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [EmployeeScheduleHistory_Data!]!
+  ): [EmployeeScheduleHistory_KeyOutput!]! @fdc_generated(from: "EmployeeScheduleHistory", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Justification` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  justification_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Justification_Data!]!
+  ): [Justification_KeyOutput!]! @fdc_generated(from: "Justification", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `JustificationAttachment` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  justificationAttachment_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [JustificationAttachment_Data!]!
+  ): [JustificationAttachment_KeyOutput!]! @fdc_generated(from: "JustificationAttachment", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `OnboardingJourney` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  onboardingJourney_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [OnboardingJourney_Data!]!
+  ): [OnboardingJourney_KeyOutput!]! @fdc_generated(from: "OnboardingJourney", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `OnboardingTask` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  onboardingTask_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [OnboardingTask_Data!]!
+  ): [OnboardingTask_KeyOutput!]! @fdc_generated(from: "OnboardingTask", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `TimeRecord` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  timeRecord_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [TimeRecord_Data!]!
+  ): [TimeRecord_KeyOutput!]! @fdc_generated(from: "TimeRecord", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `TimeRecordPhoto` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  timeRecordPhoto_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [TimeRecordPhoto_Data!]!
+  ): [TimeRecordPhoto_KeyOutput!]! @fdc_generated(from: "TimeRecordPhoto", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `User` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [User_Data!]!
+  ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `VacationRequest` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  vacationRequest_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [VacationRequest_Data!]!
+  ): [VacationRequest_KeyOutput!]! @fdc_generated(from: "VacationRequest", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `WorkLocation` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  workLocation_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [WorkLocation_Data!]!
+  ): [WorkLocation_KeyOutput!]! @fdc_generated(from: "WorkLocation", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `WorkSchedule` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  workSchedule_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [WorkSchedule_Data!]!
+  ): [WorkSchedule_KeyOutput!]! @fdc_generated(from: "WorkSchedule", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert or update a single `AdminNotification` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `AdminNotification`.
+  """
+  adminNotification_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: AdminNotification_Data!
+  ): AdminNotification_KeyOutput! @fdc_generated(from: "AdminNotification", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `AdminSettings` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `AdminSettings`.
+  """
+  adminSettings_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: AdminSettings_Data!
+  ): AdminSettings_KeyOutput! @fdc_generated(from: "AdminSettings", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `AttendancePolicy` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `AttendancePolicy`.
+  """
+  attendancePolicy_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: AttendancePolicy_Data!
+  ): AttendancePolicy_KeyOutput! @fdc_generated(from: "AttendancePolicy", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `AuditLog` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `AuditLog`.
+  """
+  auditLog_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: AuditLog_Data!
+  ): AuditLog_KeyOutput! @fdc_generated(from: "AuditLog", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Department` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Department`.
+  """
+  department_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Department_Data!
+  ): Department_KeyOutput! @fdc_generated(from: "Department", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Device` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Device`.
+  """
+  device_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Device_Data!
+  ): Device_KeyOutput! @fdc_generated(from: "Device", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Employee` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Employee`.
+  """
+  employee_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Employee_Data!
+  ): Employee_KeyOutput! @fdc_generated(from: "Employee", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `EmployeeAllowedLocation` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `EmployeeAllowedLocation`.
+  """
+  employeeAllowedLocation_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: EmployeeAllowedLocation_Data!
+  ): EmployeeAllowedLocation_KeyOutput! @fdc_generated(from: "EmployeeAllowedLocation", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `EmployeeAttendancePolicy` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `EmployeeAttendancePolicy`.
+  """
+  employeeAttendancePolicy_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: EmployeeAttendancePolicy_Data!
+  ): EmployeeAttendancePolicy_KeyOutput! @fdc_generated(from: "EmployeeAttendancePolicy", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `EmployeeScheduleHistory` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `EmployeeScheduleHistory`.
+  """
+  employeeScheduleHistory_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: EmployeeScheduleHistory_Data!
+  ): EmployeeScheduleHistory_KeyOutput! @fdc_generated(from: "EmployeeScheduleHistory", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Justification` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Justification`.
+  """
+  justification_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Justification_Data!
+  ): Justification_KeyOutput! @fdc_generated(from: "Justification", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `JustificationAttachment` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `JustificationAttachment`.
+  """
+  justificationAttachment_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: JustificationAttachment_Data!
+  ): JustificationAttachment_KeyOutput! @fdc_generated(from: "JustificationAttachment", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `OnboardingJourney` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `OnboardingJourney`.
+  """
+  onboardingJourney_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: OnboardingJourney_Data!
+  ): OnboardingJourney_KeyOutput! @fdc_generated(from: "OnboardingJourney", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `OnboardingTask` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `OnboardingTask`.
+  """
+  onboardingTask_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: OnboardingTask_Data!
+  ): OnboardingTask_KeyOutput! @fdc_generated(from: "OnboardingTask", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `TimeRecord` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `TimeRecord`.
+  """
+  timeRecord_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: TimeRecord_Data!
+  ): TimeRecord_KeyOutput! @fdc_generated(from: "TimeRecord", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `TimeRecordPhoto` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `TimeRecordPhoto`.
+  """
+  timeRecordPhoto_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: TimeRecordPhoto_Data!
+  ): TimeRecordPhoto_KeyOutput! @fdc_generated(from: "TimeRecordPhoto", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `User` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
+  """
+  user_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: User_Data!
+  ): User_KeyOutput! @fdc_generated(from: "User", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `VacationRequest` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `VacationRequest`.
+  """
+  vacationRequest_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: VacationRequest_Data!
+  ): VacationRequest_KeyOutput! @fdc_generated(from: "VacationRequest", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `WorkLocation` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `WorkLocation`.
+  """
+  workLocation_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: WorkLocation_Data!
+  ): WorkLocation_KeyOutput! @fdc_generated(from: "WorkLocation", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `WorkSchedule` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `WorkSchedule`.
+  """
+  workSchedule_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: WorkSchedule_Data!
+  ): WorkSchedule_KeyOutput! @fdc_generated(from: "WorkSchedule", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update `AdminNotification` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `AdminNotification`.
+  """
+  adminNotification_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [AdminNotification_Data!]!
+  ): [AdminNotification_KeyOutput!]! @fdc_generated(from: "AdminNotification", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `AdminSettings` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `AdminSettings`.
+  """
+  adminSettings_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [AdminSettings_Data!]!
+  ): [AdminSettings_KeyOutput!]! @fdc_generated(from: "AdminSettings", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `AttendancePolicy` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `AttendancePolicy`.
+  """
+  attendancePolicy_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [AttendancePolicy_Data!]!
+  ): [AttendancePolicy_KeyOutput!]! @fdc_generated(from: "AttendancePolicy", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `AuditLog` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `AuditLog`.
+  """
+  auditLog_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [AuditLog_Data!]!
+  ): [AuditLog_KeyOutput!]! @fdc_generated(from: "AuditLog", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Department` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Department`.
+  """
+  department_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Department_Data!]!
+  ): [Department_KeyOutput!]! @fdc_generated(from: "Department", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Device` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Device`.
+  """
+  device_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Device_Data!]!
+  ): [Device_KeyOutput!]! @fdc_generated(from: "Device", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Employee` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Employee`.
+  """
+  employee_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Employee_Data!]!
+  ): [Employee_KeyOutput!]! @fdc_generated(from: "Employee", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `EmployeeAllowedLocation` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `EmployeeAllowedLocation`.
+  """
+  employeeAllowedLocation_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [EmployeeAllowedLocation_Data!]!
+  ): [EmployeeAllowedLocation_KeyOutput!]! @fdc_generated(from: "EmployeeAllowedLocation", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `EmployeeAttendancePolicy` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `EmployeeAttendancePolicy`.
+  """
+  employeeAttendancePolicy_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [EmployeeAttendancePolicy_Data!]!
+  ): [EmployeeAttendancePolicy_KeyOutput!]! @fdc_generated(from: "EmployeeAttendancePolicy", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `EmployeeScheduleHistory` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `EmployeeScheduleHistory`.
+  """
+  employeeScheduleHistory_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [EmployeeScheduleHistory_Data!]!
+  ): [EmployeeScheduleHistory_KeyOutput!]! @fdc_generated(from: "EmployeeScheduleHistory", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Justification` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Justification`.
+  """
+  justification_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Justification_Data!]!
+  ): [Justification_KeyOutput!]! @fdc_generated(from: "Justification", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `JustificationAttachment` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `JustificationAttachment`.
+  """
+  justificationAttachment_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [JustificationAttachment_Data!]!
+  ): [JustificationAttachment_KeyOutput!]! @fdc_generated(from: "JustificationAttachment", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `OnboardingJourney` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `OnboardingJourney`.
+  """
+  onboardingJourney_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [OnboardingJourney_Data!]!
+  ): [OnboardingJourney_KeyOutput!]! @fdc_generated(from: "OnboardingJourney", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `OnboardingTask` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `OnboardingTask`.
+  """
+  onboardingTask_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [OnboardingTask_Data!]!
+  ): [OnboardingTask_KeyOutput!]! @fdc_generated(from: "OnboardingTask", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `TimeRecord` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `TimeRecord`.
+  """
+  timeRecord_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [TimeRecord_Data!]!
+  ): [TimeRecord_KeyOutput!]! @fdc_generated(from: "TimeRecord", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `TimeRecordPhoto` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `TimeRecordPhoto`.
+  """
+  timeRecordPhoto_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [TimeRecordPhoto_Data!]!
+  ): [TimeRecordPhoto_KeyOutput!]! @fdc_generated(from: "TimeRecordPhoto", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `User` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
+  """
+  user_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [User_Data!]!
+  ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `VacationRequest` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `VacationRequest`.
+  """
+  vacationRequest_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [VacationRequest_Data!]!
+  ): [VacationRequest_KeyOutput!]! @fdc_generated(from: "VacationRequest", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `WorkLocation` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `WorkLocation`.
+  """
+  workLocation_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [WorkLocation_Data!]!
+  ): [WorkLocation_KeyOutput!]! @fdc_generated(from: "WorkLocation", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `WorkSchedule` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `WorkSchedule`.
+  """
+  workSchedule_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [WorkSchedule_Data!]!
+  ): [WorkSchedule_KeyOutput!]! @fdc_generated(from: "WorkSchedule", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Update a single `AdminNotification` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `AdminNotification` or `null` if not found.
+  """
+  adminNotification_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AdminNotification_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AdminNotification_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: AdminNotification_Data!
+  ): AdminNotification_KeyOutput @fdc_generated(from: "AdminNotification", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `AdminSettings` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `AdminSettings` or `null` if not found.
+  """
+  adminSettings_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AdminSettings_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AdminSettings_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: AdminSettings_Data!
+  ): AdminSettings_KeyOutput @fdc_generated(from: "AdminSettings", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `AttendancePolicy` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `AttendancePolicy` or `null` if not found.
+  """
+  attendancePolicy_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AttendancePolicy_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AttendancePolicy_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: AttendancePolicy_Data!
+  ): AttendancePolicy_KeyOutput @fdc_generated(from: "AttendancePolicy", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `AuditLog` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `AuditLog` or `null` if not found.
+  """
+  auditLog_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AuditLog_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AuditLog_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: AuditLog_Data!
+  ): AuditLog_KeyOutput @fdc_generated(from: "AuditLog", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Department` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Department` or `null` if not found.
+  """
+  department_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Department_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Department_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Department_Data!
+  ): Department_KeyOutput @fdc_generated(from: "Department", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Device` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Device` or `null` if not found.
+  """
+  device_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Device_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Device_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Device_Data!
+  ): Device_KeyOutput @fdc_generated(from: "Device", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Employee` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Employee` or `null` if not found.
+  """
+  employee_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Employee_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Employee_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Employee_Data!
+  ): Employee_KeyOutput @fdc_generated(from: "Employee", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `EmployeeAllowedLocation` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `EmployeeAllowedLocation` or `null` if not found.
+  """
+  employeeAllowedLocation_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: EmployeeAllowedLocation_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EmployeeAllowedLocation_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: EmployeeAllowedLocation_Data!
+  ): EmployeeAllowedLocation_KeyOutput @fdc_generated(from: "EmployeeAllowedLocation", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `EmployeeAttendancePolicy` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `EmployeeAttendancePolicy` or `null` if not found.
+  """
+  employeeAttendancePolicy_update(
+    """
+    The key used to identify the object.
+    """
+    key: EmployeeAttendancePolicy_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EmployeeAttendancePolicy_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: EmployeeAttendancePolicy_Data!
+  ): EmployeeAttendancePolicy_KeyOutput @fdc_generated(from: "EmployeeAttendancePolicy", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `EmployeeScheduleHistory` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `EmployeeScheduleHistory` or `null` if not found.
+  """
+  employeeScheduleHistory_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: EmployeeScheduleHistory_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EmployeeScheduleHistory_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: EmployeeScheduleHistory_Data!
+  ): EmployeeScheduleHistory_KeyOutput @fdc_generated(from: "EmployeeScheduleHistory", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Justification` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Justification` or `null` if not found.
+  """
+  justification_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Justification_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Justification_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Justification_Data!
+  ): Justification_KeyOutput @fdc_generated(from: "Justification", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `JustificationAttachment` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `JustificationAttachment` or `null` if not found.
+  """
+  justificationAttachment_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: JustificationAttachment_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: JustificationAttachment_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: JustificationAttachment_Data!
+  ): JustificationAttachment_KeyOutput @fdc_generated(from: "JustificationAttachment", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `OnboardingJourney` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `OnboardingJourney` or `null` if not found.
+  """
+  onboardingJourney_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: OnboardingJourney_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: OnboardingJourney_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: OnboardingJourney_Data!
+  ): OnboardingJourney_KeyOutput @fdc_generated(from: "OnboardingJourney", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `OnboardingTask` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `OnboardingTask` or `null` if not found.
+  """
+  onboardingTask_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: OnboardingTask_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: OnboardingTask_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: OnboardingTask_Data!
+  ): OnboardingTask_KeyOutput @fdc_generated(from: "OnboardingTask", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `TimeRecord` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `TimeRecord` or `null` if not found.
+  """
+  timeRecord_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: TimeRecord_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: TimeRecord_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: TimeRecord_Data!
+  ): TimeRecord_KeyOutput @fdc_generated(from: "TimeRecord", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `TimeRecordPhoto` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `TimeRecordPhoto` or `null` if not found.
+  """
+  timeRecordPhoto_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: TimeRecordPhoto_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: TimeRecordPhoto_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: TimeRecordPhoto_Data!
+  ): TimeRecordPhoto_KeyOutput @fdc_generated(from: "TimeRecordPhoto", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `User` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `User` or `null` if not found.
+  """
+  user_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: User_Data!
+  ): User_KeyOutput @fdc_generated(from: "User", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `VacationRequest` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `VacationRequest` or `null` if not found.
+  """
+  vacationRequest_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: VacationRequest_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: VacationRequest_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: VacationRequest_Data!
+  ): VacationRequest_KeyOutput @fdc_generated(from: "VacationRequest", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `WorkLocation` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `WorkLocation` or `null` if not found.
+  """
+  workLocation_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WorkLocation_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WorkLocation_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: WorkLocation_Data!
+  ): WorkLocation_KeyOutput @fdc_generated(from: "WorkLocation", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `WorkSchedule` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `WorkSchedule` or `null` if not found.
+  """
+  workSchedule_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WorkSchedule_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WorkSchedule_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: WorkSchedule_Data!
+  ): WorkSchedule_KeyOutput @fdc_generated(from: "WorkSchedule", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update `AdminNotification` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  adminNotification_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: AdminNotification_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: AdminNotification_Data!
+  ): Int! @fdc_generated(from: "AdminNotification", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `AdminSettings` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  adminSettings_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: AdminSettings_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: AdminSettings_Data!
+  ): Int! @fdc_generated(from: "AdminSettings", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `AttendancePolicy` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  attendancePolicy_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: AttendancePolicy_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: AttendancePolicy_Data!
+  ): Int! @fdc_generated(from: "AttendancePolicy", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `AuditLog` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  auditLog_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: AuditLog_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: AuditLog_Data!
+  ): Int! @fdc_generated(from: "AuditLog", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Department` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  department_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Department_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Department_Data!
+  ): Int! @fdc_generated(from: "Department", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Device` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  device_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Device_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Device_Data!
+  ): Int! @fdc_generated(from: "Device", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Employee` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  employee_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Employee_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Employee_Data!
+  ): Int! @fdc_generated(from: "Employee", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `EmployeeAllowedLocation` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  employeeAllowedLocation_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: EmployeeAllowedLocation_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: EmployeeAllowedLocation_Data!
+  ): Int! @fdc_generated(from: "EmployeeAllowedLocation", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `EmployeeAttendancePolicy` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  employeeAttendancePolicy_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: EmployeeAttendancePolicy_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: EmployeeAttendancePolicy_Data!
+  ): Int! @fdc_generated(from: "EmployeeAttendancePolicy", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `EmployeeScheduleHistory` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  employeeScheduleHistory_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: EmployeeScheduleHistory_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: EmployeeScheduleHistory_Data!
+  ): Int! @fdc_generated(from: "EmployeeScheduleHistory", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Justification` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  justification_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Justification_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Justification_Data!
+  ): Int! @fdc_generated(from: "Justification", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `JustificationAttachment` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  justificationAttachment_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: JustificationAttachment_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: JustificationAttachment_Data!
+  ): Int! @fdc_generated(from: "JustificationAttachment", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `OnboardingJourney` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  onboardingJourney_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: OnboardingJourney_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: OnboardingJourney_Data!
+  ): Int! @fdc_generated(from: "OnboardingJourney", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `OnboardingTask` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  onboardingTask_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: OnboardingTask_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: OnboardingTask_Data!
+  ): Int! @fdc_generated(from: "OnboardingTask", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `TimeRecord` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  timeRecord_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: TimeRecord_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: TimeRecord_Data!
+  ): Int! @fdc_generated(from: "TimeRecord", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `TimeRecordPhoto` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  timeRecordPhoto_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: TimeRecordPhoto_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: TimeRecordPhoto_Data!
+  ): Int! @fdc_generated(from: "TimeRecordPhoto", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `User` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  user_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: User_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: User_Data!
+  ): Int! @fdc_generated(from: "User", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `VacationRequest` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  vacationRequest_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: VacationRequest_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: VacationRequest_Data!
+  ): Int! @fdc_generated(from: "VacationRequest", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `WorkLocation` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  workLocation_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: WorkLocation_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: WorkLocation_Data!
+  ): Int! @fdc_generated(from: "WorkLocation", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `WorkSchedule` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  workSchedule_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: WorkSchedule_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: WorkSchedule_Data!
+  ): Int! @fdc_generated(from: "WorkSchedule", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Delete a single `AdminNotification` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  adminNotification_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AdminNotification_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AdminNotification_FirstRow
+  ): AdminNotification_KeyOutput @fdc_generated(from: "AdminNotification", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `AdminSettings` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  adminSettings_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AdminSettings_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AdminSettings_FirstRow
+  ): AdminSettings_KeyOutput @fdc_generated(from: "AdminSettings", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `AttendancePolicy` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  attendancePolicy_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AttendancePolicy_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AttendancePolicy_FirstRow
+  ): AttendancePolicy_KeyOutput @fdc_generated(from: "AttendancePolicy", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `AuditLog` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  auditLog_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AuditLog_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AuditLog_FirstRow
+  ): AuditLog_KeyOutput @fdc_generated(from: "AuditLog", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Department` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  department_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Department_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Department_FirstRow
+  ): Department_KeyOutput @fdc_generated(from: "Department", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Device` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  device_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Device_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Device_FirstRow
+  ): Device_KeyOutput @fdc_generated(from: "Device", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Employee` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  employee_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Employee_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Employee_FirstRow
+  ): Employee_KeyOutput @fdc_generated(from: "Employee", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `EmployeeAllowedLocation` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  employeeAllowedLocation_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: EmployeeAllowedLocation_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EmployeeAllowedLocation_FirstRow
+  ): EmployeeAllowedLocation_KeyOutput @fdc_generated(from: "EmployeeAllowedLocation", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `EmployeeAttendancePolicy` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  employeeAttendancePolicy_delete(
+    """
+    The key used to identify the object.
+    """
+    key: EmployeeAttendancePolicy_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EmployeeAttendancePolicy_FirstRow
+  ): EmployeeAttendancePolicy_KeyOutput @fdc_generated(from: "EmployeeAttendancePolicy", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `EmployeeScheduleHistory` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  employeeScheduleHistory_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: EmployeeScheduleHistory_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EmployeeScheduleHistory_FirstRow
+  ): EmployeeScheduleHistory_KeyOutput @fdc_generated(from: "EmployeeScheduleHistory", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Justification` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  justification_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Justification_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Justification_FirstRow
+  ): Justification_KeyOutput @fdc_generated(from: "Justification", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `JustificationAttachment` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  justificationAttachment_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: JustificationAttachment_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: JustificationAttachment_FirstRow
+  ): JustificationAttachment_KeyOutput @fdc_generated(from: "JustificationAttachment", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `OnboardingJourney` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  onboardingJourney_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: OnboardingJourney_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: OnboardingJourney_FirstRow
+  ): OnboardingJourney_KeyOutput @fdc_generated(from: "OnboardingJourney", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `OnboardingTask` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  onboardingTask_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: OnboardingTask_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: OnboardingTask_FirstRow
+  ): OnboardingTask_KeyOutput @fdc_generated(from: "OnboardingTask", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `TimeRecord` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  timeRecord_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: TimeRecord_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: TimeRecord_FirstRow
+  ): TimeRecord_KeyOutput @fdc_generated(from: "TimeRecord", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `TimeRecordPhoto` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  timeRecordPhoto_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: TimeRecordPhoto_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: TimeRecordPhoto_FirstRow
+  ): TimeRecordPhoto_KeyOutput @fdc_generated(from: "TimeRecordPhoto", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `User` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  user_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+  ): User_KeyOutput @fdc_generated(from: "User", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `VacationRequest` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  vacationRequest_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: VacationRequest_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: VacationRequest_FirstRow
+  ): VacationRequest_KeyOutput @fdc_generated(from: "VacationRequest", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `WorkLocation` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  workLocation_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WorkLocation_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WorkLocation_FirstRow
+  ): WorkLocation_KeyOutput @fdc_generated(from: "WorkLocation", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `WorkSchedule` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  workSchedule_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WorkSchedule_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WorkSchedule_FirstRow
+  ): WorkSchedule_KeyOutput @fdc_generated(from: "WorkSchedule", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete `AdminNotification` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  adminNotification_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: AdminNotification_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "AdminNotification", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `AdminSettings` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  adminSettings_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: AdminSettings_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "AdminSettings", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `AttendancePolicy` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  attendancePolicy_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: AttendancePolicy_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "AttendancePolicy", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `AuditLog` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  auditLog_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: AuditLog_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "AuditLog", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Department` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  department_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Department_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Department", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Device` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  device_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Device_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Device", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Employee` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  employee_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Employee_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Employee", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `EmployeeAllowedLocation` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  employeeAllowedLocation_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: EmployeeAllowedLocation_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeAllowedLocation", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `EmployeeAttendancePolicy` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  employeeAttendancePolicy_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: EmployeeAttendancePolicy_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeAttendancePolicy", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `EmployeeScheduleHistory` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  employeeScheduleHistory_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: EmployeeScheduleHistory_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeScheduleHistory", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Justification` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  justification_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Justification_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Justification", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `JustificationAttachment` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  justificationAttachment_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: JustificationAttachment_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "JustificationAttachment", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `OnboardingJourney` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  onboardingJourney_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: OnboardingJourney_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "OnboardingJourney", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `OnboardingTask` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  onboardingTask_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: OnboardingTask_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "OnboardingTask", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `TimeRecord` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  timeRecord_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: TimeRecord_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "TimeRecord", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `TimeRecordPhoto` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  timeRecordPhoto_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: TimeRecordPhoto_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "TimeRecordPhoto", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `User` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  user_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: User_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "User", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `VacationRequest` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  vacationRequest_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: VacationRequest_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "VacationRequest", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `WorkLocation` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  workLocation_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: WorkLocation_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "WorkLocation", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `WorkSchedule` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  workSchedule_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: WorkSchedule_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "WorkSchedule", purpose: DELETE_MULTIPLE)
+}

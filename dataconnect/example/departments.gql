@@ -1,0 +1,93 @@
+query ListDepartments
+  @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  departments(orderBy: [{ name: ASC }], limit: 200) {
+    id
+    code
+    name
+    managerId
+    manager {
+      id
+      fullName
+    }
+    description
+    costCenter
+    isActive
+    createdAt
+    updatedAt
+    employees_on_department {
+      id
+    }
+  }
+}
+
+query GetDepartmentById($id: UUID!)
+  @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  department(id: $id) {
+    id
+    code
+    name
+    managerId
+    manager {
+      id
+      fullName
+    }
+    description
+    costCenter
+    isActive
+    createdAt
+    updatedAt
+    employees_on_department {
+      id
+    }
+  }
+}
+
+mutation CreateDepartment(
+  $code: String!
+  $name: String!
+  $managerEmployeeId: UUID
+  $description: String
+  $costCenter: String
+  $isActive: Boolean!
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  department_insert(
+    data: {
+      code: $code
+      name: $name
+      managerId: $managerEmployeeId
+      description: $description
+      costCenter: $costCenter
+      isActive: $isActive
+      createdAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation UpdateDepartment(
+  $id: UUID!
+  $code: String
+  $name: String
+  $managerEmployeeId: UUID
+  $description: String
+  $costCenter: String
+  $isActive: Boolean
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  department_update(
+    id: $id
+    data: {
+      code: $code
+      name: $name
+      managerId: $managerEmployeeId
+      description: $description
+      costCenter: $costCenter
+      isActive: $isActive
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation DeleteDepartment($id: UUID!)
+  @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  department_delete(id: $id)
+}

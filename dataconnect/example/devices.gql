@@ -1,0 +1,84 @@
+query ListDevices @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  devices(orderBy: [{ createdAt: DESC }], limit: 100) {
+    id
+    name
+    identifier
+    type
+    locationName
+    description
+    isActive
+    lastSyncAt
+    createdAt
+    updatedAt
+  }
+}
+
+query GetDeviceById($id: UUID!) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  device(id: $id) {
+    id
+    name
+    identifier
+    type
+    locationName
+    description
+    isActive
+    lastSyncAt
+    createdAt
+    updatedAt
+  }
+}
+
+mutation CreateDevice(
+  $name: String!
+  $identifier: String!
+  $type: String!
+  $locationName: String
+  $description: String
+  $isActive: Boolean!
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  device_insert(
+    data: {
+      name: $name
+      identifier: $identifier
+      type: $type
+      locationName: $locationName
+      description: $description
+      isActive: $isActive
+      createdAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation UpdateDevice(
+  $id: UUID!
+  $name: String
+  $identifier: String
+  $type: String
+  $locationName: String
+  $description: String
+  $isActive: Boolean
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  device_update(
+    id: $id
+    data: {
+      name: $name
+      identifier: $identifier
+      type: $type
+      locationName: $locationName
+      description: $description
+      isActive: $isActive
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation DeactivateDevice($id: UUID!) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  device_update(
+    id: $id
+    data: {
+      isActive: false
+      updatedAt_expr: "request.time"
+    }
+  )
+}

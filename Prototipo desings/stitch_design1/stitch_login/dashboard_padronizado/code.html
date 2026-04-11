@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error-container": "#93000a",
+              "inverse-primary": "#b4c5ff",
+              "secondary-fixed-dim": "#b8c4ff",
+              "on-primary-fixed-variant": "#003ea8",
+              "error-container": "#ffdad6",
+              "error": "#ba1a1a",
+              "on-background": "#191c1e",
+              "tertiary-container": "#bc4800",
+              "on-tertiary-container": "#ffede6",
+              "on-secondary-container": "#00217a",
+              "secondary-container": "#708cfd",
+              "on-secondary": "#ffffff",
+              "primary-container": "#2563eb",
+              "primary-fixed-dim": "#b4c5ff",
+              "surface-bright": "#f7f9fb",
+              "on-primary-container": "#eeefff",
+              "surface-container-highest": "#e0e3e5",
+              "on-surface-variant": "#434655",
+              "surface-container-low": "#f2f4f6",
+              "secondary-fixed": "#dde1ff",
+              "on-tertiary-fixed-variant": "#7d2d00",
+              "surface-container-high": "#e6e8ea",
+              "outline": "#737686",
+              "outline-variant": "#c3c6d7",
+              "primary-fixed": "#dbe1ff",
+              "on-error": "#ffffff",
+              "surface-container": "#eceef0",
+              "surface-tint": "#0053db",
+              "surface-dim": "#d8dadc",
+              "tertiary": "#943700",
+              "tertiary-fixed": "#ffdbcd",
+              "tertiary-fixed-dim": "#ffb596",
+              "on-tertiary-fixed": "#360f00",
+              "surface-variant": "#e0e3e5",
+              "surface": "#f7f9fb",
+              "on-secondary-fixed": "#001453",
+              "inverse-on-surface": "#eff1f3",
+              "secondary": "#3755c3",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#00174b",
+              "on-primary": "#ffffff",
+              "on-secondary-fixed-variant": "#173bab",
+              "background": "#f7f9fb",
+              "surface-container-lowest": "#ffffff",
+              "on-surface": "#191c1e",
+              "primary": "#004ac6",
+              "inverse-surface": "#2d3133"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 overflow-y-auto flex flex-col py-6 px-4 bg-slate-50 dark:bg-slate-900 z-50 font-['Manrope'] font-medium text-sm">
+<div class="flex items-center gap-3 px-2 mb-10">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">timer</span>
+</div>
+<div>
+<h1 class="text-lg font-black text-blue-700 dark:text-blue-400 leading-none">PontoPrecise</h1>
+<p class="text-[10px] font-semibold text-slate-500 uppercase tracking-widest mt-1">The Digital Curator</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Dashboard -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-blue-600 dark:text-blue-400 font-bold border-r-4 border-blue-600 dark:border-blue-400 bg-slate-200/50 dark:bg-slate-800/50 active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Funcionários -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Funcionários</span>
+</a>
+<!-- Marcações -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="fingerprint">fingerprint</span>
+<span>Marcações</span>
+</a>
+<!-- Justificativas -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span>Justificativas</span>
+</a>
+<!-- Analytics -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Analytics</span>
+</a>
+<!-- Escalas -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_view_day">calendar_view_day</span>
+<span>Escalas</span>
+</a>
+<!-- Folha -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span>Folha</span>
+</a>
+<!-- Documentos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span>Documentos</span>
+</a>
+<!-- Auditoria -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span>Auditoria</span>
+</a>
+<!-- Configurações -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Configurações</span>
+</a>
+</nav>
+<div class="mt-auto px-2">
+<div class="p-4 rounded-2xl bg-primary/5 border border-primary/10">
+<p class="text-xs font-semibold text-primary mb-2">Suporte Premium</p>
+<p class="text-[11px] text-on-surface-variant leading-relaxed">Dúvidas sobre o fechamento de folha? Fale conosco.</p>
+<button class="mt-3 w-full py-2 px-4 rounded-lg bg-primary text-white text-xs font-bold hover:opacity-90 transition-opacity">
+                Abrir Chat
+            </button>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-6 py-3 h-16 fixed top-0 z-40 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-sm dark:shadow-none font-['Manrope'] antialiased">
+<div class="flex items-center flex-1 max-w-md">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-outline-variant" placeholder="Buscar funcionário ou registro..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 border-r border-outline-variant pr-6">
+<button class="relative text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors p-1 rounded-full scale-95 active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+<button class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors p-1 rounded-full scale-95 active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-sm font-bold leading-none text-slate-900 dark:text-slate-50">Carlos Andrade</p>
+<p class="text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-1">Administrador RH</p>
+</div>
+<img alt="User Profile Avatar" class="w-10 h-10 rounded-full border-2 border-primary/10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtjFEdU_Ywsm_5_8ZBUxX3nn2H2FbAC3hQiafBC7KfQZUDkf96mt3a8Ggoh57jGBAhQ3mlsqQaEyMlaF-dv3N2JObsnHDzetEvU3uK7AGzHCyO-bLjv7YsXP4V1WSp-1Tp3vBecdttIGwkG-bPeDmTurwg8T_EZ_WEq9z5UktAkwzFA73i4b1obTCqcX8Tm50Qgi1NiORlymZlh15Z7R3k17XjIaYVTpqeUCvjECU_7X0qNMd677G-2VwO3Q7U8WYkuTlWFbuwSkA"/>
+</div>
+</div>
+</header>
+<!-- Dashboard Canvas -->
+<div class="p-8 pt-24 max-w-[1440px] mx-auto w-full flex-1">
+<!-- Header Section -->
+<div class="mb-10">
+<h2 class="text-3xl font-extrabold tracking-tight font-headline text-on-surface">Visão Geral</h2>
+<p class="text-on-surface-variant mt-2 font-medium">Bem-vindo de volta. Aqui está o resumo das atividades de hoje, 24 de Outubro.</p>
+</div>
+<!-- Bento Grid Metrics -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_20px_40px_rgba(0,74,198,0.03)] border border-transparent hover:border-primary/10 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 rounded-xl bg-primary/10 text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+</div>
+<span class="text-[10px] font-bold text-tertiary bg-tertiary-fixed px-2 py-1 rounded-full">+12% mês</span>
+</div>
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">Total Funcionários</p>
+<p class="text-3xl font-extrabold font-headline mt-1">1,248</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_20px_40px_rgba(0,74,198,0.03)] border border-transparent hover:border-primary/10 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 rounded-xl bg-secondary-container/10 text-secondary-container group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">how_to_reg</span>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant bg-surface-container-high px-2 py-1 rounded-full">85% presentes</span>
+</div>
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">Batidas Hoje</p>
+<p class="text-3xl font-extrabold font-headline mt-1">1,062</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_20px_40px_rgba(0,74,198,0.03)] border border-transparent hover:border-primary/10 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 rounded-xl bg-error/10 text-error group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">alarm_off</span>
+</div>
+<span class="text-[10px] font-bold text-error-container bg-error px-2 py-1 rounded-full">Crítico</span>
+</div>
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">Atrasos</p>
+<p class="text-3xl font-extrabold font-headline mt-1">14</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_20px_40px_rgba(0,74,198,0.03)] border border-transparent hover:border-primary/10 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 rounded-xl bg-tertiary/10 text-tertiary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pending_actions</span>
+</div>
+<span class="text-[10px] font-bold text-on-tertiary-fixed-variant bg-tertiary-fixed px-2 py-1 rounded-full">Aguardando</span>
+</div>
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">Pendências</p>
+<p class="text-3xl font-extrabold font-headline mt-1">38</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Weekly Activity Chart -->
+<div class="lg:col-span-1 bg-surface-container-lowest p-8 rounded-xl shadow-[0_20px_40px_rgba(0,74,198,0.03)]">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-bold text-lg font-headline">Atividade Semanal</h3>
+<button class="text-primary text-xs font-bold hover:underline">Ver Detalhes</button>
+</div>
+<div class="h-64 flex items-end justify-between gap-2 px-2">
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="bg-surface-container w-full rounded-t-lg transition-all hover:bg-primary/40" style="height: 60%"></div>
+<span class="text-[10px] font-bold text-on-surface-variant">SEG</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="bg-surface-container w-full rounded-t-lg transition-all hover:bg-primary/40" style="height: 85%"></div>
+<span class="text-[10px] font-bold text-on-surface-variant">TER</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="bg-primary-container w-full rounded-t-lg shadow-lg" style="height: 95%"></div>
+<span class="text-[10px] font-bold text-primary font-extrabold">QUA</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="bg-surface-container w-full rounded-t-lg transition-all hover:bg-primary/40" style="height: 75%"></div>
+<span class="text-[10px] font-bold text-on-surface-variant">QUI</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="bg-surface-container w-full rounded-t-lg transition-all hover:bg-primary/40" style="height: 40%"></div>
+<span class="text-[10px] font-bold text-on-surface-variant">SEX</span>
+</div>
+</div>
+<div class="mt-8 p-4 rounded-xl bg-surface-container-low">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary pulse"></div>
+<p class="text-xs font-semibold">Pico de atividade: <span class="text-primary">10:15 AM</span></p>
+</div>
+</div>
+</div>
+<!-- Recent Punch-ins Table -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-8 rounded-xl shadow-[0_20px_40px_rgba(0,74,198,0.03)] overflow-hidden">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-bold text-lg font-headline">Marcações Recentes</h3>
+<div class="flex gap-2">
+<button class="px-4 py-2 text-xs font-bold border border-outline-variant rounded-lg hover:bg-surface-container-low transition-colors">Exportar CSV</button>
+<button class="px-4 py-2 text-xs font-bold bg-primary text-white rounded-lg hover:opacity-90 transition-opacity">Nova Marcação</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">
+<th class="pb-4 pr-4">Funcionário</th>
+<th class="pb-4 px-4">Horário</th>
+<th class="pb-4 px-4">Tipo</th>
+<th class="pb-4 px-4">Status</th>
+<th class="pb-4 px-4 text-center">Verificação</th>
+</tr>
+</thead>
+<tbody class="text-sm">
+<tr class="group border-b border-surface-container-low last:border-0 hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 pr-4">
+<div class="flex items-center gap-3">
+<img alt="Ana Silva" class="w-8 h-8 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDYIhkHgJXHvz5dHrFLg7PF4FcrL9q3zPRUCBCflZotiDxCwILdt4MPWpHIC1a1pZaRRgkFauOM6Z2DxYuGzL31qeM5GO8eE0WDuREqqDSaUEeDCiNqByUgFpm70qVC4D295FPFPEfUj63klDtzCWV07TkT8Am_vkPdntc4X_9NCsxXReh8zSaxs4TsSledcVGeG7YOft6V6XawZMS9OO1jAGCQ9syaALC_MswW-3IV0yPk6XKduZ8Am6mxb-SMZl5BdGWUUfDFUs"/>
+<div>
+<p class="font-bold">Ana Silva</p>
+<p class="text-[10px] text-on-surface-variant font-medium">ID: 4529</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-4 font-semibold text-on-surface">08:02:14</td>
+<td class="py-4 px-4">
+<span class="flex items-center gap-1.5 text-xs font-bold text-primary">
+<span class="material-symbols-outlined text-sm">login</span>
+                                        Entrada
+                                    </span>
+</td>
+<td class="py-4 px-4">
+<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-surface-container-highest text-on-tertiary-fixed-variant">No Horário</span>
+</td>
+<td class="py-4 px-4 text-center">
+<button class="p-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">photo_camera</span>
+</button>
+</td>
+</tr>
+<tr class="group border-b border-surface-container-low last:border-0 hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 pr-4">
+<div class="flex items-center gap-3">
+<img alt="Marcos Oliveira" class="w-8 h-8 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLuqVCoE9cALVaztyn1yaPoPVAc0a9Xx1LvIA8rDuLEtYr1WT6abaq3XksIbuitvGOYoZOo-6rhwUD_GkVmfxFUP9MzUcbR3sDhLe4C3h5cofyKlS1jkSf7oi1RzCAR0JOlzv-a7rpBqOfUx_MkQ0LL0rM0hR5zzEkgTIy15_GN8q2u9r8k3DSCn3s-r0bQAVZwphVsWD_LuDo5JTgfhsJOpywXXzswrThK246Lpo2UDO1glHnXSTm592NOrRHIq5FKEwuUxDsDvQ"/>
+<div>
+<p class="font-bold">Marcos Oliveira</p>
+<p class="text-[10px] text-on-surface-variant font-medium">ID: 4531</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-4 font-semibold text-on-surface">08:15:45</td>
+<td class="py-4 px-4">
+<span class="flex items-center gap-1.5 text-xs font-bold text-primary">
+<span class="material-symbols-outlined text-sm">login</span>
+                                        Entrada
+                                    </span>
+</td>
+<td class="py-4 px-4">
+<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-error-container text-error">Atraso</span>
+</td>
+<td class="py-4 px-4 text-center">
+<button class="p-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">photo_camera</span>
+</button>
+</td>
+</tr>
+<tr class="group border-b border-surface-container-low last:border-0 hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 pr-4">
+<div class="flex items-center gap-3">
+<img alt="Julia Mendonça" class="w-8 h-8 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-AdwC5WhPiMgjvvirQDbYtYJmPGR7HKNoGtplqK9iKqVoWnYpVGgQzHdleXkeLuHbkAUcrGaPqm-0S8QpzRlZVE0QOkz9_kOUmAA4U7rk3EgIMN8F7AapnkLxCeNU_-toq0kXsuS5kTWW1YaD79pcm1ICI3u_XWtmMTUuXQ4xP5WW518TOe7m0EtmeT-u2Qduty0Q6Dh0VEOK8_g_MkqO5boNoVD32K_HFwRb3_bN511hTpPVoHvWu8FRbdtzkqfYmYg_U8eVLnw"/>
+<div>
+<p class="font-bold">Julia Mendonça</p>
+<p class="text-[10px] text-on-surface-variant font-medium">ID: 4535</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-4 font-semibold text-on-surface">09:00:02</td>
+<td class="py-4 px-4">
+<span class="flex items-center gap-1.5 text-xs font-bold text-tertiary">
+<span class="material-symbols-outlined text-sm">logout</span>
+                                        Saída
+                                    </span>
+</td>
+<td class="py-4 px-4">
+<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-surface-container-highest text-on-tertiary-fixed-variant">No Horário</span>
+</td>
+<td class="py-4 px-4 text-center">
+<button class="p-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">photo_camera</span>
+</button>
+</td>
+</tr>
+<tr class="group border-b border-surface-container-low last:border-0 hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 pr-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center font-bold text-secondary text-xs">RM</div>
+<div>
+<p class="font-bold">Ricardo Mello</p>
+<p class="text-[10px] text-on-surface-variant font-medium">ID: 4538</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-4 font-semibold text-on-surface">09:12:30</td>
+<td class="py-4 px-4">
+<span class="flex items-center gap-1.5 text-xs font-bold text-primary">
+<span class="material-symbols-outlined text-sm">login</span>
+                                        Entrada
+                                    </span>
+</td>
+<td class="py-4 px-4">
+<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-tertiary-fixed text-on-tertiary-fixed-variant">Justificado</span>
+</td>
+<td class="py-4 px-4 text-center">
+<button class="p-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">photo_camera</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- FAB for Quick Actions -->
+<button class="fixed bottom-8 right-8 w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary-container text-white shadow-[0_20px_40px_rgba(0,74,198,0.3)] flex items-center justify-center group hover:scale-110 active:scale-95 transition-all duration-200">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-90 transition-transform">add</span>
+</button>
+</main>
+</body></html>

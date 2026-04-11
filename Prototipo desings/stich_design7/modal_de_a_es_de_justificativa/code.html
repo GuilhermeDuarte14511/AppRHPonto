@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PontoPrecise - Justificativas</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e0e3e5",
+                        "secondary": "#3755c3",
+                        "on-surface-variant": "#434655",
+                        "secondary-fixed": "#dde1ff",
+                        "primary-fixed": "#dbe1ff",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#00174b",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-container-low": "#f2f4f6",
+                        "on-secondary-container": "#00217a",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "background": "#f7f9fb",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-bright": "#f7f9fb",
+                        "surface": "#f7f9fb",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-tertiary-fixed": "#360f00",
+                        "outline": "#737686",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "inverse-on-surface": "#eff1f3",
+                        "tertiary-container": "#bc4800",
+                        "secondary-container": "#708cfd",
+                        "outline-variant": "#c3c6d7",
+                        "surface-container": "#eceef0",
+                        "on-tertiary-container": "#ffede6",
+                        "on-secondary-fixed": "#001453",
+                        "on-primary-container": "#eeefff",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#b4c5ff",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-background": "#191c1e",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d8dadc",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#173bab",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#943700",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "surface-tint": "#0053db",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#2563eb",
+                        "primary": "#004ac6",
+                        "inverse-surface": "#2d3133",
+                        "secondary-fixed-dim": "#b8c4ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-glow {
+            box-shadow: 0 4px 12px rgba(0, 74, 198, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-surface-container-low flex flex-col py-6 px-4 gap-2 z-50">
+<div class="flex items-center gap-3 px-2 mb-8">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">precision_manufacturing</span>
+</div>
+<div>
+<h1 class="text-xl font-bold tracking-tighter text-blue-600 dark:text-blue-400 font-headline">PontoPrecise</h1>
+<p class="text-[10px] font-medium uppercase tracking-widest text-on-surface-variant/60">HR Intelligence</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors duration-200 rounded-lg group cursor-pointer">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium tracking-tight">Dashboard</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors duration-200 rounded-lg group cursor-pointer">
+<span class="material-symbols-outlined">badge</span>
+<span class="text-sm font-medium tracking-tight">Funcionários</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors duration-200 rounded-lg group cursor-pointer">
+<span class="material-symbols-outlined">timer</span>
+<span class="text-sm font-medium tracking-tight">Marcações</span>
+</div>
+<!-- Active Tab: Justificativas -->
+<div class="flex items-center gap-3 px-3 py-2.5 text-blue-700 font-semibold bg-white rounded-lg shadow-sm active-nav-glow cursor-default">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">fact_check</span>
+<span class="text-sm font-medium tracking-tight">Justificativas</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors duration-200 rounded-lg group cursor-pointer">
+<span class="material-symbols-outlined">event_available</span>
+<span class="text-sm font-medium tracking-tight">Férias</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors duration-200 rounded-lg group cursor-pointer">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm font-medium tracking-tight">Analytics</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors duration-200 rounded-lg group cursor-pointer">
+<span class="material-symbols-outlined">calendar_view_day</span>
+<span class="text-sm font-medium tracking-tight">Escalas</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors duration-200 rounded-lg group cursor-pointer">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-medium tracking-tight">Folha</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors duration-200 rounded-lg group cursor-pointer">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium tracking-tight">Documentos</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors duration-200 rounded-lg group cursor-pointer">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="text-sm font-medium tracking-tight">Auditoria</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors duration-200 rounded-lg group cursor-pointer mt-auto">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium tracking-tight">Configurações</span>
+</div>
+</nav>
+<button class="mt-6 w-full py-3 bg-gradient-to-r from-primary to-primary-container text-on-primary rounded-xl font-semibold text-sm flex items-center justify-center gap-2 shadow-lg shadow-primary/20 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined text-[20px]">alarm_add</span>
+            Clock In
+        </button>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen relative">
+<!-- Top Navigation -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 z-40 bg-white/80 backdrop-blur-xl flex items-center justify-between px-8 shadow-sm">
+<div class="flex items-center flex-1">
+<div class="relative w-96 group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary-fixed outline-none transition-all" placeholder="Pesquisar justificativas..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-all active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-all active:scale-95">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-8 w-px bg-outline-variant/30 mx-2"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right">
+<p class="text-sm font-bold leading-none">Adriano Souza</p>
+<p class="text-[10px] text-on-surface-variant font-medium">HR Manager</p>
+</div>
+<img alt="User Avatar" class="w-10 h-10 rounded-full border-2 border-white shadow-sm object-cover" data-alt="Professional headshot of a smiling man with neat hair and a clean-shaven face in soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8WOawUc28V4FOz5ymQQpRe5ozIXUTopiv38mwlKOmWDO7pnzmWba4UpZoocAo7UGjLp0hjlCYP-TMZG0FbG8aoIJEDhKvUJcK9yKe_eKcLfnYGZmWF3H_4Ln9NUm_AdoZ-cYWd8pqBbmuf9aAB4Bkwfqfvw-iElbs1AJgYF9JXAVnfzzHnzp3AoymPp7Gl5_LCIqrPar88Y8Dg9JfeHbiO3gdZ4iKbzZzma2WNggrWYIiQY0U9tGtXvRmGuoUPrtcqYzGrLKADgI"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="pt-24 px-8 pb-12 max-w-[1440px] mx-auto">
+<div class="flex items-end justify-between mb-10">
+<div>
+<h2 class="text-3xl font-extrabold tracking-tight font-headline text-on-surface mb-2">Painel de Justificativas</h2>
+<p class="text-on-surface-variant text-sm flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                        Você tem 8 solicitações pendentes de revisão hoje.
+                    </p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 text-sm font-semibold text-primary hover:bg-primary-fixed/30 transition-colors rounded-xl flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+                        Filtros Avançados
+                    </button>
+<button class="px-6 py-2.5 bg-surface-container-lowest text-on-surface font-semibold text-sm rounded-xl border border-outline-variant/10 shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                        Relatório CSV
+                    </button>
+</div>
+</div>
+<!-- Bento Grid - Justifications List -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Background Content Card 1 -->
+<div class="md:col-span-2 bg-surface-container-lowest rounded-full p-8 transition-all">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-bold font-headline text-lg">Solicitações Recentes</h3>
+<div class="flex gap-1">
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Todos</span>
+<span class="px-3 py-1 rounded-full bg-primary-fixed text-[11px] font-bold uppercase tracking-wider text-primary">Pendentes</span>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Table Row Item -->
+<div class="group flex items-center p-4 hover:bg-surface-container-low rounded-2xl transition-all cursor-pointer">
+<img class="w-12 h-12 rounded-xl object-cover mr-4" data-alt="Close-up portrait of a woman with vibrant expression and long hair, bright natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsj7DAUwoulGii5cjiJF_vlnlp4FoxXOw7fd-SQTOAYS2P6lR9E4-Ei6NO6QaEGfid6XTvrH-Pur_dk45mIf0cNHFlI5APBwTyaCxCCm50UmC5FksO5IqZ6rGQz2kpS627p5Dhf3aTNgDH8C264Da4GnNMIPE1QoKJ87c6ta7HKEnIUqZmOHZVk0NNPyVCJSX_FingZzSbEo1bTs0BUk8zev_ymzpkk-pcpT7N48Xm_RknwcJOhDoyYJOe3KrB2kDEqFCHkT6kAyw"/>
+<div class="flex-1">
+<p class="font-bold text-sm text-on-surface">Beatriz Oliveira</p>
+<p class="text-xs text-on-surface-variant">Marketing • Há 2 horas</p>
+</div>
+<div class="text-right mr-8">
+<p class="text-xs font-semibold text-on-surface-variant">Esquecimento de registro</p>
+<p class="text-[10px] text-outline uppercase tracking-wider">12 Set 2023</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+<div class="group flex items-center p-4 hover:bg-surface-container-low rounded-2xl transition-all cursor-pointer">
+<img class="w-12 h-12 rounded-xl object-cover mr-4" data-alt="Professional man wearing glasses and a business casual shirt, neutral grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBo10OZDHZMXHAK9usvEM6a6_DJgaoNb0O0LT11-i6Ovb4FcrCf5lerNNVL_lM6zzYlGEKNqGydx6_5eko_i3rez491v4WMEJDhnyHM7-GT4wzn1ZACxLDXjlui2QdFqz1V1H6Ly3YqpZcQ6OIUwLJRHbvF1FVlMnrPL5-_V6c6aN5e4XPq3JinWd0BvG0PV39fDOsVQCl45QVU1XQS2gC-YtqSDcvTH5HloQ5c0HJNvFK8xw7vQV06GMAWO79R9iStbQvx7iITwxw"/>
+<div class="flex-1">
+<p class="font-bold text-sm text-on-surface">Marcos Vinícius</p>
+<p class="text-xs text-on-surface-variant">Engenharia • Há 4 horas</p>
+</div>
+<div class="text-right mr-8">
+<p class="text-xs font-semibold text-on-surface-variant">Visita Técnica Externa</p>
+<p class="text-[10px] text-outline uppercase tracking-wider">11 Set 2023</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Stats Side Column -->
+<div class="space-y-6">
+<div class="bg-primary text-on-primary p-8 rounded-full shadow-2xl shadow-primary/20 relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-xs font-medium uppercase tracking-[0.2em] opacity-80 mb-1">Aprovação Mensal</p>
+<h4 class="text-4xl font-extrabold font-headline mb-4">94.2%</h4>
+<div class="w-full bg-white/20 h-1.5 rounded-full overflow-hidden">
+<div class="bg-white h-full w-[94%]"></div>
+</div>
+</div>
+<span class="material-symbols-outlined absolute -right-4 -bottom-4 text-9xl opacity-10 rotate-12">verified</span>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-full">
+<h4 class="font-bold font-headline mb-4">Motivos Frequentes</h4>
+<div class="space-y-3">
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant">Problemas Técnicos</span>
+<span class="font-bold">42%</span>
+</div>
+<div class="w-full bg-surface-container-low h-1 rounded-full">
+<div class="bg-secondary h-full w-[42%]"></div>
+</div>
+<div class="flex justify-between items-center text-sm mt-4">
+<span class="text-on-surface-variant">Saúde/Médico</span>
+<span class="font-bold">28%</span>
+</div>
+<div class="w-full bg-surface-container-low h-1 rounded-full">
+<div class="bg-tertiary h-full w-[28%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- MODAL OVERLAY -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-inverse-surface/40 backdrop-blur-md">
+<div class="bg-white w-full max-w-lg rounded-full overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.15)] animate-in fade-in zoom-in duration-300">
+<!-- Modal Header -->
+<div class="px-8 pt-8 pb-6 flex items-start justify-between">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full bg-primary-fixed/50 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">fact_check</span>
+</div>
+<div>
+<h3 class="text-xl font-extrabold font-headline text-on-surface">Análise de Justificativa</h3>
+<p class="text-sm text-on-surface-variant">ID Solicitação: #JS-98234</p>
+</div>
+</div>
+<button class="p-2 hover:bg-surface-container rounded-full text-outline transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Modal Content -->
+<div class="px-8 pb-8">
+<!-- Employee Brief -->
+<div class="flex items-center gap-3 mb-6 p-4 bg-surface-container-low rounded-2xl">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Professional portrait of a man with short dark hair and a confident expression in clear daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHEa9oMtzyNURAyYZaScE9Ya-uxoDHo4MM--hQ9Gy9Y2jF1gMK4brqhsf3KEiYTNIsOmoRVqQxc7s8VYP1VFqUO1XErmPrvT1EKGQSftD4Y3hpb-cOj2zlZOEVD9HArDjyKTvK6ytgk2wKQ6eZdqIyFUhTYwWACLJTPLDgL41BYwDwTOk97f8761-BykUucL8D7RaoOapKLl62sBxp_rvQbO_QWbMTm-seUsJ1R1CJcy5fhWRTMRPV5_-5ZPPBmAlkFZ0tA2mB77U"/>
+<div>
+<p class="text-sm font-bold">Ricardo Alencar</p>
+<p class="text-[10px] text-on-surface-variant font-medium uppercase tracking-wider">Desenvolvedor Sênior • TI</p>
+</div>
+</div>
+<!-- Justification Details Card -->
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div class="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/20">
+<p class="text-[10px] text-outline uppercase font-bold tracking-widest mb-1">Data</p>
+<p class="font-bold text-sm text-on-surface">14 de Setembro, 2023</p>
+</div>
+<div class="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/20">
+<p class="text-[10px] text-outline uppercase font-bold tracking-widest mb-1">Situação</p>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-error-container text-on-error-container">FALTA DE REGISTRO</span>
+</div>
+<div class="p-4 rounded-2xl bg-surface-container-low">
+<p class="text-[10px] text-outline uppercase font-bold tracking-widest mb-1">Horário Original</p>
+<p class="font-bold text-sm text-on-surface/50 line-through">--:--</p>
+</div>
+<div class="p-4 rounded-2xl bg-primary-fixed/20 border border-primary-fixed">
+<p class="text-[10px] text-primary uppercase font-bold tracking-widest mb-1">Horário Sugerido</p>
+<p class="font-bold text-sm text-primary">09:00 - 18:30</p>
+</div>
+</div>
+<div class="mb-6">
+<p class="text-[10px] text-outline uppercase font-bold tracking-widest mb-2 px-1">Motivo da Justificativa</p>
+<div class="p-4 bg-surface-container-low rounded-2xl text-sm text-on-surface-variant italic leading-relaxed">
+                            "Houve uma queda de energia no prédio durante o horário de entrada, o que impediu o funcionamento do relógio biométrico. O serviço foi restabelecido apenas às 10h30."
+                        </div>
+</div>
+<!-- Rejection Input Area -->
+<div class="mb-8">
+<label class="block text-[10px] text-outline uppercase font-bold tracking-widest mb-2 px-1">Motivo da Rejeição <span class="text-error">*</span></label>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-error/20 focus:border-error outline-none transition-all resize-none h-24" placeholder="Caso decida rejeitar, explique o motivo para o colaborador..."></textarea>
+</div>
+<!-- Action Buttons -->
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-2 py-4 rounded-2xl bg-surface-container-low text-error hover:bg-error-container/30 font-bold transition-all active:scale-[0.97]">
+<span class="material-symbols-outlined text-[20px]">close</span>
+                            Rejeitar Justificativa
+                        </button>
+<button class="flex items-center justify-center gap-2 py-4 rounded-2xl bg-gradient-to-br from-[#10b981] to-[#059669] text-white font-bold shadow-lg shadow-emerald-500/20 transition-all active:scale-[0.97]">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+                            Aprovar Justificativa
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

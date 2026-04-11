@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Editar Perfil | PontoPrecise</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container": "#eceef0",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "inverse-primary": "#b4c5ff",
+                        "on-secondary-fixed-variant": "#173bab",
+                        "background": "#f7f9fb",
+                        "on-secondary-fixed": "#001453",
+                        "tertiary": "#943700",
+                        "secondary-fixed-dim": "#b8c4ff",
+                        "primary-fixed": "#dbe1ff",
+                        "outline": "#737686",
+                        "on-surface-variant": "#434655",
+                        "surface-container-low": "#f2f4f6",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#f7f9fb",
+                        "surface-tint": "#0053db",
+                        "primary-container": "#2563eb",
+                        "on-primary": "#ffffff",
+                        "surface": "#f7f9fb",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "primary": "#004ac6",
+                        "on-tertiary-fixed": "#360f00",
+                        "inverse-surface": "#2d3133",
+                        "on-background": "#191c1e",
+                        "tertiary-container": "#bc4800",
+                        "secondary": "#3755c3",
+                        "surface-variant": "#e0e3e5",
+                        "secondary-container": "#708cfd",
+                        "on-surface": "#191c1e",
+                        "on-secondary-container": "#00217a",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#00174b",
+                        "secondary-fixed": "#dde1ff",
+                        "surface-dim": "#d8dadc",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#eeefff",
+                        "on-tertiary-container": "#ffede6",
+                        "surface-container-high": "#e6e8ea",
+                        "outline-variant": "#c3c6d7",
+                        "surface-container-highest": "#e0e3e5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-stacking {
+            transition: background-color 0.2s ease;
+        }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        input:focus {
+            box-shadow: 0 0 0 2px #dbe1ff;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-slate-50 flex flex-col py-6 px-4 z-50">
+<div class="mb-10 px-2">
+<h1 class="text-xl font-bold tracking-tight text-slate-900 font-headline">PontoPrecise</h1>
+<p class="text-xs font-medium font-label text-slate-500 uppercase tracking-widest mt-1">Administrador</p>
+</div>
+<nav class="flex-1 space-y-1">
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-full cursor-pointer group">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="text-xs font-medium font-label">Dashboard</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-blue-600 font-bold hover:bg-slate-200 transition-colors duration-200 rounded-full cursor-pointer group">
+<span class="material-symbols-outlined text-xl">badge</span>
+<span class="text-xs font-medium font-label">Funcionários</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-full cursor-pointer group">
+<span class="material-symbols-outlined text-xl">domain</span>
+<span class="text-xs font-medium font-label">Departamentos</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-full cursor-pointer group">
+<span class="material-symbols-outlined text-xl">schedule</span>
+<span class="text-xs font-medium font-label">Marcações</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-full cursor-pointer group">
+<span class="material-symbols-outlined text-xl">edit_note</span>
+<span class="text-xs font-medium font-label">Justificativas</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-full cursor-pointer group">
+<span class="material-symbols-outlined text-xl">beach_access</span>
+<span class="text-xs font-medium font-label">Férias</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-full cursor-pointer group">
+<span class="material-symbols-outlined text-xl">analytics</span>
+<span class="text-xs font-medium font-label">Analytics</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-full cursor-pointer group">
+<span class="material-symbols-outlined text-xl">calendar_view_day</span>
+<span class="text-xs font-medium font-label">Escalas</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-full cursor-pointer group">
+<span class="material-symbols-outlined text-xl">payments</span>
+<span class="text-xs font-medium font-label">Folha</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-full cursor-pointer group">
+<span class="material-symbols-outlined text-xl">description</span>
+<span class="text-xs font-medium font-label">Documentos</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-full cursor-pointer group">
+<span class="material-symbols-outlined text-xl">history_edu</span>
+<span class="text-xs font-medium font-label">Auditoria</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-full cursor-pointer group">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="text-xs font-medium font-label">Configurações</span>
+</div>
+</nav>
+<div class="mt-8 pt-6 border-t border-slate-200">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-white py-3 rounded-full font-bold text-sm tracking-tight shadow-lg shadow-primary/20 active:scale-95 transition-all">
+                Bater Ponto
+            </button>
+<div class="mt-6 space-y-1">
+<div class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-slate-200 rounded-full cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-xl">help</span>
+<span class="text-xs font-medium font-label">Suporte</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-slate-200 rounded-full cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-xl">logout</span>
+<span class="text-xs font-medium font-label">Sair</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-40 glass-header flex justify-between items-center h-16 px-8 ml-64">
+<div class="flex items-center flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary-fixed outline-none" placeholder="Pesquisar funcionário..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-surface-container rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">apps</span>
+</button>
+<div class="flex items-center gap-3 ml-2 pl-4 border-l border-slate-200">
+<div class="text-right">
+<p class="text-sm font-bold font-headline text-slate-900 leading-none">Admin User</p>
+<p class="text-[10px] font-medium text-slate-500 font-label uppercase">Recursos Humanos</p>
+</div>
+<img alt="Administrator Profile" class="w-9 h-9 rounded-full object-cover" data-alt="professional male administrator in business attire with neutral expression studio portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB351LEW6MYM5ND1suVHOzWKpTgKs1KHFcjKsZ1w-rcbpxRq_ViNLF7Thf4VcO5vAkkIGxpX0E8JAEbwrLIF7XRiVqaVNoXesANJ82PXrl9S1HQqGJoW-cgzJWFvGZe--p72iStOIk-GV9hwwv7E8jdygNWms8X7Ep3e4HBcZWyJ22IRYbWgudKILw6GOvokcD6cZK4s-mCB4c1x0gDxUunFhPJ7cz0_oAfgmPHiJOnqhWttCELyI3IRXYx0J3wwsX7fVj8SWEuNig"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-24 pb-12 px-8 min-h-screen bg-background">
+<div class="max-w-5xl mx-auto">
+<!-- Header Section -->
+<div class="flex items-end justify-between mb-8">
+<div>
+<nav class="flex items-center gap-2 text-xs font-label text-slate-500 mb-2">
+<span>Funcionários</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-primary font-semibold">Editar Perfil</span>
+</nav>
+<h2 class="text-3xl font-extrabold font-headline text-slate-900 tracking-tight">Editar Perfil</h2>
+<p class="text-on-surface-variant mt-1 text-sm">Atualize as informações cadastrais do colaborador no sistema.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2.5 rounded-full text-sm font-bold text-slate-600 hover:bg-surface-container transition-colors active:scale-95">Descartar</button>
+<button class="px-8 py-2.5 rounded-full text-sm font-bold text-white bg-gradient-to-br from-primary to-primary-container shadow-lg shadow-primary/20 active:scale-95 transition-all">Salvar Alterações</button>
+</div>
+</div>
+<!-- Profile Overview Bento Card -->
+<div class="grid grid-cols-12 gap-6 mb-8">
+<div class="col-span-4 bg-surface-container-lowest p-8 rounded-full flex flex-col items-center justify-center text-center">
+<div class="relative mb-4">
+<img class="w-32 h-32 rounded-full object-cover border-4 border-surface-container shadow-sm" data-alt="professional middle aged male collaborator smiling friendly portrait clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDB7cBmsv-3M3Cpl2d7PirOai0IOj5d9ZnwC10yR9VSa8fhGcPf1RwW33MMtFDZuZAyERa2p9iB9wn-XBY1Em8Z7v379Vwu0iA8tlPdzFECzDUF-vDZPrRK8rI1TjXI1B-BI6sxmZcRjHK9jmxSZAmTH6qzfWOmmAX4NAMykGaxIiY1l9pp_APZFi8_nfsLJuwHTmZmtOjufecidNcqPftvMD4Ich0ABYz6HGpP0qZV48skkfYNCHcqc5L94vC3thQk5TFMuNn3Y9Q"/>
+<button class="absolute bottom-0 right-0 bg-primary text-white p-2 rounded-full shadow-lg border-4 border-white hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-lg">photo_camera</span>
+</button>
+</div>
+<h3 class="font-headline font-bold text-xl text-slate-900">Ricardo Almeida</h3>
+<p class="text-sm font-medium text-slate-500 mb-4 font-label">Analista de Sistemas Sênior</p>
+<div class="bg-surface-container-low rounded-xl px-4 py-2 flex items-center gap-2">
+<span class="w-2 h-2 bg-green-500 rounded-full"></span>
+<span class="text-xs font-bold text-slate-600 uppercase tracking-tight">Ativo</span>
+</div>
+</div>
+<div class="col-span-8 grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-6 rounded-full flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-primary mb-2">calendar_today</span>
+<p class="text-xs font-label text-slate-500 uppercase">Admissão</p>
+<p class="text-lg font-bold font-headline text-slate-900">12 Abr 2019</p>
+</div>
+<p class="text-[10px] text-slate-400 font-medium mt-2">4 anos e 8 meses de empresa</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-full flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-tertiary mb-2">verified_user</span>
+<p class="text-xs font-label text-slate-500 uppercase">Nível de Acesso</p>
+<p class="text-lg font-bold font-headline text-slate-900">Colaborador</p>
+</div>
+<p class="text-[10px] text-slate-400 font-medium mt-2">Permissões padrão de registro</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-full flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-secondary mb-2">apartment</span>
+<p class="text-xs font-label text-slate-500 uppercase">Unidade</p>
+<p class="text-lg font-bold font-headline text-slate-900">Matriz - SP</p>
+</div>
+<p class="text-[10px] text-slate-400 font-medium mt-2">Prédio Principal, 4º Andar</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-full flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-blue-400 mb-2">work_history</span>
+<p class="text-xs font-label text-slate-500 uppercase">Carga Horária</p>
+<p class="text-lg font-bold font-headline text-slate-900">44h / Semanal</p>
+</div>
+<p class="text-[10px] text-slate-400 font-medium mt-2">Regime CLT Flex</p>
+</div>
+</div>
+</div>
+<!-- Sections Container -->
+<div class="space-y-6">
+<!-- Dados Pessoais Section -->
+<section class="bg-surface-container-lowest p-8 rounded-full">
+<div class="flex items-center gap-4 mb-8">
+<div class="p-3 bg-primary-fixed rounded-xl text-primary">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<h4 class="text-lg font-bold font-headline text-slate-900 leading-tight">Dados Pessoais</h4>
+<p class="text-sm text-slate-500">Informações de identificação e contato.</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-x-8 gap-y-6">
+<div class="space-y-2">
+<label class="text-xs font-bold font-label text-slate-600 uppercase ml-1">Nome Completo</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary-fixed outline-none transition-all" type="text" value="Ricardo Almeida"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold font-label text-slate-600 uppercase ml-1">E-mail Corporativo</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary-fixed outline-none transition-all" type="email" value="ricardo.almeida@pontoprecise.com"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold font-label text-slate-600 uppercase ml-1">CPF</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary-fixed outline-none transition-all" type="text" value="324.556.789-01"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold font-label text-slate-600 uppercase ml-1">Telefone</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary-fixed outline-none transition-all" type="text" value="(11) 98765-4321"/>
+</div>
+</div>
+</section>
+<!-- Informações Profissionais Section -->
+<section class="bg-surface-container-lowest p-8 rounded-full">
+<div class="flex items-center gap-4 mb-8">
+<div class="p-3 bg-secondary-fixed rounded-xl text-secondary">
+<span class="material-symbols-outlined">work</span>
+</div>
+<div>
+<h4 class="text-lg font-bold font-headline text-slate-900 leading-tight">Informações Profissionais</h4>
+<p class="text-sm text-slate-500">Dados contratuais e alocação organizacional.</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-x-8 gap-y-6">
+<div class="space-y-2 col-span-2">
+<label class="text-xs font-bold font-label text-slate-600 uppercase ml-1">Departamento</label>
+<div class="relative group">
+<select class="w-full appearance-none bg-surface-container border-2 border-transparent group-hover:border-primary-fixed rounded-xl px-4 py-4 text-sm font-bold text-slate-900 focus:ring-4 focus:ring-primary-fixed/20 outline-none transition-all cursor-pointer">
+<option>Tecnologia e Desenvolvimento</option>
+<option>Recursos Humanos</option>
+<option>Comercial e Vendas</option>
+<option>Financeiro</option>
+<option>Marketing</option>
+<option>Operações</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">unfold_more</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold font-label text-slate-600 uppercase ml-1">Cargo</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary-fixed outline-none transition-all" type="text" value="Analista de Sistemas Sênior"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold font-label text-slate-600 uppercase ml-1">Matrícula</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary-fixed outline-none transition-all" type="text" value="PP-98231"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold font-label text-slate-600 uppercase ml-1">Tipo de Contrato</label>
+<select class="w-full appearance-none bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary-fixed outline-none transition-all cursor-pointer">
+<option>CLT (Tempo Integral)</option>
+<option>PJ</option>
+<option>Estágio</option>
+<option>Temporário</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold font-label text-slate-600 uppercase ml-1">Gestor Direto</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary-fixed outline-none transition-all" type="text" value="Mariana Costa"/>
+</div>
+</div>
+</section>
+<!-- Configurações de Acesso Section -->
+<section class="bg-surface-container-lowest p-8 rounded-full">
+<div class="flex items-center gap-4 mb-8">
+<div class="p-3 bg-tertiary-fixed rounded-xl text-tertiary">
+<span class="material-symbols-outlined">lock</span>
+</div>
+<div>
+<h4 class="text-lg font-bold font-headline text-slate-900 leading-tight">Configurações de Acesso</h4>
+<p class="text-sm text-slate-500">Controle de credenciais e segurança da conta.</p>
+</div>
+</div>
+<div class="space-y-6">
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-500">password</span>
+<div>
+<p class="text-sm font-bold text-slate-900">Redefinir Senha</p>
+<p class="text-[10px] text-slate-500 font-medium">O colaborador receberá um link de redefinição por e-mail.</p>
+</div>
+</div>
+<button class="text-primary text-xs font-bold font-label hover:underline">Solicitar agora</button>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-500">security</span>
+<div>
+<p class="text-sm font-bold text-slate-900">Autenticação em Dois Fatores (2FA)</p>
+<p class="text-[10px] text-slate-500 font-medium">Atualmente habilitado via SMS.</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-500">history</span>
+<div>
+<p class="text-sm font-bold text-slate-900">Log de Atividades</p>
+<p class="text-[10px] text-slate-500 font-medium">Visualizar histórico de logins e alterações.</p>
+</div>
+</div>
+<button class="px-4 py-1.5 bg-white rounded-full text-[10px] font-bold text-slate-600 border border-slate-200 hover:bg-slate-50 transition-colors">Visualizar</button>
+</div>
+</div>
+</section>
+<!-- Status and History Small Grid -->
+<div class="grid grid-cols-2 gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-full border-2 border-transparent hover:border-primary-fixed transition-colors">
+<h5 class="text-xs font-bold font-label text-slate-500 uppercase mb-4">Metadados do Registro</h5>
+<div class="space-y-3">
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">Criado em:</span>
+<span class="font-bold text-slate-900">12/04/2019 - 09:32</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">Última atualização:</span>
+<span class="font-bold text-slate-900">Hoje às 14:15 por Admin</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">ID do Sistema:</span>
+<span class="font-mono text-slate-400">USR_9921_ALM</span>
+</div>
+</div>
+</div>
+<div class="bg-error-container/10 border-2 border-error/5 p-6 rounded-full flex items-center justify-between">
+<div>
+<h5 class="text-xs font-bold font-label text-error uppercase mb-1">Zona de Perigo</h5>
+<p class="text-[10px] text-slate-500 font-medium max-w-[200px]">Desativar este colaborador removerá seu acesso imediato ao sistema.</p>
+</div>
+<button class="px-5 py-2 bg-error text-white text-[10px] font-bold rounded-full hover:bg-red-700 transition-colors">Desativar Funcionário</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Feedback (Optional logic visual) -->
+<div class="fixed bottom-8 right-8 flex flex-col items-end gap-3 pointer-events-none">
+<div class="bg-white/90 backdrop-blur-md shadow-2xl p-4 rounded-full border border-slate-100 flex items-center gap-3 opacity-0 translate-y-4">
+<div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<p class="text-xs font-bold text-slate-900 pr-2">Alterações salvas com sucesso!</p>
+</div>
+</div>
+</body></html>

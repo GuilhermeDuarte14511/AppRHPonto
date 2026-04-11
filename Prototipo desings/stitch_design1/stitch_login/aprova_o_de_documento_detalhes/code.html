@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#b8c4ff",
+                        "surface-variant": "#e0e3e5",
+                        "on-primary-fixed": "#00174b",
+                        "primary-container": "#2563eb",
+                        "on-primary-container": "#eeefff",
+                        "outline": "#737686",
+                        "surface-container": "#eceef0",
+                        "secondary-fixed": "#dde1ff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-secondary-container": "#00217a",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#d8dadc",
+                        "background": "#f7f9fb",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-background": "#191c1e",
+                        "on-surface-variant": "#434655",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#001453",
+                        "inverse-surface": "#2d3133",
+                        "surface": "#f7f9fb",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-container": "#ffede6",
+                        "surface-tint": "#0053db",
+                        "on-surface": "#191c1e",
+                        "tertiary": "#943700",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-container": "#708cfd",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e6e8ea",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#bc4800",
+                        "outline-variant": "#c3c6d7",
+                        "on-secondary-fixed-variant": "#173bab",
+                        "surface-container-low": "#f2f4f6",
+                        "on-tertiary-fixed": "#360f00",
+                        "inverse-primary": "#b4c5ff",
+                        "secondary": "#3755c3",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "primary": "#004ac6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        h1, h2, h3, .headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .active-nav-border { border-right-width: 4px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-slate-100 dark:bg-slate-800/50 flex flex-col py-6 px-4 z-50">
+<div class="mb-10 px-2 flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-lg" data-weight="fill" style="font-variation-settings: 'FILL' 1;">timer</span>
+</div>
+<div>
+<h1 class="text-xl font-bold tracking-tight text-blue-700 dark:text-blue-400 headline">PontoPrecise</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold">Administrative HR</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">badge</span>
+<span class="text-sm font-medium">Funcionários</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">timer</span>
+<span class="text-sm font-medium">Marcações</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">fact_check</span>
+<span class="text-sm font-medium">Justificativas</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">analytics</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">calendar_month</span>
+<span class="text-sm font-medium">Escalas</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">payments</span>
+<span class="text-sm font-medium">Folha</span>
+</a>
+<!-- Active Tab: Documentos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-blue-700 font-semibold border-r-4 border-blue-600 bg-white/50" href="#">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="text-sm">Documentos</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">history_edu</span>
+<span class="text-sm font-medium">Auditoria</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">settings</span>
+<span class="text-sm font-medium">Configurações</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-slate-200/60">
+<div class="flex items-center gap-3 px-2">
+<img alt="Administrator Profile" class="w-10 h-10 rounded-full object-cover" data-alt="professional corporate headshot of a middle-aged man in a blue suit with a friendly and confident expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFSftR_w6pWwf2jmepU4wRkPHgJtbTqdVK52rN6uguvQFu-sG2Rkr-wO0gd4jK-U8JxmFplwnWroFbvRATakwLGWvw21RYenoPsaMJ72BmUmA6vRcIJGjm8dD726K8Wvf3FQGXvDMkBTvKAdGT5oHhjkmB6bJFArjXXHME-gQbSIHq-5WcGbpP5CwfX9CTnY9G6L2pVtklAG7C5pT1w3kXPZgVgIk-b7cl-nhqH-b0VcQ-vw5BWgz6LoyEcYryBytRcyf_sNrcqJw"/>
+<div class="overflow-hidden">
+<p class="text-sm font-bold text-on-surface truncate">Ricardo Mello</p>
+<p class="text-[11px] text-on-surface-variant font-medium">HR Director</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Shell -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-white/80 backdrop-blur-xl z-40 flex items-center justify-between px-8 shadow-sm shadow-blue-500/5">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+<input class="w-full bg-surface-container border-none rounded-xl py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary-fixed transition-all font-body" placeholder="Buscar documentos, funcionários..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-slate-600 hover:bg-slate-100 p-2 rounded-lg transition-all relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-slate-600 hover:bg-slate-100 p-2 rounded-lg transition-all">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="pt-24 pb-12 px-8 max-w-7xl mx-auto">
+<!-- Header Action Row -->
+<div class="flex items-center justify-between mb-8">
+<div>
+<nav class="flex items-center gap-2 text-xs font-medium text-on-surface-variant mb-2">
+<span>Documentos</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-primary">Aprovação de Detalhe</span>
+</nav>
+<h2 class="text-3xl font-extrabold text-on-surface tracking-tight headline">Atestado Médico - Ana Silva</h2>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-6 py-2.5 rounded-xl border border-outline-variant text-on-surface-variant hover:bg-surface-container-high transition-all text-sm font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">download</span>
+                        Baixar PDF
+                    </button>
+<button class="px-6 py-2.5 rounded-xl bg-error text-white shadow-lg shadow-error/20 hover:scale-[0.98] transition-all text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">close</span>
+                        Rejeitar
+                    </button>
+<button class="px-8 py-2.5 rounded-xl bg-gradient-to-br from-primary to-primary-container text-white shadow-lg shadow-primary/20 hover:scale-[0.98] transition-all text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+                        Aprovar
+                    </button>
+</div>
+</div>
+<!-- Main Layout Grid -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Left: Document Preview -->
+<div class="col-span-12 lg:col-span-7 xl:col-span-8">
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden min-h-[800px] flex flex-col shadow-sm">
+<!-- Toolbar -->
+<div class="bg-surface-container-high/50 px-6 py-3 flex items-center justify-between border-b border-surface-container">
+<div class="flex items-center gap-4">
+<span class="text-xs font-bold text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-base">page_control</span>
+                                    Página 1 de 1
+                                </span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-1.5 hover:bg-white rounded-lg transition-colors"><span class="material-symbols-outlined text-lg">zoom_out</span></button>
+<span class="text-xs font-medium px-2">100%</span>
+<button class="p-1.5 hover:bg-white rounded-lg transition-colors"><span class="material-symbols-outlined text-lg">zoom_in</span></button>
+<div class="w-px h-4 bg-outline-variant mx-2"></div>
+<button class="p-1.5 hover:bg-white rounded-lg transition-colors"><span class="material-symbols-outlined text-lg">print</span></button>
+</div>
+</div>
+<!-- PDF Layout -->
+<div class="flex-1 p-12 bg-slate-200 flex justify-center overflow-auto">
+<div class="w-full max-w-[595px] bg-white shadow-2xl p-16 flex flex-col gap-10 min-h-[842px]">
+<div class="flex justify-between items-start border-b-2 border-slate-100 pb-8">
+<div class="flex flex-col gap-1">
+<h3 class="text-xl font-bold text-slate-800 uppercase tracking-tight">Clínica Médica Bem-Estar</h3>
+<p class="text-xs text-slate-500 font-medium italic">Rua da Saúde, 123 - São Paulo/SP</p>
+</div>
+<div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center border-2 border-slate-100">
+<span class="material-symbols-outlined text-slate-300 text-3xl">medical_services</span>
+</div>
+</div>
+<div class="text-center py-8">
+<h4 class="text-2xl font-bold text-slate-900 headline underline decoration-primary/20 underline-offset-8">ATESTADO MÉDICO</h4>
+</div>
+<div class="flex flex-col gap-6 text-sm leading-relaxed text-slate-700">
+<p>Atesto, para os devidos fins de dispensa do trabalho, que a Sra. <strong class="text-slate-900">Ana Beatriz Silva</strong>, portadora do CPF 123.456.789-00, esteve sob cuidados médicos nesta data, necessitando de <strong class="text-slate-900">02 (dois) dias</strong> de repouso absoluto por motivos de saúde (CID J11).</p>
+<p>Devendo retornar às suas atividades laborais em 15/10/2023.</p>
+</div>
+<div class="mt-auto flex flex-col items-center gap-4 pt-12 border-t border-slate-100">
+<div class="w-48 h-12 flex flex-col items-center justify-center">
+<div class="w-full h-px bg-slate-300 mb-2"></div>
+<p class="text-xs font-bold text-slate-800">Dr. Roberto Fontes</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest">CRM/SP 987654</p>
+</div>
+<p class="text-xs text-slate-400">Assinado digitalmente em 13/10/2023 às 14:32</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Details Card -->
+<div class="col-span-12 lg:col-span-5 xl:col-span-4 space-y-6">
+<section class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm">
+<h3 class="text-lg font-bold text-on-surface mb-6 headline">Informações do Envio</h3>
+<div class="space-y-6">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<div>
+<p class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Remetente</p>
+<p class="text-sm font-bold text-on-surface">Ana Beatriz Silva</p>
+<p class="text-xs text-on-surface-variant">Analista de Marketing Jr.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">event</span>
+</div>
+<div>
+<p class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Data de Envio</p>
+<p class="text-sm font-bold text-on-surface">13 de Outubro, 2023</p>
+<p class="text-xs text-on-surface-variant">Enviado às 16:45 via Mobile App</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">category</span>
+</div>
+<div>
+<p class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Tipo de Documento</p>
+<div class="flex items-center gap-2">
+<p class="text-sm font-bold text-on-surface">Atestado Médico</p>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-fixed text-[10px] font-bold text-on-tertiary-fixed-variant uppercase">Prioritário</span>
+</div>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">notes</span>
+</div>
+<div>
+<p class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Descrição / Justificativa</p>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                                        "Solicito abono dos dias 13 e 14 de outubro devido a forte gripe, conforme atestado anexo. Já comuniquei meu gestor imediato."
+                                    </p>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-8 border-t border-surface-container">
+<h4 class="text-xs font-bold text-on-surface mb-4 uppercase tracking-widest">Ações Rápidas</h4>
+<div class="grid grid-cols-2 gap-3">
+<button class="flex flex-col items-center justify-center gap-2 p-4 rounded-xl border border-outline-variant hover:border-primary hover:text-primary transition-all group">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">chat_bubble</span>
+<span class="text-xs font-bold">Enviar Mensagem</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-4 rounded-xl border border-outline-variant hover:border-primary hover:text-primary transition-all group">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">history</span>
+<span class="text-xs font-bold">Ver Histórico</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Analysis Card (Intelligent Suggestion) -->
+<section class="bg-primary/5 rounded-2xl p-6 border-2 border-primary/10 relative overflow-hidden">
+<div class="absolute -right-6 -top-6 w-24 h-24 bg-primary/10 rounded-full blur-2xl"></div>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h3 class="text-sm font-bold text-primary uppercase tracking-wider headline">Insights de Auditoria</h3>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between text-sm">
+<span class="text-on-surface-variant">Validade do CRM</span>
+<span class="font-bold text-emerald-600 flex items-center gap-1">Ativo <span class="material-symbols-outlined text-sm">check_circle</span></span>
+</div>
+<div class="flex items-center justify-between text-sm">
+<span class="text-on-surface-variant">Saldo de Abonos/Ano</span>
+<span class="font-bold text-on-surface">04 / 12 dias</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden mt-2">
+<div class="h-full bg-primary rounded-full" style="width: 33%"></div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Toast Example (Success State Simulation) -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-surface-container-lowest shadow-2xl rounded-2xl py-4 px-6 border border-primary-fixed hidden items-center gap-4 z-50">
+<div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+<span class="material-symbols-outlined">check</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Documento Aprovado!</p>
+<p class="text-xs text-on-surface-variant">A folha de ponto foi atualizada automaticamente.</p>
+</div>
+<button class="ml-4 text-on-surface-variant hover:text-on-surface">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+</body></html>

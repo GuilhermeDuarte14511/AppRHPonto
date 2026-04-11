@@ -1,0 +1,1057 @@
+extend type Query {
+  """
+  ✨ Look up a single `AdminNotification` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  adminNotification(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AdminNotification_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AdminNotification_FirstRow
+  ): AdminNotification @fdc_generated(from: "AdminNotification", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `AdminSettings` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  adminSettings(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AdminSettings_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AdminSettings_FirstRow
+  ): AdminSettings @fdc_generated(from: "AdminSettings", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `AttendancePolicy` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  attendancePolicy(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AttendancePolicy_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AttendancePolicy_FirstRow
+  ): AttendancePolicy @fdc_generated(from: "AttendancePolicy", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `AuditLog` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  auditLog(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AuditLog_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AuditLog_FirstRow
+  ): AuditLog @fdc_generated(from: "AuditLog", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Department` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  department(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Department_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Department_FirstRow
+  ): Department @fdc_generated(from: "Department", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Device` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  device(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Device_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Device_FirstRow
+  ): Device @fdc_generated(from: "Device", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Employee` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  employee(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Employee_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Employee_FirstRow
+  ): Employee @fdc_generated(from: "Employee", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `EmployeeAllowedLocation` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  employeeAllowedLocation(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: EmployeeAllowedLocation_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EmployeeAllowedLocation_FirstRow
+  ): EmployeeAllowedLocation @fdc_generated(from: "EmployeeAllowedLocation", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `EmployeeAttendancePolicy` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  employeeAttendancePolicy(
+    """
+    The key used to identify the object.
+    """
+    key: EmployeeAttendancePolicy_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EmployeeAttendancePolicy_FirstRow
+  ): EmployeeAttendancePolicy @fdc_generated(from: "EmployeeAttendancePolicy", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `EmployeeScheduleHistory` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  employeeScheduleHistory(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: EmployeeScheduleHistory_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EmployeeScheduleHistory_FirstRow
+  ): EmployeeScheduleHistory @fdc_generated(from: "EmployeeScheduleHistory", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Justification` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  justification(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Justification_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Justification_FirstRow
+  ): Justification @fdc_generated(from: "Justification", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `JustificationAttachment` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  justificationAttachment(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: JustificationAttachment_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: JustificationAttachment_FirstRow
+  ): JustificationAttachment @fdc_generated(from: "JustificationAttachment", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `OnboardingJourney` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  onboardingJourney(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: OnboardingJourney_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: OnboardingJourney_FirstRow
+  ): OnboardingJourney @fdc_generated(from: "OnboardingJourney", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `OnboardingTask` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  onboardingTask(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: OnboardingTask_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: OnboardingTask_FirstRow
+  ): OnboardingTask @fdc_generated(from: "OnboardingTask", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `TimeRecord` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  timeRecord(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: TimeRecord_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: TimeRecord_FirstRow
+  ): TimeRecord @fdc_generated(from: "TimeRecord", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `TimeRecordPhoto` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  timeRecordPhoto(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: TimeRecordPhoto_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: TimeRecordPhoto_FirstRow
+  ): TimeRecordPhoto @fdc_generated(from: "TimeRecordPhoto", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `User` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  user(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+  ): User @fdc_generated(from: "User", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `VacationRequest` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  vacationRequest(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: VacationRequest_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: VacationRequest_FirstRow
+  ): VacationRequest @fdc_generated(from: "VacationRequest", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `WorkLocation` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  workLocation(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WorkLocation_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WorkLocation_FirstRow
+  ): WorkLocation @fdc_generated(from: "WorkLocation", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `WorkSchedule` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  workSchedule(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WorkSchedule_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WorkSchedule_FirstRow
+  ): WorkSchedule @fdc_generated(from: "WorkSchedule", purpose: QUERY_SINGLE)
+  """
+  ✨ List `AdminNotification` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  adminNotifications(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: AdminNotification_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [AdminNotification_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: AdminNotification_Having
+  ): [AdminNotification!]! @fdc_generated(from: "AdminNotification", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `AdminSettings` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  adminSettingss(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: AdminSettings_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [AdminSettings_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: AdminSettings_Having
+  ): [AdminSettings!]! @fdc_generated(from: "AdminSettings", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `AttendancePolicy` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  attendancePolicies(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: AttendancePolicy_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [AttendancePolicy_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: AttendancePolicy_Having
+  ): [AttendancePolicy!]! @fdc_generated(from: "AttendancePolicy", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `AuditLog` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  auditLogs(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: AuditLog_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [AuditLog_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: AuditLog_Having
+  ): [AuditLog!]! @fdc_generated(from: "AuditLog", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Department` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  departments(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Department_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Department_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Department_Having
+  ): [Department!]! @fdc_generated(from: "Department", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Device` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  devices(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Device_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Device_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Device_Having
+  ): [Device!]! @fdc_generated(from: "Device", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Employee` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  employees(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Employee_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Employee_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Employee_Having
+  ): [Employee!]! @fdc_generated(from: "Employee", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `EmployeeAllowedLocation` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  employeeAllowedLocations(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: EmployeeAllowedLocation_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [EmployeeAllowedLocation_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: EmployeeAllowedLocation_Having
+  ): [EmployeeAllowedLocation!]! @fdc_generated(from: "EmployeeAllowedLocation", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `EmployeeAttendancePolicy` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  employeeAttendancePolicies(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: EmployeeAttendancePolicy_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [EmployeeAttendancePolicy_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: EmployeeAttendancePolicy_Having
+  ): [EmployeeAttendancePolicy!]! @fdc_generated(from: "EmployeeAttendancePolicy", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `EmployeeScheduleHistory` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  employeeScheduleHistories(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: EmployeeScheduleHistory_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [EmployeeScheduleHistory_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: EmployeeScheduleHistory_Having
+  ): [EmployeeScheduleHistory!]! @fdc_generated(from: "EmployeeScheduleHistory", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Justification` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  justifications(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Justification_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Justification_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Justification_Having
+  ): [Justification!]! @fdc_generated(from: "Justification", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `JustificationAttachment` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  justificationAttachments(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: JustificationAttachment_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [JustificationAttachment_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: JustificationAttachment_Having
+  ): [JustificationAttachment!]! @fdc_generated(from: "JustificationAttachment", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `OnboardingJourney` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  onboardingJourneys(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: OnboardingJourney_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [OnboardingJourney_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: OnboardingJourney_Having
+  ): [OnboardingJourney!]! @fdc_generated(from: "OnboardingJourney", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `OnboardingTask` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  onboardingTasks(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: OnboardingTask_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [OnboardingTask_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: OnboardingTask_Having
+  ): [OnboardingTask!]! @fdc_generated(from: "OnboardingTask", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `TimeRecord` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  timeRecords(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: TimeRecord_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [TimeRecord_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: TimeRecord_Having
+  ): [TimeRecord!]! @fdc_generated(from: "TimeRecord", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `TimeRecordPhoto` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  timeRecordPhotos(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: TimeRecordPhoto_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [TimeRecordPhoto_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: TimeRecordPhoto_Having
+  ): [TimeRecordPhoto!]! @fdc_generated(from: "TimeRecordPhoto", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `User` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  users(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: User_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [User_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: User_Having
+  ): [User!]! @fdc_generated(from: "User", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `VacationRequest` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  vacationRequests(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: VacationRequest_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [VacationRequest_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: VacationRequest_Having
+  ): [VacationRequest!]! @fdc_generated(from: "VacationRequest", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `WorkLocation` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  workLocations(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: WorkLocation_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [WorkLocation_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: WorkLocation_Having
+  ): [WorkLocation!]! @fdc_generated(from: "WorkLocation", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `WorkSchedule` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  workSchedules(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: WorkSchedule_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [WorkSchedule_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: WorkSchedule_Having
+  ): [WorkSchedule!]! @fdc_generated(from: "WorkSchedule", purpose: QUERY_MULTIPLE)
+}

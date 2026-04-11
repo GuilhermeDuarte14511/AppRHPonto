@@ -1,0 +1,56 @@
+query GetUserByFirebaseUid(
+  $firebaseUid: String!
+) @auth(level: USER, insecureReason: "Resolução da sessão autenticada do aplicativo a partir do Firebase Auth.") {
+  users(where: { firebaseUid: { eq: $firebaseUid } }, limit: 1) {
+    id
+    firebaseUid
+    name
+    email
+    role
+    isActive
+    lastLoginAt
+    createdAt
+    updatedAt
+  }
+}
+
+query GetUserByEmail(
+  $email: String!
+) @auth(level: USER, insecureReason: "Resolução do usuário de aplicação por e-mail autenticado.") {
+  users(where: { email: { eq: $email } }, limit: 1) {
+    id
+    firebaseUid
+    name
+    email
+    role
+    isActive
+    lastLoginAt
+    createdAt
+    updatedAt
+  }
+}
+
+mutation TouchUserLastLogin(
+  $id: UUID!
+) @auth(level: USER, insecureReason: "Atualização do último login do usuário autenticado.") {
+  user_update(
+    id: $id
+    data: {
+      lastLoginAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation LinkUserFirebaseUid(
+  $id: UUID!
+  $firebaseUid: String!
+) @auth(level: USER, insecureReason: "Vinculação inicial do usuário de aplicação ao Firebase Auth.") {
+  user_update(
+    id: $id
+    data: {
+      firebaseUid: $firebaseUid
+      updatedAt_expr: "request.time"
+    }
+  )
+}

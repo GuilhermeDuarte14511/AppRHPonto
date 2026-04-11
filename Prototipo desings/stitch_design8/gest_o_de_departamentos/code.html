@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#360f00",
+                    "on-secondary-fixed": "#001453",
+                    "on-primary-fixed": "#00174b",
+                    "on-background": "#191c1e",
+                    "outline": "#737686",
+                    "inverse-primary": "#b4c5ff",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed": "#dde1ff",
+                    "surface-tint": "#0053db",
+                    "on-primary-container": "#eeefff",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "tertiary-container": "#bc4800",
+                    "on-tertiary-container": "#ffede6",
+                    "on-surface-variant": "#434655",
+                    "on-error-container": "#93000a",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface-variant": "#e0e3e5",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "secondary-fixed-dim": "#b8c4ff",
+                    "surface-container": "#eceef0",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "primary": "#004ac6",
+                    "primary-fixed": "#dbe1ff",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "secondary": "#3755c3",
+                    "inverse-surface": "#2d3133",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#d8dadc",
+                    "secondary-container": "#708cfd",
+                    "on-surface": "#191c1e",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-container-high": "#e6e8ea",
+                    "background": "#f7f9fb",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#eff1f3",
+                    "tertiary-fixed": "#ffdbcd",
+                    "surface": "#f7f9fb",
+                    "primary-container": "#2563eb",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-secondary-container": "#00217a",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed-variant": "#173bab",
+                    "tertiary": "#943700",
+                    "outline-variant": "#c3c6d7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-bg {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar Component -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-slate-50 dark:bg-slate-900 flex flex-col py-6 px-4 z-50">
+<div class="mb-10 px-2">
+<h1 class="text-2xl font-bold tracking-tighter text-blue-600 dark:text-blue-400 font-headline">PontoPrecise</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mt-1">HR Intelligence</p>
+</div>
+<nav class="flex-1 space-y-1 overflow-y-auto pr-2 custom-scrollbar">
+<!-- Dashboard -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Funcionários -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Funcionários</span>
+</a>
+<!-- Departamentos (ACTIVE) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-blue-700 dark:text-blue-300 font-bold bg-white/80 dark:bg-slate-800 backdrop-blur-md font-['Manrope'] text-sm tracking-tight shadow-sm scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="domain" style="font-variation-settings: 'FILL' 1;">domain</span>
+<span>Departamentos</span>
+</a>
+<!-- Marcações -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span>Marcações</span>
+</a>
+<!-- Justificativas -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+<span>Justificativas</span>
+</a>
+<!-- Férias -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="beach_access">beach_access</span>
+<span>Férias</span>
+</a>
+<!-- Analytics -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Analytics</span>
+</a>
+<!-- Escalas -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_view_day">calendar_view_day</span>
+<span>Escalas</span>
+</a>
+<!-- Folha -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span>Folha</span>
+</a>
+<!-- Documentos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span>Documentos</span>
+</a>
+<!-- Auditoria -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="rule">rule</span>
+<span>Auditoria</span>
+</a>
+<!-- Configurações -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Configurações</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full bg-primary overflow-hidden">
+<img alt="PontoPrecise Admin Logo" class="w-full h-full object-cover" data-alt="professional male executive in a dark suit with a friendly and authoritative expression, clean studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS5XAy6A63ESWEfUkc22jWrqrH_1zgxSjA8trpyM0RXCgNKnVQvFxnoJdgJQEBnMFkU-SlrF55l7HANtv8rFV8bvkE8N5YbwBn7Y5005JjBLx8Vu1TrVQTsNaAXMsjGg5uo58WaaiFKV20bhx50qIGEtSW_0ugArB8lhfJgz0Y9SKFRNvKrPRg9OW2qbWX0dhi66imOn_I5eD3zZ7i5jJPll0fQeAd0bXb2S73ZYwl-KVgKlH81OqvohzH7qMyoa0HbdNAErNZHwg"/>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface">Ricardo Silva</p>
+<p class="text-[10px] text-on-surface-variant">Admin Diretor</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Component -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl flex items-center justify-between px-8 z-40">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low rounded-xl border-none focus:ring-2 focus:ring-primary-fixed text-sm font-body" placeholder="Buscar departamentos ou gestores..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 text-slate-400">
+<button class="hover:text-blue-500 transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:text-blue-500 transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant opacity-20"></div>
+<div class="flex items-center gap-3">
+<img alt="Administrator User Profile" class="w-8 h-8 rounded-full" data-alt="professional portrait of a manager in a business setting, soft lighting, high end corporate style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCDlQ_4oL8k4LlthMDbCkvJa8aEWGKfgkRmchbh8er7Z6seV2udw5tXg6UzW8EZv-kVjn4ZSkeRuFkhutWK8KhFLGe79uPL7mBu_26ldTtJsJf9nAykMUf4EnyArjyrOCNXZW_A86WWkdFvtRzfqu2sttvJgs6nJ2Bx_iKV0eJMCxrwHo_-3QLJlMOjlFcHWR0veEtyxgBrduKnIZyjO-pDRnllWLH1uLIlwv1_ySwrzdJ4znVZt1EtkhPDRsk7t0aJ_Ud4o-fqKk"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 mt-16 p-10 min-h-screen">
+<div class="max-w-[1440px] mx-auto">
+<!-- Page Header -->
+<div class="flex items-end justify-between mb-10">
+<div>
+<h2 class="text-4xl font-extrabold tracking-tight font-headline text-on-surface">Gestão de Departamentos</h2>
+<p class="text-on-surface-variant mt-2 font-body">Visualize e organize a estrutura hierárquica da sua empresa.</p>
+</div>
+<button class="flex items-center gap-2 bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-3 rounded-xl font-bold transition-all hover:shadow-lg active:scale-95">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>Adicionar Departamento</span>
+</button>
+</div>
+<!-- Metrics Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+<div class="bg-surface-container-lowest p-6 rounded-full-none rounded-xl flex items-center gap-5 border border-transparent shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-all hover:bg-surface-container-low">
+<div class="w-14 h-14 rounded-xl bg-primary-fixed/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl" data-icon="account_tree" style="font-variation-settings: 'FILL' 1;">account_tree</span>
+</div>
+<div>
+<p class="text-sm font-label text-on-surface-variant uppercase tracking-wider font-semibold">Total de Departamentos</p>
+<p class="text-3xl font-headline font-extrabold text-on-surface">14</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl flex items-center gap-5 border border-transparent shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-all hover:bg-surface-container-low">
+<div class="w-14 h-14 rounded-xl bg-secondary-fixed/30 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-3xl" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+</div>
+<div>
+<p class="text-sm font-label text-on-surface-variant uppercase tracking-wider font-semibold">Total de Colaboradores</p>
+<p class="text-3xl font-headline font-extrabold text-on-surface">342</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl flex items-center gap-5 border border-transparent shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-all hover:bg-surface-container-low">
+<div class="w-14 h-14 rounded-xl bg-tertiary-fixed/30 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-3xl" data-icon="payments" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<div>
+<p class="text-sm font-label text-on-surface-variant uppercase tracking-wider font-semibold">Custo Médio por Setor</p>
+<p class="text-3xl font-headline font-extrabold text-on-surface">R$ 12.4k</p>
+</div>
+</div>
+</div>
+<!-- Department Table Canvas -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.02)] overflow-hidden">
+<div class="p-6 border-b border-surface-container-high flex items-center justify-between">
+<div class="flex items-center gap-4">
+<h3 class="font-headline font-bold text-lg">Listagem Ativa</h3>
+<div class="flex items-center gap-1 bg-surface-container text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-tighter text-on-surface-variant">Filtrado por: Recentes</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg hover:bg-surface-container transition-colors text-slate-500">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container transition-colors text-slate-500">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</div>
+</div>
+<table class="w-full text-left font-body">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Departamento</th>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Gestor Responsável</th>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70 text-center">Colaboradores</th>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Centro de Custo</th>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Status</th>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70 text-right">Ações</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-8 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl" data-icon="engineering">engineering</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Engenharia</p>
+<p class="text-[11px] text-on-surface-variant/60 font-medium">Headquarters</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<img alt="Manager Avatar" class="w-8 h-8 rounded-full border-2 border-surface-container-low" data-alt="close up of a professional young man with glasses smiling, studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-ZxX1mYDIMvWAX59OvvTn3xumLa3vQNsl2qZe2S-oU-ffF9ubnNSFNTq9hxO6IUCfkRqJHDu3uS8w_tOf8TA-GFAGyD0sduoyamCeh4N8AmgbekNhiPkvJSahB1RBGVSlxlZ7jHFyN9WMlfaGTULi3c37FV-DFDlz2wuXGowhofmKuALYqTrAklX6gOmJ9C3bv8pBOsD_hIMEQHEc4RLAU02Xlfs8kZUKT99RMpMXvuaIU3DXilUcwqYMl5lcCNuDnjqzv04kVYA"/>
+<span class="text-sm font-medium">Bruno Alcântara</span>
+</div>
+</td>
+<td class="px-8 py-5 text-center">
+<span class="bg-primary-fixed/20 text-primary px-2.5 py-1 rounded-full text-xs font-bold">48</span>
+</td>
+<td class="px-8 py-5 text-sm font-medium text-on-surface-variant">CC-ENG-02</td>
+<td class="px-8 py-5">
+<span class="bg-surface-container-highest text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Ativo</span>
+</td>
+<td class="px-8 py-5 text-right">
+<div class="flex items-center justify-end gap-2 text-slate-400">
+<button class="hover:text-primary transition-all"><span class="material-symbols-outlined text-xl" data-icon="edit">edit</span></button>
+<button class="hover:text-error transition-all"><span class="material-symbols-outlined text-xl" data-icon="delete">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-8 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl" data-icon="campaign">campaign</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Marketing</p>
+<p class="text-[11px] text-on-surface-variant/60 font-medium">Remote/Hybrid</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<img alt="Manager Avatar" class="w-8 h-8 rounded-full border-2 border-surface-container-low" data-alt="professional young woman smiling warmly, soft daylight, corporate office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsRtSuWdh1yNqR1NnI_XkkEQFnNYj4ubfZOdUrJsifaFE-GotskQaFKF29RntKCZdNNHF-4Rk_EkVivgDIezkHU9DTikF3L_92bBCNBmVFFVk9bINRd0YTuyg7tkS1NCYXjMuJTs9NJyXjZ9FqTtjdOiWC8i58DSmI5xN4344mafB8t7cwlve5ggpQtScHm9200rornuv9MyJxedJEVd-HL96c7XzTPGL_v4V8Mz5fS1qcU80mvgDE4GZ-KQQ65DAJ2yrsm2-83wE"/>
+<span class="text-sm font-medium">Juliana Lima</span>
+</div>
+</td>
+<td class="px-8 py-5 text-center">
+<span class="bg-primary-fixed/20 text-primary px-2.5 py-1 rounded-full text-xs font-bold">12</span>
+</td>
+<td class="px-8 py-5 text-sm font-medium text-on-surface-variant">CC-MKT-05</td>
+<td class="px-8 py-5">
+<span class="bg-surface-container-highest text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Ativo</span>
+</td>
+<td class="px-8 py-5 text-right">
+<div class="flex items-center justify-end gap-2 text-slate-400">
+<button class="hover:text-primary transition-all"><span class="material-symbols-outlined text-xl" data-icon="edit">edit</span></button>
+<button class="hover:text-error transition-all"><span class="material-symbols-outlined text-xl" data-icon="delete">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-8 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl" data-icon="storefront">storefront</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Vendas</p>
+<p class="text-[11px] text-on-surface-variant/60 font-medium">Regional Sul</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<img alt="Manager Avatar" class="w-8 h-8 rounded-full border-2 border-surface-container-low" data-alt="cheerful middle-aged man in professional attire, high contrast modern lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw3lNv3MlIIdiYl1gfrif2k3rfoWS4mX9cdxO5J-PIR-JZbWZhdEu2fUVG274r-hLciLzacM9a1jCr3N0qHxchaQnbJzKPRdlYT4nfbwh5d1eWFMrc1RHNBO5MiH17XjGRxscxvND76bHFG66DukHKzcPB8uDaG9iioJWf5J6DnoEpA0wqeiKIiOkf2w-9Z62MLs-9OPDrVeoUatmtgExWBy5Fak6eNwi7xGjc2vUyk7fTIUumrii-yLDYQ8cwp6bM2z5jyI1YhM0"/>
+<span class="text-sm font-medium">Marcos Paulo</span>
+</div>
+</td>
+<td class="px-8 py-5 text-center">
+<span class="bg-primary-fixed/20 text-primary px-2.5 py-1 rounded-full text-xs font-bold">85</span>
+</td>
+<td class="px-8 py-5 text-sm font-medium text-on-surface-variant">CC-SAL-01</td>
+<td class="px-8 py-5">
+<span class="bg-surface-container-highest text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Ativo</span>
+</td>
+<td class="px-8 py-5 text-right">
+<div class="flex items-center justify-end gap-2 text-slate-400">
+<button class="hover:text-primary transition-all"><span class="material-symbols-outlined text-xl" data-icon="edit">edit</span></button>
+<button class="hover:text-error transition-all"><span class="material-symbols-outlined text-xl" data-icon="delete">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors opacity-60">
+<td class="px-8 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-slate-200 flex items-center justify-center text-slate-400">
+<span class="material-symbols-outlined text-xl" data-icon="psychology">psychology</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">R&amp;D Especial</p>
+<p class="text-[11px] text-on-surface-variant/60 font-medium">Experimental Unit</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<img alt="Manager Avatar" class="w-8 h-8 rounded-full border-2 border-surface-container-low" data-alt="smart executive woman looking ahead thoughtfully, crisp architectural interior lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR35HUK4HXapOPbwTkuj5PVgFTKunZPBrMJTOUM6FoZ8ecs-debADCePAZa_QoYXAi-Hi1t4egXFFdYEn3sTJv9bpCcs1D2_6XNPp7zKp9UrRYNrl9X_RDt7yaUiDJDRcifsDRgVjfPw-1mWjLP-bur4wWT5GiJ3nGAAhU84D8u05Ef1tQNYezrzGWN7_rJHSU0D9CEYDdSdEsaAfcCTwTXbaEmRzCtgMkK6f52sNwfbuSjOedPvUKtZf8j00rVTEpXXFWAZsYpZs"/>
+<span class="text-sm font-medium">Heloísa Santos</span>
+</div>
+</td>
+<td class="px-8 py-5 text-center">
+<span class="bg-slate-200 text-slate-500 px-2.5 py-1 rounded-full text-xs font-bold">0</span>
+</td>
+<td class="px-8 py-5 text-sm font-medium text-on-surface-variant">CC-RDX-99</td>
+<td class="px-8 py-5">
+<span class="bg-error-container text-error px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Inativo</span>
+</td>
+<td class="px-8 py-5 text-right">
+<div class="flex items-center justify-end gap-2 text-slate-400">
+<button class="hover:text-primary transition-all"><span class="material-symbols-outlined text-xl" data-icon="edit">edit</span></button>
+<button class="hover:text-error transition-all"><span class="material-symbols-outlined text-xl" data-icon="delete">delete</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="px-8 py-4 bg-surface-container-low/30 flex items-center justify-between border-t border-surface-container-low">
+<p class="text-xs text-on-surface-variant font-medium">Exibindo 4 de 14 departamentos</p>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant/30 text-on-surface-variant hover:bg-white transition-colors active:scale-95">
+<span class="material-symbols-outlined text-lg" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary text-on-primary text-xs font-bold shadow-sm">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant/30 text-on-surface-variant hover:bg-white transition-colors text-xs font-bold">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant/30 text-on-surface-variant hover:bg-white transition-colors active:scale-95">
+<span class="material-symbols-outlined text-lg" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

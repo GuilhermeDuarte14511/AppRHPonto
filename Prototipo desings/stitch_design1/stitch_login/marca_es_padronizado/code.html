@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PontoPrecise | Marcações</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error-container": "#93000a",
+              "inverse-primary": "#b4c5ff",
+              "secondary-fixed-dim": "#b8c4ff",
+              "on-primary-fixed-variant": "#003ea8",
+              "error-container": "#ffdad6",
+              "error": "#ba1a1a",
+              "on-background": "#191c1e",
+              "tertiary-container": "#bc4800",
+              "on-tertiary-container": "#ffede6",
+              "on-secondary-container": "#00217a",
+              "secondary-container": "#708cfd",
+              "on-secondary": "#ffffff",
+              "primary-container": "#2563eb",
+              "primary-fixed-dim": "#b4c5ff",
+              "surface-bright": "#f7f9fb",
+              "on-primary-container": "#eeefff",
+              "surface-container-highest": "#e0e3e5",
+              "on-surface-variant": "#434655",
+              "surface-container-low": "#f2f4f6",
+              "secondary-fixed": "#dde1ff",
+              "on-tertiary-fixed-variant": "#7d2d00",
+              "surface-container-high": "#e6e8ea",
+              "outline": "#737686",
+              "outline-variant": "#c3c6d7",
+              "primary-fixed": "#dbe1ff",
+              "on-error": "#ffffff",
+              "surface-container": "#eceef0",
+              "surface-tint": "#0053db",
+              "surface-dim": "#d8dadc",
+              "tertiary": "#943700",
+              "tertiary-fixed": "#ffdbcd",
+              "tertiary-fixed-dim": "#ffb596",
+              "on-tertiary-fixed": "#360f00",
+              "surface-variant": "#e0e3e5",
+              "surface": "#f7f9fb",
+              "on-secondary-fixed": "#001453",
+              "inverse-on-surface": "#eff1f3",
+              "secondary": "#3755c3",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#00174b",
+              "on-primary": "#ffffff",
+              "on-secondary-fixed-variant": "#173bab",
+              "background": "#f7f9fb",
+              "surface-container-lowest": "#ffffff",
+              "on-surface": "#191c1e",
+              "primary": "#004ac6",
+              "inverse-surface": "#2d3133"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-slate-50 dark:bg-slate-900 z-50 flex flex-col py-6 px-4 font-['Manrope'] font-medium text-sm">
+<div class="mb-10 px-2 flex items-center gap-3">
+<div class="w-8 h-8 rounded-xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-white shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">timer</span>
+</div>
+<div>
+<h1 class="text-lg font-black text-blue-700 dark:text-blue-400 leading-none">PontoPrecise</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-400 mt-1">The Digital Curator</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-sm">Funcionários</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-blue-600 dark:text-blue-400 font-bold border-r-4 border-blue-600 dark:border-blue-400 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="fingerprint" style="font-variation-settings: 'FILL' 1;">fingerprint</span>
+<span class="text-sm">Marcações</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="text-sm">Justificativas</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-sm">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_view_day">calendar_view_day</span>
+<span class="text-sm">Escalas</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-sm">Folha</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-sm">Documentos</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span class="text-sm">Auditoria</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-sm">Configurações</span>
+</a>
+</nav>
+<div class="mt-auto px-2">
+<div class="p-4 bg-surface-container rounded-xl">
+<div class="flex items-center gap-3">
+<img alt="User Avatar" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSOXTDR7CVkicCMn-H7TjenHaef3GNuxg93VeVOqdxlgp-K57uLrxrqD_njsiVMFrucBfD2is9sV7sH8JSoHTZOAbOnzuyGFkNHgjMp6b1dBpfV37g9F6qCr0Avp5cUhn1OYPpxL7hJij_f7l0G5ZcUXAnT4w7qm01IWR_rioZHuYvmkbtMTXqpzJ5CvFyIf4ch6AzJUHDVxpqUogbP5N-E8aPTuqNhtjc9jsoPV6ERO8QNKC-3lCRIuUDPDp0xMg0slyJU9bdp2c"/>
+<div class="overflow-hidden">
+<p class="text-sm font-bold text-on-surface truncate">Ricardo Silva</p>
+<p class="text-xs text-on-surface-variant truncate">Admin Master</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 z-40 left-64 right-0 flex justify-between items-center px-6 py-3 h-16 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl font-['Manrope'] antialiased border-b border-slate-200/50 dark:border-slate-800">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-900 border-none rounded-xl focus:ring-2 focus:ring-blue-600/20 text-sm placeholder:text-slate-400" placeholder="Buscar marcações ou funcionários..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors scale-95 active:scale-90 duration-200">
+<span class="material-symbols-outlined text-slate-500" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors scale-95 active:scale-90 duration-200">
+<span class="material-symbols-outlined text-slate-500" data-icon="help">help</span>
+</button>
+<div class="h-6 w-[1px] bg-slate-200 dark:bg-slate-800 mx-2"></div>
+<img alt="User Profile Avatar" class="w-8 h-8 rounded-full object-cover ring-2 ring-blue-600/10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSOXTDR7CVkicCMn-H7TjenHaef3GNuxg93VeVOqdxlgp-K57uLrxrqD_njsiVMFrucBfD2is9sV7sH8JSoHTZOAbOnzuyGFkNHgjMp6b1dBpfV37g9F6qCr0Avp5cUhn1OYPpxL7hJij_f7l0G5ZcUXAnT4w7qm01IWR_rioZHuYvmkbtMTXqpzJ5CvFyIf4ch6AzJUHDVxpqUogbP5N-E8aPTuqNhtjc9jsoPV6ERO8QNKC-3lCRIuUDPDp0xMg0slyJU9bdp2c"/>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-24 pb-8 px-8 max-w-[1440px] mx-auto min-h-screen">
+<!-- Header & Summary -->
+<header class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<nav class="flex items-center gap-2 text-xs text-on-surface-variant mb-3 font-label tracking-wide">
+<span>MARCAÇÕES</span>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span class="text-on-surface font-semibold">REGISTROS EM TEMPO REAL</span>
+</nav>
+<h2 class="text-4xl font-extrabold tracking-tight font-headline">Controle de Pontos</h2>
+<p class="text-on-surface-variant mt-2 max-w-md">Gerencie os registros de entrada, intervalo e saída dos colaboradores com verificação facial.</p>
+</div>
+<!-- Filters Glass Card -->
+<div class="flex items-center gap-3 p-2 bg-surface-container-low rounded-full backdrop-blur-md">
+<div class="flex items-center px-4 py-2 rounded-full bg-surface-container-lowest shadow-sm">
+<span class="material-symbols-outlined text-sm text-primary mr-2">calendar_today</span>
+<select class="border-none bg-transparent text-xs font-semibold focus:ring-0 p-0 pr-8">
+<option>Hoje, 24 Mai</option>
+<option>Ontem, 23 Mai</option>
+<option>Últimos 7 dias</option>
+</select>
+</div>
+<div class="flex items-center px-4 py-2 rounded-full bg-surface-container-lowest shadow-sm">
+<span class="material-symbols-outlined text-sm text-primary mr-2">person</span>
+<select class="border-none bg-transparent text-xs font-semibold focus:ring-0 p-0 pr-8">
+<option>Todos Funcionários</option>
+<option>Departamento TI</option>
+<option>Financeiro</option>
+</select>
+</div>
+<button class="bg-primary hover:bg-primary-container text-white px-6 py-2 rounded-full text-xs font-bold transition-all scale-98 active:scale-95 shadow-lg shadow-primary/10">
+                    Filtrar
+                </button>
+</div>
+</header>
+<!-- Stats Grid (Subtle Asymmetry) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+<div class="col-span-1 md:col-span-2 bg-gradient-to-br from-primary to-primary-container p-8 rounded-xl text-white flex flex-col justify-between relative overflow-hidden group">
+<div class="relative z-10">
+<p class="text-white/70 text-sm font-medium mb-1">Presença Hoje</p>
+<h3 class="text-5xl font-black font-headline">84%</h3>
+</div>
+<div class="mt-8 flex items-center gap-4 relative z-10">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-primary" data-alt="portrait of a young professional man, clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDr03WDOHurHPMRzMb7ItHeFPSyMCEEWatUOm6kX0m1rNRHt3WgUQy7txzMt_YdWMr8wpf_xwK-5z2IX6LTf8Yuf6TaYtzbVBq3NOEMpz6K8Me6uqK33xaBHHHXLBgBpzKh4_iFizfsPp-yArXFyKQTilHfULhrLS3cESltryTWv5UeszGYmhfZhc323Xn9S7B8_Y1HcDlX-3o620DgyInjlag_Raebmnmwhj8EBQiFIm0AVvMe1jZM2CCVIFH6ckGbJ1RYQ-8MH2E"/>
+<img class="w-8 h-8 rounded-full border-2 border-primary" data-alt="portrait of a smiling professional woman, soft daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBG4JF49p1SIwdBmae3PG9rDPhkgPx03GAYCqO-b202383vrdrya9lavGOwZPiQyhoPphnWTdiJuDIyNCcJKHE5DY6R0M2AF3P5acdh4yoD39zNXOMcCWV1TCJ6mtFnwZehHS_CqfM113zj_74lQRCfKzWWYcYj3jMDbfIr-XGfR6_1odkpF6uVcUNAJSeiXHSab_SFf1MCyZslcutexPq8AwxPfnmecunMf-fxKl40iMawHXmOmx8OOvHiJHKytA5JAna2-VT3zCs"/>
+<div class="w-8 h-8 rounded-full border-2 border-primary bg-primary-container flex items-center justify-center text-[10px] font-bold">+12</div>
+</div>
+<span class="text-xs text-white/80">42 de 50 colaboradores ativos</span>
+</div>
+<span class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-9xl transform rotate-12 transition-transform group-hover:scale-110 duration-500">done_all</span>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm flex flex-col justify-center border-l-4 border-tertiary">
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-wider mb-2">Atrasos</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold font-headline text-tertiary">04</span>
+<span class="text-xs text-on-surface-variant/60 font-medium">Colaboradores</span>
+</div>
+<div class="mt-4 h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary rounded-full w-[15%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm flex flex-col justify-center border-l-4 border-secondary-container">
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-wider mb-2">Ponto Manual</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold font-headline text-secondary">02</span>
+<span class="text-xs text-on-surface-variant/60 font-medium">Requerem Aprovação</span>
+</div>
+<button class="mt-4 text-xs font-bold text-primary flex items-center hover:underline">
+                    Verificar pendências <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- The Precision Table -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden mb-12">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-6 py-5 text-[11px] font-bold text-on-surface-variant uppercase tracking-[0.1em]">Colaborador</th>
+<th class="px-6 py-5 text-[11px] font-bold text-on-surface-variant uppercase tracking-[0.1em]">Horário</th>
+<th class="px-6 py-5 text-[11px] font-bold text-on-surface-variant uppercase tracking-[0.1em]">Tipo</th>
+<th class="px-6 py-5 text-[11px] font-bold text-on-surface-variant uppercase tracking-[0.1em]">Dispositivo</th>
+<th class="px-6 py-5 text-[11px] font-bold text-on-surface-variant uppercase tracking-[0.1em]">Status</th>
+<th class="px-6 py-5 text-[11px] font-bold text-on-surface-variant uppercase tracking-[0.1em]">Verificação</th>
+<th class="px-6 py-5 text-right"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-primary text-xs overflow-hidden">
+<img alt="Employee Photo" class="w-full h-full object-cover" data-alt="headshot of a smiling young man in business casual attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvI-jQ4g8OdkNK5ssvFgHwj_X2nVIzzWmbyC7vhxJ7EvHQneA05iGouwmIemMUoHFki1kKoyUTL07bfSAomxP14j-acl8wPPsGLfCUFOMbwaeh1q9H-Za29Z9DzjeZEKPkQbgQYNUeBoMbAkW_xe_2rahaffxmziV6iUr90gOJpCsbSd0qr4kUdYv2fZoSbl_06JhdZTanNX6F_JfZ_N_JBISiTCiofDi1lahGf_dzgQZH8Hw1Segz4DS1ihfO0aI-puj5Y7_K4OU"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Gabriel Martins</p>
+<p class="text-[11px] text-on-surface-variant">ID: #0822-M</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-sm font-bold text-on-surface">08:02:45</span>
+<span class="text-[11px] text-on-surface-variant/70">24 de Maio, 2024</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-extrabold uppercase tracking-wider">Entrada</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">smartphone</span>
+<span class="text-xs">iPhone 13 (App)</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-xs font-semibold text-on-surface">No Horário</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="relative w-12 h-12 rounded-lg bg-surface-container overflow-hidden ring-2 ring-surface-container group-hover:ring-primary/20 transition-all">
+<img alt="Punch-in Photo" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="selfie style verification photo of a man at work, subtle focus, indoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcDfR5WOKcBSLs86apBmPw-2-2kuoxXRAlUuAjwNyS2kbCsNfV5xgMZPzNHYtGYPLRDmOAO2xnqlv_yBJMBWztLZKKYRuQJ9h-6ECCz7TO_L_LQIaibh2dXu6V6XDsRbRzRAprT-JZiZta3j2FFyd_MJ4tUP1MYo1Ub1Y_7PABD28gMTEq-r2Z81NHYYdvDwd5sR6TSpVXapfHN3Haq2iA73Jcku177WXjX6UXwRXT0IDlKP3YYMl1z7_Iyh38Kl2a7dnl_U2hqh8"/>
+<div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white text-xs">zoom_in</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-primary text-xs overflow-hidden">
+<img alt="Employee Photo" class="w-full h-full object-cover" data-alt="headshot of a focused professional woman, studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd2QLB5x8MwR4QOHoDUGi49NKpqr_8xwyvO9HfB9oGJCwnIWOa96NFpkgryjzn6HC4LyqUrSmTytdyNCTKiDzqfePXzl1OuXsfe0S98ErFLD7MVOS6Amrb2eIx3lz4gAhcOvYpN2VyKa6b6gj8WCJS67VeJSkbmVEITn05Q1y6nF1muCjuFNzBB-BoOw94_9IeGQiquWWDf2MOEr3Ft5EB_Pz0sKZZmQMFV8fxcVpG1EaV9_AS9EmQSriMOEzC14rqEz5RVnpcYD4"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Juliana Costa</p>
+<p class="text-[11px] text-on-surface-variant">ID: #1194-F</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-sm font-bold text-on-surface">08:15:12</span>
+<span class="text-[11px] text-on-surface-variant/70">24 de Maio, 2024</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-extrabold uppercase tracking-wider">Entrada</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">laptop_mac</span>
+<span class="text-xs">Web (Desktop)</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="text-xs font-semibold text-on-surface">Atraso 15m</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="relative w-12 h-12 rounded-lg bg-surface-container overflow-hidden ring-2 ring-surface-container group-hover:ring-primary/20 transition-all">
+<img alt="Punch-in Photo" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="selfie verification of a woman in an office setting, natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0z5RHFOFdkFlL2N49bX2ZyPqm3yb31yBgUcSk7Eh-bxsHPbi7qr1oWQa0u12EWAMi1JkmxLbaWkahRkg9dOYro4hspeaCK1wA37qjSXKit62wjRsNp9GuanhnQHDI8xxWrxcqqVzbva2WN0W4MG7tQfImcUuB1qZcBxwuRNnO2FJ8f3duci6w74B4s3r3YxaYGRGLWmyGy3pF2C4L07ulwkbg6aeHUqGaAjOAgj5zyqCOwwww16JAOv-th_p6xuGBDVxuoOE2c9k"/>
+<div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white text-xs">zoom_in</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-primary text-xs overflow-hidden">
+<img alt="Employee Photo" class="w-full h-full object-cover" data-alt="headshot of a middle-aged man with glasses, neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxM882Wlz5QG2qLjDp91zweFsPtwo2DYLbuf7g5s7CDlSlf8Zv4b929ojcfP85fQ5hGHz25xhdCVj7lK3hQ007G9PvaIG8wFqExHoYlbjbRq5SQZBpxxutSs0pVZUS0ZtMIMkZFpBtPg8z5DeVuT2KDNyPulkmOEDNEWpB5o80JXQWZT07S4j6_oiPX__HBb6uLJ6MiyXVIRSH9BlswS29bnqFlnn3CfHJSl33C1YuswVeRjNwOEoTZVSyAR7U59Hy0rcaz0grlS4"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Carlos Henrique</p>
+<p class="text-[11px] text-on-surface-variant">ID: #0241-A</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-sm font-bold text-on-surface">12:05:00</span>
+<span class="text-[11px] text-on-surface-variant/70">24 de Maio, 2024</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-on-surface-variant/10 text-on-surface-variant text-[10px] font-extrabold uppercase tracking-wider">Pausa</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">tablet_mac</span>
+<span class="text-xs">Tablet Kiosk</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-xs font-semibold text-on-surface">No Horário</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="relative w-12 h-12 rounded-lg bg-surface-container overflow-hidden ring-2 ring-surface-container group-hover:ring-primary/20 transition-all">
+<img alt="Punch-in Photo" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="man verification photo, neutral office wall in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-L4JabvUZh1NAqoJhT3YsI5MkPMPxTNImjj4AKp-wX3oJmSSjTS0UbbrHtKHIxk7hJzX3H9DvHSxs3KuhHbdWNAcO5YYqyyRaDBkjTjW8O1t2BQWfV-yhk2BmvRCSNRJJ-KehUDEqfFCQ_yVGIyfPhtFUP3ItFyfYIJcAIXZBXbm-e7JTCHqx7aJxHbmJDQYn5Yf-8SadQFwYxsz1r1nFfwWyvBVl6aiylGTuIy6bYgPMKuh-gqnUjE3vLqcP7AZAUTJPnF8yVxM"/>
+<div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white text-xs">zoom_in</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Bar -->
+<div class="px-8 py-5 bg-surface-container-low/30 border-t border-surface-container flex items-center justify-between">
+<p class="text-xs text-on-surface-variant font-medium">Mostrando <span class="text-on-surface font-bold">1-12</span> de <span class="text-on-surface font-bold">42</span> registros</p>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary text-white text-xs font-bold">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container text-xs font-bold">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container text-xs font-bold">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Floating Clock Pulse Action -->
+<div class="fixed bottom-10 right-10 flex flex-col items-end gap-4">
+<div class="bg-white/80 backdrop-blur-xl border border-outline-variant/20 px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-4 group cursor-pointer animate-pulse hover:animate-none">
+<div class="w-3 h-3 bg-tertiary rounded-full relative">
+<div class="absolute inset-0 bg-tertiary rounded-full animate-ping opacity-75"></div>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant">Monitoramento Ativo</p>
+<p class="text-sm font-bold text-on-surface">5 registros nos últimos 10min</p>
+</div>
+</div>
+<button class="w-16 h-16 bg-gradient-to-br from-primary to-primary-container rounded-full flex items-center justify-center text-white shadow-2xl shadow-primary/40 transition-transform hover:scale-110 active:scale-90">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+</div>
+</main>
+</body></html>

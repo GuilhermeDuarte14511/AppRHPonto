@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chronos Precision - Gestão de Escalas</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#360f00",
+                        "on-surface-variant": "#434655",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "tertiary-fixed": "#ffdbcd",
+                        "surface-container-low": "#f2f4f6",
+                        "on-surface": "#191c1e",
+                        "on-secondary-container": "#00217a",
+                        "surface-dim": "#d8dadc",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "surface": "#f7f9fb",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#173bab",
+                        "secondary": "#3755c3",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e0e3e5",
+                        "secondary-container": "#708cfd",
+                        "outline-variant": "#c3c6d7",
+                        "background": "#f7f9fb",
+                        "secondary-fixed": "#dde1ff",
+                        "primary": "#004ac6",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#bc4800",
+                        "on-secondary-fixed": "#001453",
+                        "on-primary-fixed": "#00174b",
+                        "outline": "#737686",
+                        "surface-tint": "#0053db",
+                        "tertiary": "#943700",
+                        "surface-bright": "#f7f9fb",
+                        "on-primary-container": "#eeefff",
+                        "surface-container": "#eceef0",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary-container": "#ffede6",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "secondary-fixed-dim": "#b8c4ff",
+                        "inverse-primary": "#b4c5ff",
+                        "primary-container": "#2563eb",
+                        "on-background": "#191c1e",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#dbe1ff",
+                        "inverse-surface": "#2d3133",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e0e3e5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .font-manrope { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-panel { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); }
+        .no-border { border: none !important; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- SideNavBar (Authority: JSON) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-slate-100 dark:bg-slate-950 flex flex-col py-6 z-50">
+<div class="px-8 mb-10">
+<h1 class="text-lg font-black text-blue-700 dark:text-blue-400 font-manrope">Chronos</h1>
+<p class="text-xs text-on-surface-variant tracking-widest font-medium">PRECISION HR</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center text-slate-600 dark:text-slate-400 px-8 py-3 hover:bg-slate-200 dark:hover:bg-slate-800/50 transition-all" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+<span class="font-manrope text-sm font-medium tracking-wide">Dashboard</span>
+</a>
+<a class="flex items-center text-slate-600 dark:text-slate-400 px-8 py-3 hover:bg-slate-200 dark:hover:bg-slate-800/50 transition-all" href="#">
+<span class="material-symbols-outlined mr-3">group</span>
+<span class="font-manrope text-sm font-medium tracking-wide">Funcionários</span>
+</a>
+<a class="flex items-center text-slate-600 dark:text-slate-400 px-8 py-3 hover:bg-slate-200 dark:hover:bg-slate-800/50 transition-all" href="#">
+<span class="material-symbols-outlined mr-3">history_toggle_off</span>
+<span class="font-manrope text-sm font-medium tracking-wide">Marcações</span>
+</a>
+<!-- Active Tab: Escalas -->
+<a class="flex items-center text-blue-700 dark:text-blue-400 font-bold border-r-4 border-blue-600 dark:border-blue-400 bg-white/50 dark:bg-white/5 px-8 py-3 transition-all" href="#">
+<span class="material-symbols-outlined mr-3">calendar_view_day</span>
+<span class="font-manrope text-sm font-medium tracking-wide">Escalas</span>
+</a>
+<a class="flex items-center text-slate-600 dark:text-slate-400 px-8 py-3 hover:bg-slate-200 dark:hover:bg-slate-800/50 transition-all" href="#">
+<span class="material-symbols-outlined mr-3">analytics</span>
+<span class="font-manrope text-sm font-medium tracking-wide">Analytics</span>
+</a>
+<a class="flex items-center text-slate-600 dark:text-slate-400 px-8 py-3 hover:bg-slate-200 dark:hover:bg-slate-800/50 transition-all" href="#">
+<span class="material-symbols-outlined mr-3">lock_clock</span>
+<span class="font-manrope text-sm font-medium tracking-wide">Fechamento</span>
+</a>
+<a class="flex items-center text-slate-600 dark:text-slate-400 px-8 py-3 hover:bg-slate-200 dark:hover:bg-slate-800/50 transition-all" href="#">
+<span class="material-symbols-outlined mr-3">settings</span>
+<span class="font-manrope text-sm font-medium tracking-wide">Configurações</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary py-3 rounded-xl font-manrope font-bold text-sm shadow-lg shadow-primary/10 active:scale-95 transition-transform">
+                Clock In
+            </button>
+</div>
+</aside>
+<div class="ml-64 flex-1">
+<!-- TopAppBar (Authority: JSON) -->
+<header class="flex items-center justify-between px-8 w-full h-16 sticky top-0 z-40 bg-slate-50 dark:bg-slate-900 no-border font-manrope antialiased tracking-tight">
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+<span class="material-symbols-outlined text-sm">search</span>
+</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-xs focus:ring-2 focus:ring-primary/20 w-64 transition-all" placeholder="Buscar colaborador..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-slate-500 hover:bg-slate-200/50 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-slate-500 hover:bg-slate-200/50 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="professional headshot of a middle-aged manager with a slight smile in a modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpFFWslV-6P0KKWtpeBn-N9VFG5IvGEhh3nbYNgAhtDs0N6TbLnxRDwopbHGsG5fpM07NZF7e4klknGEkwBrdO1fhyfcrzQpvtnY77KcRJlihhrUbHR9LaY9lcoUhSRobaLdOosgK2A7EU1eAOZ_RBycp0n971GI3-_tarK5yDu2kQZBIHYvwMiLeL4TVJJQhPrNmsCgZmsmJ2C554yrJForR4enCQRoe4sDtISsdAgIpua03Q_G39YqdZ9LegtqkzhrF10Z0s3JI"/>
+</div>
+</div>
+</header>
+<main class="p-8 max-w-7xl mx-auto space-y-10">
+<!-- Page Header Section -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h2 class="text-4xl font-extrabold font-manrope tracking-tighter text-on-surface">Gestão de Escalas</h2>
+<p class="text-on-surface-variant font-body mt-1">Planeje e organize os turnos operacionais da sua equipe com precisão.</p>
+</div>
+<button class="flex items-center gap-2 bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-3 rounded-xl font-manrope font-bold hover:shadow-xl hover:shadow-primary/20 transition-all active:scale-95">
+<span class="material-symbols-outlined">add</span>
+                    Criar Novo Turno
+                </button>
+</section>
+<!-- Filters Bar -->
+<div class="flex flex-wrap items-center justify-between gap-4 bg-surface-container-low p-4 rounded-2xl">
+<div class="flex items-center gap-3">
+<div class="flex bg-surface-container-highest p-1 rounded-lg">
+<button class="px-4 py-1.5 text-xs font-semibold bg-surface-container-lowest shadow-sm rounded-md text-primary">Semanal</button>
+<button class="px-4 py-1.5 text-xs font-medium text-on-surface-variant hover:text-on-surface">Mensal</button>
+</div>
+<div class="h-6 w-px bg-outline-variant/30 mx-2"></div>
+<button class="flex items-center gap-2 text-xs font-semibold px-4 py-2 bg-surface-container-lowest rounded-lg text-on-surface-variant hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-sm">filter_alt</span>
+                        Filtros
+                    </button>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 text-xs font-medium text-on-surface-variant bg-surface-container-lowest px-4 py-2 rounded-lg">
+<span class="material-symbols-outlined text-sm">business</span>
+<span>Unidade: Matriz - SP</span>
+</div>
+<div class="flex items-center gap-2 text-xs font-medium text-on-surface-variant bg-surface-container-lowest px-4 py-2 rounded-lg">
+<span class="material-symbols-outlined text-sm">account_tree</span>
+<span>Depto: Operações</span>
+</div>
+</div>
+</div>
+<!-- Main Layout Content -->
+<div class="grid grid-cols-12 gap-8 items-start">
+<!-- Planner Grid (Asymmetric Bento approach) -->
+<div class="col-span-12 lg:col-span-9 bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm">
+<div class="overflow-x-auto no-scrollbar">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="p-6 text-left border-b-0">
+<span class="text-[0.6875rem] font-bold text-on-surface-variant uppercase tracking-widest font-label">Colaborador</span>
+</th>
+<!-- Days of the week -->
+<th class="p-4 text-center min-w-[120px]">
+<div class="flex flex-col">
+<span class="text-[0.6rem] font-bold text-on-surface-variant uppercase tracking-tighter">Seg</span>
+<span class="text-xl font-extrabold font-manrope text-primary">12</span>
+</div>
+</th>
+<th class="p-4 text-center min-w-[120px]">
+<div class="flex flex-col">
+<span class="text-[0.6rem] font-bold text-on-surface-variant uppercase tracking-tighter">Ter</span>
+<span class="text-xl font-extrabold font-manrope">13</span>
+</div>
+</th>
+<th class="p-4 text-center min-w-[120px]">
+<div class="flex flex-col">
+<span class="text-[0.6rem] font-bold text-on-surface-variant uppercase tracking-tighter">Qua</span>
+<span class="text-xl font-extrabold font-manrope">14</span>
+</div>
+</th>
+<th class="p-4 text-center min-w-[120px]">
+<div class="flex flex-col">
+<span class="text-[0.6rem] font-bold text-on-surface-variant uppercase tracking-tighter">Qui</span>
+<span class="text-xl font-extrabold font-manrope">15</span>
+</div>
+</th>
+<th class="p-4 text-center min-w-[120px]">
+<div class="flex flex-col">
+<span class="text-[0.6rem] font-bold text-on-surface-variant uppercase tracking-tighter">Sex</span>
+<span class="text-xl font-extrabold font-manrope">16</span>
+</div>
+</th>
+<th class="p-4 text-center min-w-[120px] bg-slate-50/80">
+<div class="flex flex-col opacity-60">
+<span class="text-[0.6rem] font-bold text-on-surface-variant uppercase tracking-tighter">Sáb</span>
+<span class="text-xl font-extrabold font-manrope">17</span>
+</div>
+</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<!-- Employee Row 1 -->
+<tr class="group hover:bg-slate-50/50 transition-colors">
+<td class="p-6">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-xl overflow-hidden bg-surface-container-high">
+<img alt="Avatar" class="w-full h-full object-cover" data-alt="portrait of a professional male employee in a white shirt, clear background, high quality" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeNHvRgn1luxI5t8u_fUTLp9Gx4lF-K3J0mM2xVPOjd5bwLJTWqKNx2aNRLY0o9TWbg8XmE3OCYOzxAwbU0EssxF5ip-mwBUJ11jg7J56ZgdOYtgnIcvlmvL1yf2DiGmWk8GQ3Mr12V_iJlKzY69ce7BvvXK_ZQkB07eZwGf1M3DaTRrlyopvY50nLWcH1BG4Ibkxepijy2rgc0faet9c4mXXyrK8JLWIUl58C5dulNZn1zCbdOwDGl02hhhdud7rJJmAfzxZSPT0"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface font-manrope">Lucas Oliveira</p>
+<p class="text-[0.6875rem] text-on-surface-variant font-label">Analista Senior</p>
+</div>
+</div>
+</td>
+<td class="p-3">
+<div class="bg-blue-50 text-blue-700 p-3 rounded-2xl border-l-4 border-blue-500/50 flex flex-col gap-1 hover:shadow-md transition-shadow cursor-pointer">
+<span class="text-[0.65rem] font-bold uppercase tracking-wide">Comercial</span>
+<span class="text-[0.7rem] font-medium">08:00 - 17:00</span>
+</div>
+</td>
+<td class="p-3">
+<div class="bg-blue-50 text-blue-700 p-3 rounded-2xl border-l-4 border-blue-500/50 flex flex-col gap-1">
+<span class="text-[0.65rem] font-bold uppercase tracking-wide">Comercial</span>
+<span class="text-[0.7rem] font-medium">08:00 - 17:00</span>
+</div>
+</td>
+<td class="p-3">
+<div class="bg-blue-50 text-blue-700 p-3 rounded-2xl border-l-4 border-blue-500/50 flex flex-col gap-1">
+<span class="text-[0.65rem] font-bold uppercase tracking-wide">Comercial</span>
+<span class="text-[0.7rem] font-medium">08:00 - 17:00</span>
+</div>
+</td>
+<td class="p-3">
+<div class="bg-orange-50 text-orange-700 p-3 rounded-2xl border-l-4 border-orange-500/50 flex flex-col gap-1">
+<span class="text-[0.65rem] font-bold uppercase tracking-wide">Plantão</span>
+<span class="text-[0.7rem] font-medium">17:00 - 00:00</span>
+</div>
+</td>
+<td class="p-3">
+<div class="bg-blue-50 text-blue-700 p-3 rounded-2xl border-l-4 border-blue-500/50 flex flex-col gap-1">
+<span class="text-[0.65rem] font-bold uppercase tracking-wide">Comercial</span>
+<span class="text-[0.7rem] font-medium">08:00 - 17:00</span>
+</div>
+</td>
+<td class="p-3 bg-slate-50/30">
+<div class="h-12 border-2 border-dashed border-outline-variant/30 rounded-2xl flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant text-sm">add</span>
+</div>
+</td>
+</tr>
+<!-- Employee Row 2 -->
+<tr class="group hover:bg-slate-50/50 transition-colors">
+<td class="p-6">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-xl overflow-hidden bg-surface-container-high">
+<img alt="Avatar" class="w-full h-full object-cover" data-alt="headshot of a smiling woman with glasses, soft studio lighting, professional corporate style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDolwBRoa0n9tK0dJ1Pm0qtssWCHtJaprSkLPJJS7aZJ98t6rhEnYdL1P_ZWGfWsCQT1DZnEtUIae0eD1I0YmFGCG8J9HwOuRta4y9nPD3F7HYW4xjsShJtoYl_AP5xk3B3Yiy4jf5sYfOecz0jIzY2Rjbw7CPVMCzhQfvYZcu_A6AZo5JcR30-ag6Q1a_AMPiqfdrsQXw3_GDyQFK24F49W-GrAeC4SKBwFB8CZrE2EUBZ876VEDo35HBR2aUPQyTfLnMY6TSXzI"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface font-manrope">Marina Silva</p>
+<p class="text-[0.6875rem] text-on-surface-variant font-label">Supervisora</p>
+</div>
+</div>
+</td>
+<td class="p-3">
+<div class="bg-indigo-50 text-indigo-700 p-3 rounded-2xl border-l-4 border-indigo-500/50 flex flex-col gap-1">
+<span class="text-[0.65rem] font-bold uppercase tracking-wide">12x36 D</span>
+<span class="text-[0.7rem] font-medium">07:00 - 19:00</span>
+</div>
+</td>
+<td class="p-3">
+<div class="bg-surface-container-low text-on-surface-variant p-3 rounded-2xl border-l-4 border-outline-variant flex flex-col gap-1 italic opacity-60">
+<span class="text-[0.65rem] font-bold uppercase tracking-wide">Folga</span>
+<span class="text-[0.7rem] font-medium">Livre</span>
+</div>
+</td>
+<td class="p-3">
+<div class="bg-indigo-50 text-indigo-700 p-3 rounded-2xl border-l-4 border-indigo-500/50 flex flex-col gap-1">
+<span class="text-[0.65rem] font-bold uppercase tracking-wide">12x36 D</span>
+<span class="text-[0.7rem] font-medium">07:00 - 19:00</span>
+</div>
+</td>
+<td class="p-3">
+<div class="bg-surface-container-low text-on-surface-variant p-3 rounded-2xl border-l-4 border-outline-variant flex flex-col gap-1 italic opacity-60">
+<span class="text-[0.65rem] font-bold uppercase tracking-wide">Folga</span>
+<span class="text-[0.7rem] font-medium">Livre</span>
+</div>
+</td>
+<td class="p-3">
+<div class="bg-indigo-50 text-indigo-700 p-3 rounded-2xl border-l-4 border-indigo-500/50 flex flex-col gap-1">
+<span class="text-[0.65rem] font-bold uppercase tracking-wide">12x36 D</span>
+<span class="text-[0.7rem] font-medium">07:00 - 19:00</span>
+</div>
+</td>
+<td class="p-3 bg-slate-50/30">
+<div class="bg-surface-container-low text-on-surface-variant p-3 rounded-2xl border-l-4 border-outline-variant flex flex-col gap-1 italic opacity-60">
+<span class="text-[0.65rem] font-bold uppercase tracking-wide">Folga</span>
+</div>
+</td>
+</tr>
+<!-- Employee Row 3 -->
+<tr class="group hover:bg-slate-50/50 transition-colors">
+<td class="p-6">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-xl overflow-hidden bg-surface-container-high">
+<img alt="Avatar" class="w-full h-full object-cover" data-alt="middle aged man with beard, sharp suit, confident gaze, executive portrait background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGC2qOXFYYAg4vI7L7mEce6phMRZFTkvqzXa2rjMy0Qs13BcKtbgoAaUdh94oM2SlRoc32yeW4QParzy3vTGG_hKeAI7uGHcRkxjEA6-goZXhCw1t_ClPV18JttUeo1whZUw408LYnvrWIUCCNbT1Sw6Kx57EA3N823gL1k7a4oeNuTztKfQZYC0Lp0XYXTewM6lDltDE8mYOV8CrhxCRfgDCDXgzy5QxBrayfMpl11314Cn6q-epqmu8rRaNmG6UFO1yqeEFaCqs"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface font-manrope">Ricardo Mendes</p>
+<p class="text-[0.6875rem] text-on-surface-variant font-label">Técnico N3</p>
+</div>
+</div>
+</td>
+<td class="p-3">
+<div class="bg-emerald-50 text-emerald-700 p-3 rounded-2xl border-l-4 border-emerald-500/50 flex flex-col gap-1">
+<span class="text-[0.65rem] font-bold uppercase tracking-wide">Noturno</span>
+<span class="text-[0.7rem] font-medium">22:00 - 05:00</span>
+</div>
+</td>
+<td class="p-3">
+<div class="bg-emerald-50 text-emerald-700 p-3 rounded-2xl border-l-4 border-emerald-500/50 flex flex-col gap-1">
+<span class="text-[0.65rem] font-bold uppercase tracking-wide">Noturno</span>
+<span class="text-[0.7rem] font-medium">22:00 - 05:00</span>
+</div>
+</td>
+<td class="p-3">
+<div class="bg-emerald-50 text-emerald-700 p-3 rounded-2xl border-l-4 border-emerald-500/50 flex flex-col gap-1">
+<span class="text-[0.65rem] font-bold uppercase tracking-wide">Noturno</span>
+<span class="text-[0.7rem] font-medium">22:00 - 05:00</span>
+</div>
+</td>
+<td class="p-3">
+<div class="bg-emerald-50 text-emerald-700 p-3 rounded-2xl border-l-4 border-emerald-500/50 flex flex-col gap-1">
+<span class="text-[0.65rem] font-bold uppercase tracking-wide">Noturno</span>
+<span class="text-[0.7rem] font-medium">22:00 - 05:00</span>
+</div>
+</td>
+<td class="p-3">
+<div class="bg-emerald-50 text-emerald-700 p-3 rounded-2xl border-l-4 border-emerald-500/50 flex flex-col gap-1">
+<span class="text-[0.65rem] font-bold uppercase tracking-wide">Noturno</span>
+<span class="text-[0.7rem] font-medium">22:00 - 05:00</span>
+</div>
+</td>
+<td class="p-3 bg-slate-50/30">
+<div class="h-12 border-2 border-dashed border-outline-variant/30 rounded-2xl flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant text-sm">add</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Turn Library (Sidebar Card) -->
+<div class="col-span-12 lg:col-span-3 space-y-6">
+<div class="bg-surface-container-lowest rounded-3xl p-6 shadow-sm border border-surface-container-low">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-sm font-bold font-manrope text-on-surface">Biblioteca de Turnos</h3>
+<span class="material-symbols-outlined text-primary text-xl">library_books</span>
+</div>
+<div class="space-y-3">
+<div class="group cursor-grab active:cursor-grabbing bg-blue-50/50 hover:bg-blue-50 border border-blue-100 rounded-2xl p-4 transition-all">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-blue-700 uppercase tracking-wide">Comercial</span>
+<span class="material-symbols-outlined text-blue-400 text-sm">drag_indicator</span>
+</div>
+<p class="text-[0.7rem] font-medium text-blue-600 mt-1">08:00 - 17:00 (1h alm.)</p>
+</div>
+<div class="group cursor-grab active:cursor-grabbing bg-emerald-50/50 hover:bg-emerald-50 border border-emerald-100 rounded-2xl p-4 transition-all">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-emerald-700 uppercase tracking-wide">Noturno</span>
+<span class="material-symbols-outlined text-emerald-400 text-sm">drag_indicator</span>
+</div>
+<p class="text-[0.7rem] font-medium text-emerald-600 mt-1">22:00 - 05:00</p>
+</div>
+<div class="group cursor-grab active:cursor-grabbing bg-indigo-50/50 hover:bg-indigo-50 border border-indigo-100 rounded-2xl p-4 transition-all">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-indigo-700 uppercase tracking-wide">12x36 Diurno</span>
+<span class="material-symbols-outlined text-indigo-400 text-sm">drag_indicator</span>
+</div>
+<p class="text-[0.7rem] font-medium text-indigo-600 mt-1">07:00 - 19:00</p>
+</div>
+<div class="group cursor-grab active:cursor-grabbing bg-orange-50/50 hover:bg-orange-50 border border-orange-100 rounded-2xl p-4 transition-all">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-orange-700 uppercase tracking-wide">Flexível</span>
+<span class="material-symbols-outlined text-orange-400 text-sm">drag_indicator</span>
+</div>
+<p class="text-[0.7rem] font-medium text-orange-600 mt-1">Acordo Individual</p>
+</div>
+</div>
+<button class="w-full mt-6 py-3 border-2 border-dashed border-outline-variant rounded-2xl text-[0.6875rem] font-bold text-on-surface-variant hover:border-primary hover:text-primary transition-all">
+                            Configurar Novos Turnos
+                        </button>
+</div>
+<!-- Legend Section -->
+<div class="bg-surface-container p-6 rounded-3xl">
+<p class="text-[0.6rem] font-bold text-on-surface-variant uppercase tracking-widest mb-4">Legenda de Cores</p>
+<div class="grid grid-cols-2 gap-y-3 gap-x-2">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-blue-500"></div>
+<span class="text-[0.65rem] font-medium text-on-surface-variant">Comercial</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div>
+<span class="text-[0.65rem] font-medium text-on-surface-variant">Noturno</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-indigo-500"></div>
+<span class="text-[0.65rem] font-medium text-on-surface-variant">12x36</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-orange-500"></div>
+<span class="text-[0.65rem] font-medium text-on-surface-variant">Plantão</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-slate-400"></div>
+<span class="text-[0.65rem] font-medium text-on-surface-variant">Folga</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Stats / Insights (Asymmetric addition) -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="bg-white p-6 rounded-3xl shadow-sm border border-surface-container-low flex items-center gap-4">
+<div class="p-3 bg-blue-50 rounded-2xl text-primary">
+<span class="material-symbols-outlined">groups</span>
+</div>
+<div>
+<p class="text-[0.6rem] font-bold text-on-surface-variant uppercase tracking-widest">Equipe Alocada</p>
+<p class="text-xl font-extrabold font-manrope">94%</p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-3xl shadow-sm border border-surface-container-low flex items-center gap-4">
+<div class="p-3 bg-orange-50 rounded-2xl text-orange-600">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div>
+<p class="text-[0.6rem] font-bold text-on-surface-variant uppercase tracking-widest">Conflitos</p>
+<p class="text-xl font-extrabold font-manrope">02</p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-3xl shadow-sm border border-surface-container-low flex items-center gap-4">
+<div class="p-3 bg-emerald-50 rounded-2xl text-emerald-600">
+<span class="material-symbols-outlined">update</span>
+</div>
+<div>
+<p class="text-[0.6rem] font-bold text-on-surface-variant uppercase tracking-widest">Hrs Planejadas</p>
+<p class="text-xl font-extrabold font-manrope">1.240h</p>
+</div>
+</div>
+<div class="bg-gradient-to-br from-primary to-primary-container p-6 rounded-3xl shadow-lg flex items-center gap-4">
+<div class="p-3 bg-white/20 rounded-2xl text-white">
+<span class="material-symbols-outlined">task_alt</span>
+</div>
+<div>
+<p class="text-[0.6rem] font-bold text-white/70 uppercase tracking-widest">Status</p>
+<p class="text-xl font-extrabold font-manrope text-white">Publicado</p>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

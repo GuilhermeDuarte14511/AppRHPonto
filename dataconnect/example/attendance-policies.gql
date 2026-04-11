@@ -1,0 +1,252 @@
+query ListAttendancePolicies @auth(level: USER, insecureReason: "Operação administrativa do MVP para política de marcação.") {
+  attendancePolicies(orderBy: [{ name: ASC }], limit: 100) {
+    id
+    code
+    name
+    mode
+    validationStrategy
+    geolocationRequired
+    photoRequired
+    allowOffsiteClocking
+    requiresAllowedLocations
+    description
+    isActive
+    createdAt
+    updatedAt
+  }
+}
+
+query ListWorkLocations @auth(level: USER, insecureReason: "Operação administrativa do MVP para locais autorizados.") {
+  workLocations(orderBy: [{ name: ASC }], limit: 200) {
+    id
+    code
+    name
+    type
+    addressLine
+    addressComplement
+    city
+    state
+    postalCode
+    latitude
+    longitude
+    radiusMeters
+    isActive
+    createdAt
+    updatedAt
+  }
+}
+
+query ListEmployeeAttendancePolicies @auth(level: USER, insecureReason: "Operação administrativa do MVP para regra de marcação do colaborador.") {
+  employeeAttendancePolicies(orderBy: [{ createdAt: DESC }], limit: 200) {
+    id
+    employee {
+      id
+    }
+    attendancePolicy {
+      id
+    }
+    mode
+    validationStrategy
+    geolocationRequired
+    photoRequired
+    allowAnyLocation
+    blockOutsideAllowedLocations
+    notes
+    startsAt
+    endsAt
+    isCurrent
+    createdAt
+    updatedAt
+  }
+}
+
+query ListEmployeeAllowedLocations @auth(level: USER, insecureReason: "Operação administrativa do MVP para locais vinculados ao colaborador.") {
+  employeeAllowedLocations(orderBy: [{ createdAt: DESC }], limit: 400) {
+    id
+    employeeAttendancePolicy {
+      id
+    }
+    workLocation {
+      id
+    }
+    locationRole
+    isRequired
+    createdAt
+    updatedAt
+  }
+}
+
+mutation CreateAttendancePolicy(
+  $code: String!
+  $name: String!
+  $mode: String!
+  $validationStrategy: String!
+  $geolocationRequired: Boolean!
+  $photoRequired: Boolean!
+  $allowOffsiteClocking: Boolean!
+  $requiresAllowedLocations: Boolean!
+  $description: String
+  $isActive: Boolean!
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para política de marcação.") {
+  attendancePolicy_insert(
+    data: {
+      code: $code
+      name: $name
+      mode: $mode
+      validationStrategy: $validationStrategy
+      geolocationRequired: $geolocationRequired
+      photoRequired: $photoRequired
+      allowOffsiteClocking: $allowOffsiteClocking
+      requiresAllowedLocations: $requiresAllowedLocations
+      description: $description
+      isActive: $isActive
+      createdAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation UpdateAttendancePolicy(
+  $id: UUID!
+  $name: String
+  $mode: String
+  $validationStrategy: String
+  $geolocationRequired: Boolean
+  $photoRequired: Boolean
+  $allowOffsiteClocking: Boolean
+  $requiresAllowedLocations: Boolean
+  $description: String
+  $isActive: Boolean
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para política de marcação.") {
+  attendancePolicy_update(
+    id: $id
+    data: {
+      name: $name
+      mode: $mode
+      validationStrategy: $validationStrategy
+      geolocationRequired: $geolocationRequired
+      photoRequired: $photoRequired
+      allowOffsiteClocking: $allowOffsiteClocking
+      requiresAllowedLocations: $requiresAllowedLocations
+      description: $description
+      isActive: $isActive
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation CreateWorkLocation(
+  $code: String!
+  $name: String!
+  $type: String!
+  $addressLine: String
+  $addressComplement: String
+  $city: String
+  $state: String
+  $postalCode: String
+  $latitude: Float
+  $longitude: Float
+  $radiusMeters: Int!
+  $isActive: Boolean!
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para locais autorizados.") {
+  workLocation_insert(
+    data: {
+      code: $code
+      name: $name
+      type: $type
+      addressLine: $addressLine
+      addressComplement: $addressComplement
+      city: $city
+      state: $state
+      postalCode: $postalCode
+      latitude: $latitude
+      longitude: $longitude
+      radiusMeters: $radiusMeters
+      isActive: $isActive
+      createdAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation CreateEmployeeAttendancePolicy(
+  $employeeId: UUID!
+  $attendancePolicyId: UUID!
+  $mode: String!
+  $validationStrategy: String!
+  $geolocationRequired: Boolean!
+  $photoRequired: Boolean!
+  $allowAnyLocation: Boolean!
+  $blockOutsideAllowedLocations: Boolean!
+  $notes: String
+  $startsAt: Date
+  $endsAt: Date
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para regra de marcação do colaborador.") {
+  employeeAttendancePolicy_insert(
+    data: {
+      employee: { id: $employeeId }
+      attendancePolicy: { id: $attendancePolicyId }
+      mode: $mode
+      validationStrategy: $validationStrategy
+      geolocationRequired: $geolocationRequired
+      photoRequired: $photoRequired
+      allowAnyLocation: $allowAnyLocation
+      blockOutsideAllowedLocations: $blockOutsideAllowedLocations
+      notes: $notes
+      startsAt: $startsAt
+      endsAt: $endsAt
+      isCurrent: true
+      createdAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation UpdateEmployeeAttendancePolicy(
+  $id: UUID!
+  $attendancePolicyId: UUID!
+  $mode: String!
+  $validationStrategy: String!
+  $geolocationRequired: Boolean!
+  $photoRequired: Boolean!
+  $allowAnyLocation: Boolean!
+  $blockOutsideAllowedLocations: Boolean!
+  $notes: String
+  $startsAt: Date
+  $endsAt: Date
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para regra de marcação do colaborador.") {
+  employeeAttendancePolicy_update(
+    first: { where: { id: { eq: $id } } }
+    data: {
+      attendancePolicy: { id: $attendancePolicyId }
+      mode: $mode
+      validationStrategy: $validationStrategy
+      geolocationRequired: $geolocationRequired
+      photoRequired: $photoRequired
+      allowAnyLocation: $allowAnyLocation
+      blockOutsideAllowedLocations: $blockOutsideAllowedLocations
+      notes: $notes
+      startsAt: $startsAt
+      endsAt: $endsAt
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation AddEmployeeAllowedLocation(
+  $employeeAttendancePolicyId: UUID!
+  $workLocationId: UUID!
+  $locationRole: String!
+  $isRequired: Boolean!
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para locais permitidos do colaborador.") {
+  employeeAllowedLocation_insert(
+    data: {
+      employeeAttendancePolicyId: $employeeAttendancePolicyId
+      workLocation: { id: $workLocationId }
+      locationRole: $locationRole
+      isRequired: $isRequired
+      createdAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  )
+}

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PontoPrecise - Documento Aprovado</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#b8c4ff",
+                        "surface-variant": "#e0e3e5",
+                        "on-primary-fixed": "#00174b",
+                        "primary-container": "#2563eb",
+                        "on-primary-container": "#eeefff",
+                        "outline": "#737686",
+                        "surface-container": "#eceef0",
+                        "secondary-fixed": "#dde1ff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-secondary-container": "#00217a",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#d8dadc",
+                        "background": "#f7f9fb",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-background": "#191c1e",
+                        "on-surface-variant": "#434655",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#001453",
+                        "inverse-surface": "#2d3133",
+                        "surface": "#f7f9fb",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-container": "#ffede6",
+                        "surface-tint": "#0053db",
+                        "on-surface": "#191c1e",
+                        "tertiary": "#943700",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-container": "#708cfd",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e6e8ea",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#bc4800",
+                        "outline-variant": "#c3c6d7",
+                        "on-secondary-fixed-variant": "#173bab",
+                        "surface-container-low": "#f2f4f6",
+                        "on-tertiary-fixed": "#360f00",
+                        "inverse-primary": "#b4c5ff",
+                        "secondary": "#3755c3",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "primary": "#004ac6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 flex flex-col py-6 px-4 bg-slate-100 dark:bg-slate-800/50 z-50">
+<div class="mb-10 px-2">
+<h1 class="text-xl font-bold tracking-tight text-blue-700 dark:text-blue-400 font-headline">PontoPrecise</h1>
+<p class="text-xs text-on-surface-variant font-medium">Administrative HR</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 transition-colors text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 transition-colors text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="badge">badge</span>
+                Funcionários
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 transition-colors text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="timer">timer</span>
+                Marcações
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 transition-colors text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+                Justificativas
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 transition-colors text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                Analytics
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 transition-colors text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+                Escalas
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 transition-colors text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+                Folha
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-blue-700 dark:text-blue-300 font-semibold border-r-4 border-blue-600 dark:border-blue-400 bg-white/50 dark:bg-slate-800/50 text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+                Documentos
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 transition-colors text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+                Auditoria
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/80 transition-colors text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Configurações
+            </a>
+</nav>
+<div class="mt-auto flex items-center gap-3 px-2 py-4 border-t border-transparent">
+<div class="w-10 h-10 rounded-full overflow-hidden">
+<img alt="Administrator Profile" class="w-full h-full object-cover" data-alt="Professional headshot of a corporate administrator in a modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfD9ZFJ9MgPAIHPT_-PQkIwemcaAvqZsivZGo8ZBFvdDXjMC2nrdcM6IyFd1bGEQ-iMthQdy8yHfgybaTuPGcZ7qQ07pvtgkpjtgPkDWFKJCEr_J2wWFAHRB-NYaQ8wgPT_d0cCAyVUqOfj4oV-hPr4G35rjk-5m9SUX1g6lEvimjT2BhvGNWRxWPvzQz_XG9DgSzIrTGxyCmmcldK9dYH3y2z_ZdOb8hgh5gnginKTnX0ElIN6KXf6oZ4cnUtUMpzGzh79Y0LVZw"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Admin User</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">HR Manager</p>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 z-40 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl flex items-center justify-between px-8 shadow-sm shadow-blue-500/5">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary-fixed outline-none placeholder:text-slate-400 font-body" placeholder="Procurar documentos ou funcionários..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors text-slate-600 dark:text-slate-400 relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 min-h-screen">
+<div class="max-w-[1440px] mx-auto p-10 flex items-center justify-center min-h-[calc(100vh-4rem)]">
+<!-- Success Feedback Card -->
+<div class="bg-surface-container-lowest w-full max-w-lg rounded-full p-12 text-center flex flex-col items-center">
+<!-- Success Icon with Radial Glow -->
+<div class="relative mb-8">
+<div class="absolute inset-0 bg-green-500/10 blur-2xl rounded-full scale-150"></div>
+<div class="relative w-24 h-24 bg-white rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[64px] text-[#16A34A]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<h2 class="text-3xl font-extrabold font-headline text-on-surface mb-3 tracking-tight">Documento Aprovado com Sucesso</h2>
+<p class="text-on-surface-variant font-body mb-10 max-w-sm">
+                    O documento de <span class="font-semibold text-primary">Ana Silva</span> foi validado e arquivado permanentemente no sistema de auditoria.
+                </p>
+<div class="w-full flex flex-col sm:flex-row gap-4 justify-center">
+<button class="px-8 py-3.5 rounded-xl text-primary font-semibold border-2 border-primary/10 hover:bg-surface-container-high transition-all active:scale-95 font-body">
+                        Voltar para Listagem
+                    </button>
+<button class="px-8 py-3.5 rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-95 font-body">
+                        Ver Próximo Pendente
+                    </button>
+</div>
+<!-- Subtle Informational Footer -->
+<div class="mt-12 flex items-center gap-6 p-6 bg-surface-container rounded-xl w-full">
+<div class="flex flex-1 flex-col items-start text-left">
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">CÓDIGO DE ARQUIVO</span>
+<span class="font-mono text-sm text-slate-500">PXP-2023-09841-A</span>
+</div>
+<div class="w-px h-8 bg-outline-variant/30"></div>
+<div class="flex flex-1 flex-col items-start text-left">
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">DATA DE REGISTRO</span>
+<span class="text-sm text-slate-500">24 Mai 2024, 14:32</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Background Decorative Element (Tonal Layering) -->
+<div class="fixed top-0 right-0 w-1/3 h-1/2 bg-blue-50/50 -z-10 blur-3xl opacity-50 rounded-bl-full pointer-events-none"></div>
+</body></html>

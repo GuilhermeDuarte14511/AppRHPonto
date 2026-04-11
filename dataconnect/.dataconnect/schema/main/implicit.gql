@@ -1,0 +1,228 @@
+extend type AdminNotification {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "AdminNotification", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `AdminNotification`.`recipientUser`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  recipientUserId: UUID! @fdc_generated(from: "AdminNotification.recipientUser", purpose: IMPLICIT_REF_FIELD)
+}
+extend type AdminSettings {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "AdminSettings", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `AdminSettings`.`defaultAttendancePolicy`. It must match the value of `AttendancePolicy`.`id`. See `@ref` for how to customize it.
+  """
+  defaultAttendancePolicyId: UUID @fdc_generated(from: "AdminSettings.defaultAttendancePolicy", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `AdminSettings`.`defaultWorkSchedule`. It must match the value of `WorkSchedule`.`id`. See `@ref` for how to customize it.
+  """
+  defaultWorkScheduleId: UUID @fdc_generated(from: "AdminSettings.defaultWorkSchedule", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `AdminSettings`.`primaryDevice`. It must match the value of `Device`.`id`. See `@ref` for how to customize it.
+  """
+  primaryDeviceId: UUID @fdc_generated(from: "AdminSettings.primaryDevice", purpose: IMPLICIT_REF_FIELD)
+}
+extend type AttendancePolicy {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "AttendancePolicy", purpose: IMPLICIT_KEY_FIELD)
+}
+extend type AuditLog {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "AuditLog", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `AuditLog`.`user`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  userId: UUID @fdc_generated(from: "AuditLog.user", purpose: IMPLICIT_REF_FIELD)
+}
+extend type Department {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "Department", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Department`.`manager`. It must match the value of `Employee`.`id`. See `@ref` for how to customize it.
+  """
+  managerId: UUID @fdc_generated(from: "Department.manager", purpose: IMPLICIT_REF_FIELD)
+}
+extend type Device {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "Device", purpose: IMPLICIT_KEY_FIELD)
+}
+extend type Employee {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "Employee", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Employee`.`department`. It must match the value of `Department`.`id`. See `@ref` for how to customize it.
+  """
+  departmentId: UUID @fdc_generated(from: "Employee.department", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Employee`.`user`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  userId: UUID @fdc_generated(from: "Employee.user", purpose: IMPLICIT_REF_FIELD)
+}
+extend type EmployeeAllowedLocation {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "EmployeeAllowedLocation", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `EmployeeAllowedLocation`.`workLocation`. It must match the value of `WorkLocation`.`id`. See `@ref` for how to customize it.
+  """
+  workLocationId: UUID! @fdc_generated(from: "EmployeeAllowedLocation.workLocation", purpose: IMPLICIT_REF_FIELD)
+}
+extend type EmployeeAttendancePolicy {
+  """
+  ✨ Implicit foreign key field based on `EmployeeAttendancePolicy`.`employee`. It must match the value of `Employee`.`id`. See `@ref` for how to customize it.
+  """
+  employeeId: UUID! @fdc_generated(from: "EmployeeAttendancePolicy.employee", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `EmployeeAttendancePolicy`.`attendancePolicy`. It must match the value of `AttendancePolicy`.`id`. See `@ref` for how to customize it.
+  """
+  attendancePolicyId: UUID! @fdc_generated(from: "EmployeeAttendancePolicy.attendancePolicy", purpose: IMPLICIT_REF_FIELD)
+}
+extend type EmployeeScheduleHistory {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "EmployeeScheduleHistory", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `EmployeeScheduleHistory`.`employee`. It must match the value of `Employee`.`id`. See `@ref` for how to customize it.
+  """
+  employeeId: UUID! @fdc_generated(from: "EmployeeScheduleHistory.employee", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `EmployeeScheduleHistory`.`workSchedule`. It must match the value of `WorkSchedule`.`id`. See `@ref` for how to customize it.
+  """
+  workScheduleId: UUID! @fdc_generated(from: "EmployeeScheduleHistory.workSchedule", purpose: IMPLICIT_REF_FIELD)
+}
+extend type Justification {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "Justification", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Justification`.`employee`. It must match the value of `Employee`.`id`. See `@ref` for how to customize it.
+  """
+  employeeId: UUID! @fdc_generated(from: "Justification.employee", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Justification`.`reviewedByUser`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  reviewedByUserId: UUID @fdc_generated(from: "Justification.reviewedByUser", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Justification`.`timeRecord`. It must match the value of `TimeRecord`.`id`. See `@ref` for how to customize it.
+  """
+  timeRecordId: UUID @fdc_generated(from: "Justification.timeRecord", purpose: IMPLICIT_REF_FIELD)
+}
+extend type JustificationAttachment {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "JustificationAttachment", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `JustificationAttachment`.`justification`. It must match the value of `Justification`.`id`. See `@ref` for how to customize it.
+  """
+  justificationId: UUID! @fdc_generated(from: "JustificationAttachment.justification", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `JustificationAttachment`.`uploadedByUser`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  uploadedByUserId: UUID @fdc_generated(from: "JustificationAttachment.uploadedByUser", purpose: IMPLICIT_REF_FIELD)
+}
+extend type OnboardingJourney {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "OnboardingJourney", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `OnboardingJourney`.`employee`. It must match the value of `Employee`.`id`. See `@ref` for how to customize it.
+  """
+  employeeId: UUID! @fdc_generated(from: "OnboardingJourney.employee", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `OnboardingJourney`.`ownerUser`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  ownerUserId: UUID @fdc_generated(from: "OnboardingJourney.ownerUser", purpose: IMPLICIT_REF_FIELD)
+}
+extend type OnboardingTask {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "OnboardingTask", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `OnboardingTask`.`assignedUser`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  assignedUserId: UUID @fdc_generated(from: "OnboardingTask.assignedUser", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `OnboardingTask`.`journey`. It must match the value of `OnboardingJourney`.`id`. See `@ref` for how to customize it.
+  """
+  journeyId: UUID! @fdc_generated(from: "OnboardingTask.journey", purpose: IMPLICIT_REF_FIELD)
+}
+extend type TimeRecord {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "TimeRecord", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `TimeRecord`.`device`. It must match the value of `Device`.`id`. See `@ref` for how to customize it.
+  """
+  deviceId: UUID @fdc_generated(from: "TimeRecord.device", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `TimeRecord`.`employee`. It must match the value of `Employee`.`id`. See `@ref` for how to customize it.
+  """
+  employeeId: UUID! @fdc_generated(from: "TimeRecord.employee", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `TimeRecord`.`recordedByUser`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  recordedByUserId: UUID @fdc_generated(from: "TimeRecord.recordedByUser", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `TimeRecord`.`referenceRecord`. It must match the value of `TimeRecord`.`id`. See `@ref` for how to customize it.
+  """
+  referenceRecordId: UUID @fdc_generated(from: "TimeRecord.referenceRecord", purpose: IMPLICIT_REF_FIELD)
+}
+extend type TimeRecordPhoto {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "TimeRecordPhoto", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `TimeRecordPhoto`.`timeRecord`. It must match the value of `TimeRecord`.`id`. See `@ref` for how to customize it.
+  """
+  timeRecordId: UUID! @fdc_generated(from: "TimeRecordPhoto.timeRecord", purpose: IMPLICIT_REF_FIELD)
+}
+extend type User {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "User", purpose: IMPLICIT_KEY_FIELD)
+}
+extend type VacationRequest {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "VacationRequest", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `VacationRequest`.`employee`. It must match the value of `Employee`.`id`. See `@ref` for how to customize it.
+  """
+  employeeId: UUID! @fdc_generated(from: "VacationRequest.employee", purpose: IMPLICIT_REF_FIELD)
+}
+extend type WorkLocation {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "WorkLocation", purpose: IMPLICIT_KEY_FIELD)
+}
+extend type WorkSchedule {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "WorkSchedule", purpose: IMPLICIT_KEY_FIELD)
+}

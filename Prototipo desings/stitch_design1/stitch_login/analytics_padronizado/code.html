@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HR Archive - Analytics Avançado</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#dde1ff",
+                        "tertiary-container": "#bc4800",
+                        "secondary-fixed-dim": "#b8c4ff",
+                        "surface-dim": "#d8dadc",
+                        "outline": "#737686",
+                        "surface-container": "#eceef0",
+                        "on-secondary-fixed-variant": "#173bab",
+                        "on-surface": "#191c1e",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-primary-fixed": "#00174b",
+                        "surface-bright": "#f7f9fb",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-primary-container": "#eeefff",
+                        "surface-variant": "#e0e3e5",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#360f00",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#3755c3",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e6e8ea",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#001453",
+                        "on-tertiary-container": "#ffede6",
+                        "on-primary": "#ffffff",
+                        "surface": "#f7f9fb",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "tertiary": "#943700",
+                        "secondary-container": "#708cfd",
+                        "primary": "#004ac6",
+                        "on-background": "#191c1e",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "inverse-surface": "#2d3133",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#2563eb",
+                        "on-surface-variant": "#434655",
+                        "on-secondary-container": "#00217a",
+                        "outline-variant": "#c3c6d7",
+                        "inverse-primary": "#b4c5ff",
+                        "on-error-container": "#93000a",
+                        "background": "#f7f9fb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+        }
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar (Updated from COMPONENTS_33) -->
+<aside class="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-slate-50 dark:bg-slate-900 flex flex-col py-6 px-4 z-50 no-scrollbar">
+<div class="mb-8 px-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">fingerprint</span>
+</div>
+<div>
+<h1 class="text-lg font-black text-blue-700 dark:text-blue-400 leading-none font-['Manrope']">PontoPrecise</h1>
+<p class="text-[0.6875rem] font-semibold tracking-wider text-slate-500 uppercase">The Digital Curator</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1 font-['Manrope'] font-medium text-sm">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-blue-600">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-blue-600">group</span>
+<span>Funcionários</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-blue-600">fingerprint</span>
+<span>Marcações</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-blue-600">fact_check</span>
+<span>Justificativas</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-blue-600 dark:text-blue-400 font-bold border-r-4 border-blue-600 dark:border-blue-400 bg-blue-50/50 dark:bg-blue-900/10 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-blue-600">calendar_view_day</span>
+<span>Escalas</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-blue-600">payments</span>
+<span>Folha</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-blue-600">description</span>
+<span>Documentos</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-blue-600">history_edu</span>
+<span>Auditoria</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-blue-600">settings</span>
+<span>Configurações</span>
+</a>
+</nav>
+<div class="mt-auto space-y-1 pt-6 border-t border-slate-200 dark:border-slate-800 font-['Manrope'] text-xs font-medium">
+<button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl mb-6 shadow-lg shadow-blue-500/20 active:scale-95 transition-transform">
+                Clock In
+            </button>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:text-blue-600 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">help</span>
+<span>Help</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:text-blue-600 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar (Updated from COMPONENTS_33) -->
+<header class="fixed top-0 right-0 left-64 z-40 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-sm dark:shadow-none h-16 flex justify-between items-center px-6 font-['Manrope'] antialiased">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-lg">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-900 border-none rounded-full focus:ring-2 focus:ring-blue-500/50 text-sm" placeholder="Search analytics..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1">
+<button class="material-symbols-outlined text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-900 p-2 rounded-full transition-colors">notifications</button>
+<button class="material-symbols-outlined text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-900 p-2 rounded-full transition-colors">help</button>
+<button class="material-symbols-outlined text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-900 p-2 rounded-full transition-colors">settings</button>
+</div>
+<div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800 mx-2"></div>
+<div class="flex items-center gap-3 group cursor-pointer">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-bold text-slate-900 dark:text-slate-100 leading-none">Admin User</p>
+<p class="text-[0.6875rem] font-semibold text-slate-500 uppercase tracking-wider mt-1">Administrator</p>
+</div>
+<img alt="User Profile Avatar" class="w-10 h-10 rounded-full object-cover ring-2 ring-white dark:ring-slate-800 shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyux7liGoMcNDoNo5Y4nVE7BvP0sKdqw8mzt_bINtVW0ex2v08KvqS5vcgYbd2MbUEMSAC4fDIK3G8A1OqkT0B7kU1TiEO6RvKUtbyV5dSLFWpVYlN7lAZzIlJuRbQph52ogmrAcZIvo2UdaGgHP-mEYDDlJp-0qcurptB3Xbl6RDtY8EyCq8fjuvLquU_PV4dXTYKC_Q902flDqn8zkBG1ojfZ66IXzNsKY7NMO5YoC1nMSLUTlXRh7W2iVYMMqcw2VNrQtcMCCs"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="pt-24 px-8 pb-10 max-w-[1440px] mx-auto">
+<!-- Hero Section -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div>
+<span class="text-[0.6875rem] font-bold text-blue-600 uppercase tracking-widest mb-2 block">Intelligence Suite</span>
+<h2 class="text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">Analytics Avançado</h2>
+<p class="text-on-surface-variant mt-2 max-w-lg">Visão editorial completa sobre o desempenho e pontualidade operacional da organização.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center bg-surface-container-lowest dark:bg-slate-900 px-4 py-2 rounded-xl ring-1 ring-outline-variant/10 shadow-sm">
+<span class="material-symbols-outlined text-outline text-lg mr-2">calendar_today</span>
+<select class="bg-transparent border-none text-sm font-semibold focus:ring-0 p-0 pr-8 cursor-pointer dark:text-slate-200">
+<option>Last 30 days</option>
+<option>Last 90 days</option>
+<option>Year to date</option>
+</select>
+</div>
+<button class="flex items-center gap-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 px-4 py-2 rounded-xl ring-1 ring-slate-200 dark:ring-slate-800 shadow-sm transition-all active:scale-95 text-sm font-bold dark:text-slate-200">
+<span class="material-symbols-outlined text-lg">picture_as_pdf</span>
+                        Export PDF
+                    </button>
+</div>
+</section>
+<!-- KPI Cards Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+<!-- Card 1 -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl relative overflow-hidden group shadow-sm ring-1 ring-slate-100 dark:ring-slate-800">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-blue-600">
+<span class="material-symbols-outlined">person_off</span>
+</div>
+<span class="flex items-center gap-1 text-[0.6875rem] font-bold text-orange-600">
+<span class="material-symbols-outlined text-sm">trending_up</span> 2.4%
+                        </span>
+</div>
+<h3 class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">Taxa de Absenteísmo</h3>
+<p class="text-3xl font-extrabold text-slate-900 dark:text-slate-100 mt-1">4.2%</p>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl relative overflow-hidden group shadow-sm ring-1 ring-slate-100 dark:ring-slate-800">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-blue-600">
+<span class="material-symbols-outlined">timer</span>
+</div>
+<span class="flex items-center gap-1 text-[0.6875rem] font-bold text-green-600">
+<span class="material-symbols-outlined text-sm">trending_down</span> 12m
+                        </span>
+</div>
+<h3 class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">Média de Horas Extras</h3>
+<p class="text-3xl font-extrabold text-slate-900 dark:text-slate-100 mt-1">1h 45m</p>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Card 3 -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl relative overflow-hidden group shadow-sm ring-1 ring-slate-100 dark:ring-slate-800">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-blue-600">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<span class="flex items-center gap-1 text-[0.6875rem] font-bold text-slate-400">
+<span class="material-symbols-outlined text-sm">check_circle</span> stable
+                        </span>
+</div>
+<h3 class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">Índice de Pontualidade</h3>
+<p class="text-3xl font-extrabold text-slate-900 dark:text-slate-100 mt-1">94.8%</p>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Card 4 -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl relative overflow-hidden group shadow-sm ring-1 ring-slate-100 dark:ring-slate-800">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="flex items-center gap-1 text-[0.6875rem] font-bold text-orange-600">
+<span class="material-symbols-outlined text-sm">trending_up</span> R$ 2k
+                        </span>
+</div>
+<h3 class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">Custo Est. Horas Extras</h3>
+<p class="text-3xl font-extrabold text-slate-900 dark:text-slate-100 mt-1">R$ 42.850</p>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-slate-400 to-slate-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+</section>
+<!-- Main Charts Area -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+<!-- Line Chart: Presence vs Delay -->
+<div class="lg:col-span-2 bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-10">
+<div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-slate-100">Tendência de Presença vs. Atrasos</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400">Variação diária acumulada nos últimos 30 dias</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-blue-600"></span>
+<span class="text-xs font-semibold dark:text-slate-300">Presença</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-orange-500"></span>
+<span class="text-xs font-semibold dark:text-slate-300">Atrasos</span>
+</div>
+</div>
+</div>
+<div class="h-64 flex items-end justify-between gap-1.5 relative px-2">
+<!-- Simulated Chart Grid -->
+<div class="absolute inset-x-0 bottom-0 top-0 flex flex-col justify-between pointer-events-none opacity-5 px-2">
+<div class="border-t border-on-surface h-[1px] w-full"></div>
+<div class="border-t border-on-surface h-[1px] w-full"></div>
+<div class="border-t border-on-surface h-[1px] w-full"></div>
+<div class="border-t border-on-surface h-[1px] w-full"></div>
+</div>
+<!-- Bars -->
+<div class="flex-1 bg-blue-600/20 rounded-t-sm h-[60%] hover:bg-blue-600/40 transition-colors"></div>
+<div class="flex-1 bg-blue-600/20 rounded-t-sm h-[65%] hover:bg-blue-600/40 transition-colors"></div>
+<div class="flex-1 bg-blue-600/20 rounded-t-sm h-[58%] hover:bg-blue-600/40 transition-colors"></div>
+<div class="flex-1 bg-blue-600/20 rounded-t-sm h-[72%] hover:bg-blue-600/40 transition-colors"></div>
+<div class="flex-1 bg-blue-600/20 rounded-t-sm h-[85%] hover:bg-blue-600/40 transition-colors"></div>
+<div class="flex-1 bg-blue-600/20 rounded-t-sm h-[90%] hover:bg-blue-600/40 transition-colors"></div>
+<div class="flex-1 bg-blue-600/20 rounded-t-sm h-[88%] hover:bg-blue-600/40 transition-colors"></div>
+<div class="flex-1 bg-orange-500/20 rounded-t-sm h-[30%] hover:bg-orange-500/40 transition-colors"></div>
+<div class="flex-1 bg-blue-600/20 rounded-t-sm h-[75%] hover:bg-blue-600/40 transition-colors"></div>
+<div class="flex-1 bg-blue-600/20 rounded-t-sm h-[79%] hover:bg-blue-600/40 transition-colors"></div>
+<div class="flex-1 bg-blue-600/20 rounded-t-sm h-[82%] hover:bg-blue-600/40 transition-colors"></div>
+<div class="flex-1 bg-blue-600/20 rounded-t-sm h-[85%] hover:bg-blue-600/40 transition-colors"></div>
+<div class="flex-1 bg-orange-500/20 rounded-t-sm h-[45%] hover:bg-orange-500/40 transition-colors"></div>
+<div class="flex-1 bg-blue-600/20 rounded-t-sm h-[92%] hover:bg-blue-600/40 transition-colors"></div>
+<div class="flex-1 bg-blue-600/20 rounded-t-sm h-[95%] hover:bg-blue-600/40 transition-colors"></div>
+</div>
+</div>
+<!-- Distribution Chart: Extras per Dept -->
+<div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
+<h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6">Horas Extras por Departamento</h3>
+<div class="space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold uppercase tracking-wider text-slate-500">
+<span>Tech</span>
+<span>420h</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
+<div class="bg-blue-600 h-2 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold uppercase tracking-wider text-slate-500">
+<span>Sales</span>
+<span>180h</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
+<div class="bg-blue-600/60 h-2 rounded-full" style="width: 45%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold uppercase tracking-wider text-slate-500">
+<span>HR &amp; Admin</span>
+<span>110h</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
+<div class="bg-blue-600/40 h-2 rounded-full" style="width: 25%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold uppercase tracking-wider text-slate-500">
+<span>Logistics</span>
+<span>340h</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
+<div class="bg-blue-600/80 h-2 rounded-full" style="width: 65%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold uppercase tracking-wider text-slate-500">
+<span>Design</span>
+<span>85h</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
+<div class="bg-blue-600/30 h-2 rounded-full" style="width: 15%"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Insights Section -->
+<section class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+<!-- Heatmap: Picos de Atrasos -->
+<div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-orange-600">query_stats</span>
+<h3 class="text-xl font-bold text-slate-900 dark:text-slate-100">Picos de Atrasos por Dia/Hora</h3>
+</div>
+<div class="overflow-x-auto no-scrollbar">
+<div class="min-w-[500px]">
+<!-- Header Hours -->
+<div class="grid grid-cols-8 gap-1 mb-2">
+<div></div>
+<div class="text-[10px] font-bold text-slate-500 text-center">07:00</div>
+<div class="text-[10px] font-bold text-slate-500 text-center">08:00</div>
+<div class="text-[10px] font-bold text-slate-500 text-center">09:00</div>
+<div class="text-[10px] font-bold text-slate-500 text-center">10:00</div>
+<div class="text-[10px] font-bold text-slate-500 text-center">13:00</div>
+<div class="text-[10px] font-bold text-slate-500 text-center">14:00</div>
+<div class="text-[10px] font-bold text-slate-500 text-center">15:00</div>
+</div>
+<!-- Rows (Days) -->
+<div class="space-y-1">
+<div class="grid grid-cols-8 gap-1 items-center">
+<div class="text-[10px] font-bold text-slate-400">MON</div>
+<div class="aspect-square bg-slate-50 dark:bg-slate-800 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/30 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/70 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/10 rounded-sm"></div>
+<div class="aspect-square bg-slate-50 dark:bg-slate-800 rounded-sm"></div>
+<div class="aspect-square bg-slate-50 dark:bg-slate-800 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/5 rounded-sm"></div>
+</div>
+<div class="grid grid-cols-8 gap-1 items-center">
+<div class="text-[10px] font-bold text-slate-400">TUE</div>
+<div class="aspect-square bg-orange-500/15 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/50 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/35 rounded-sm"></div>
+<div class="aspect-square bg-slate-50 dark:bg-slate-800 rounded-sm"></div>
+<div class="aspect-square bg-slate-50 dark:bg-slate-800 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/25 rounded-sm"></div>
+<div class="aspect-square bg-slate-50 dark:bg-slate-800 rounded-sm"></div>
+</div>
+<div class="grid grid-cols-8 gap-1 items-center">
+<div class="text-[10px] font-bold text-slate-400">WED</div>
+<div class="aspect-square bg-slate-50 dark:bg-slate-800 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/10 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/25 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/10 rounded-sm"></div>
+<div class="aspect-square bg-slate-50 dark:bg-slate-800 rounded-sm"></div>
+<div class="aspect-square bg-slate-50 dark:bg-slate-800 rounded-sm"></div>
+<div class="aspect-square bg-slate-50 dark:bg-slate-800 rounded-sm"></div>
+</div>
+<div class="grid grid-cols-8 gap-1 items-center">
+<div class="text-[10px] font-bold text-slate-400">THU</div>
+<div class="aspect-square bg-slate-50 dark:bg-slate-800 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/25 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/80 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/40 rounded-sm"></div>
+<div class="aspect-square bg-slate-50 dark:bg-slate-800 rounded-sm"></div>
+<div class="aspect-square bg-slate-50 dark:bg-slate-800 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/10 rounded-sm"></div>
+</div>
+<div class="grid grid-cols-8 gap-1 items-center">
+<div class="text-[10px] font-bold text-slate-400">FRI</div>
+<div class="aspect-square bg-orange-500/50 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/70 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/15 rounded-sm"></div>
+<div class="aspect-square bg-slate-50 dark:bg-slate-800 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/15 rounded-sm"></div>
+<div class="aspect-square bg-orange-500/10 rounded-sm"></div>
+<div class="aspect-square bg-slate-50 dark:bg-slate-800 rounded-sm"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Table: Departamentos com Maior Engajamento -->
+<div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+<h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6">Departamentos com Maior Engajamento</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+<div class="flex items-center gap-4">
+<span class="w-8 h-8 flex items-center justify-center bg-white dark:bg-slate-900 rounded-full font-bold text-blue-600 text-xs shadow-sm">1</span>
+<div>
+<p class="font-bold text-sm text-slate-800 dark:text-slate-200">Product Design</p>
+<p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">98.2% Engagement</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex -space-x-2">
+<img alt="professional female profile photo" class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-800 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkUBCydc-kgKngto0kFr20lpq2GO9LMRKa6G3P-o7ByxDB6mTFm11bRZNEgb0LGJVOJYCIBzcJPi1zv-ppK9119vQFdCOwGO-kO7wlL0jOWR588yuV22nzFEWVlPbkndx0MmnjPuOIOy03UliJvMhpgztrpGoOSPqPDxnLMRQosCFS2KsUPDqKlQKeQOkpWKXwIcdtSoJDgxk5urjXE8Lf4jm7WyabD2SQz6a82YtptzoNc79P-7LaEdHmxd1zKr_HkqAXs2wMrjg"/>
+<img alt="professional male profile photo" class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-800 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBe7gO6Tusm3yUesXedR4i3ETPfmFS7V_KXMEs5KjlqLDN6yzJafm4mSwVejA8a26Wuh7Qq6ByR3gEYy-dhZw7bLr18Vb1q0RIxLl2c-T4vUCb5Pcfe9eZBFMm_xsRnUHnf46JR6AOkPWjhFox94xr_6WY_svXwC0uhbZhs--XY9msBLn0gDcSTi6nIHDeiL6q1CXdS4r-GagnHmN2ZENwRo3BnBmDenEFmUqEOvqAlcg_CvpUia3ib4d7i2KzngMmpph6-VplnkmI"/>
+<div class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-800 bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-[8px] font-bold text-slate-600 dark:text-slate-400">+12</div>
+</div>
+<span class="material-symbols-outlined text-green-500 text-lg">expand_less</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors rounded-xl group">
+<div class="flex items-center gap-4">
+<span class="w-8 h-8 flex items-center justify-center bg-white dark:bg-slate-900 rounded-full font-bold text-slate-400 text-xs shadow-sm">2</span>
+<div>
+<p class="font-bold text-sm text-slate-800 dark:text-slate-200">Engineering</p>
+<p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">95.4% Engagement</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-300 text-lg">horizontal_rule</span>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors rounded-xl group">
+<div class="flex items-center gap-4">
+<span class="w-8 h-8 flex items-center justify-center bg-white dark:bg-slate-900 rounded-full font-bold text-slate-400 text-xs shadow-sm">3</span>
+<div>
+<p class="font-bold text-sm text-slate-800 dark:text-slate-200">Marketing Strategy</p>
+<p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">92.1% Engagement</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-orange-500 text-lg">expand_more</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

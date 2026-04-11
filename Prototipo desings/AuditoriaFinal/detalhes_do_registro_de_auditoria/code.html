@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Detalhes do Evento de Auditoria - PontoPrecise</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-primary": "#b4c5ff",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-fixed": "#ffdbcd",
+                      "on-background": "#191c1e",
+                      "outline-variant": "#c3c6d7",
+                      "on-tertiary-container": "#ffede6",
+                      "on-secondary-fixed": "#001453",
+                      "on-primary-container": "#eeefff",
+                      "surface-container": "#eceef0",
+                      "tertiary": "#943700",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#173bab",
+                      "secondary-fixed-dim": "#b8c4ff",
+                      "inverse-surface": "#2d3133",
+                      "primary": "#004ac6",
+                      "tertiary-fixed-dim": "#ffb596",
+                      "surface-tint": "#0053db",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-container": "#2563eb",
+                      "on-surface": "#191c1e",
+                      "error": "#ba1a1a",
+                      "on-error": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "surface-dim": "#d8dadc",
+                      "surface-container-low": "#f2f4f6",
+                      "on-secondary-container": "#00217a",
+                      "surface-container-high": "#e6e8ea",
+                      "background": "#f7f9fb",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "on-surface-variant": "#434655",
+                      "surface-variant": "#e0e3e5",
+                      "secondary": "#3755c3",
+                      "on-primary-fixed": "#00174b",
+                      "secondary-fixed": "#dde1ff",
+                      "primary-fixed": "#dbe1ff",
+                      "on-error-container": "#93000a",
+                      "tertiary-container": "#bc4800",
+                      "inverse-on-surface": "#eff1f3",
+                      "secondary-container": "#708cfd",
+                      "surface": "#f7f9fb",
+                      "surface-container-highest": "#e0e3e5",
+                      "surface-bright": "#f7f9fb",
+                      "outline": "#737686",
+                      "on-tertiary-fixed-variant": "#7d2d00",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "on-tertiary-fixed": "#360f00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "fontFamily": {
+                      "headline": ["Manrope"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-manrope { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .tonal-stacking { position: relative; z-index: 1; }
+        .no-line { border: none !important; }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen">
+<!-- SideNavBar Component -->
+<aside class="w-64 h-screen sticky left-0 top-0 flex flex-col p-4 gap-2 bg-slate-50 dark:bg-slate-900 tonal-stacking bg-slate-100 dark:bg-slate-800/50 font-manrope text-sm font-medium">
+<div class="flex items-center gap-3 px-2 mb-8">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+</div>
+<div>
+<h1 class="text-xl font-bold tracking-tight text-blue-700 dark:text-blue-500 leading-none">PontoPrecise</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mt-1">Auditoria &amp; Controle</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">badge</span> Funcionários
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">history</span> Marcações
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">edit_note</span> Justificativas
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">beach_access</span> Férias
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">analytics</span> Analytics
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">calendar_view_day</span> Escalas
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">payments</span> Folha
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">description</span> Documentos
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-blue-700 dark:text-blue-400 font-bold bg-white dark:bg-slate-800 rounded-lg shadow-sm transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">rule</span> Auditoria
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span> Configurações
+            </a>
+</nav>
+<div class="mt-auto pt-4">
+<div class="bg-surface-container-high rounded-xl p-3 flex items-center gap-3">
+<img alt="Avatar do Administrador" class="w-10 h-10 rounded-lg object-cover" data-alt="professional portrait of a middle-aged male administrator with a confident smile in a modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlLwcGqizhPYhTS0x7CNphCaSHaoA2-VR5IjgTiYiR_dEuKMM9ER9MShFU-u-W59eVmr_mkP5P1keIcM06ZLXG4Ud0J5935UyXDM6sfCJi2qCKQnEn8lxyY55ePb-8tv0jkHLpm7-sxyoz0aDd5R_d6X3ugcJNuIGNI_-cRYDy9Y39N4PIwV8gg-WihPaaDiPgbPJKGh5KpXIuzRU4m7ciFzJCgABJpPCwM5_lK5WoePoGNuRE_eIj24ytGEiUCkRmCeDcd5fI9NE"/>
+<div class="overflow-hidden">
+<p class="text-xs font-bold truncate">Ricardo Almeida</p>
+<p class="text-[10px] text-on-surface-variant truncate">Gestor de RH</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col min-h-screen">
+<!-- TopNavBar Component -->
+<header class="w-full sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-sm shadow-blue-500/5 flex justify-between items-center px-8 py-3 w-full font-manrope text-sm no-line">
+<div class="flex items-center bg-surface-container-low rounded-full px-4 py-1.5 w-96 focus-within:ring-2 focus-within:ring-blue-100">
+<span class="material-symbols-outlined text-outline text-lg">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-outline-variant" placeholder="Pesquisar em auditoria..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:text-blue-700 transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 text-slate-500 hover:text-blue-700 transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+</header>
+<!-- Content Area -->
+<section class="p-10 max-w-[1440px] mx-auto w-full">
+<!-- Header Actions -->
+<div class="flex justify-between items-end mb-10">
+<div>
+<nav class="flex items-center gap-2 text-on-surface-variant text-xs mb-3 font-medium">
+<span class="hover:text-primary cursor-pointer">Auditoria</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary">Detalhes do Evento</span>
+</nav>
+<h2 class="text-3xl font-manrope font-extrabold tracking-tight text-on-surface">Detalhes do Evento de Auditoria</h2>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors font-semibold text-sm">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+                        Voltar para Auditoria
+                    </button>
+<button class="flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold text-sm shadow-lg shadow-primary/20 hover:scale-[0.98] transition-transform">
+<span class="material-symbols-outlined text-lg">download</span>
+                        Exportar Log
+                    </button>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Resumo Card -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-3xl p-8 shadow-sm border border-outline-variant/10">
+<div class="flex items-center gap-4 mb-8">
+<img alt="Avatar do Usuário" class="w-16 h-16 rounded-2xl object-cover ring-4 ring-primary/5" data-alt="close-up portrait of a young professional woman with glasses, smiling softly, studio lighting, clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAm8pEIIoniLI_qMcPaytsIpZ1K9J7x71lBvhP3DaVTQuNwmRGjGupm9oRVJkvLYKtz4F0qs8QeiTFCm2aL3mPTZtNmvhmFMvQDA0zPHLiQnWHLQwBADpu8AUtmRRvFe96XaSs8o2khLjWCBpjdaTf5Mzvbpskijv3_GS-fCI086kR0O8Ht9a8R1lg2em7-hrCighkTOEdgQzZeO6OfYETx5hKuOYKml2fcMe_D9Q9IQp3FicJGIUUrZ0BtpN0L5Y_omvJHJDHD6Os"/>
+<div>
+<h3 class="font-manrope font-bold text-lg text-on-surface">Ana Paula Silva</h3>
+<p class="text-sm text-on-surface-variant">ID: #AUD-29481-2023</p>
+</div>
+</div>
+<div class="space-y-6">
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Tipo de Ação</p>
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-bold">
+<span class="material-symbols-outlined text-base">edit_calendar</span>
+                                Alteração de Ponto
+                            </div>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Data e Hora</p>
+<p class="font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-lg">calendar_month</span>
+                                24 de Out, 2023 • 14:35:12
+                            </p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Nível de Severidade</p>
+<p class="font-semibold text-tertiary flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">info</span>
+                                Informativo (Baixo)
+                            </p>
+</div>
+</div>
+</div>
+<!-- O que mudou Card -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-3xl p-8 shadow-sm border border-outline-variant/10">
+<h3 class="font-manrope font-bold text-xl mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">published_with_changes</span>
+                        O que mudou
+                    </h3>
+<div class="space-y-4">
+<!-- Mudança 1 -->
+<div class="grid grid-cols-1 md:grid-cols-7 items-center gap-4 p-5 rounded-2xl bg-surface-container-low transition-colors hover:bg-surface-container">
+<div class="md:col-span-2">
+<span class="text-xs font-bold text-on-surface-variant uppercase">Campo</span>
+<p class="font-bold text-on-surface">Horário de Entrada</p>
+</div>
+<div class="md:col-span-2 text-center md:text-left">
+<span class="text-xs font-bold text-on-surface-variant uppercase">Original</span>
+<p class="text-on-surface-variant line-through font-medium">08:00</p>
+</div>
+<div class="md:col-span-1 flex justify-center">
+<span class="material-symbols-outlined text-primary">trending_flat</span>
+</div>
+<div class="md:col-span-2 text-center md:text-left">
+<span class="text-xs font-bold text-primary uppercase">Novo Valor</span>
+<p class="text-primary font-extrabold text-lg">07:45</p>
+</div>
+</div>
+<!-- Mudança 2 -->
+<div class="grid grid-cols-1 md:grid-cols-7 items-center gap-4 p-5 rounded-2xl bg-surface-container-low transition-colors hover:bg-surface-container">
+<div class="md:col-span-2">
+<span class="text-xs font-bold text-on-surface-variant uppercase">Campo</span>
+<p class="font-bold text-on-surface">Status do Registro</p>
+</div>
+<div class="md:col-span-2 text-center md:text-left">
+<span class="text-xs font-bold text-on-surface-variant uppercase">Original</span>
+<p class="text-on-surface-variant line-through font-medium">Pendente</p>
+</div>
+<div class="md:col-span-1 flex justify-center">
+<span class="material-symbols-outlined text-primary">trending_flat</span>
+</div>
+<div class="md:col-span-2 text-center md:text-left">
+<span class="text-xs font-bold text-primary uppercase">Novo Valor</span>
+<p class="text-primary font-extrabold text-lg">Aprovado</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Justificativa Card -->
+<div class="col-span-12 lg:col-span-7 bg-surface-container-lowest rounded-3xl p-8 shadow-sm border border-outline-variant/10">
+<h3 class="font-manrope font-bold text-xl mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">rate_review</span>
+                        Notas de Justificativa
+                    </h3>
+<div class="bg-surface-container-low p-6 rounded-2xl relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<p class="text-on-surface-variant italic leading-relaxed">
+                            "Colaborador chegou mais cedo devido a reunião extraordinária com o cliente externo. O ajuste foi solicitado via e-mail pelo gerente de setor para correta contabilização do banco de horas."
+                        </p>
+</div>
+</div>
+<!-- Metadados Adicionais -->
+<div class="col-span-12 lg:col-span-5 bg-surface-container-lowest rounded-3xl p-8 shadow-sm border border-outline-variant/10">
+<h3 class="font-manrope font-bold text-xl mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">fingerprint</span>
+                        Metadados de Origem
+                    </h3>
+<div class="grid grid-cols-2 gap-y-6">
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">IP de Origem</p>
+<p class="font-mono text-on-surface font-semibold">189.122.45.102</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">S.O / Dispositivo</p>
+<p class="font-semibold text-on-surface">Windows 11 / Desktop</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Navegador</p>
+<p class="font-semibold text-on-surface">Chrome v118.0.0</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Localização</p>
+<p class="font-semibold text-on-surface">São Paulo, BR</p>
+</div>
+</div>
+<!-- Mini Map Placeholder -->
+<div class="mt-8 rounded-2xl h-32 w-full overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale opacity-50" data-alt="stylized minimalistic city map with blue highlighted routes and soft shadows" data-location="Sao Paulo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbT_8UX7AGJKQOFF1Q0UYohWcndKa_UFS1FwSPw3zSKrDLj2Bh81L1g54Hqb_LjBYDRv-V_I0uV6b2y-9zYYOrGIXbC8v7bVQcEkL0EiQ_6KezWaUw4ywH3od10akgJNVsHmxPUPjhRAS0R7eDaD0ajacZRxR10Iyzudpu-lJAhsnXZ0znfpu0m0_4c4xDyQBErrUiykBGHj7A4BqlUwMFZm9k17-PtzyV0JIk2fFaCQHHnrxlh97sz2Xi7x3B2w5633-rcvfrn-k"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center animate-pulse">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Audit Compliance -->
+<div class="col-span-12 p-6 flex items-center justify-center gap-8 opacity-40">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+<span class="text-[10px] uppercase font-bold tracking-tighter">SHA-256 Verificado</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">lock</span>
+<span class="text-[10px] uppercase font-bold tracking-tighter">Criptografia de Ponta a Ponta</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">gavel</span>
+<span class="text-[10px] uppercase font-bold tracking-tighter">Conforme LGPD / CLT</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

@@ -1,0 +1,43 @@
+{
+  "name": "app-rh-ponto",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "lint:fix": "turbo lint -- --fix",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+    "format": "prettier --write .",
+    "doctor:mobile": "corepack pnpm --filter @rh-ponto/employee-app run doctor && corepack pnpm --filter @rh-ponto/kiosk-app run doctor",
+    "dataconnect:generate": "npx -y firebase-tools@latest dataconnect:sdk:generate",
+    "dataconnect:emulator": "npx -y firebase-tools@latest emulators:start --only dataconnect",
+    "dataconnect:diff": "npx -y firebase-tools@latest dataconnect:sql:diff",
+    "dataconnect:deploy": "npx -y firebase-tools@latest deploy --only dataconnect",
+    "dataconnect:seed": "node ./scripts/seed-dataconnect.mjs --emulator",
+    "dataconnect:seed:remote": "node ./scripts/seed-dataconnect.mjs --remote",
+    "firebase:auth:seed": "node ./scripts/seed-firebase-auth.mjs"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.24.0",
+    "@types/node": "22.13.14",
+    "@typescript-eslint/eslint-plugin": "^8.27.0",
+    "@typescript-eslint/parser": "^8.27.0",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^15.2.4",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "firebase-admin": "^13.5.0",
+    "globals": "^16.0.0",
+    "pnpm": "9.15.0",
+    "prettier": "^3.5.3",
+    "turbo": "^2.5.0",
+    "typescript": "^5.8.3"
+  }
+}

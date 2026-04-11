@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HR Archive - Analytics Avançado</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#dde1ff",
+                        "tertiary-container": "#bc4800",
+                        "secondary-fixed-dim": "#b8c4ff",
+                        "surface-dim": "#d8dadc",
+                        "outline": "#737686",
+                        "surface-container": "#eceef0",
+                        "on-secondary-fixed-variant": "#173bab",
+                        "on-surface": "#191c1e",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-primary-fixed": "#00174b",
+                        "surface-bright": "#f7f9fb",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-primary-container": "#eeefff",
+                        "surface-variant": "#e0e3e5",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#360f00",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#3755c3",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e6e8ea",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#001453",
+                        "on-tertiary-container": "#ffede6",
+                        "on-primary": "#ffffff",
+                        "surface": "#f7f9fb",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "tertiary": "#943700",
+                        "secondary-container": "#708cfd",
+                        "primary": "#004ac6",
+                        "on-background": "#191c1e",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "inverse-surface": "#2d3133",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#2563eb",
+                        "on-surface-variant": "#434655",
+                        "on-secondary-container": "#00217a",
+                        "outline-variant": "#c3c6d7",
+                        "inverse-primary": "#b4c5ff",
+                        "on-error-container": "#93000a",
+                        "background": "#f7f9fb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar (Authority: JSON & Design System) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#f2f4f6] dark:bg-slate-950 flex flex-col p-6 z-50">
+<div class="mb-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+</div>
+<div>
+<h1 class="text-lg font-black text-slate-800 dark:text-slate-200 leading-none">The Curator</h1>
+<p class="text-[0.6875rem] font-semibold tracking-wider text-on-surface-variant uppercase">HR Intelligence</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-blue-600">dashboard</span>
+<span class="text-[1rem] font-medium font-headline">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-blue-600">schedule</span>
+<span class="text-[1rem] font-medium font-headline">Time Logs</span>
+</a>
+<!-- Active Tab: Analytics -->
+<a class="flex items-center gap-3 px-4 py-3 text-blue-700 dark:text-blue-400 font-bold bg-white/50 dark:bg-slate-800/50 rounded-lg scale-98" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="text-[1rem] font-headline">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-blue-600">groups</span>
+<span class="text-[1rem] font-medium font-headline">Department</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-blue-600">description</span>
+<span class="text-[1rem] font-medium font-headline">Reports</span>
+</a>
+</nav>
+<div class="mt-auto space-y-2 pt-6 border-t border-outline-variant/10">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-white font-bold py-3 px-4 rounded-xl mb-6 shadow-lg shadow-primary/10 active:scale-95 transition-transform">
+                Clock In
+            </button>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 hover:text-blue-600 transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-[0.6875rem] font-semibold font-label">Help</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 hover:text-blue-600 transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-[0.6875rem] font-semibold font-label">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar (Authority: JSON & Design System) -->
+<header class="w-full top-0 sticky z-40 bg-[#f7f9fb] dark:bg-slate-900 flex justify-between items-center px-8 py-4">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full focus:ring-2 focus:ring-primary-fixed text-sm" placeholder="Search analytics..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-slate-500 hover:bg-slate-200/50 p-2 rounded-full transition-colors">notifications</button>
+<button class="material-symbols-outlined text-slate-500 hover:bg-slate-200/50 p-2 rounded-full transition-colors">settings</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/30"></div>
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover border-2 border-white" data-alt="professional male administrator headshot with neutral gray background in corporate attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyux7liGoMcNDoNo5Y4nVE7BvP0sKdqw8mzt_bINtVW0ex2v08KvqS5vcgYbd2MbUEMSAC4fDIK3G8A1OqkT0B7kU1TiEO6RvKUtbyV5dSLFWpVYlN7lAZzIlJuRbQph52ogmrAcZIvo2UdaGgHP-mEYDDlJp-0qcurptB3Xbl6RDtY8EyCq8fjuvLquU_PV4dXTYKC_Q902flDqn8zkBG1ojfZ66IXzNsKY7NMO5YoC1nMSLUTlXRh7W2iVYMMqcw2VNrQtcMCCs"/>
+<div class="hidden lg:block">
+<p class="text-sm font-bold text-slate-900">Admin User</p>
+<p class="text-[0.6875rem] font-semibold text-on-surface-variant uppercase tracking-wider">Administrator</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="px-8 py-10 max-w-[1440px] mx-auto">
+<!-- Hero Section -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div>
+<span class="text-[0.6875rem] font-bold text-primary uppercase tracking-widest mb-2 block">Intelligence Suite</span>
+<h2 class="text-4xl font-extrabold text-slate-900 tracking-tight">Analytics Avançado</h2>
+<p class="text-on-surface-variant mt-2 max-w-lg">Visão editorial completa sobre o desempenho e pontualidade operacional da organização.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center bg-surface-container-lowest px-4 py-2 rounded-xl ring-1 ring-outline-variant/10 shadow-sm">
+<span class="material-symbols-outlined text-outline text-lg mr-2">calendar_today</span>
+<select class="bg-transparent border-none text-sm font-semibold focus:ring-0 p-0 pr-8 cursor-pointer">
+<option>Last 30 days</option>
+<option>Last 90 days</option>
+<option>Year to date</option>
+</select>
+</div>
+<button class="flex items-center gap-2 bg-surface-container-lowest hover:bg-surface-container-high px-4 py-2 rounded-xl ring-1 ring-outline-variant/10 shadow-sm transition-all active:scale-95 text-sm font-bold">
+<span class="material-symbols-outlined text-lg">picture_as_pdf</span>
+                        Export PDF
+                    </button>
+</div>
+</section>
+<!-- KPI Cards Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-secondary-fixed rounded-lg text-on-secondary-fixed-variant">
+<span class="material-symbols-outlined">person_off</span>
+</div>
+<span class="flex items-center gap-1 text-[0.6875rem] font-bold text-tertiary">
+<span class="material-symbols-outlined text-sm">trending_up</span> 2.4%
+                        </span>
+</div>
+<h3 class="text-on-surface-variant text-xs font-bold uppercase tracking-widest">Taxa de Absenteísmo</h3>
+<p class="text-3xl font-extrabold text-slate-900 mt-1">4.2%</p>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-secondary-container to-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary-fixed rounded-lg text-on-primary-fixed-variant">
+<span class="material-symbols-outlined">timer</span>
+</div>
+<span class="flex items-center gap-1 text-[0.6875rem] font-bold text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-sm">trending_down</span> 12m
+                        </span>
+</div>
+<h3 class="text-on-surface-variant text-xs font-bold uppercase tracking-widest">Média de Horas Extras</h3>
+<p class="text-3xl font-extrabold text-slate-900 mt-1">1h 45m</p>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-tertiary-fixed rounded-lg text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<span class="flex items-center gap-1 text-[0.6875rem] font-bold text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-sm">check_circle</span> stable
+                        </span>
+</div>
+<h3 class="text-on-surface-variant text-xs font-bold uppercase tracking-widest">Índice de Pontualidade</h3>
+<p class="text-3xl font-extrabold text-slate-900 mt-1">94.8%</p>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-tertiary to-tertiary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-slate-200 rounded-lg text-slate-700">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="flex items-center gap-1 text-[0.6875rem] font-bold text-tertiary">
+<span class="material-symbols-outlined text-sm">trending_up</span> R$ 2k
+                        </span>
+</div>
+<h3 class="text-on-surface-variant text-xs font-bold uppercase tracking-widest">Custo Est. Horas Extras</h3>
+<p class="text-3xl font-extrabold text-slate-900 mt-1">R$ 42.850</p>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-slate-400 to-slate-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+</section>
+<!-- Main Charts Area -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+<!-- Line Chart: Presence vs Delay -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-outline-variant/5">
+<div class="flex justify-between items-center mb-10">
+<div>
+<h3 class="text-xl font-bold text-slate-900">Tendência de Presença vs. Atrasos</h3>
+<p class="text-sm text-on-surface-variant">Variação diária acumulada nos últimos 30 dias</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-xs font-semibold">Presença</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-tertiary"></span>
+<span class="text-xs font-semibold">Atrasos</span>
+</div>
+</div>
+</div>
+<div class="h-64 flex items-end justify-between gap-1 relative px-4">
+<!-- Simulated Chart Grid -->
+<div class="absolute inset-x-0 bottom-0 top-0 flex flex-col justify-between pointer-events-none opacity-5 px-4">
+<div class="border-t border-on-surface h-[1px] w-full"></div>
+<div class="border-t border-on-surface h-[1px] w-full"></div>
+<div class="border-t border-on-surface h-[1px] w-full"></div>
+<div class="border-t border-on-surface h-[1px] w-full"></div>
+</div>
+<!-- Bars Representing Days (Subtle visualization) -->
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[60%] hover:bg-primary/40 transition-colors"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[65%] hover:bg-primary/40 transition-colors"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[58%] hover:bg-primary/40 transition-colors"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[72%] hover:bg-primary/40 transition-colors"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[85%] hover:bg-primary/40 transition-colors"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[90%] hover:bg-primary/40 transition-colors"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[88%] hover:bg-primary/40 transition-colors"></div>
+<div class="flex-1 bg-tertiary/20 rounded-t-sm h-[30%] hover:bg-tertiary/40 transition-colors"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[75%] hover:bg-primary/40 transition-colors"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[79%] hover:bg-primary/40 transition-colors"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[82%] hover:bg-primary/40 transition-colors"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[85%] hover:bg-primary/40 transition-colors"></div>
+<div class="flex-1 bg-tertiary/20 rounded-t-sm h-[45%] hover:bg-tertiary/40 transition-colors"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[92%] hover:bg-primary/40 transition-colors"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[95%] hover:bg-primary/40 transition-colors"></div>
+</div>
+</div>
+<!-- Distribution Chart: Extras per Dept -->
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-outline-variant/5">
+<h3 class="text-xl font-bold text-slate-900 mb-6">Horas Extras por Departamento</h3>
+<div class="space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold uppercase tracking-wider text-on-surface-variant">
+<span>Tech</span>
+<span>420h</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold uppercase tracking-wider text-on-surface-variant">
+<span>Sales</span>
+<span>180h</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2">
+<div class="bg-primary/60 h-2 rounded-full" style="width: 45%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold uppercase tracking-wider text-on-surface-variant">
+<span>HR &amp; Admin</span>
+<span>110h</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2">
+<div class="bg-primary/40 h-2 rounded-full" style="width: 25%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold uppercase tracking-wider text-on-surface-variant">
+<span>Logistics</span>
+<span>340h</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2">
+<div class="bg-primary/80 h-2 rounded-full" style="width: 65%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold uppercase tracking-wider text-on-surface-variant">
+<span>Design</span>
+<span>85h</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2">
+<div class="bg-primary/30 h-2 rounded-full" style="width: 15%"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Insights Section -->
+<section class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+<!-- Heatmap: Picos de Atrasos -->
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-tertiary">query_stats</span>
+<h3 class="text-xl font-bold text-slate-900">Picos de Atrasos por Dia/Hora</h3>
+</div>
+<div class="overflow-x-auto">
+<div class="min-w-[500px]">
+<!-- Header Hours -->
+<div class="grid grid-cols-8 gap-1 mb-2">
+<div></div>
+<div class="text-[10px] font-bold text-on-surface-variant text-center">07:00</div>
+<div class="text-[10px] font-bold text-on-surface-variant text-center">08:00</div>
+<div class="text-[10px] font-bold text-on-surface-variant text-center">09:00</div>
+<div class="text-[10px] font-bold text-on-surface-variant text-center">10:00</div>
+<div class="text-[10px] font-bold text-on-surface-variant text-center">13:00</div>
+<div class="text-[10px] font-bold text-on-surface-variant text-center">14:00</div>
+<div class="text-[10px] font-bold text-on-surface-variant text-center">15:00</div>
+</div>
+<!-- Rows (Days) -->
+<div class="space-y-1">
+<div class="grid grid-cols-8 gap-1 items-center">
+<div class="text-[10px] font-bold text-slate-400">MON</div>
+<div class="aspect-square bg-slate-100 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/40 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/80 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/20 rounded-sm"></div>
+<div class="aspect-square bg-slate-100 rounded-sm"></div>
+<div class="aspect-square bg-slate-100 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/10 rounded-sm"></div>
+</div>
+<div class="grid grid-cols-8 gap-1 items-center">
+<div class="text-[10px] font-bold text-slate-400">TUE</div>
+<div class="aspect-square bg-tertiary/20 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/60 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/40 rounded-sm"></div>
+<div class="aspect-square bg-slate-100 rounded-sm"></div>
+<div class="aspect-square bg-slate-100 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/30 rounded-sm"></div>
+<div class="aspect-square bg-slate-100 rounded-sm"></div>
+</div>
+<div class="grid grid-cols-8 gap-1 items-center">
+<div class="text-[10px] font-bold text-slate-400">WED</div>
+<div class="aspect-square bg-slate-100 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/10 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/30 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/10 rounded-sm"></div>
+<div class="aspect-square bg-slate-100 rounded-sm"></div>
+<div class="aspect-square bg-slate-100 rounded-sm"></div>
+<div class="aspect-square bg-slate-100 rounded-sm"></div>
+</div>
+<div class="grid grid-cols-8 gap-1 items-center">
+<div class="text-[10px] font-bold text-slate-400">THU</div>
+<div class="aspect-square bg-slate-100 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/30 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/90 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/50 rounded-sm"></div>
+<div class="aspect-square bg-slate-100 rounded-sm"></div>
+<div class="aspect-square bg-slate-100 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/10 rounded-sm"></div>
+</div>
+<div class="grid grid-cols-8 gap-1 items-center">
+<div class="text-[10px] font-bold text-slate-400">FRI</div>
+<div class="aspect-square bg-tertiary/60 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/80 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/20 rounded-sm"></div>
+<div class="aspect-square bg-slate-100 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/20 rounded-sm"></div>
+<div class="aspect-square bg-tertiary/10 rounded-sm"></div>
+<div class="aspect-square bg-slate-100 rounded-sm"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Table: Departamentos com Maior Engajamento -->
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm overflow-hidden">
+<h3 class="text-xl font-bold text-slate-900 mb-6">Departamentos com Maior Engajamento</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-4">
+<span class="w-8 h-8 flex items-center justify-center bg-white rounded-full font-bold text-primary text-xs shadow-sm">1</span>
+<div>
+<p class="font-bold text-sm text-slate-800">Product Design</p>
+<p class="text-[10px] text-on-surface-variant font-semibold uppercase tracking-wider">98.2% Engagement</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex -space-x-2">
+<img class="w-6 h-6 rounded-full border-2 border-white object-cover" data-alt="professional female profile photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkUBCydc-kgKngto0kFr20lpq2GO9LMRKa6G3P-o7ByxDB6mTFm11bRZNEgb0LGJVOJYCIBzcJPi1zv-ppK9119vQFdCOwGO-kO7wlL0jOWR588yuV22nzFEWVlPbkndx0MmnjPuOIOy03UliJvMhpgztrpGoOSPqPDxnLMRQosCFS2KsUPDqKlQKeQOkpWKXwIcdtSoJDgxk5urjXE8Lf4jm7WyabD2SQz6a82YtptzoNc79P-7LaEdHmxd1zKr_HkqAXs2wMrjg"/>
+<img class="w-6 h-6 rounded-full border-2 border-white object-cover" data-alt="professional male profile photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBe7gO6Tusm3yUesXedR4i3ETPfmFS7V_KXMEs5KjlqLDN6yzJafm4mSwVejA8a26Wuh7Qq6ByR3gEYy-dhZw7bLr18Vb1q0RIxLl2c-T4vUCb5Pcfe9eZBFMm_xsRnUHnf46JR6AOkPWjhFox94xr_6WY_svXwC0uhbZhs--XY9msBLn0gDcSTi6nIHDeiL6q1CXdS4r-GagnHmN2ZENwRo3BnBmDenEFmUqEOvqAlcg_CvpUia3ib4d7i2KzngMmpph6-VplnkmI"/>
+<div class="w-6 h-6 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center text-[8px] font-bold">+12</div>
+</div>
+<span class="material-symbols-outlined text-green-500 text-lg">expand_less</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-surface-container-low/50 transition-colors rounded-xl">
+<div class="flex items-center gap-4">
+<span class="w-8 h-8 flex items-center justify-center bg-white rounded-full font-bold text-slate-400 text-xs shadow-sm">2</span>
+<div>
+<p class="font-bold text-sm text-slate-800">Engineering</p>
+<p class="text-[10px] text-on-surface-variant font-semibold uppercase tracking-wider">95.4% Engagement</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-300 text-lg">horizontal_rule</span>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-surface-container-low/50 transition-colors rounded-xl">
+<div class="flex items-center gap-4">
+<span class="w-8 h-8 flex items-center justify-center bg-white rounded-full font-bold text-slate-400 text-xs shadow-sm">3</span>
+<div>
+<p class="font-bold text-sm text-slate-800">Marketing Strategy</p>
+<p class="text-[10px] text-on-surface-variant font-semibold uppercase tracking-wider">92.1% Engagement</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-tertiary text-lg">expand_more</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Floating Action Button (FAB) suppressed based on context (Analytics Details Screen) -->
+</body></html>

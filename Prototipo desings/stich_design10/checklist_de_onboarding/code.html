@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RH Curator - Onboarding Checklist</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#f7f9fb",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#191c1e",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "surface-dim": "#d8dadc",
+                    "primary-fixed": "#dbe1ff",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#b8c4ff",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-secondary-fixed": "#001453",
+                    "secondary-fixed": "#dde1ff",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "on-secondary-container": "#00217a",
+                    "surface-tint": "#0053db",
+                    "outline": "#737686",
+                    "on-primary-fixed": "#00174b",
+                    "outline-variant": "#c3c6d7",
+                    "on-background": "#191c1e",
+                    "secondary-container": "#708cfd",
+                    "surface-container-low": "#f2f4f6",
+                    "on-secondary-fixed-variant": "#173bab",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#eff1f3",
+                    "inverse-surface": "#2d3133",
+                    "surface-container-highest": "#e0e3e5",
+                    "tertiary-container": "#bc4800",
+                    "tertiary-fixed": "#ffdbcd",
+                    "inverse-primary": "#b4c5ff",
+                    "on-tertiary-fixed": "#360f00",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#eeefff",
+                    "primary": "#004ac6",
+                    "surface-container": "#eceef0",
+                    "surface-variant": "#e0e3e5",
+                    "surface-container-high": "#e6e8ea",
+                    "primary-container": "#2563eb",
+                    "on-tertiary-container": "#ffede6",
+                    "on-error": "#ffffff",
+                    "tertiary": "#943700",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "secondary": "#3755c3",
+                    "on-surface-variant": "#434655",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#f7f9fb",
+                    "background": "#f7f9fb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #004ac6 0%, #2563eb 100%);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-slate-50 flex flex-col py-6 px-4 gap-2 font-manrope antialiased tracking-tight">
+<div class="flex items-center gap-3 px-2 mb-8">
+<div class="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="domain">domain</span>
+</div>
+<div>
+<h1 class="text-lg font-bold text-slate-900">RH Curator</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Admin Console</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors rounded-xl scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-blue-700 font-semibold border-r-2 border-blue-600 bg-slate-200/30 rounded-l-xl transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="badge">badge</span>
+<span class="text-sm">Funcionários</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors rounded-xl scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="domain">domain</span>
+<span class="text-sm">Departamentos</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors rounded-xl scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="schedule">schedule</span>
+<span class="text-sm">Marcações</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors rounded-xl scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+<span class="text-sm">Justificativas</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors rounded-xl scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="beach_access">beach_access</span>
+<span class="text-sm">Férias</span>
+</a>
+<div class="pt-4 pb-2 px-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Relatórios</div>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors rounded-xl scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-sm">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors rounded-xl scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-sm">Folha</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-200/50 transition-colors rounded-xl scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-sm">Configurações</span>
+</a>
+</nav>
+<div class="mt-auto p-4 bg-surface-container rounded-xl">
+<div class="flex items-center gap-3">
+<img alt="Avatar" class="w-10 h-10 rounded-full border-2 border-white object-cover" data-alt="professional male executive in a blue suit with a kind and confident expression, studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFhf6UQwMQ54IHDb17i_R8kxJcdc_pEduaSOAh-fwe5aXjF1X5u9zJlwOOnf22xSJRsmEX9Tb2N6TB48T6rzRh4FiliJZjKqCXziLwWjQ2R-qLlCR4ZvwKc4vPGsh4UDXq1Q5_sDuEnVGA5Yi6lQhnThTwNk8tHNFzIaQvYKxjIFF5Svze9vr6BNa-ZV5f6Ui3WUyHsDPTDwd2t3NPlxZ08WoZZ4NcSlrC0Uim4vqc9MueLNRpmpWELO0hR9q1K-_tvTmAZ5L2dvs"/>
+<div>
+<p class="text-xs font-bold text-slate-900 leading-none">Ricardo Silva</p>
+<p class="text-[10px] text-slate-500 mt-1">Gestor de RH</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 left-64 h-16 bg-white/80 backdrop-blur-xl flex justify-between items-center px-8 w-full z-10">
+<div class="flex items-center gap-4 w-1/3">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg" data-icon="search">search</span>
+<input class="w-full bg-slate-100 border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary-fixed outline-none transition-all" placeholder="Buscar funcionário ou tarefa..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-slate-600 hover:text-blue-500 transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-slate-600 hover:text-blue-500 transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-8 w-[1px] bg-slate-200 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-sm font-bold leading-none">Checkout de Onboarding</p>
+<p class="text-[10px] text-slate-500">Unidade Matriz</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-24 pb-12 px-8 max-w-[1440px] mx-auto">
+<!-- Header Hero -->
+<section class="mb-10">
+<nav class="flex items-center gap-2 text-xs text-on-surface-variant mb-4 font-medium">
+<span>Funcionários</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+<span>Onboarding</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+<span class="text-primary font-bold">Checklist Individual</span>
+</nav>
+<div class="flex justify-between items-end">
+<div>
+<h2 class="text-4xl font-headline font-extrabold tracking-tight text-on-surface mb-2">Checklist de Onboarding</h2>
+<p class="text-on-surface-variant max-w-xl">Acompanhe o processo de integração de novos talentos. Garanta que cada etapa seja concluída com precisão editorial.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-5 py-2.5 rounded-xl border border-outline-variant hover:bg-surface-container-high transition-all text-sm font-semibold">Pausar Processo</button>
+<button class="px-5 py-2.5 rounded-xl bg-gradient-primary text-white shadow-lg shadow-primary/10 hover:opacity-90 transition-all text-sm font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="add">add</span> Adicionar Tarefa
+                    </button>
+</div>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Employee Profile Card (Bento Item 1) -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-full p-8 flex flex-col gap-6">
+<div class="flex flex-col items-center text-center">
+<div class="relative mb-4">
+<img alt="Profile" class="w-32 h-32 rounded-full object-cover ring-4 ring-primary-fixed" data-alt="portrait of a young man with glasses and a friendly smile in a bright creative office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8V0Ar_pWz6SASWCTl7WFTcbe_cDG1f4u4Yk2jOMtXIDaSr0K8KfBLNgfaJjW81fUBIOFcOvm1QS39zOQWF_Ji_TmRYHmRg1xnCM8jkSkzR7amR9xyG9ube3NxGB0xDbG2bu-8tf_uRhk19KKH5BUNU8gVfgcuuwrySgup_nLX7Yv4KrzgVbAd_kx4oe2wNPBv6d6_zaR8EJGlIWADL9s00dKXVjNo6A8mxgxjQZVh7jaDltebTwTbUg-5XbWqIpTpBwTIG3EFryU"/>
+<div class="absolute bottom-1 right-1 w-8 h-8 bg-green-500 border-4 border-white rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[16px] font-bold" data-icon="check" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<h3 class="text-2xl font-bold font-headline">Gabriel Medeiros</h3>
+<p class="text-primary font-semibold text-sm">Product Designer Júnior</p>
+<div class="mt-4 flex gap-2">
+<span class="px-3 py-1 bg-surface-container rounded-full text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Início: 12 Out 2023</span>
+</div>
+</div>
+<div class="space-y-4 pt-6 border-t border-surface-container">
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant">Progresso Geral</span>
+<span class="font-bold text-primary">65%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-gradient-primary rounded-full" style="width: 65%"></div>
+</div>
+<div class="grid grid-cols-3 gap-2 mt-4">
+<div class="bg-surface-container-low p-3 rounded-xl text-center">
+<p class="text-xs text-on-surface-variant mb-1">Tarefas</p>
+<p class="text-lg font-bold">12</p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-xl text-center">
+<p class="text-xs text-on-surface-variant mb-1">Concluídas</p>
+<p class="text-lg font-bold text-green-600">8</p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-xl text-center">
+<p class="text-xs text-on-surface-variant mb-1">Pendentes</p>
+<p class="text-lg font-bold text-tertiary">4</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Checklist Card (Bento Item 2) -->
+<div class="col-span-12 lg:col-span-8 space-y-6">
+<!-- Checklist Category: Administrativo -->
+<div class="bg-surface-container-lowest rounded-full p-8">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg" data-icon="description">description</span>
+</div>
+<h4 class="text-lg font-bold font-headline">Documentação e Contrato</h4>
+</div>
+<div class="space-y-3">
+<!-- Task Item -->
+<div class="group flex items-center justify-between p-4 rounded-2xl bg-surface hover:bg-surface-container-low transition-all">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full border-2 border-green-500/20 flex items-center justify-center text-green-600 bg-green-50">
+<span class="material-symbols-outlined text-xl" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<p class="text-sm font-bold">Envio de documentos admissionais</p>
+<p class="text-xs text-on-surface-variant">Identidade, CPF, comprovantes e fotos</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-3 py-1 bg-surface-container-highest rounded-full text-[10px] font-bold uppercase text-on-tertiary-fixed-variant">Concluído</span>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+<!-- Task Item -->
+<div class="group flex items-center justify-between p-4 rounded-2xl bg-surface hover:bg-surface-container-low transition-all border-l-4 border-primary">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full border-2 border-primary/20 flex items-center justify-center text-primary bg-primary/5">
+<span class="material-symbols-outlined text-xl" data-icon="signature">signature</span>
+</div>
+<div>
+<p class="text-sm font-bold">Assinatura de contrato digital</p>
+<p class="text-xs text-on-surface-variant">Contrato de trabalho e termos de confidencialidade</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-3 py-1 bg-primary-fixed rounded-full text-[10px] font-bold uppercase text-on-primary-fixed-variant">Pendente</span>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Checklist Category: Equipamento -->
+<div class="bg-surface-container-lowest rounded-full p-8">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-8 h-8 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-lg" data-icon="laptop_mac">laptop_mac</span>
+</div>
+<h4 class="text-lg font-bold font-headline">Materiais e Infraestrutura</h4>
+</div>
+<div class="space-y-3">
+<!-- Task Item -->
+<div class="group flex items-center justify-between p-4 rounded-2xl bg-surface hover:bg-surface-container-low transition-all border-l-4 border-error">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full border-2 border-error/20 flex items-center justify-center text-error bg-error/5">
+<span class="material-symbols-outlined text-xl" data-icon="warning" data-weight="fill" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div>
+<p class="text-sm font-bold">Entrega de notebook e periféricos</p>
+<p class="text-xs text-on-surface-variant">MacBook Pro 14", Mouse, Teclado e Fone</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-3 py-1 bg-error-container rounded-full text-[10px] font-bold uppercase text-on-error-container">Em atraso</span>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+<!-- Task Item -->
+<div class="group flex items-center justify-between p-4 rounded-2xl bg-surface hover:bg-surface-container-low transition-all">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full border-2 border-slate-200 flex items-center justify-center text-slate-400">
+<span class="material-symbols-outlined text-xl" data-icon="key">key</span>
+</div>
+<div>
+<p class="text-sm font-bold">Acessos aos sistemas e e-mail</p>
+<p class="text-xs text-on-surface-variant">Criação de e-mail corporativo e acessos Slack/Notion</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-3 py-1 bg-surface-container rounded-full text-[10px] font-bold uppercase text-on-surface-variant">Não Iniciado</span>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Checklist Category: Treinamento -->
+<div class="bg-surface-container-lowest rounded-full p-8">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-lg" data-icon="school">school</span>
+</div>
+<h4 class="text-lg font-bold font-headline">Desenvolvimento e Cultura</h4>
+</div>
+<div class="space-y-3">
+<div class="group flex items-center justify-between p-4 rounded-2xl bg-surface hover:bg-surface-container-low transition-all">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full border-2 border-primary/20 flex items-center justify-center text-primary bg-primary/5">
+<span class="material-symbols-outlined text-xl" data-icon="diversity_3">diversity_3</span>
+</div>
+<div>
+<p class="text-sm font-bold">Treinamento inicial de cultura</p>
+<p class="text-xs text-on-surface-variant">Apresentação da missão, visão e valores da empresa</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-3 py-1 bg-primary-fixed rounded-full text-[10px] font-bold uppercase text-on-primary-fixed-variant">Em progresso</span>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Action Sidebar (Contextual information) -->
+<div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-primary/5 rounded-full p-6 border border-primary/10">
+<h5 class="text-sm font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="event">event</span> Agenda da Semana
+                </h5>
+<ul class="space-y-3">
+<li class="flex items-center gap-3 text-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-semibold text-on-surface">Coffee com CEO</span>
+<span class="text-on-surface-variant ml-auto">Amanhã, 10:00</span>
+</li>
+<li class="flex items-center gap-3 text-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-semibold text-on-surface">Intro ao Produto</span>
+<span class="text-on-surface-variant ml-auto">Qui, 14:30</span>
+</li>
+</ul>
+</div>
+<div class="bg-surface-container-low rounded-full p-6">
+<h5 class="text-sm font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="history">history</span> Atividade Recente
+                </h5>
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" data-icon="upload_file">upload_file</span>
+</div>
+<div>
+<p class="text-xs font-bold">Documentos validados</p>
+<p class="text-[10px] text-on-surface-variant">Hoje, às 09:42 por RH Central</p>
+</div>
+</div>
+</div>
+<div class="bg-tertiary-fixed rounded-full p-6">
+<h5 class="text-sm font-bold text-on-tertiary-fixed mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span> Buddy Designado
+                </h5>
+<div class="flex items-center gap-3">
+<img alt="Buddy" class="w-10 h-10 rounded-full object-cover" data-alt="professional smiling woman with dark hair in a white blouse, clean office backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6fK0X3YcreGZDYpN63u7Oan4YmrbXhxYIesgp429vLBedeQkL-68nill0r01cdeBP8fFkurarmmYpEh5OdZuPbsl24O9PtpPFJU_9ls6z1eUVKV37TgH28MdoijDO94hwrw9RSTLQUqB9ZTpz_ZYYIXhfcxzTY5i0XiIFW0Z54Utnwobm0zQsx9EaqlfG286Q0moP3ea0o3RMds7zW6hWFP90iSDjY2zrqnTk3LAFKqmqJDQXMUDQbgu_DU5ielDe8Ik8WaSM7cQ"/>
+<div>
+<p class="text-xs font-bold text-on-tertiary-fixed">Mariana Lopes</p>
+<p class="text-[10px] text-on-tertiary-fixed-variant">Lead Product Designer</p>
+</div>
+<button class="ml-auto w-8 h-8 bg-white/50 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-lg" data-icon="chat">chat</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB contextual for Dashboard/Home context (only if main destination) -->
+<button class="fixed bottom-10 right-10 w-14 h-14 bg-gradient-primary rounded-full shadow-2xl flex items-center justify-center text-white scale-100 hover:scale-105 active:scale-95 transition-transform z-20">
+<span class="material-symbols-outlined text-2xl" data-icon="edit">edit</span>
+</button>
+</body></html>

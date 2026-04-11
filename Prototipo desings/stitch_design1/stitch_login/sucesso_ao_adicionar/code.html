@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "on-primary-fixed-variant": "#003ea8",
+                "inverse-surface": "#2d3133",
+                "surface-container-highest": "#e0e3e5",
+                "primary-container": "#2563eb",
+                "on-tertiary-container": "#ffede6",
+                "surface": "#f7f9fb",
+                "tertiary": "#943700",
+                "surface-container": "#eceef0",
+                "error-container": "#ffdad6",
+                "on-surface": "#191c1e",
+                "tertiary-fixed-dim": "#ffb596",
+                "error": "#ba1a1a",
+                "tertiary-fixed": "#ffdbcd",
+                "on-secondary-fixed-variant": "#173bab",
+                "on-tertiary-fixed": "#360f00",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary": "#ffffff",
+                "on-primary-fixed": "#00174b",
+                "tertiary-container": "#bc4800",
+                "on-primary-container": "#eeefff",
+                "background": "#f7f9fb",
+                "surface-tint": "#0053db",
+                "on-secondary-container": "#00217a",
+                "outline": "#737686",
+                "on-tertiary-fixed-variant": "#7d2d00",
+                "on-background": "#191c1e",
+                "on-tertiary": "#ffffff",
+                "on-error-container": "#93000a",
+                "primary-fixed": "#dbe1ff",
+                "secondary-fixed-dim": "#b8c4ff",
+                "primary": "#004ac6",
+                "secondary": "#3755c3",
+                "primary-fixed-dim": "#b4c5ff",
+                "on-secondary-fixed": "#001453",
+                "surface-dim": "#d8dadc",
+                "surface-container-low": "#f2f4f6",
+                "secondary-container": "#708cfd",
+                "inverse-on-surface": "#eff1f3",
+                "outline-variant": "#c3c6d7",
+                "on-primary": "#ffffff",
+                "inverse-primary": "#b4c5ff",
+                "surface-container-high": "#e6e8ea",
+                "surface-variant": "#e0e3e5",
+                "surface-bright": "#f7f9fb",
+                "secondary-fixed": "#dde1ff",
+                "on-surface-variant": "#434655",
+                "on-error": "#ffffff"
+              },
+              fontFamily: {
+                "headline": ["Manrope"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+              },
+              borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+            },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-fixed">
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#f2f4f6] dark:bg-slate-800/50 flex flex-col h-full p-6 gap-8 z-50">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" data-icon="precision_manufacturing">precision_manufacturing</span>
+</div>
+<div>
+<h2 class="text-lg font-black text-[#191c1e] dark:text-white leading-tight">Precision HR</h2>
+<p class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant opacity-60">Admin Portal</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:text-[#191c1e] hover:bg-[#e6e8ea] dark:hover:bg-slate-700 rounded-xl transition-all scale-[0.98] active:scale-95 font-semibold text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-700 text-[#004ac6] dark:text-blue-300 rounded-xl shadow-sm scale-[0.98] active:scale-95 font-semibold text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+                Team
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:text-[#191c1e] hover:bg-[#e6e8ea] dark:hover:bg-slate-700 rounded-xl transition-all scale-[0.98] active:scale-95 font-semibold text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="timer">timer</span>
+                Time Tracking
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:text-[#191c1e] hover:bg-[#e6e8ea] dark:hover:bg-slate-700 rounded-xl transition-all scale-[0.98] active:scale-95 font-semibold text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+                Payroll
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:text-[#191c1e] hover:bg-[#e6e8ea] dark:hover:bg-slate-700 rounded-xl transition-all scale-[0.98] active:scale-95 font-semibold text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                Reports
+            </a>
+</nav>
+<button class="bg-primary text-on-primary py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:opacity-90 transition-all scale-[0.98] active:scale-95">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+            Add Employee
+        </button>
+<div class="mt-auto flex flex-col gap-1 border-t border-outline-variant/10 pt-6">
+<a class="flex items-center gap-3 px-4 py-2 text-[#434655] dark:text-slate-400 hover:text-[#191c1e] hover:bg-[#e6e8ea] rounded-xl transition-all font-semibold text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-[#434655] dark:text-slate-400 hover:text-[#191c1e] hover:bg-[#e6e8ea] rounded-xl transition-all font-semibold text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+                Support
+            </a>
+</div>
+</aside>
+<main class="ml-64 min-h-screen flex flex-col">
+<header class="w-full top-0 sticky bg-[#f7f9fb] dark:bg-slate-900 z-40 flex justify-between items-center px-10 py-4 max-w-[1440px] mx-auto">
+<div class="flex items-center gap-8 flex-1">
+<h1 class="text-xl font-bold text-[#191c1e] dark:text-slate-100 font-manrope tracking-tight">The Precision Archive</h1>
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary-fixed transition-all" placeholder="Search employees, reports..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-[#eceef0] dark:hover:bg-slate-800 transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-[#eceef0] dark:hover:bg-slate-800 transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+</div>
+<button class="bg-primary text-on-primary px-5 py-2 rounded-full font-bold text-sm scale-95 active:scale-90 transition-transform">
+                    Clock In
+                </button>
+<div class="h-8 w-8 rounded-full overflow-hidden ml-2 ring-2 ring-primary/10">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="Close-up professional portrait of a business executive man with a friendly expression in a modern office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3Q-Od3cdk-PuPaWI3YrtLwpgjiauORcGOMYrQkH4gKOZxdwhe9j2rQhYtv6Eqwa1w27jEzPYqcxK_QtYCb_h-0BWH5DGjNpxTgk5mv5OiF7laZKhRLc3q3vxERtfX6U6UVhVSbe6exUYaWCHl0HyVmF-IwBXJyI_44EzkB-Qy4u7isOogj5Ac-Ee2Ix2sKJNpKrfARL21O0DwUPkxBcMoSxMwtPm9GgpDIYt0SZaCl5aep1TRkXBBksx7opjq41WXQpkgevHxvIw"/>
+</div>
+</div>
+</header>
+<div class="flex-1 flex items-center justify-center p-8 bg-[#F8FAFC]">
+<div class="max-w-lg w-full bg-surface-container-lowest rounded-[2rem] p-12 text-center shadow-[0_20px_40px_rgba(0,74,198,0.06)] border border-outline-variant/5">
+<div class="mb-8 relative inline-flex">
+<div class="absolute inset-0 bg-[#16A34A]/10 blur-2xl rounded-full"></div>
+<div class="relative w-20 h-20 bg-white shadow-xl shadow-green-500/10 rounded-full flex items-center justify-center border border-[#16A34A]/20">
+<span class="material-symbols-outlined text-4xl text-[#16A34A]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<h2 class="text-3xl font-extrabold text-on-surface font-headline mb-4 tracking-tight">Funcionário Adicionado!</h2>
+<p class="text-on-surface-variant font-body leading-relaxed mb-10 max-w-sm mx-auto">
+                    O perfil de <span class="font-bold text-on-surface">Ricardo Almeida</span> foi criado com sucesso. Um e-mail de boas-vindas foi enviado para r.almeida@empresa.com.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-8 py-4 rounded-xl font-bold shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2">
+                        Ver Perfil
+                        <span class="material-symbols-outlined text-lg" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="border-2 border-outline-variant/30 text-on-surface px-8 py-4 rounded-xl font-bold hover:bg-surface-container-low transition-all active:scale-95">
+                        Voltar para Listagem
+                    </button>
+</div>
+<div class="mt-12 pt-8 border-t border-outline-variant/10">
+<div class="flex items-center justify-center gap-6 text-outline">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="mark_email_read">mark_email_read</span>
+<span class="text-xs font-semibold uppercase tracking-wider">E-mail Enviado</span>
+</div>
+<div class="w-1 h-1 bg-outline-variant rounded-full"></div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="shield_person">shield_person</span>
+<span class="text-xs font-semibold uppercase tracking-wider">Acesso Liberado</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer class="max-w-[1440px] mx-auto w-full px-10 py-6 text-on-surface-variant flex justify-between items-center text-xs opacity-60 font-medium">
+<div>© 2024 The Precision Archive. Todos os direitos reservados.</div>
+<div class="flex gap-6">
+<a class="hover:text-primary transition-colors" href="#">Política de Privacidade</a>
+<a class="hover:text-primary transition-colors" href="#">Termos de Serviço</a>
+</div>
+</footer>
+</main>
+</body></html>

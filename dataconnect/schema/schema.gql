@@ -1,0 +1,293 @@
+type User @table {
+  firebaseUid: String! @unique
+  name: String! @index
+  email: String! @unique
+  role: String! @index
+  isActive: Boolean! @default(value: true) @index
+  lastLoginAt: Timestamp
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type Department @table {
+  code: String! @unique
+  name: String! @index
+  manager: Employee @index
+  description: String
+  costCenter: String @index
+  isActive: Boolean! @default(value: true) @index
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type Employee @table {
+  user: User @unique
+  registrationNumber: String! @unique
+  fullName: String!
+  cpf: String @unique
+  email: String @index
+  phone: String
+  birthDate: Date
+  hireDate: Date @index
+  department: Department @index
+  position: String
+  profilePhotoUrl: String
+  pinCode: String
+  isActive: Boolean! @default(value: true) @index
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type Device @table {
+  name: String! @index
+  identifier: String! @unique
+  type: String! @index
+  locationName: String @index
+  description: String
+  isActive: Boolean! @default(value: true) @index
+  lastSyncAt: Timestamp @index
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type WorkSchedule @table {
+  name: String! @unique
+  startTime: String!
+  breakStartTime: String
+  breakEndTime: String
+  endTime: String!
+  toleranceMinutes: Int!
+  expectedDailyMinutes: Int
+  isActive: Boolean! @default(value: true) @index
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type EmployeeScheduleHistory @table {
+  employee: Employee! @index
+  workSchedule: WorkSchedule! @index
+  startDate: Date! @index
+  endDate: Date
+  isCurrent: Boolean! @default(value: true) @index
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type TimeRecord @table {
+  employee: Employee! @index
+  device: Device @index
+  recordedByUser: User @index
+  recordType: String! @index
+  source: String! @index
+  status: String! @index
+  recordedAt: Timestamp! @index
+  originalRecordedAt: Timestamp
+  notes: String
+  isManual: Boolean! @default(value: false) @index
+  referenceRecord: TimeRecord @index
+  latitude: Float
+  longitude: Float
+  ipAddress: String
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type TimeRecordPhoto @table {
+  timeRecord: TimeRecord! @index
+  fileUrl: String!
+  fileName: String
+  contentType: String
+  fileSizeBytes: Int64
+  isPrimary: Boolean! @default(value: false)
+  createdAt: Timestamp! @default(expr: "request.time") @index
+}
+
+type Justification @table {
+  employee: Employee! @index
+  timeRecord: TimeRecord @index
+  type: String! @index
+  reason: String!
+  status: String! @default(value: "pending") @index
+  requestedRecordType: String @index
+  requestedRecordedAt: Timestamp
+  reviewedByUser: User @index
+  reviewedAt: Timestamp
+  reviewNotes: String
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type JustificationAttachment @table {
+  justification: Justification! @index
+  fileName: String!
+  fileUrl: String!
+  contentType: String
+  fileSizeBytes: Int64
+  uploadedByUser: User @index
+  createdAt: Timestamp! @default(expr: "request.time") @index
+}
+
+type AuditLog @table @index(fields: ["entityName", "entityId"]) {
+  user: User @index
+  entityName: String! @index
+  entityId: String
+  action: String! @index
+  description: String
+  oldData: Any
+  newData: Any
+  ipAddress: String
+  deviceInfo: String
+  createdAt: Timestamp! @default(expr: "request.time") @index
+}
+
+type VacationRequest @table {
+  employee: Employee! @index
+  requestedAt: Timestamp! @default(expr: "request.time") @index
+  startDate: Date! @index
+  endDate: Date! @index
+  totalDays: Int!
+  availableDays: Int!
+  accrualPeriod: String
+  advanceThirteenthSalary: Boolean! @default(value: false)
+  cashBonus: Boolean! @default(value: false)
+  status: String! @default(value: "pending") @index
+  attachmentFileName: String
+  attachmentFileUrl: String
+  coverageNotes: String
+  reviewNotes: String
+  managerApprovalStatus: String! @default(value: "pending") @index
+  managerApprovalActor: String
+  managerApprovalTimestamp: Timestamp
+  managerApprovalNotes: String
+  hrApprovalStatus: String! @default(value: "pending") @index
+  hrApprovalActor: String
+  hrApprovalTimestamp: Timestamp
+  hrApprovalNotes: String
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type OnboardingJourney @table {
+  employee: Employee! @index
+  ownerUser: User @index
+  status: String! @default(value: "in_progress") @index
+  startDate: Date! @index
+  expectedEndDate: Date @index
+  completedAt: Timestamp
+  progressPercent: Int! @default(value: 0)
+  currentStageLabel: String
+  notes: String
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type OnboardingTask @table {
+  journey: OnboardingJourney! @index
+  category: String! @index
+  title: String! @index
+  description: String
+  status: String! @default(value: "pending") @index
+  dueDate: Date @index
+  completedAt: Timestamp
+  assignedUser: User @index
+  isRequired: Boolean! @default(value: true) @index
+  sortOrder: Int! @default(value: 0) @index
+  blockerReason: String
+  evidenceFileName: String
+  evidenceFileUrl: String
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type WorkLocation @table {
+  code: String! @unique
+  name: String! @index
+  type: String! @index
+  addressLine: String
+  addressComplement: String
+  city: String @index
+  state: String @index
+  postalCode: String
+  latitude: Float
+  longitude: Float
+  radiusMeters: Int! @default(value: 150)
+  isActive: Boolean! @default(value: true) @index
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type AttendancePolicy @table {
+  code: String! @unique
+  name: String! @index
+  mode: String! @index
+  validationStrategy: String! @default(value: "block") @index
+  geolocationRequired: Boolean! @default(value: true) @index
+  photoRequired: Boolean! @default(value: false) @index
+  allowOffsiteClocking: Boolean! @default(value: false) @index
+  requiresAllowedLocations: Boolean! @default(value: true) @index
+  description: String
+  isActive: Boolean! @default(value: true) @index
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type EmployeeAttendancePolicy @table(key: ["employee", "attendancePolicy", "createdAt"]) {
+  id: UUID! @default(expr: "uuidV4()") @unique
+  employee: Employee! @index
+  attendancePolicy: AttendancePolicy! @index
+  mode: String! @index
+  validationStrategy: String! @default(value: "block") @index
+  geolocationRequired: Boolean! @default(value: true) @index
+  photoRequired: Boolean! @default(value: false) @index
+  allowAnyLocation: Boolean! @default(value: false) @index
+  blockOutsideAllowedLocations: Boolean! @default(value: true) @index
+  notes: String
+  startsAt: Date @index
+  endsAt: Date
+  isCurrent: Boolean! @default(value: true) @index
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type EmployeeAllowedLocation @table {
+  employeeAttendancePolicyId: UUID! @index
+  employeeAttendancePolicy: EmployeeAttendancePolicy! @ref(fields: "employeeAttendancePolicyId", references: "id")
+  workLocation: WorkLocation! @index
+  locationRole: String! @default(value: "optional") @index
+  isRequired: Boolean! @default(value: false) @index
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type AdminSettings @table {
+  key: String! @unique
+  defaultWorkSchedule: WorkSchedule @index
+  defaultAttendancePolicy: AttendancePolicy @index
+  primaryDevice: Device @index
+  geofenceMainArea: String
+  geofenceRadiusMeters: Int! @default(value: 120)
+  geofenceBlockingEnabled: Boolean! @default(value: true)
+  notifyOvertimeSummary: Boolean! @default(value: true)
+  notifyPendingVacations: Boolean! @default(value: true)
+  notifyDeviceSync: Boolean! @default(value: true)
+  notifyAuditSummary: Boolean! @default(value: true)
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type AdminNotification @table @index(fields: ["recipientUserId", "status"]) {
+  recipientUser: User! @index
+  referenceKey: String! @unique
+  category: String! @index
+  title: String!
+  description: String!
+  href: String
+  entityName: String @index
+  entityId: String
+  severity: String! @default(value: "info") @index
+  status: String! @default(value: "unread") @index
+  triggeredAt: Timestamp! @default(expr: "request.time") @index
+  readAt: Timestamp
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}

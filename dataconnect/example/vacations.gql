@@ -1,0 +1,149 @@
+query ListVacationRequests
+  @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  vacationRequests(orderBy: [{ requestedAt: DESC }], limit: 200) {
+    id
+    employee {
+      id
+    }
+    requestedAt
+    startDate
+    endDate
+    totalDays
+    availableDays
+    accrualPeriod
+    advanceThirteenthSalary
+    cashBonus
+    status
+    attachmentFileName
+    attachmentFileUrl
+    coverageNotes
+    reviewNotes
+    managerApprovalStatus
+    managerApprovalActor
+    managerApprovalTimestamp
+    managerApprovalNotes
+    hrApprovalStatus
+    hrApprovalActor
+    hrApprovalTimestamp
+    hrApprovalNotes
+    createdAt
+    updatedAt
+  }
+}
+
+query GetVacationRequestById($id: UUID!)
+  @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  vacationRequest(id: $id) {
+    id
+    employee {
+      id
+    }
+    requestedAt
+    startDate
+    endDate
+    totalDays
+    availableDays
+    accrualPeriod
+    advanceThirteenthSalary
+    cashBonus
+    status
+    attachmentFileName
+    attachmentFileUrl
+    coverageNotes
+    reviewNotes
+    managerApprovalStatus
+    managerApprovalActor
+    managerApprovalTimestamp
+    managerApprovalNotes
+    hrApprovalStatus
+    hrApprovalActor
+    hrApprovalTimestamp
+    hrApprovalNotes
+    createdAt
+    updatedAt
+  }
+}
+
+mutation CreateVacationRequest(
+  $employeeId: UUID!
+  $startDate: Date!
+  $endDate: Date!
+  $totalDays: Int!
+  $availableDays: Int!
+  $accrualPeriod: String
+  $advanceThirteenthSalary: Boolean
+  $cashBonus: Boolean
+  $attachmentFileName: String
+  $attachmentFileUrl: String
+  $coverageNotes: String
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  vacationRequest_insert(
+    data: {
+      employee: { id: $employeeId }
+      startDate: $startDate
+      endDate: $endDate
+      totalDays: $totalDays
+      availableDays: $availableDays
+      accrualPeriod: $accrualPeriod
+      advanceThirteenthSalary: $advanceThirteenthSalary
+      cashBonus: $cashBonus
+      attachmentFileName: $attachmentFileName
+      attachmentFileUrl: $attachmentFileUrl
+      coverageNotes: $coverageNotes
+      createdAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation ApproveVacationRequest(
+  $id: UUID!
+  $reviewNotes: String
+  $managerApprovalActor: String
+  $managerApprovalNotes: String
+  $hrApprovalActor: String
+  $hrApprovalNotes: String
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  vacationRequest_update(
+    id: $id
+    data: {
+      status: "approved"
+      reviewNotes: $reviewNotes
+      managerApprovalStatus: "completed"
+      managerApprovalActor: $managerApprovalActor
+      managerApprovalTimestamp_expr: "request.time"
+      managerApprovalNotes: $managerApprovalNotes
+      hrApprovalStatus: "completed"
+      hrApprovalActor: $hrApprovalActor
+      hrApprovalTimestamp_expr: "request.time"
+      hrApprovalNotes: $hrApprovalNotes
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation RejectVacationRequest(
+  $id: UUID!
+  $reviewNotes: String
+  $managerApprovalActor: String
+  $managerApprovalNotes: String
+  $hrApprovalActor: String
+  $hrApprovalNotes: String
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  vacationRequest_update(
+    id: $id
+    data: {
+      status: "rejected"
+      reviewNotes: $reviewNotes
+      managerApprovalStatus: "completed"
+      managerApprovalActor: $managerApprovalActor
+      managerApprovalTimestamp_expr: "request.time"
+      managerApprovalNotes: $managerApprovalNotes
+      hrApprovalStatus: "completed"
+      hrApprovalActor: $hrApprovalActor
+      hrApprovalTimestamp_expr: "request.time"
+      hrApprovalNotes: $hrApprovalNotes
+      updatedAt_expr: "request.time"
+    }
+  )
+}

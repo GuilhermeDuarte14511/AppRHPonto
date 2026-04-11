@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "App RH Ponto - Kiosk",
+    "slug": "app-rh-ponto-kiosk",
+    "scheme": "rhpontokiosk",
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
+

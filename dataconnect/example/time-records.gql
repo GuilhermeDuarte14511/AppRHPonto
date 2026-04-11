@@ -1,0 +1,129 @@
+query ListTimeRecords @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  timeRecords(orderBy: [{ recordedAt: DESC }], limit: 300) {
+    id
+    employee {
+      id
+    }
+    device {
+      id
+    }
+    recordedByUser {
+      id
+    }
+    recordType
+    source
+    status
+    recordedAt
+    originalRecordedAt
+    notes
+    isManual
+    referenceRecord {
+      id
+    }
+    latitude
+    longitude
+    ipAddress
+    createdAt
+    updatedAt
+  }
+}
+
+query GetTimeRecordById($id: UUID!) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  timeRecord(id: $id) {
+    id
+    employee {
+      id
+    }
+    device {
+      id
+    }
+    recordedByUser {
+      id
+    }
+    recordType
+    source
+    status
+    recordedAt
+    originalRecordedAt
+    notes
+    isManual
+    referenceRecord {
+      id
+    }
+    latitude
+    longitude
+    ipAddress
+    createdAt
+    updatedAt
+  }
+}
+
+query ListTimeRecordPhotos @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  timeRecordPhotos(orderBy: [{ createdAt: DESC }], limit: 400) {
+    id
+    timeRecord {
+      id
+    }
+    fileUrl
+    fileName
+    contentType
+    fileSizeBytes
+    isPrimary
+    createdAt
+  }
+}
+
+mutation CreateTimeRecord(
+  $employeeId: UUID!
+  $deviceId: UUID
+  $recordedByUserId: UUID
+  $recordType: String!
+  $source: String!
+  $status: String!
+  $recordedAt: Timestamp!
+  $originalRecordedAt: Timestamp
+  $notes: String
+  $isManual: Boolean!
+  $referenceRecordId: UUID
+  $latitude: Float
+  $longitude: Float
+  $ipAddress: String
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  timeRecord_insert(
+    data: {
+      employee: { id: $employeeId }
+      device: { id: $deviceId }
+      recordedByUser: { id: $recordedByUserId }
+      recordType: $recordType
+      source: $source
+      status: $status
+      recordedAt: $recordedAt
+      originalRecordedAt: $originalRecordedAt
+      notes: $notes
+      isManual: $isManual
+      referenceRecord: { id: $referenceRecordId }
+      latitude: $latitude
+      longitude: $longitude
+      ipAddress: $ipAddress
+      createdAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation AdjustTimeRecord(
+  $id: UUID!
+  $recordedAt: Timestamp!
+  $notes: String
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  timeRecord_update(
+    id: $id
+    data: {
+      recordedAt: $recordedAt
+      notes: $notes
+      status: "adjusted"
+      isManual: true
+      updatedAt_expr: "request.time"
+    }
+  )
+}

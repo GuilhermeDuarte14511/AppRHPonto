@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#dbe1ff",
+                    "surface-tint": "#0053db",
+                    "surface-container": "#eceef0",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "inverse-primary": "#b4c5ff",
+                    "secondary-fixed": "#dde1ff",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-background": "#191c1e",
+                    "on-primary-container": "#eeefff",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#f2f4f6",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#c3c6d7",
+                    "on-tertiary-container": "#ffede6",
+                    "secondary-container": "#708cfd",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "on-secondary-container": "#00217a",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#3755c3",
+                    "surface-variant": "#e0e3e5",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#434655",
+                    "on-secondary-fixed": "#001453",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-secondary-fixed-variant": "#173bab",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "secondary-fixed-dim": "#b8c4ff",
+                    "outline": "#737686",
+                    "on-tertiary-fixed": "#360f00",
+                    "tertiary-fixed": "#ffdbcd",
+                    "surface": "#f7f9fb",
+                    "inverse-surface": "#2d3133",
+                    "on-surface": "#191c1e",
+                    "background": "#f7f9fb",
+                    "surface-bright": "#f7f9fb",
+                    "surface-container-high": "#e6e8ea",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed": "#00174b",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#d8dadc",
+                    "primary-container": "#2563eb",
+                    "primary": "#004ac6",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#bc4800",
+                    "tertiary": "#943700"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-64 bg-slate-50 dark:bg-slate-900 flex flex-col py-6 font-['Manrope'] antialiased">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">precision_manufacturing</span>
+</div>
+<div>
+<h1 class="text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">PontoPrecise</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">HR Admin Console</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">badge</span>
+<span class="text-sm font-medium">Funcionários</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">history_toggle_off</span>
+<span class="text-sm font-medium">Marcações</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="text-sm font-medium">Justificativas</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">event_available</span>
+<span class="text-sm font-medium">Férias</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">insert_chart</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">calendar_view_day</span>
+<span class="text-sm font-medium">Escalas</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-medium">Folha</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Documentos</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">security</span>
+<span class="text-sm font-medium">Auditoria</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Configurações</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<div class="bg-blue-600 rounded-xl p-4 text-white relative overflow-hidden group cursor-pointer transition-transform active:scale-95">
+<div class="relative z-10">
+<p class="text-xs font-bold opacity-80 mb-1">CENTRAL DE AJUDA</p>
+<p class="text-sm font-semibold">Dúvidas? Fale conosco</p>
+</div>
+<div class="absolute -right-2 -bottom-2 opacity-20 transform group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-6xl">help_outline</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 left-64 h-16 z-40 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl flex items-center justify-between px-8 shadow-sm dark:shadow-none font-['Manrope'] text-sm font-medium">
+<div class="flex items-center w-full max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full bg-slate-100 dark:bg-slate-900 border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-blue-500 outline-none transition-all" placeholder="Pesquisar em módulos, funcionários ou arquivos..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all duration-200 active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-blue-600 dark:text-blue-400 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all duration-200 active:scale-95 flex items-center gap-2">
+<span class="material-symbols-outlined">help_outline</span>
+<span>Suporte</span>
+</button>
+</div>
+<div class="h-6 w-px bg-slate-200 dark:bg-slate-800"></div>
+<button class="bg-primary-container text-white px-5 py-2 rounded-full font-bold transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/20 active:scale-98">
+                Bater Ponto
+            </button>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold text-on-surface">Ricardo Alves</p>
+<p class="text-[10px] text-on-surface-variant">Admin</p>
+</div>
+<img alt="User Avatar" class="w-9 h-9 rounded-full object-cover ring-2 ring-slate-100" data-alt="professional headshot of a smiling middle-aged man in business attire with a clean blurred office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4NfLcnZ6CboIVDR61eGhzh15Z3Lg10gcyK_btdqXZEWvfZw9_gWGm0b4tAX76JfDufToXApoYLu8nGtcIEmp-EkQDl7WRx2djRU4K58z-fgrq_3gnlcrHLlPStA8rVAnpA4fuYB0MxQZZiF0-ulFK3677cacv5h-KHaHdeq4KJBVwLXUPSK1E-GpjeCIZpxukuu7_iYFo6mANFaRsBklxSPeOnvMrikv583Bp9DdfTiyV2GQ0BbCrWpktlYcPmEgW8oolXKIZTZc"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-16 min-h-screen">
+<div class="max-w-[1440px] mx-auto px-10 py-12">
+<!-- Hero Help Section -->
+<section class="mb-16">
+<div class="relative h-[320px] rounded-[2rem] overflow-hidden bg-primary flex items-center px-16">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<img class="w-full h-full object-cover" data-alt="abstract flowing blue gradient waves with subtle grain texture and professional clean aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdC3_N1c9yO612f5ZBVhXTAz4o44hCUpaDzZypSp_q4BQ3af_BjvX3qLdn_YbPI4f6ClnEX-EFLSGkZmK4Fvpis2MfcPO6KUl_5-oT_6RHQgJSV8THPikRVzkIzZWvYbGh5lA2Ayhgkltj6ezr5qz7D77JIXSCkI6D-x9Xw_AdjSQ3gPRbvFbh5KdI6hXTWM4x7Bqmzxaq_9941NoyAzX1FuOtVSuKBHUcfl8YHFXcHHN5-aura3at-VLIG2ngps30p5EMbtRJuyo"/>
+</div>
+<div class="relative z-10 max-w-2xl">
+<h2 class="text-4xl font-extrabold text-white mb-4 tracking-tight leading-tight">Como podemos ajudar você hoje?</h2>
+<p class="text-primary-fixed opacity-90 text-lg mb-8 font-medium">Explore nossa base de conhecimento ou entre em contato com nossos especialistas.</p>
+<div class="relative group">
+<div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-primary-container text-2xl">search</span>
+</div>
+<input class="w-full bg-white rounded-2xl py-5 pl-14 pr-6 text-on-surface text-lg shadow-xl shadow-primary/20 border-none focus:ring-4 focus:ring-primary-fixed-dim transition-all outline-none" placeholder="Busque por termos como 'Férias', 'Integração API' ou 'Escalas'..." type="text"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 bg-primary-container text-white px-6 py-2.5 rounded-xl font-bold hover:bg-blue-700 transition-colors">
+                                Buscar
+                            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Categories Grid -->
+<section class="mb-16">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Primeiros Passos -->
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] group hover:bg-primary transition-all duration-300 cursor-pointer">
+<div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-blue-600 text-3xl group-hover:text-white" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+</div>
+<h3 class="text-xl font-bold mb-3 group-hover:text-white">Primeiros Passos</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed group-hover:text-white/80">Tudo o que você precisa saber para configurar seu RH em minutos.</p>
+</div>
+<!-- Configurações -->
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] group hover:bg-primary transition-all duration-300 cursor-pointer">
+<div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-blue-600 text-3xl group-hover:text-white">tune</span>
+</div>
+<h3 class="text-xl font-bold mb-3 group-hover:text-white">Configurações</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed group-hover:text-white/80">Ajuste regras de ponto, bancos de horas e tolerâncias customizadas.</p>
+</div>
+<!-- Folha de Ponto -->
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] group hover:bg-primary transition-all duration-300 cursor-pointer">
+<div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-blue-600 text-3xl group-hover:text-white">event_note</span>
+</div>
+<h3 class="text-xl font-bold mb-3 group-hover:text-white">Folha de Ponto</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed group-hover:text-white/80">Gestão de fechamento, exportações e integração com sistemas de folha.</p>
+</div>
+<!-- Suporte Técnico -->
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] group hover:bg-primary transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-primary">
+<div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-blue-600 text-3xl group-hover:text-white">settings_ethernet</span>
+</div>
+<h3 class="text-xl font-bold mb-3 group-hover:text-white">Suporte Técnico</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed group-hover:text-white/80">APIs, Webhooks e soluções de hardware para relógios de ponto.</p>
+</div>
+</div>
+</section>
+<!-- Main Layout Split -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Popular Articles (Left) -->
+<div class="lg:col-span-8">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-2xl font-extrabold tracking-tight">Artigos Populares</h3>
+<a class="text-primary font-bold text-sm hover:underline" href="#">Ver todos</a>
+</div>
+<div class="space-y-4">
+<div class="group bg-surface-container-lowest p-6 rounded-2xl flex gap-6 items-start hover:shadow-xl hover:shadow-blue-500/5 transition-all cursor-pointer">
+<div class="w-12 h-12 shrink-0 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">menu_book</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">Como importar funcionários via CSV de forma massiva</h4>
+<p class="text-on-surface-variant text-sm mb-3">Aprenda a estruturar sua planilha para migrar centenas de dados em poucos segundos sem erros.</p>
+<div class="flex items-center gap-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 5 min de leitura</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">visibility</span> 1.2k visualizações</span>
+</div>
+</div>
+</div>
+<div class="group bg-surface-container-lowest p-6 rounded-2xl flex gap-6 items-start hover:shadow-xl hover:shadow-blue-500/5 transition-all cursor-pointer">
+<div class="w-12 h-12 shrink-0 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">security_update_good</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">Configurando geolocalização para equipes remotas</h4>
+<p class="text-on-surface-variant text-sm mb-3">Defina perímetros virtuais e garanta que o ponto seja batido apenas em locais autorizados.</p>
+<div class="flex items-center gap-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 3 min de leitura</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">visibility</span> 850 visualizações</span>
+</div>
+</div>
+</div>
+<div class="group bg-surface-container-lowest p-6 rounded-2xl flex gap-6 items-start hover:shadow-xl hover:shadow-blue-500/5 transition-all cursor-pointer">
+<div class="w-12 h-12 shrink-0 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">Exportação para Folha: Guia Definitivo</h4>
+<p class="text-on-surface-variant text-sm mb-3">Formatos aceitos (PDF, Excel, AFD) e como realizar o fechamento mensal sem divergências.</p>
+<div class="flex items-center gap-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 10 min de leitura</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">visibility</span> 2.4k visualizações</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Support Sidebar (Right) -->
+<div class="lg:col-span-4">
+<div class="sticky top-24 space-y-6">
+<!-- Support Card -->
+<div class="bg-white rounded-[2rem] p-8 shadow-2xl shadow-blue-900/5 border border-slate-100 overflow-hidden relative">
+<div class="absolute -top-12 -right-12 w-32 h-32 bg-primary/5 rounded-full"></div>
+<h3 class="text-2xl font-extrabold mb-2 relative z-10">Precisa de mais?</h3>
+<p class="text-on-surface-variant text-sm mb-8 relative z-10">Nossa equipe está disponível em diversos canais para garantir sua produtividade.</p>
+<div class="space-y-3 relative z-10">
+<button class="w-full flex items-center justify-between p-4 bg-slate-50 hover:bg-primary hover:text-white rounded-2xl transition-all group active:scale-98">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-bold text-sm">Chat em Tempo Real</span>
+</div>
+<span class="text-[10px] bg-tertiary text-white px-2 py-0.5 rounded-full font-bold group-hover:bg-white group-hover:text-primary uppercase">Online</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-slate-50 hover:bg-primary hover:text-white rounded-2xl transition-all group active:scale-98">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">confirmation_number</span>
+<span class="font-bold text-sm">Abrir Chamado</span>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-slate-50 hover:bg-primary hover:text-white rounded-2xl transition-all group active:scale-98">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">api</span>
+<span class="font-bold text-sm">Documentação API</span>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">open_in_new</span>
+</button>
+</div>
+<div class="mt-8 pt-8 border-t border-slate-100 flex items-center gap-4">
+<div class="flex -space-x-3">
+<img alt="Support Agent" class="w-10 h-10 rounded-full border-2 border-white" data-alt="close-up portrait of a friendly female support specialist with a headset in a modern office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGrdtWnUHSSfCN44Lea5A2J94j1Exu9I4buqNcCy6sVW71YESraoV_IXKLd0S4RQIB0onBVdG3sVsRXrh5aNNXgUzegNurtyaU9yX-RpjifarxFGykaMogZAAj2E-g3nVLg6JTu5ox6zZuqqL7ATs7s-A-uqT1QFcyNBp5lXXZx3mstD4prbyOdlVynyChQqXj2SQhj4YqaIO4PEYFNQXrOZnn0rx6_4M4cvMgW83g8QsCh-mAcV45ND7ClAjl9DhqvPYBHVJE13w"/>
+<img alt="Support Agent" class="w-10 h-10 rounded-full border-2 border-white" data-alt="close-up portrait of a smiling male customer success manager in a bright professional environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjgrPUcGxOuTa-wbMWAZGxTnsTRmXJ7sacsyEk98OaXRoyuFhe5MDmGxvgBZg7iN0H4-12M5QJ63gETNtFYnTo8Nmrr_EkBa4-QuiK4J7F528_9sV8rgE5rAkiulzfv2DEVTMq6BM9sMzfgrS3NSkl1cklgLN-_hPvxID_TADCJMihL1_az-skl8FM_IJTquRrd1yUsIR-_7NC-4nVBwz0Pq7vv_nllVxhXsEpB1VEiYB8VhkIzKF7dAipUzeZMVkE8nNlNJnAxM4"/>
+<img alt="Support Agent" class="w-10 h-10 rounded-full border-2 border-white" data-alt="close-up portrait of a professional young woman with glasses smiling warmly" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4CMhrX1fosQ8f2N9vKPdqy1HlzQkUhtbwFi8xWJPFNKUfVynHKnny99ulB72r_dCLmex1UslKXcb2NKYBXWHua7kqx8VTnVDQkrHQDuFGJm6halo_Il_B4nsNH3zPqcJjSLG6LT3NAkH0eGOw9ltBxs_BzstSjUaMikukfg2G80pLpFV8bY4bKfJMVbRAIZUAu72bPTSKOu7CXWAXaHoWiDiX7enS3HpvsmJu9AWTQbhJmAkDyLiFbZ8ibPXjHSNeglkfIpn4dEc"/>
+</div>
+<div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+                                    Tempo médio de resposta: <span class="text-primary">12 min</span>
+</div>
+</div>
+</div>
+<!-- Video Guides Card -->
+<div class="bg-primary-fixed rounded-[2rem] p-8 relative overflow-hidden group cursor-pointer">
+<img class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-105 transition-transform duration-700" data-alt="hands working on a high-tech laptop with blue software interface displayed on screen, professional and modern atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1-hX39qK9trNF50r8hIi_5DUTuNOL42Oq6p363G4MkZQbbDE-szK_JxpJDi681QWFFqQ3axJjM8A--Sj_8PlEHsHHJeVeqJNSIboRKRPVFtB9pkzKT_1YVYaZuDFju_LWwcQppde1ezC_a5VdYxv558gPEMdlrN2wNjZBvj9o8hKQKrr7gb6W6KUGWaUZk0v6_H9Ut70MN4AzEzDaPO6ISLx-L3j0AvFYnhuCGziSOrm8ozDsdBz0lOQRkcm5h0ta7QbYLkmkZek"/>
+<div class="relative z-10">
+<span class="material-symbols-outlined text-primary text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+<h4 class="text-xl font-extrabold text-on-primary-fixed mb-1">Guias em Vídeo</h4>
+<p class="text-on-primary-fixed-variant text-sm">Aprenda visualmente com nossos tutoriais rápidos no YouTube.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Shadow -->
+<div class="ml-64 py-8 px-10 border-t border-slate-100 flex justify-between items-center text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+<div>© 2024 PontoPrecise Software de RH Ltda.</div>
+<div class="flex gap-6">
+<a class="hover:text-primary" href="#">Termos de Uso</a>
+<a class="hover:text-primary" href="#">Privacidade</a>
+<a class="hover:text-primary" href="#">Status do Sistema</a>
+</div>
+</div>
+</body></html>

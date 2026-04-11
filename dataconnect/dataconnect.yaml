@@ -1,0 +1,13 @@
+specVersion: "v1"
+serviceId: "myrh-32b0a-service"
+location: "southamerica-east1"
+schemas:
+  - source: "./schema"
+    datasource:
+      postgresql:
+        database: "myrh-32b0a-database"
+        cloudSql:
+          instanceId: "myrh-32b0a-instance"
+          # schemaValidation: "STRICT"     # STRICT mode makes Postgres schema match Data Connect exactly.
+          # schemaValidation: "COMPATIBLE" # COMPATIBLE mode makes Postgres schema compatible with Data Connect.
+connectorDirs: ["./example"]

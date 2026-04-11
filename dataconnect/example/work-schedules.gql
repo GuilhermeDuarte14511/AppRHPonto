@@ -1,0 +1,120 @@
+query ListWorkSchedules @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  workSchedules(orderBy: [{ name: ASC }], limit: 100) {
+    id
+    name
+    startTime
+    breakStartTime
+    breakEndTime
+    endTime
+    toleranceMinutes
+    expectedDailyMinutes
+    isActive
+    createdAt
+    updatedAt
+  }
+}
+
+query GetWorkScheduleById($id: UUID!) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  workSchedule(id: $id) {
+    id
+    name
+    startTime
+    breakStartTime
+    breakEndTime
+    endTime
+    toleranceMinutes
+    expectedDailyMinutes
+    isActive
+    createdAt
+    updatedAt
+  }
+}
+
+query ListEmployeeScheduleHistory @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  employeeScheduleHistories(orderBy: [{ createdAt: DESC }], limit: 200) {
+    id
+    employee {
+      id
+    }
+    workSchedule {
+      id
+    }
+    startDate
+    endDate
+    isCurrent
+    createdAt
+    updatedAt
+  }
+}
+
+mutation CreateWorkSchedule(
+  $name: String!
+  $startTime: String!
+  $breakStartTime: String
+  $breakEndTime: String
+  $endTime: String!
+  $toleranceMinutes: Int!
+  $expectedDailyMinutes: Int
+  $isActive: Boolean!
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  workSchedule_insert(
+    data: {
+      name: $name
+      startTime: $startTime
+      breakStartTime: $breakStartTime
+      breakEndTime: $breakEndTime
+      endTime: $endTime
+      toleranceMinutes: $toleranceMinutes
+      expectedDailyMinutes: $expectedDailyMinutes
+      isActive: $isActive
+      createdAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation UpdateWorkSchedule(
+  $id: UUID!
+  $name: String
+  $startTime: String
+  $breakStartTime: String
+  $breakEndTime: String
+  $endTime: String
+  $toleranceMinutes: Int
+  $expectedDailyMinutes: Int
+  $isActive: Boolean
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  workSchedule_update(
+    id: $id
+    data: {
+      name: $name
+      startTime: $startTime
+      breakStartTime: $breakStartTime
+      breakEndTime: $breakEndTime
+      endTime: $endTime
+      toleranceMinutes: $toleranceMinutes
+      expectedDailyMinutes: $expectedDailyMinutes
+      isActive: $isActive
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation AssignWorkScheduleToEmployee(
+  $employeeId: UUID!
+  $workScheduleId: UUID!
+  $startDate: Date!
+  $endDate: Date
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  employeeScheduleHistory_insert(
+    data: {
+      employee: { id: $employeeId }
+      workSchedule: { id: $workScheduleId }
+      startDate: $startDate
+      endDate: $endDate
+      isCurrent: true
+      createdAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  )
+}

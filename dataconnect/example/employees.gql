@@ -1,0 +1,135 @@
+query ListEmployees
+  @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  employees(orderBy: [{ fullName: ASC }], limit: 200) {
+    id
+    user {
+      id
+    }
+    registrationNumber
+    fullName
+    cpf
+    email
+    phone
+    birthDate
+    hireDate
+    departmentId
+    department {
+      id
+      name
+    }
+    position
+    profilePhotoUrl
+    pinCode
+    isActive
+    createdAt
+    updatedAt
+  }
+}
+
+query GetEmployeeById($id: UUID!)
+  @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  employee(id: $id) {
+    id
+    user {
+      id
+    }
+    registrationNumber
+    fullName
+    cpf
+    email
+    phone
+    birthDate
+    hireDate
+    departmentId
+    department {
+      id
+      name
+    }
+    position
+    profilePhotoUrl
+    pinCode
+    isActive
+    createdAt
+    updatedAt
+  }
+}
+
+mutation CreateEmployee(
+  $registrationNumber: String!
+  $fullName: String!
+  $cpf: String
+  $email: String
+  $phone: String
+  $birthDate: Date
+  $hireDate: Date
+  $departmentId: UUID
+  $position: String
+  $profilePhotoUrl: String
+  $pinCode: String
+  $isActive: Boolean!
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  employee_insert(
+    data: {
+      registrationNumber: $registrationNumber
+      fullName: $fullName
+      cpf: $cpf
+      email: $email
+      phone: $phone
+      birthDate: $birthDate
+      hireDate: $hireDate
+      departmentId: $departmentId
+      position: $position
+      profilePhotoUrl: $profilePhotoUrl
+      pinCode: $pinCode
+      isActive: $isActive
+      createdAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation UpdateEmployee(
+  $id: UUID!
+  $registrationNumber: String
+  $fullName: String
+  $cpf: String
+  $email: String
+  $phone: String
+  $birthDate: Date
+  $hireDate: Date
+  $departmentId: UUID
+  $position: String
+  $profilePhotoUrl: String
+  $pinCode: String
+  $isActive: Boolean
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  employee_update(
+    id: $id
+    data: {
+      registrationNumber: $registrationNumber
+      fullName: $fullName
+      cpf: $cpf
+      email: $email
+      phone: $phone
+      birthDate: $birthDate
+      hireDate: $hireDate
+      departmentId: $departmentId
+      position: $position
+      profilePhotoUrl: $profilePhotoUrl
+      pinCode: $pinCode
+      isActive: $isActive
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation DeactivateEmployee($id: UUID!)
+  @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  employee_update(
+    id: $id
+    data: {
+      isActive: false
+      updatedAt_expr: "request.time"
+    }
+  )
+}

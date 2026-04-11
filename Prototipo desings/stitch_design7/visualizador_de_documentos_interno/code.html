@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#191c1e",
+                        "primary-container": "#2563eb",
+                        "outline-variant": "#c3c6d7",
+                        "surface-container-high": "#e6e8ea",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "secondary-fixed": "#dde1ff",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f2f4f6",
+                        "primary-fixed": "#dbe1ff",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#f7f9fb",
+                        "inverse-on-surface": "#eff1f3",
+                        "secondary-container": "#708cfd",
+                        "surface-tint": "#0053db",
+                        "on-secondary-container": "#00217a",
+                        "tertiary": "#943700",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "on-tertiary-fixed": "#360f00",
+                        "tertiary-container": "#bc4800",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "outline": "#737686",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-secondary-fixed": "#001453",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f7f9fb",
+                        "on-tertiary-container": "#ffede6",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#2d3133",
+                        "on-surface-variant": "#434655",
+                        "surface-dim": "#d8dadc",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#173bab",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e0e3e5",
+                        "secondary-fixed-dim": "#b8c4ff",
+                        "primary": "#004ac6",
+                        "on-primary-fixed": "#00174b",
+                        "secondary": "#3755c3",
+                        "on-background": "#191c1e",
+                        "surface-container": "#eceef0",
+                        "on-primary-container": "#eeefff",
+                        "surface-bright": "#f7f9fb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .brand-font { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pdf-canvas {
+            box-shadow: 0 10px 30px rgba(0, 74, 198, 0.04);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f2f4f6;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c3c6d7;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar (from JSON) -->
+<nav class="h-screen w-64 fixed left-0 top-0 bg-slate-50 flex flex-col py-6 px-4 z-[60]">
+<div class="mb-10 px-2">
+<h1 class="text-lg font-bold text-slate-900 brand-font tracking-tight">The Precision Archive</h1>
+<p class="text-[0.6875rem] font-medium text-slate-500 uppercase tracking-widest mt-1">HR Administrative Shell</p>
+</div>
+<div class="flex-1 flex flex-col gap-1 overflow-y-auto custom-scrollbar">
+<!-- Documentos is active for this screen -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 hover:bg-slate-200 text-slate-500 font-medium" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 hover:bg-slate-200 text-slate-500 font-medium" href="#">
+<span class="material-symbols-outlined text-xl">badge</span>
+<span class="text-sm">Funcionários</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 hover:bg-slate-200 text-slate-500 font-medium" href="#">
+<span class="material-symbols-outlined text-xl">timer</span>
+<span class="text-sm">Marcações</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 hover:bg-slate-200 text-slate-500 font-medium" href="#">
+<span class="material-symbols-outlined text-xl">fact_check</span>
+<span class="text-sm">Justificativas</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 hover:bg-slate-200 text-slate-500 font-medium" href="#">
+<span class="material-symbols-outlined text-xl">event_available</span>
+<span class="text-sm">Férias</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 hover:bg-slate-200 text-slate-500 font-medium" href="#">
+<span class="material-symbols-outlined text-xl">analytics</span>
+<span class="text-sm">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 hover:bg-slate-200 text-slate-500 font-medium" href="#">
+<span class="material-symbols-outlined text-xl">calendar_view_day</span>
+<span class="text-sm">Escalas</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 hover:bg-slate-200 text-slate-500 font-medium" href="#">
+<span class="material-symbols-outlined text-xl">payments</span>
+<span class="text-sm">Folha</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 bg-white/50 text-blue-600 font-semibold shadow-sm" href="#">
+<span class="material-symbols-outlined text-xl">description</span>
+<span class="text-sm">Documentos</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 hover:bg-slate-200 text-slate-500 font-medium" href="#">
+<span class="material-symbols-outlined text-xl">history_edu</span>
+<span class="text-sm">Auditoria</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 hover:bg-slate-200 text-slate-500 font-medium mt-4" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="text-sm">Configurações</span>
+</a>
+</div>
+<div class="mt-auto pt-6 px-2 border-t border-slate-200/50">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-primary-fixed flex items-center justify-center text-primary font-bold">
+<img alt="Avatar" data-alt="close-up portrait of a professional HR administrator with a friendly expression and neutral office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCa0Jj-p-w7y-mkbr9ITE2ytsYljEIKZqEJAy9nQYw59uy9yOltvv95U2JTDoK0BoKFwsmZ4CgUMw9p53EoD4Fsz5gJ0cuLUgWhBkKQokudFl6T_Ly9Xz_NRCv0qPHNgr14JDTyWsUMXnJbannzCiWFk1BRai6UUkyMdiPYK18ZARzLO-7MIpox--TUNk9saKWhVbkLn4TfzXSwvkWOF1efvXJTBUokKlXbZerDyo_KWhZg0B40IK7_M3Tkq4eXtzzWGIN2eNjwGkY"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="text-xs font-bold text-on-surface truncate">Ricardo Silveira</p>
+<p class="text-[0.6rem] text-on-surface-variant truncate">Gestor de Operações</p>
+</div>
+</div>
+</div>
+</nav>
+<!-- TopNavBar (from JSON) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 z-50 bg-white/80 backdrop-blur-xl flex justify-between items-center px-8">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary-fixed transition-all placeholder:text-outline" placeholder="Buscar no Precision Archive..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-white px-5 py-2 rounded-xl text-sm font-semibold shadow-lg shadow-primary/10 hover:scale-[0.98] transition-transform">
+                Clock In
+            </button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-64 mt-16 p-8 min-h-[calc(100vh-4rem)] flex gap-8">
+<!-- Center Area: PDF Viewer -->
+<div class="flex-1 flex flex-col gap-4">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 text-sm text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">Documentos</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Contratos</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="font-semibold text-on-surface">Contrato de Trabalho - v1408</span>
+</nav>
+<!-- PDF Interface Shell -->
+<div class="flex-1 bg-surface-container-high rounded-3xl overflow-hidden flex flex-col relative">
+<!-- PDF Controls -->
+<div class="h-14 bg-white/60 backdrop-blur-md flex items-center justify-between px-6 z-10">
+<div class="flex items-center gap-4">
+<div class="flex items-center bg-surface-container-low rounded-lg p-0.5">
+<button class="p-1.5 hover:bg-white rounded-md transition-all text-on-surface-variant"><span class="material-symbols-outlined text-lg">zoom_out</span></button>
+<span class="text-xs font-semibold px-2 w-12 text-center">100%</span>
+<button class="p-1.5 hover:bg-white rounded-md transition-all text-on-surface-variant"><span class="material-symbols-outlined text-lg">zoom_in</span></button>
+</div>
+<div class="w-px h-6 bg-outline-variant/30"></div>
+<div class="flex items-center gap-2">
+<button class="p-1.5 hover:bg-white rounded-md transition-all text-on-surface-variant"><span class="material-symbols-outlined text-lg">chevron_left</span></button>
+<span class="text-xs font-medium">Página <span class="font-bold">1</span> de 8</span>
+<button class="p-1.5 hover:bg-white rounded-md transition-all text-on-surface-variant"><span class="material-symbols-outlined text-lg">chevron_right</span></button>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-1.5 hover:bg-white rounded-md transition-all text-on-surface-variant"><span class="material-symbols-outlined text-lg">print</span></button>
+<button class="p-1.5 hover:bg-white rounded-md transition-all text-on-surface-variant"><span class="material-symbols-outlined text-lg">open_in_new</span></button>
+</div>
+</div>
+<!-- Document Canvas -->
+<div class="flex-1 overflow-y-auto p-12 flex justify-center bg-slate-200/50 custom-scrollbar">
+<div class="pdf-canvas bg-white w-full max-w-4xl min-h-[1100px] p-16 relative">
+<!-- Watermark -->
+<div class="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none overflow-hidden rotate-[-45deg]">
+<span class="text-9xl font-black uppercase whitespace-nowrap">PREVISÃO • PRIVADO • PREVISÃO</span>
+</div>
+<!-- Rendered Document Content -->
+<div class="relative z-1">
+<div class="flex justify-between items-start mb-16">
+<div>
+<h2 class="text-3xl font-extrabold text-on-surface mb-2">CONTRATO DE TRABALHO</h2>
+<p class="text-sm text-on-surface-variant font-medium tracking-wide">Ref: CTR-2024-8841-BR</p>
+</div>
+<div class="w-16 h-16 bg-surface-container-low flex items-center justify-center rounded-xl">
+<span class="material-symbols-outlined text-3xl text-outline">description</span>
+</div>
+</div>
+<div class="space-y-10 text-on-surface text-[14px] leading-relaxed">
+<section>
+<h3 class="text-xs font-bold uppercase tracking-widest text-primary mb-4">I. DAS PARTES</h3>
+<p>Pelo presente instrumento particular, de um lado <strong>THE PRECISION ARCHIVE LTDA</strong>, inscrita no CNPJ/MF sob o nº 00.000.000/0000-00, sediada em São Paulo/SP, doravante denominada EMPREGADORA e, de outro lado, <strong>PEDRO HENRIQUE ALMEIDA</strong>, brasileiro, casado, desenvolvedor sênior, doravante denominado EMPREGADO, resolvem celebrar o presente Contrato Individual de Trabalho.</p>
+</section>
+<section>
+<h3 class="text-xs font-bold uppercase tracking-widest text-primary mb-4">II. DA FUNÇÃO E ATIVIDADES</h3>
+<p>O EMPREGADO é contratado para exercer a função de <strong>Engenheiro de Software Especialista</strong>, comprometendo-se a prestar os serviços de desenvolvimento, manutenção e arquitetura de sistemas internos, bem como demais atividades correlatas ao cargo conforme orientação da gerência.</p>
+</section>
+<section>
+<h3 class="text-xs font-bold uppercase tracking-widest text-primary mb-4">III. DA JORNADA DE TRABALHO</h3>
+<p>A jornada de trabalho será de 40 (quarenta) horas semanais, a serem cumpridas de segunda a sexta-feira, em regime híbrido, conforme política interna da EMPREGADORA vigente na data de assinatura deste documento.</p>
+</section>
+<section>
+<h3 class="text-xs font-bold uppercase tracking-widest text-primary mb-4">IV. DA REMUNERAÇÃO</h3>
+<p>Pelos serviços prestados, a EMPREGADORA pagará ao EMPREGADO a importância mensal bruta estipulada em oferta prévia, mediante depósito em conta corrente até o 5º dia útil do mês subsequente ao vencido.</p>
+</section>
+<div class="pt-20 border-t border-outline-variant/30 flex justify-between gap-12">
+<div class="flex-1 h-24 bg-surface-container-lowest border-2 border-dashed border-outline-variant/50 rounded-xl flex items-center justify-center text-outline-variant text-xs font-medium">
+                                        Assinatura da Contratante
+                                    </div>
+<div class="flex-1 h-24 bg-surface-container-lowest border-2 border-dashed border-outline-variant/50 rounded-xl flex items-center justify-center text-outline-variant text-xs font-medium">
+                                        Assinatura do Contratado
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: Info & Actions -->
+<aside class="w-80 flex flex-col gap-6">
+<!-- Document Meta Card -->
+<div class="bg-white rounded-3xl p-6 shadow-sm flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h3 class="font-bold text-on-surface">Informações</h3>
+<span class="material-symbols-outlined text-outline text-lg">info</span>
+</div>
+<div class="space-y-4">
+<div class="flex flex-col gap-1">
+<span class="text-[0.6rem] font-bold text-on-surface-variant uppercase tracking-wider">Tipo</span>
+<p class="text-sm font-semibold">Contrato Individual</p>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[0.6rem] font-bold text-on-surface-variant uppercase tracking-wider">Data de Emissão</span>
+<p class="text-sm font-semibold">14/08/2024</p>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[0.6rem] font-bold text-on-surface-variant uppercase tracking-wider">Status</span>
+<div class="flex">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant text-[0.65rem] font-bold px-2.5 py-1 rounded-full uppercase tracking-tight flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+                                Pendente Assinatura
+                            </span>
+</div>
+</div>
+</div>
+<div class="h-px bg-surface-container-high w-full"></div>
+<div class="flex flex-col gap-3">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:scale-[0.98] active:scale-[0.96] transition-all shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-lg">draw</span>
+                        Assinar Digitalmente
+                    </button>
+<button class="w-full bg-surface-container-high text-on-surface-variant py-3.5 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2 hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-lg">download</span>
+                        Baixar PDF
+                    </button>
+<button class="w-full text-error/80 hover:text-error py-3 rounded-xl font-semibold text-xs transition-colors">
+                        Rejeitar Documento
+                    </button>
+</div>
+</div>
+<!-- Contextual Card: Activity -->
+<div class="bg-surface-container-low rounded-3xl p-6 flex flex-col gap-4">
+<h3 class="font-bold text-xs uppercase tracking-widest text-on-surface-variant">Histórico</h3>
+<div class="space-y-4">
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-sm text-primary">add</span>
+</div>
+<div>
+<p class="text-xs font-bold">Documento Criado</p>
+<p class="text-[0.65rem] text-on-surface-variant">Por Ricardo Silveira • 10:24</p>
+</div>
+</div>
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-sm text-primary">visibility</span>
+</div>
+<div>
+<p class="text-xs font-bold">Visualizado pelo RH</p>
+<p class="text-[0.65rem] text-on-surface-variant">Há 15 minutos</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Blockchain Seal -->
+<div class="mt-auto bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-6 text-white overflow-hidden relative group">
+<div class="absolute -right-4 -bottom-4 opacity-10 rotate-12 group-hover:rotate-0 transition-transform duration-700">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-3">
+<div class="w-6 h-6 rounded bg-blue-500 flex items-center justify-center">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">token</span>
+</div>
+<span class="text-[0.65rem] font-bold uppercase tracking-widest text-blue-400">Security Node Active</span>
+</div>
+<h4 class="font-headline font-extrabold text-sm mb-2 uppercase">Blockchain Security</h4>
+<p class="text-[0.6875rem] text-slate-400 leading-snug">Este documento possui hash criptográfico único registrado em rede privada para garantia de integridade e não-repúdio.</p>
+<div class="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
+<span class="text-[0.6rem] font-mono text-slate-500 uppercase">Hash: 8f92...a3e1</span>
+<span class="material-symbols-outlined text-xs text-blue-400">verified</span>
+</div>
+</div>
+</div>
+</aside>
+</main>
+</body></html>

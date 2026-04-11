@@ -1,0 +1,38 @@
+query ListAuditLogs @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  auditLogs(orderBy: [{ createdAt: DESC }], limit: 300) {
+    id
+    user {
+      id
+    }
+    entityName
+    entityId
+    action
+    description
+    ipAddress
+    deviceInfo
+    createdAt
+  }
+}
+
+mutation CreateAuditLog(
+  $userId: UUID
+  $entityName: String!
+  $entityId: String
+  $action: String!
+  $description: String
+  $ipAddress: String
+  $deviceInfo: String
+) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
+  auditLog_insert(
+    data: {
+      user: { id: $userId }
+      entityName: $entityName
+      entityId: $entityId
+      action: $action
+      description: $description
+      ipAddress: $ipAddress
+      deviceInfo: $deviceInfo
+      createdAt_expr: "request.time"
+    }
+  )
+}

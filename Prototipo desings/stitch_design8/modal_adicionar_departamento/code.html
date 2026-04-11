@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#360f00",
+                        "on-secondary-fixed": "#001453",
+                        "on-primary-fixed": "#00174b",
+                        "on-background": "#191c1e",
+                        "outline": "#737686",
+                        "inverse-primary": "#b4c5ff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#dde1ff",
+                        "surface-tint": "#0053db",
+                        "on-primary-container": "#eeefff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "tertiary-container": "#bc4800",
+                        "on-tertiary-container": "#ffede6",
+                        "on-surface-variant": "#434655",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-variant": "#e0e3e5",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "secondary-fixed-dim": "#b8c4ff",
+                        "surface-container": "#eceef0",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "primary": "#004ac6",
+                        "primary-fixed": "#dbe1ff",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "secondary": "#3755c3",
+                        "inverse-surface": "#2d3133",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#d8dadc",
+                        "secondary-container": "#708cfd",
+                        "on-surface": "#191c1e",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f7f9fb",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container-high": "#e6e8ea",
+                        "background": "#f7f9fb",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#eff1f3",
+                        "tertiary-fixed": "#ffdbcd",
+                        "surface": "#f7f9fb",
+                        "primary-container": "#2563eb",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#00217a",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#173bab",
+                        "tertiary": "#943700",
+                        "outline-variant": "#c3c6d7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scale-98:active { transform: scale(0.98); }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface overflow-hidden">
+<!-- Sidebar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-slate-50 dark:bg-slate-900 flex flex-col py-6 px-4 z-10">
+<div class="mb-10 px-2">
+<h1 class="text-2xl font-bold tracking-tighter text-blue-600 dark:text-blue-400 font-headline">PontoPrecise</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">HR Intelligence</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-xl font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-xl font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Funcionários
+            </a>
+<!-- Active Tab: Departamentos -->
+<a class="flex items-center gap-3 px-3 py-2 text-blue-700 font-bold bg-white/80 backdrop-blur-md rounded-xl font-['Manrope'] text-sm tracking-tight scale-98 shadow-sm" href="#">
+<span class="material-symbols-outlined" data-icon="domain" style="font-variation-settings: 'FILL' 1;">domain</span>
+                Departamentos
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-xl font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                Marcações
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-xl font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+                Justificativas
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-xl font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="beach_access">beach_access</span>
+                Férias
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-xl font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                Analytics
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-xl font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_view_day">calendar_view_day</span>
+                Escalas
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-xl font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+                Folha
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-xl font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+                Documentos
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-xl font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="rule">rule</span>
+                Auditoria
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-slate-200 transition-colors duration-200 rounded-xl font-['Manrope'] text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Configurações
+            </a>
+</nav>
+</aside>
+<!-- Header / TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-white/80 backdrop-blur-xl flex items-center justify-between px-8 z-20">
+<div class="flex items-center bg-surface-container rounded-full px-4 py-1.5 w-96">
+<span class="material-symbols-outlined text-slate-400 mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm font-medium w-full placeholder-slate-400" placeholder="Pesquisar departamentos..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-slate-400 hover:text-blue-500 transition-all scale-98">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-slate-400 hover:text-blue-500 transition-all scale-98">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-slate-100">
+<div class="text-right">
+<p class="text-sm font-semibold text-on-surface">Admin Global</p>
+<p class="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">Diretoria</p>
+</div>
+<img alt="Administrator User Profile" class="w-10 h-10 rounded-full border-2 border-white shadow-sm" data-alt="Close up portrait of a middle aged professional man with a friendly expression in a modern office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA6BvUD8MCns505GdfMlWQYCU4j7-Vhejm736hqHD9ZC8xLhIWG_HvksY7pJKAw-yTlu8glnLIS0eAsxhUZVbLPsX3JVbISwaNOcVE92TSf7c63jqBdMPB-rn9N9Q_0c05jTj6iY9hrstzw12DJQBxlkAwTnDDrFV6n0m9JchxMqVAEqS1ZwlEyQBUOaK6nzRQtOwJk4Qvd3FvWLDleeqY4TqYdf5n2m4gRwumu6r-QxgqbgIynzHA4e0t18iL1KGeVRKAoCDAuvM"/>
+</div>
+</div>
+</header>
+<!-- Main Content (Table Background) -->
+<main class="ml-64 pt-24 px-10 min-h-screen bg-surface">
+<div class="max-w-7xl mx-auto">
+<div class="flex justify-between items-end mb-10">
+<div>
+<h2 class="text-4xl font-extrabold tracking-tight font-headline text-on-surface">Departamentos</h2>
+<p class="text-slate-500 mt-2 font-medium">Gerencie as unidades estruturais da sua organização.</p>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-3 rounded-xl font-semibold shadow-lg shadow-blue-500/10 flex items-center gap-2 scale-98">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                    Novo Departamento
+                </button>
+</div>
+<div class="bg-surface-container-lowest rounded-full overflow-hidden shadow-sm">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low border-none">
+<tr>
+<th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest">Nome</th>
+<th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest">Gestor</th>
+<th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest">Colaboradores</th>
+<th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest">Centro de Custo</th>
+<th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-8 py-6 font-semibold text-on-surface">Tecnologia da Informação</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<img class="w-8 h-8 rounded-full" data-alt="portrait of a young smiling man wearing glasses in a professional studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDA88l46xdeSXhzEXbWuPoJMTwELOoMbVcu8KSTi5LBJ-aaXRYk-FrjV9DULl36greyMX-WP9mQW0LEK6bcAKU5NosGVMCZAdAXuPHk0042oI_QGbkoR9568azQF7s9gkEhbdUS6acqoRTVAjXAVEndsAuP4I39WxnqSEpKPLkAJrocUwvk5t-9Vn9881e5G5NrJ9VAmSHbjgp4J-vGU10UqIHlK6zzJDVG2tiz2x9FB-Y9hsrXhVZWntA7PRgJTWk8ATi19gRIf5U"/>
+<span class="text-sm font-medium">Carlos Andrade</span>
+</div>
+</td>
+<td class="px-8 py-6 text-sm">24 Membros</td>
+<td class="px-8 py-6 text-sm font-mono">CC-TECH-001</td>
+<td class="px-8 py-6">
+<span class="bg-surface-container-highest text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-[10px] font-bold tracking-tight">ATIVO</span>
+</td>
+</tr>
+<tr class="bg-surface-container-low">
+<td class="px-8 py-6 font-semibold text-on-surface">Recursos Humanos</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<img class="w-8 h-8 rounded-full" data-alt="professional portrait of a woman with long dark hair smiling broadly in bright natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTnmSGp1ANiqYib79V6pk2qeoaFmNfccC96MMA3Sc27qzFGfEboLiNAotYq2Xo4QBtu_7iXZK-iDZX_poov843PB1XAyGycVRhMVMlOQlIhG_-WzBt4gKqsFysWtPf2VVJKJmuTtr_Cp5pjVbv86KEA-04HEDCkZAkmfbvpzvHq0IB-Sp6UstClRTZ4UP5deCiRmLl6ewsuU3TMP7lsl-nonA3eBscXxHEVmFWmUrJhQ-B0tefzC0i9z9YJ-uJlDffBrUIs7npJLk"/>
+<span class="text-sm font-medium">Mariana Silva</span>
+</div>
+</td>
+<td class="px-8 py-6 text-sm">8 Membros</td>
+<td class="px-8 py-6 text-sm font-mono">CC-HRA-042</td>
+<td class="px-8 py-6">
+<span class="bg-surface-container-highest text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-[10px] font-bold tracking-tight">ATIVO</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-[6px] p-4">
+<!-- Modal Card -->
+<div class="bg-surface-container-lowest w-full max-w-xl rounded-full shadow-2xl overflow-hidden border border-white/20">
+<!-- Modal Header -->
+<div class="px-10 py-8 bg-surface-container-low flex justify-between items-center">
+<div>
+<h3 class="text-2xl font-extrabold tracking-tight font-headline text-on-surface">Adicionar Novo Departamento</h3>
+<p class="text-sm text-on-surface-variant mt-1 font-medium">Configure os detalhes da nova unidade estrutural.</p>
+</div>
+<button class="text-slate-400 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<!-- Modal Form -->
+<form class="px-10 py-8 space-y-6">
+<!-- Nome -->
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Nome do Departamento</label>
+<input class="w-full px-5 py-3 rounded-xl bg-surface-container-low border-none focus:ring-2 focus:ring-primary-fixed transition-all font-medium placeholder:text-slate-400" placeholder="Ex: Engenharia de Produto" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<!-- Gestor Dropdown -->
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Gestor Responsável</label>
+<div class="relative">
+<button class="w-full flex items-center justify-between px-5 py-3 rounded-xl bg-surface-container-low border-none focus:ring-2 focus:ring-primary-fixed transition-all group" type="button">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-slate-300 flex items-center justify-center text-[10px] text-white">
+<span class="material-symbols-outlined text-xs" data-icon="person">person</span>
+</div>
+<span class="text-sm font-medium text-slate-400">Selecionar Gestor</span>
+</div>
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Centro de Custo -->
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Centro de Custo</label>
+<input class="w-full px-5 py-3 rounded-xl bg-surface-container-low border-none focus:ring-2 focus:ring-primary-fixed transition-all font-mono text-sm placeholder:text-slate-400" placeholder="CC-XXX-000" type="text"/>
+</div>
+</div>
+<!-- Descrição -->
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Descrição</label>
+<textarea class="w-full px-5 py-3 rounded-xl bg-surface-container-low border-none focus:ring-2 focus:ring-primary-fixed transition-all font-medium placeholder:text-slate-400 resize-none" placeholder="Breve resumo das atividades deste departamento..." rows="3"></textarea>
+</div>
+<!-- Toggle Status -->
+<div class="flex items-center justify-between bg-surface-container-low px-5 py-4 rounded-xl">
+<div>
+<p class="text-sm font-bold text-on-surface">Status Ativo</p>
+<p class="text-xs text-on-surface-variant">O departamento ficará visível para seleção no sistema.</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-300 rounded-full peer peer-focus:ring-0 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</div>
+</div>
+<!-- Footer Buttons -->
+<div class="flex items-center justify-end gap-4 pt-4 border-t border-slate-100 mt-2">
+<button class="px-6 py-3 rounded-xl text-sm font-bold text-on-surface-variant hover:bg-surface-container-high transition-colors scale-98" type="button">
+                        Cancelar
+                    </button>
+<button class="px-8 py-3 rounded-xl text-sm font-bold text-on-primary bg-primary-container shadow-lg shadow-blue-500/20 hover:brightness-110 transition-all scale-98" type="submit">
+                        Criar Departamento
+                    </button>
+</div>
+</form>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-fixed-variant": "#003ea8",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-highest": "#e0e3e5",
+                        "primary-container": "#2563eb",
+                        "on-tertiary-container": "#ffede6",
+                        "surface": "#f7f9fb",
+                        "tertiary": "#943700",
+                        "surface-container": "#eceef0",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#191c1e",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-secondary-fixed-variant": "#173bab",
+                        "on-tertiary-fixed": "#360f00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#00174b",
+                        "tertiary-container": "#bc4800",
+                        "on-primary-container": "#eeefff",
+                        "background": "#f7f9fb",
+                        "surface-tint": "#0053db",
+                        "on-secondary-container": "#00217a",
+                        "outline": "#737686",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "on-background": "#191c1e",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#dbe1ff",
+                        "secondary-fixed-dim": "#b8c4ff",
+                        "primary": "#004ac6",
+                        "secondary": "#3755c3",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-secondary-fixed": "#001453",
+                        "surface-dim": "#d8dadc",
+                        "surface-container-low": "#f2f4f6",
+                        "secondary-container": "#708cfd",
+                        "inverse-on-surface": "#eff1f3",
+                        "outline-variant": "#c3c6d7",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-variant": "#e0e3e5",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-fixed": "#dde1ff",
+                        "on-surface-variant": "#434655",
+                        "on-error": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-stacking {
+            transition: background-color 0.2s ease;
+        }
+        .error-glow {
+            box-shadow: 0 20px 40px rgba(186, 26, 26, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed overflow-hidden">
+<!-- SideNavBar (Authority: JSON/Hierarchy) -->
+<aside class="hidden md:flex h-screen w-64 fixed left-0 top-0 bg-[#f2f4f6] dark:bg-slate-800/50 flex-col p-6 gap-8 z-50 font-manrope text-sm font-semibold no-border tonal-stacking">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container overflow-hidden">
+<img alt="Organization Logo" class="w-full h-full object-cover" data-alt="professional corporate logo with geometric shapes in blue and white minimalist style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3lZwM6MZ31gC0yX7V2QeDxUsLkIJxjmrq4qpusgEseq7XUsP2qdTi2-qrpQYh9XrjBBMR-arePNBlY-iU6p9rPUbIbVsVlLMG4IYW5P7_jE2hLPF1-rCir8YHRk_Xaqk-2tWV3tLoyXvSy4ct1s8Dx08e1ael8a89tfVH43T_BDoVprC1bb1N6k82aZ5gJV2ooOMJtICX9iN9pOijOrTTjlTXxDJQ3ZR62K23D2uEl4OdAQ4JGjWozoS_m9uJQm7wDlfU7s_rVKY"/>
+</div>
+<div>
+<h2 class="text-lg font-black text-[#191c1e] dark:text-white leading-tight">Precision HR</h2>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant opacity-70">Admin Portal</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:bg-[#e6e8ea] dark:hover:bg-slate-700 rounded-xl transition-all scale-[0.98] active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-700 text-[#004ac6] dark:text-blue-300 rounded-xl shadow-sm transition-all scale-[0.98] active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span>Team</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:bg-[#e6e8ea] dark:hover:bg-slate-700 rounded-xl transition-all scale-[0.98] active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="timer">timer</span>
+<span>Time Tracking</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:bg-[#e6e8ea] dark:hover:bg-slate-700 rounded-xl transition-all scale-[0.98] active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span>Payroll</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:bg-[#e6e8ea] dark:hover:bg-slate-700 rounded-xl transition-all scale-[0.98] active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Reports</span>
+</a>
+</nav>
+<div class="pt-6 mt-auto flex flex-col gap-1 border-t border-outline-variant/10">
+<a class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:bg-[#e6e8ea] dark:hover:bg-slate-700 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:bg-[#e6e8ea] dark:hover:bg-slate-700 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+<span>Support</span>
+</a>
+</div>
+</aside>
+<!-- TopNavBar (Authority: JSON/Hierarchy) -->
+<header class="w-full top-0 sticky z-40 bg-[#f7f9fb] dark:bg-slate-900 md:pl-64 no-border tonal-stacking">
+<div class="flex justify-between items-center px-10 py-4 max-w-[1440px] mx-auto font-manrope font-bold tracking-tight">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold text-[#191c1e] dark:text-slate-100">The Precision Archive</span>
+<div class="hidden lg:flex relative items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-sm" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary-fixed text-sm w-64 placeholder:text-outline" placeholder="Search records..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-[#eceef0] dark:hover:bg-slate-800 rounded-full transition-colors scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-[#eceef0] dark:hover:bg-slate-800 rounded-full transition-colors scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+</div>
+<button class="bg-primary hover:bg-primary-container text-white px-6 py-2 rounded-full text-sm font-semibold transition-all scale-95 active:scale-90 shadow-sm">
+                    Clock In
+                </button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border-2 border-white overflow-hidden">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a professional man in a business casual outfit with a friendly expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHAT5xYVeiUc4WWn0cnBXLeJPzRASVt9417X8c9Jh9ufWEDpZNhhVidMC9K0DYSFd4Ch_v3ZT_HmzWPJeCgcp4DKt6M_Vx5kJBZB_scsZx3ew6A1DMuEMFJGmvbCWOQ1i3M2keXIG0n_VVggSajnhfK4TTcJ2QO81scltOCVnvp4aDjepgdlb_4wNhLi_mQ7P0ohLRGS5YM2zWnbD-ZquWXUd-LSTGH3yinjtFqfX0PrrBlmDA2ELiUD4C-hsMAK_GC07Uyi2Ugig"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 min-h-[calc(100vh-76px)] flex items-center justify-center p-6 relative overflow-hidden bg-surface-container-low">
+<!-- Background decorative element for "The Digital Curator" feel -->
+<div class="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/5 rounded-bl-full blur-3xl pointer-events-none"></div>
+<div class="absolute bottom-0 left-0 w-1/4 h-1/4 bg-error/5 rounded-tr-full blur-3xl pointer-events-none"></div>
+<!-- Central Error Card -->
+<div class="w-full max-w-md bg-surface-container-lowest rounded-[2rem] p-10 error-glow flex flex-col items-center text-center animate-in fade-in zoom-in duration-300">
+<!-- Red Alert Icon Container -->
+<div class="w-20 h-20 bg-error-container rounded-full flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-[40px] text-[#DC2626]" data-icon="error" data-weight="fill" style="font-variation-settings: 'FILL' 1;">error</span>
+</div>
+<!-- Content -->
+<div class="space-y-3 mb-10">
+<h1 class="font-headline text-2xl font-extrabold text-on-surface tracking-tight">Ops! Algo deu errado</h1>
+<p class="text-on-surface-variant font-body leading-relaxed max-w-[280px] mx-auto text-sm">
+                    Não foi possível completar o cadastro. Verifique os dados ou tente novamente mais tarde.
+                </p>
+</div>
+<!-- Actions -->
+<div class="w-full flex flex-col gap-3">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary py-4 rounded-full font-headline font-bold text-sm shadow-lg hover:shadow-primary/20 transition-all scale-[0.98] active:scale-95">
+                    Tentar Novamente
+                </button>
+<button class="w-full py-4 rounded-full font-headline font-semibold text-on-surface-variant hover:bg-surface-container-high transition-all text-sm scale-[0.98] active:scale-95">
+                    Cancelar
+                </button>
+</div>
+<!-- Helper Link -->
+<div class="mt-8">
+<a class="text-primary font-label text-xs font-semibold flex items-center gap-1 hover:underline" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="contact_support">contact_support</span>
+                    Falar com o suporte técnico
+                </a>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-container-lowest py-3 px-6 flex justify-around items-center z-50 rounded-t-3xl shadow-2xl">
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-bold">Dashboard</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" data-icon="groups" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="text-[10px] font-bold">Time</span>
+</button>
+<div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center -mt-8 shadow-lg shadow-primary/30 border-4 border-surface">
+<span class="material-symbols-outlined text-white" data-icon="add">add</span>
+</div>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="timer">timer</span>
+<span class="text-[10px] font-bold">Horas</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-[10px] font-bold">Ajustes</span>
+</button>
+</div>
+</body></html>
