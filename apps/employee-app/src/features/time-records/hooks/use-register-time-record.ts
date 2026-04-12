@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AppError } from '@rh-ponto/core';
+import { getBrowserFirebaseStorageClient } from '@rh-ponto/firebase';
 import type { TimeRecord } from '@rh-ponto/time-records';
 import type { TimeRecordType } from '@rh-ponto/types';
 import type { AttendanceCoordinates, AttendanceLocationEvaluationResult } from '@rh-ponto/attendance-policies';
@@ -12,6 +13,7 @@ interface RegisterTimeRecordInput {
   nextRecordType: TimeRecordType;
   evaluation: AttendanceLocationEvaluationResult | null;
   coordinates: AttendanceCoordinates | null;
+  photo?: { uri: string; type?: string; size?: number } | null;
 }
 
 const mapEvaluationToStatus = (evaluation: AttendanceLocationEvaluationResult) => {
@@ -62,7 +64,7 @@ export const useRegisterTimeRecord = () => {
         throw new AppError('EMPLOYEE_TIME_RECORD_BLOCKED', input.evaluation.description);
       }
 
-      return getEmployeeAppServices().timeRecords.createTimeRecordUseCase.execute({
+      const record = await getEmployeeAppServices().timeRecords.createTimeRecordUseCase.execute({
         employeeId: input.employeeId,
         recordedByUserId: input.recordedByUserId ?? null,
         recordType: input.nextRecordType,
@@ -77,6 +79,37 @@ export const useRegisterTimeRecord = () => {
         longitude: input.coordinates?.longitude ?? null,
         ipAddress: null,
       });
+
+      if (input.photo) {
+        const storageClient = getBrowserFirebaseStorageClient();
+        const response = await fetch(input.photo.uri);
+        const blob = await response.blob();
+        
+        const timestamp = Date.now();
+        const extension = input.photo.uri.split('.').pop() || 'jpg';
+        const path = `time-records/${input.employeeId}/${record.id}/snapshot-${timestamp}.${extension}`;
+        
+        try {
+          const fileUrl = await storageClient.uploadFile({
+            path,
+            file: blob,
+            contentType: blob.type || 'image/jpeg',
+          });
+          
+          await getEmployeeAppServices().timeRecords.createTimeRecordPhotoUseCase.execute({
+            timeRecordId: record.id,
+            fileUrl,
+            fileName: `snapshot-${timestamp}.${extension}`,
+            contentType: blob.type || 'image/jpeg',
+            fileSizeBytes: input.photo.size ?? blob.size,
+            isPrimary: true,
+          });
+        } catch (e) {
+            console.warn('Failed to upload/attach photo', e);
+        }
+      }
+
+      return record;
     },
     onSuccess: async (_record, variables) => {
       await queryClient.invalidateQueries({

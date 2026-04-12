@@ -1,5 +1,30 @@
+import { Platform } from 'react-native';
 import { type FirebaseApp } from 'firebase/app';
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, type User } from 'firebase/auth';
+import { getAuth, initializeAuth, getReactNativePersistence, onAuthStateChanged, signInWithEmailAndPassword, signOut, type User, type Auth } from 'firebase/auth';
+
+const authInstances = new WeakMap<FirebaseApp, Auth>();
+
+const getFirebaseAuth = (app: FirebaseApp): Auth => {
+  if (authInstances.has(app)) {
+    return authInstances.get(app)!;
+  }
+
+  let auth: Auth;
+
+  if (Platform.OS !== 'web') {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const AsyncStorage = require('@react-native-async-storage/async-storage').default;
+    auth = initializeAuth(app, {
+      persistence: getReactNativePersistence(AsyncStorage),
+    });
+  } else {
+    auth = getAuth(app);
+  }
+
+  authInstances.set(app, auth);
+
+  return auth;
+};
 
 export interface FirebaseAuthenticatedUser {
   uid: string;
@@ -38,7 +63,7 @@ export class BrowserFirebaseAuthClient implements FirebaseAuthClient {
   constructor(private readonly firebaseApp: FirebaseApp) {}
 
   async waitForAuthState(): Promise<FirebaseAuthenticatedUser | null> {
-    const auth = getAuth(this.firebaseApp);
+    const auth = getFirebaseAuth(this.firebaseApp);
 
     if (typeof auth.authStateReady === 'function') {
       await auth.authStateReady();
@@ -61,7 +86,7 @@ export class BrowserFirebaseAuthClient implements FirebaseAuthClient {
   }
 
   async signInWithEmailAndPassword(email: string, password: string): Promise<FirebaseAuthenticatedUser> {
-    const auth = getAuth(this.firebaseApp);
+    const auth = getFirebaseAuth(this.firebaseApp);
     const credential = await signInWithEmailAndPassword(auth, email, password);
     await this.waitForAuthState();
     const currentUser = await mapFirebaseUser(credential.user);
@@ -74,13 +99,13 @@ export class BrowserFirebaseAuthClient implements FirebaseAuthClient {
   }
 
   async getCurrentUser(): Promise<FirebaseAuthenticatedUser | null> {
-    const auth = getAuth(this.firebaseApp);
+    const auth = getFirebaseAuth(this.firebaseApp);
 
     return mapFirebaseUser(auth.currentUser);
   }
 
   async signOut(): Promise<void> {
-    const auth = getAuth(this.firebaseApp);
+    const auth = getFirebaseAuth(this.firebaseApp);
 
     await signOut(auth);
   }

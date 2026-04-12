@@ -127,3 +127,24 @@ mutation AdjustTimeRecord(
     }
   )
 }
+
+mutation CreateTimeRecordPhoto(
+  $timeRecordId: UUID!
+  $fileUrl: String!
+  $fileName: String
+  $contentType: String
+  $fileSizeBytes: Int64
+  $isPrimary: Boolean!
+) @auth(level: USER, insecureReason: "Operador de ponto registrando a foto.") {
+  timeRecordPhoto_insert(
+    data: {
+      timeRecord: { id: $timeRecordId }
+      fileUrl: $fileUrl
+      fileName: $fileName
+      contentType: $contentType
+      fileSizeBytes: $fileSizeBytes
+      isPrimary: $isPrimary
+      createdAt_expr: "request.time"
+    }
+  )
+}

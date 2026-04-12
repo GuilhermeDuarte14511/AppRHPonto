@@ -31,6 +31,7 @@ import {
 } from '@rh-ponto/justifications';
 import {
   CreateTimeRecordUseCase,
+  CreateTimeRecordPhotoUseCase,
   DataConnectTimeRecordRepository,
   ListEmployeeTimeRecordsUseCase,
   ListTimeRecordPhotosByRecordUseCase,
@@ -129,6 +130,7 @@ export const createEmployeeAppServices = (backendMode = resolveAppBackendMode(ru
     },
     timeRecords: {
       createTimeRecordUseCase: new CreateTimeRecordUseCase(timeRecordRepository),
+      createTimeRecordPhotoUseCase: new CreateTimeRecordPhotoUseCase(timeRecordRepository),
       listEmployeeTimeRecordsUseCase: new ListEmployeeTimeRecordsUseCase(timeRecordRepository),
       listTimeRecordPhotosByRecordUseCase: new ListTimeRecordPhotosByRecordUseCase(timeRecordRepository),
     },

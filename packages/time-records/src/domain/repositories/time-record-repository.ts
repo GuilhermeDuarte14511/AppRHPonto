@@ -47,6 +47,7 @@ export interface TimeRecordRepository {
   create(payload: CreateTimeRecordPayload): Promise<TimeRecord>;
   adjust(payload: AdjustTimeRecordPayload): Promise<TimeRecord>;
   listPhotosByRecord(recordId: string): Promise<TimeRecordPhoto[]>;
+  attachPhoto(payload: Omit<TimeRecordPhoto, 'id' | 'createdAt' | 'updatedAt'>): Promise<TimeRecordPhoto>;
 }
 
 export type TimeRecordsRepository = TimeRecordRepository;

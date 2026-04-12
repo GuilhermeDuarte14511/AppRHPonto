@@ -361,4 +361,16 @@ export class MockTimeRecordsRepository implements TimeRecordRepository {
   async listPhotosByRecord(recordId: string): Promise<TimeRecordPhoto[]> {
     return timeRecordPhotos.filter((photo) => photo.timeRecordId === recordId);
   }
+
+  async attachPhoto(payload: Omit<TimeRecordPhoto, 'id' | 'createdAt' | 'updatedAt'>): Promise<TimeRecordPhoto> {
+    const timestamp = new Date().toISOString();
+    const photo: TimeRecordPhoto = {
+      id: `photo-${timeRecordPhotos.length + 1}`,
+      createdAt: timestamp,
+      updatedAt: timestamp,
+      ...payload,
+    };
+    timeRecordPhotos = [photo, ...timeRecordPhotos];
+    return photo;
+  }
 }

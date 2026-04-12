@@ -1,0 +1,28 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Permite que usuários autenticados façam upload e leitura de fotos de ponto
+    match /time-records/{employeeId}/{recordId}/{fileName} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null
+                   && request.resource.size < 10 * 1024 * 1024  // máx 10MB
+                   && request.resource.contentType.matches('image/.*');
+    }
+
+    // Permite upload de anexos de justificativas por usuários autenticados
+    match /justifications/{employeeId}/{justificationId}/{fileName} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null
+                   && request.resource.size < 20 * 1024 * 1024;  // máx 20MB
+    }
+
+    // Permite leitura e escrita de fotos de perfil de colaboradores
+    match /employees/{employeeId}/profile/{fileName} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null
+                   && request.resource.size < 5 * 1024 * 1024   // máx 5MB
+                   && request.resource.contentType.matches('image/.*');
+    }
+  }
+}

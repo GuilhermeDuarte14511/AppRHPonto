@@ -1,6 +1,7 @@
 import { router } from 'expo-router';
-import { useEffect } from 'react';
-import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, Alert, Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
 
 import type { AttendanceCoordinates } from '@rh-ponto/attendance-policies';
 
@@ -85,6 +86,11 @@ export const HomeScreen = () => {
   const { policyQuery, effectivePolicy, evaluation } = useEmployeeAttendancePolicy(employee?.id ?? scenario?.employeeId, coordinates);
   const registerTimeRecord = useRegisterTimeRecord();
 
+  const [cameraPermission, requestCameraPermission] = useCameraPermissions();
+  const [isCameraActive, setIsCameraActive] = useState(false);
+  const [isTakingPhoto, setIsTakingPhoto] = useState(false);
+  const cameraRef = useRef<CameraView>(null);
+
   useEffect(() => {
     if (permissionStatus === 'idle' && !coordinates && !isLocationLoading) {
       void refreshLocation();
@@ -106,11 +112,48 @@ export const HomeScreen = () => {
   const hoursTodayLabel = formatDurationFromMinutes(workedMinutesToday);
   const distanceLabel = describeDistance(evaluation?.distanceMeters);
 
-  const handleRegisterPunch = async () => {
+  const handlePreRegister = async () => {
+    // Check if we need a photo based on policy or just mandate it. The prompt says "ele deve tirar uma foto"
+    if (!cameraPermission?.granted) {
+      const permission = await requestCameraPermission();
+      if (!permission.granted) {
+        Alert.alert('Permissão necessária', 'É obrigatório permitir a câmera para bater o ponto com foto.');
+        return;
+      }
+    }
+    
+    setIsCameraActive(true);
+  };
+
+  const handleRegisterActionWithPhoto = async () => {
+    if (isTakingPhoto) return;
+
+    let photo = null;
+
+    if (cameraRef.current) {
+      setIsTakingPhoto(true);
+      try {
+        const picture = await cameraRef.current.takePictureAsync({
+          quality: 0.5,
+          skipProcessing: true,
+        });
+
+        if (picture) {
+           photo = { uri: picture.uri, size: 0 }; // size not directly provided in takePictureAsync without options, but backend supports fallback
+        }
+      } catch (err) {
+        Alert.alert('Erro', 'Não foi possível tirar a foto.');
+        setIsTakingPhoto(false);
+        return;
+      }
+    }
+
     const employeeId = employee?.id ?? scenario?.employeeId;
 
     if (!employeeId) {
       Alert.alert('Cadastro indisponível', 'Não encontramos seu vínculo de colaborador para registrar o ponto.');
+      setIsTakingPhoto(false);
+      setIsCameraActive(false);
       return;
     }
 
@@ -121,8 +164,12 @@ export const HomeScreen = () => {
         nextRecordType,
         evaluation,
         coordinates: activeCoordinates,
+        photo,
       });
 
+      setIsCameraActive(false);
+      setIsTakingPhoto(false);
+      
       router.push({
         pathname: '/punch-confirmation',
         params: buildConfirmationParams(
@@ -134,6 +181,7 @@ export const HomeScreen = () => {
         ),
       });
     } catch (error) {
+      setIsTakingPhoto(false);
       Alert.alert(
         'Não foi possível registrar o ponto',
         error instanceof Error ? error.message : 'Tente novamente em instantes.',
@@ -176,7 +224,7 @@ export const HomeScreen = () => {
         <Text style={styles.primaryDescription}>{evaluation?.description ?? palette.description}</Text>
         <Pressable
           disabled={!canRegister}
-          onPress={() => void handleRegisterPunch()}
+          onPress={() => void handlePreRegister()}
           style={[
             styles.primaryAction,
             (!canRegister || registerTimeRecord.isPending) && styles.primaryActionDisabled,
@@ -319,6 +367,40 @@ export const HomeScreen = () => {
           </View>
         )}
       </View>
+
+      <Modal visible={isCameraActive} animationType="slide" transparent={false} onRequestClose={() => setIsCameraActive(false)}>
+        <View style={styles.cameraContainer}>
+          <CameraView 
+            ref={cameraRef} 
+            style={StyleSheet.absoluteFill} 
+            facing="front"
+            animateShutter={true}
+          />
+          <View style={styles.cameraOverlay}>
+            <View style={styles.cameraHeader}>
+              <Pressable style={styles.cameraCloseButton} onPress={() => setIsCameraActive(false)}>
+                <AppIcon name="close" size={24} color="#fff" />
+              </Pressable>
+              <Text style={styles.cameraTitle}>Sua foto de ponto</Text>
+            </View>
+
+            <View style={styles.cameraFooter}>
+              <Pressable 
+                style={styles.cameraCaptureButton} 
+                onPress={() => void handleRegisterActionWithPhoto()}
+                disabled={isTakingPhoto || registerTimeRecord.isPending}
+              >
+                {isTakingPhoto || registerTimeRecord.isPending ? (
+                  <ActivityIndicator color={mobileTheme.primary} size="large" />
+                ) : (
+                  <View style={styles.cameraCaptureInner} />
+                )}
+              </Pressable>
+              <Text style={styles.cameraHint}>Enquadre seu rosto e registre</Text>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };
@@ -674,5 +756,63 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '700',
     color: mobileTheme.primary,
+  },
+  cameraContainer: {
+    flex: 1,
+    backgroundColor: '#000',
+  },
+  cameraView: {
+    flex: 1,
+  },
+  cameraOverlay: {
+    flex: 1,
+    justifyContent: 'space-between',
+    padding: 24,
+    paddingTop: 60,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+  },
+  cameraHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
+  },
+  cameraCloseButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cameraTitle: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '700',
+  },
+  cameraFooter: {
+    alignItems: 'center',
+    paddingBottom: 40,
+    gap: 16,
+  },
+  cameraCaptureButton: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: 'rgba(255,255,255,0.3)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 4,
+    borderColor: '#ffffff',
+  },
+  cameraCaptureInner: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: '#ffffff',
+  },
+  cameraHint: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '600',
   },
 });

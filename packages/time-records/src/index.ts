@@ -5,6 +5,7 @@ export * from './domain/entities/time-record';
 export * from './domain/repositories/time-record-repository';
 export * from './domain/use-cases/adjust-time-record-use-case';
 export * from './domain/use-cases/create-time-record-use-case';
+export * from './domain/use-cases/create-time-record-photo-use-case';
 export * from './domain/use-cases/list-employee-time-records-use-case';
 export * from './domain/use-cases/list-time-record-photos-by-record-use-case';
 export * from './domain/use-cases/list-time-records-use-case';

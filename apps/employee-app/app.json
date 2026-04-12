@@ -3,10 +3,12 @@
     "name": "App RH Ponto - Employee",
     "slug": "app-rh-ponto-employee",
     "scheme": "rhpontoemployee",
-    "plugins": ["expo-router"],
+    "plugins": [
+      "expo-router",
+      "expo-secure-store"
+    ],
     "experiments": {
       "typedRoutes": true
     }
   }
 }
-

@@ -1,6 +1,7 @@
 import {
   adjustTimeRecord,
   createTimeRecord as createTimeRecordMutation,
+  createTimeRecordPhoto as createTimeRecordPhotoMutation,
   getTimeRecordById,
   listTimeRecordPhotos,
   listTimeRecords,
@@ -193,5 +194,30 @@ export class DataConnectTimeRecordRepository implements TimeRecordRepository {
     const { data } = await listTimeRecordPhotos(getAppDataConnect());
 
     return data.timeRecordPhotos.map(mapPhotoRecord).filter((photo) => photo.timeRecordId === recordId);
+  }
+
+  async attachPhoto(payload: Omit<TimeRecordPhoto, 'id' | 'createdAt' | 'updatedAt'>): Promise<TimeRecordPhoto> {
+    const { data } = await createTimeRecordPhotoMutation(getAppDataConnect(), {
+      timeRecordId: payload.timeRecordId,
+      fileUrl: payload.fileUrl,
+      fileName: payload.fileName ?? null,
+      contentType: payload.contentType ?? null,
+      fileSizeBytes: payload.fileSizeBytes != null ? String(payload.fileSizeBytes) : null,
+      isPrimary: payload.isPrimary,
+    });
+    
+    // In a real scenario we'd query it back using getById, but since we just
+    // inserted it and know the ID, we can construct the partial record or query it.
+    // For simplicity, we just rebuild it here for the return type.
+    return createTimeRecordPhoto({
+      id: data.timeRecordPhoto_insert.id,
+      timeRecordId: payload.timeRecordId,
+      fileUrl: payload.fileUrl,
+      fileName: payload.fileName ?? null,
+      contentType: payload.contentType ?? null,
+      fileSizeBytes: payload.fileSizeBytes ?? null,
+      isPrimary: payload.isPrimary,
+      createdAt: new Date().toISOString(),
+    });
   }
 }
