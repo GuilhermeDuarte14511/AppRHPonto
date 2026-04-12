@@ -1,0 +1,45 @@
+{"users": [
+{
+  "localId": "4Bthsq62tBMuZzMdKwrrmF65by43",
+  "email": "rh@empresa.com",
+  "emailVerified": false,
+  "passwordHash": "Kh40axD5Ya8RJx1uSP+skJUp3EKqd69mBS1ParryC200Jbg1lVddzmqJShJ6MTomIe86zgO3nt+NSR0xnvkvvQ==",
+  "salt": "330Hv4oaptFkmg==",
+  "displayName": "Ricardo Mello",
+  "lastSignedInAt": "1775324714726",
+  "createdAt": "1775324714726",
+  "providerUserInfo": []
+},
+{
+  "localId": "AdU4WceDwSPnmCjGrx1LcVGHA5e2",
+  "email": "employee@empresa.com",
+  "emailVerified": false,
+  "passwordHash": "+PXqkmCPRN7hi0tTccVFj/hZXO0Xdx23cxsqTINBEi+3PDbQywDyaz7bFXSWzncc/Ii0q3zidU90ELH6sP7THw==",
+  "salt": "19E+PQRQNETLBg==",
+  "displayName": "João Pereira",
+  "lastSignedInAt": "1775324715324",
+  "createdAt": "1775324715324",
+  "providerUserInfo": []
+},
+{
+  "localId": "HKJJGCtm5rabQwRlNtzyOpYuvss2",
+  "email": "kiosk@empresa.com",
+  "emailVerified": false,
+  "passwordHash": "C79N2UkI1nsuuHWn4RBjIZFwqQVu3796frFSN7CYu1yh7KUH9l7Jy1Vgy6sc7xgYexmC7v7mQsrApvO1di2l8g==",
+  "salt": "w5Y0mFiRbtyhsw==",
+  "displayName": "Tablet Portaria",
+  "lastSignedInAt": "1775324715988",
+  "createdAt": "1775324715988",
+  "providerUserInfo": []
+},
+{
+  "localId": "eZLS6M1rPUM6Hz2IYGhQXKjhUTz1",
+  "email": "admin@empresa.com",
+  "emailVerified": false,
+  "passwordHash": "h4gfOuZaJBNRBOG0DYgps7AO04xsNxKZjFnlTAHYuAfmgCXd1yE6TuXsCNXLp+gH01Ti51E10HqGsfUpazHPpw==",
+  "salt": "hOcLAc0GcF/C7Q==",
+  "displayName": "Marina Costa",
+  "lastSignedInAt": "1775875378482",
+  "createdAt": "1775324714066",
+  "providerUserInfo": []
+}]}

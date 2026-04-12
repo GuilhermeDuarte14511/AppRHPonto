@@ -5,66 +5,203 @@ export const connectorConfig = {
   service: 'myrh-32b0a-service',
   location: 'southamerica-east1'
 };
-export const listDepartmentsRef = (dc) => {
+export const listAttendancePoliciesRef = (dc) => {
   const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
   dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListDepartments');
+  return queryRef(dcInstance, 'ListAttendancePolicies');
 }
-listDepartmentsRef.operationName = 'ListDepartments';
+listAttendancePoliciesRef.operationName = 'ListAttendancePolicies';
 
-export function listDepartments(dcOrOptions, options) {
+export function listAttendancePolicies(dcOrOptions, options) {
   
   const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
-  return executeQuery(listDepartmentsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+  return executeQuery(listAttendancePoliciesRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
 }
 
-export const getDepartmentByIdRef = (dcOrVars, vars) => {
+export const listWorkLocationsRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListWorkLocations');
+}
+listWorkLocationsRef.operationName = 'ListWorkLocations';
+
+export function listWorkLocations(dcOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
+  return executeQuery(listWorkLocationsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const listEmployeeAttendancePoliciesRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListEmployeeAttendancePolicies');
+}
+listEmployeeAttendancePoliciesRef.operationName = 'ListEmployeeAttendancePolicies';
+
+export function listEmployeeAttendancePolicies(dcOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
+  return executeQuery(listEmployeeAttendancePoliciesRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const listEmployeeAllowedLocationsRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListEmployeeAllowedLocations');
+}
+listEmployeeAllowedLocationsRef.operationName = 'ListEmployeeAllowedLocations';
+
+export function listEmployeeAllowedLocations(dcOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
+  return executeQuery(listEmployeeAllowedLocationsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const createAttendancePolicyRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
   dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetDepartmentById', inputVars);
+  return mutationRef(dcInstance, 'CreateAttendancePolicy', inputVars);
 }
-getDepartmentByIdRef.operationName = 'GetDepartmentById';
+createAttendancePolicyRef.operationName = 'CreateAttendancePolicy';
 
-export function getDepartmentById(dcOrVars, varsOrOptions, options) {
+export function createAttendancePolicy(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(createAttendancePolicyRef(dcInstance, inputVars));
+}
+
+export const updateAttendancePolicyRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'UpdateAttendancePolicy', inputVars);
+}
+updateAttendancePolicyRef.operationName = 'UpdateAttendancePolicy';
+
+export function updateAttendancePolicy(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(updateAttendancePolicyRef(dcInstance, inputVars));
+}
+
+export const createWorkLocationRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'CreateWorkLocation', inputVars);
+}
+createWorkLocationRef.operationName = 'CreateWorkLocation';
+
+export function createWorkLocation(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(createWorkLocationRef(dcInstance, inputVars));
+}
+
+export const createEmployeeAttendancePolicyRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'CreateEmployeeAttendancePolicy', inputVars);
+}
+createEmployeeAttendancePolicyRef.operationName = 'CreateEmployeeAttendancePolicy';
+
+export function createEmployeeAttendancePolicy(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(createEmployeeAttendancePolicyRef(dcInstance, inputVars));
+}
+
+export const updateEmployeeAttendancePolicyRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'UpdateEmployeeAttendancePolicy', inputVars);
+}
+updateEmployeeAttendancePolicyRef.operationName = 'UpdateEmployeeAttendancePolicy';
+
+export function updateEmployeeAttendancePolicy(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(updateEmployeeAttendancePolicyRef(dcInstance, inputVars));
+}
+
+export const addEmployeeAllowedLocationRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'AddEmployeeAllowedLocation', inputVars);
+}
+addEmployeeAllowedLocationRef.operationName = 'AddEmployeeAllowedLocation';
+
+export function addEmployeeAllowedLocation(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(addEmployeeAllowedLocationRef(dcInstance, inputVars));
+}
+
+export const listAuditLogsRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListAuditLogs');
+}
+listAuditLogsRef.operationName = 'ListAuditLogs';
+
+export function listAuditLogs(dcOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
+  return executeQuery(listAuditLogsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const createAuditLogRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'CreateAuditLog', inputVars);
+}
+createAuditLogRef.operationName = 'CreateAuditLog';
+
+export function createAuditLog(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(createAuditLogRef(dcInstance, inputVars));
+}
+
+export const getUserByFirebaseUidRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetUserByFirebaseUid', inputVars);
+}
+getUserByFirebaseUidRef.operationName = 'GetUserByFirebaseUid';
+
+export function getUserByFirebaseUid(dcOrVars, varsOrOptions, options) {
   
   const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
-  return executeQuery(getDepartmentByIdRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+  return executeQuery(getUserByFirebaseUidRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
 }
 
-export const createDepartmentRef = (dcOrVars, vars) => {
+export const getUserByEmailRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
   dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'CreateDepartment', inputVars);
+  return queryRef(dcInstance, 'GetUserByEmail', inputVars);
 }
-createDepartmentRef.operationName = 'CreateDepartment';
+getUserByEmailRef.operationName = 'GetUserByEmail';
 
-export function createDepartment(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(createDepartmentRef(dcInstance, inputVars));
+export function getUserByEmail(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(getUserByEmailRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
 }
 
-export const updateDepartmentRef = (dcOrVars, vars) => {
+export const touchUserLastLoginRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
   dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'UpdateDepartment', inputVars);
+  return mutationRef(dcInstance, 'TouchUserLastLogin', inputVars);
 }
-updateDepartmentRef.operationName = 'UpdateDepartment';
+touchUserLastLoginRef.operationName = 'TouchUserLastLogin';
 
-export function updateDepartment(dcOrVars, vars) {
+export function touchUserLastLogin(dcOrVars, vars) {
   const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(updateDepartmentRef(dcInstance, inputVars));
+  return executeMutation(touchUserLastLoginRef(dcInstance, inputVars));
 }
 
-export const deleteDepartmentRef = (dcOrVars, vars) => {
+export const linkUserFirebaseUidRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
   dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'DeleteDepartment', inputVars);
+  return mutationRef(dcInstance, 'LinkUserFirebaseUid', inputVars);
 }
-deleteDepartmentRef.operationName = 'DeleteDepartment';
+linkUserFirebaseUidRef.operationName = 'LinkUserFirebaseUid';
 
-export function deleteDepartment(dcOrVars, vars) {
+export function linkUserFirebaseUid(dcOrVars, vars) {
   const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(deleteDepartmentRef(dcInstance, inputVars));
+  return executeMutation(linkUserFirebaseUidRef(dcInstance, inputVars));
 }
 
 export const listDevicesRef = (dc) => {
@@ -353,29 +490,66 @@ export function rejectVacationRequest(dcOrVars, vars) {
   return executeMutation(rejectVacationRequestRef(dcInstance, inputVars));
 }
 
-export const listAuditLogsRef = (dc) => {
+export const listDepartmentsRef = (dc) => {
   const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
   dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListAuditLogs');
+  return queryRef(dcInstance, 'ListDepartments');
 }
-listAuditLogsRef.operationName = 'ListAuditLogs';
+listDepartmentsRef.operationName = 'ListDepartments';
 
-export function listAuditLogs(dcOrOptions, options) {
+export function listDepartments(dcOrOptions, options) {
   
   const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
-  return executeQuery(listAuditLogsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+  return executeQuery(listDepartmentsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
 }
 
-export const createAuditLogRef = (dcOrVars, vars) => {
+export const getDepartmentByIdRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
   dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'CreateAuditLog', inputVars);
+  return queryRef(dcInstance, 'GetDepartmentById', inputVars);
 }
-createAuditLogRef.operationName = 'CreateAuditLog';
+getDepartmentByIdRef.operationName = 'GetDepartmentById';
 
-export function createAuditLog(dcOrVars, vars) {
+export function getDepartmentById(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(getDepartmentByIdRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const createDepartmentRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'CreateDepartment', inputVars);
+}
+createDepartmentRef.operationName = 'CreateDepartment';
+
+export function createDepartment(dcOrVars, vars) {
   const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(createAuditLogRef(dcInstance, inputVars));
+  return executeMutation(createDepartmentRef(dcInstance, inputVars));
+}
+
+export const updateDepartmentRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'UpdateDepartment', inputVars);
+}
+updateDepartmentRef.operationName = 'UpdateDepartment';
+
+export function updateDepartment(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(updateDepartmentRef(dcInstance, inputVars));
+}
+
+export const deleteDepartmentRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'DeleteDepartment', inputVars);
+}
+deleteDepartmentRef.operationName = 'DeleteDepartment';
+
+export function deleteDepartment(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(deleteDepartmentRef(dcInstance, inputVars));
 }
 
 export const listEmployeesRef = (dc) => {
@@ -513,179 +687,5 @@ assignWorkScheduleToEmployeeRef.operationName = 'AssignWorkScheduleToEmployee';
 export function assignWorkScheduleToEmployee(dcOrVars, vars) {
   const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
   return executeMutation(assignWorkScheduleToEmployeeRef(dcInstance, inputVars));
-}
-
-export const listAttendancePoliciesRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListAttendancePolicies');
-}
-listAttendancePoliciesRef.operationName = 'ListAttendancePolicies';
-
-export function listAttendancePolicies(dcOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
-  return executeQuery(listAttendancePoliciesRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const listWorkLocationsRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListWorkLocations');
-}
-listWorkLocationsRef.operationName = 'ListWorkLocations';
-
-export function listWorkLocations(dcOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
-  return executeQuery(listWorkLocationsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const listEmployeeAttendancePoliciesRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListEmployeeAttendancePolicies');
-}
-listEmployeeAttendancePoliciesRef.operationName = 'ListEmployeeAttendancePolicies';
-
-export function listEmployeeAttendancePolicies(dcOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
-  return executeQuery(listEmployeeAttendancePoliciesRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const listEmployeeAllowedLocationsRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListEmployeeAllowedLocations');
-}
-listEmployeeAllowedLocationsRef.operationName = 'ListEmployeeAllowedLocations';
-
-export function listEmployeeAllowedLocations(dcOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
-  return executeQuery(listEmployeeAllowedLocationsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const createAttendancePolicyRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'CreateAttendancePolicy', inputVars);
-}
-createAttendancePolicyRef.operationName = 'CreateAttendancePolicy';
-
-export function createAttendancePolicy(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(createAttendancePolicyRef(dcInstance, inputVars));
-}
-
-export const updateAttendancePolicyRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'UpdateAttendancePolicy', inputVars);
-}
-updateAttendancePolicyRef.operationName = 'UpdateAttendancePolicy';
-
-export function updateAttendancePolicy(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(updateAttendancePolicyRef(dcInstance, inputVars));
-}
-
-export const createWorkLocationRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'CreateWorkLocation', inputVars);
-}
-createWorkLocationRef.operationName = 'CreateWorkLocation';
-
-export function createWorkLocation(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(createWorkLocationRef(dcInstance, inputVars));
-}
-
-export const createEmployeeAttendancePolicyRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'CreateEmployeeAttendancePolicy', inputVars);
-}
-createEmployeeAttendancePolicyRef.operationName = 'CreateEmployeeAttendancePolicy';
-
-export function createEmployeeAttendancePolicy(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(createEmployeeAttendancePolicyRef(dcInstance, inputVars));
-}
-
-export const updateEmployeeAttendancePolicyRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'UpdateEmployeeAttendancePolicy', inputVars);
-}
-updateEmployeeAttendancePolicyRef.operationName = 'UpdateEmployeeAttendancePolicy';
-
-export function updateEmployeeAttendancePolicy(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(updateEmployeeAttendancePolicyRef(dcInstance, inputVars));
-}
-
-export const addEmployeeAllowedLocationRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'AddEmployeeAllowedLocation', inputVars);
-}
-addEmployeeAllowedLocationRef.operationName = 'AddEmployeeAllowedLocation';
-
-export function addEmployeeAllowedLocation(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(addEmployeeAllowedLocationRef(dcInstance, inputVars));
-}
-
-export const getUserByFirebaseUidRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetUserByFirebaseUid', inputVars);
-}
-getUserByFirebaseUidRef.operationName = 'GetUserByFirebaseUid';
-
-export function getUserByFirebaseUid(dcOrVars, varsOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
-  return executeQuery(getUserByFirebaseUidRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const getUserByEmailRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetUserByEmail', inputVars);
-}
-getUserByEmailRef.operationName = 'GetUserByEmail';
-
-export function getUserByEmail(dcOrVars, varsOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
-  return executeQuery(getUserByEmailRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const touchUserLastLoginRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'TouchUserLastLogin', inputVars);
-}
-touchUserLastLoginRef.operationName = 'TouchUserLastLogin';
-
-export function touchUserLastLogin(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(touchUserLastLoginRef(dcInstance, inputVars));
-}
-
-export const linkUserFirebaseUidRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'LinkUserFirebaseUid', inputVars);
-}
-linkUserFirebaseUidRef.operationName = 'LinkUserFirebaseUid';
-
-export function linkUserFirebaseUid(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(linkUserFirebaseUidRef(dcInstance, inputVars));
 }
 

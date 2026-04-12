@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#bc4800",
+                    "tertiary-fixed": "#ffdbcd",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#191c1e",
+                    "surface-dim": "#d8dadc",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-primary-container": "#eeefff",
+                    "surface-variant": "#e0e3e5",
+                    "on-secondary-fixed": "#001453",
+                    "surface-tint": "#0053db",
+                    "secondary-fixed-dim": "#b8c4ff",
+                    "on-primary": "#ffffff",
+                    "primary": "#004ac6",
+                    "secondary-fixed": "#dde1ff",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#00217a",
+                    "outline-variant": "#c3c6d7",
+                    "surface-container-low": "#f2f4f6",
+                    "on-surface-variant": "#434655",
+                    "secondary": "#3755c3",
+                    "surface-container": "#eceef0",
+                    "secondary-container": "#708cfd",
+                    "outline": "#737686",
+                    "on-tertiary-fixed": "#360f00",
+                    "on-tertiary": "#ffffff",
+                    "background": "#f7f9fb",
+                    "primary-fixed": "#dbe1ff",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-container": "#ffede6",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-secondary-fixed-variant": "#173bab",
+                    "primary-container": "#2563eb",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "inverse-primary": "#b4c5ff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-surface": "#2d3133",
+                    "tertiary": "#943700",
+                    "error": "#ba1a1a",
+                    "on-background": "#191c1e",
+                    "on-primary-fixed": "#00174b",
+                    "on-primary-fixed-variant": "#003ea8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .soft-inset-input {
+            background-color: #e6e8ea;
+            border: none;
+            transition: all 0.2s ease;
+            border-left: 0px solid #004ac6;
+        }
+        .soft-inset-input:focus {
+            outline: none;
+            box-shadow: none;
+            border-left: 4px solid #004ac6;
+        }
+        ::-webkit-calendar-picker-indicator {
+            filter: invert(0.4);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface min-h-screen">
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-50 bg-[#f7f9fb] dark:bg-slate-950 flex justify-between items-center px-6 py-4 w-full tonal-transition-no-border">
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center p-2 rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-on-surface">arrow_back</span>
+</button>
+<h1 class="font-headline text-lg font-semibold tracking-tight text-blue-600 dark:text-blue-400">Nova Justificativa</h1>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-500 hover:opacity-80 transition-opacity">notifications</span>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-primary-fixed ring-2 ring-white shadow-sm">
+<img class="w-full h-full object-cover" data-alt="close up professional portrait of a woman with a confident expression in a bright modern office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyUE_Pf_1riti7xxO5MBaRaNdq955t1PTSKSgse8iRMMrzblPkAwZYZu9IzC3G7lfLx35ToCq7w3FivoklshXM26dpL-FyW40XP12cgIDnEK7ZWC26j3ZHBvM7RDiyZuqu2dbcxUBwthATeysw6vR7qlR_FEw47hmBc-5I5r1_EwzvNOaZVfDytXo02NuWmuYFKGcjpchlksvehN59APQ-2i-rtda93FUGDAkNN8llM3OyvfdTgrcoLmxh4jaK5w98DVcaMK9Iwb0"/>
+</div>
+</div>
+</header>
+<main class="max-w-xl mx-auto px-6 py-8 mb-12">
+<!-- Editorial Header Section -->
+<div class="mb-10">
+<span class="text-[10px] font-label font-bold tracking-[0.1em] text-primary uppercase mb-2 block">Documentação de Ponto</span>
+<h2 class="text-3xl font-headline font-extrabold tracking-tight text-on-surface leading-none">Envie sua ausência ou correção</h2>
+</div>
+<form class="space-y-8">
+<!-- Select Group -->
+<div class="space-y-2">
+<label class="text-[11px] font-label font-bold tracking-wider text-on-surface-variant uppercase px-1" for="type">Tipo de justificativa</label>
+<div class="relative group">
+<select class="soft-inset-input w-full h-14 px-4 rounded-xl font-medium text-on-surface appearance-none cursor-pointer" id="type">
+<option disabled="" selected="" value="">Selecione uma opção</option>
+<option value="medical">Atestado Médico</option>
+<option value="forget">Esquecimento de Marcação</option>
+<option value="external">Serviço Externo</option>
+<option value="personal">Assuntos Particulares</option>
+</select>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Date & Time Grid -->
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="text-[11px] font-label font-bold tracking-wider text-on-surface-variant uppercase px-1" for="date">Data do Evento</label>
+<input class="soft-inset-input w-full h-14 px-4 rounded-xl font-medium text-on-surface" id="date" type="date"/>
+</div>
+<div class="space-y-2">
+<label class="text-[11px] font-label font-bold tracking-wider text-on-surface-variant uppercase px-1" for="time">Hora Aproximada</label>
+<input class="soft-inset-input w-full h-14 px-4 rounded-xl font-medium text-on-surface" id="time" type="time"/>
+</div>
+</div>
+<!-- Textarea Group -->
+<div class="space-y-2">
+<label class="text-[11px] font-label font-bold tracking-wider text-on-surface-variant uppercase px-1" for="description">Descrição/Motivo</label>
+<textarea class="soft-inset-input w-full p-4 rounded-xl font-medium text-on-surface resize-none placeholder:text-outline/60" id="description" placeholder="Descreva brevemente o motivo desta solicitação..." rows="4"></textarea>
+</div>
+<!-- Attachment Section -->
+<div class="space-y-3">
+<label class="text-[11px] font-label font-bold tracking-wider text-on-surface-variant uppercase px-1">Anexar Comprovante</label>
+<div class="relative">
+<input class="hidden" id="attachment" type="file"/>
+<label class="flex flex-col items-center justify-center w-full py-10 rounded-2xl border-2 border-dashed border-outline-variant bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group" for="attachment">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">cloud_upload</span>
+</div>
+<span class="text-sm font-semibold text-on-surface">Upload de arquivo</span>
+<span class="text-xs text-on-surface-variant mt-1">PDF, JPG ou PNG até 5MB</span>
+</label>
+</div>
+</div>
+<!-- Action Button -->
+<div class="pt-4">
+<button class="w-full h-16 rounded-2xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold text-base shadow-[0_12_32_rgba(0,74,198,0.15)] hover:shadow-[0_16_40_rgba(0,74,198,0.25)] active:scale-[0.98] transition-all flex items-center justify-center gap-3" type="submit">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+                    Enviar justificativa
+                </button>
+</div>
+</form>
+<!-- Informative Bento Element -->
+<div class="mt-12 p-6 rounded-[24px] bg-secondary-fixed/30 border border-secondary-fixed/50 flex gap-4 items-start">
+<div class="bg-secondary-container p-2 rounded-lg">
+<span class="material-symbols-outlined text-on-secondary-container text-xl">info</span>
+</div>
+<div>
+<h4 class="font-bold text-on-secondary-fixed text-sm mb-1">Prazo de Envio</h4>
+<p class="text-xs text-on-secondary-fixed-variant leading-relaxed opacity-80">Lembre-se que justificativas devem ser enviadas em até 48h após a ocorrência para validação imediata pelo RH.</p>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Hidden on desktop as per Shell Visibility Rules, shown on mobile) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-[24px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-[0_-12px_32px_rgba(0,74,198,0.06)] flex justify-around items-center px-6 pb-6 pt-3">
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl transition-all" href="#">
+<span class="material-symbols-outlined mb-1">home_app_logo</span>
+<span class="font-['Inter'] text-[10px] tracking-wider uppercase font-medium">Início</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl transition-all" href="#">
+<span class="material-symbols-outlined mb-1">history</span>
+<span class="font-['Inter'] text-[10px] tracking-wider uppercase font-medium">Marcações</span>
+</a>
+<!-- Active Item based on page context: Justificativas -->
+<a class="flex flex-col items-center justify-center bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-2xl px-4 py-1.5 transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">edit_document</span>
+<span class="font-['Inter'] text-[10px] tracking-wider uppercase font-medium">Justificativas</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl transition-all" href="#">
+<span class="material-symbols-outlined mb-1">account_circle</span>
+<span class="font-['Inter'] text-[10px] tracking-wider uppercase font-medium">Perfil</span>
+</a>
+</nav>
+</body></html>

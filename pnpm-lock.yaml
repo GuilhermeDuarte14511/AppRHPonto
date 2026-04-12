@@ -216,6 +216,9 @@ importers:
 
   apps/employee-app:
     dependencies:
+      '@expo/vector-icons':
+        specifier: ^14.1.0
+        version: 14.1.0(expo-font@13.3.2(expo@53.0.27(@babel/core@7.29.0)(@expo/metro-runtime@5.0.5(react-native@0.79.6(@babel/core@7.29.0)(@types/react@19.0.14)(react@19.0.0)))(react-native@0.79.6(@babel/core@7.29.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react@19.0.0))(react-native@0.79.6(@babel/core@7.29.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       '@hookform/resolvers':
         specifier: ^5.0.1
         version: 5.2.2(react-hook-form@7.72.0(react@19.0.0))
@@ -231,6 +234,9 @@ importers:
       '@rh-ponto/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@rh-ponto/employees':
+        specifier: workspace:*
+        version: link:../../packages/employees
       '@rh-ponto/firebase':
         specifier: workspace:*
         version: link:../../packages/firebase
@@ -240,6 +246,9 @@ importers:
       '@rh-ponto/time-records':
         specifier: workspace:*
         version: link:../../packages/time-records
+      '@rh-ponto/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@rh-ponto/validations':
         specifier: workspace:*
         version: link:../../packages/validations
@@ -410,6 +419,9 @@ importers:
 
   packages/attendance-policies:
     dependencies:
+      '@rh-ponto/api-client':
+        specifier: workspace:*
+        version: link:../api-client
       '@rh-ponto/core':
         specifier: workspace:*
         version: link:../core

@@ -1,5 +1,5 @@
 import * as Location from 'expo-location';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import type { AttendanceCoordinates } from '@rh-ponto/attendance-policies';
 
@@ -17,7 +17,7 @@ export const useDeviceLocation = (): DeviceLocationState => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const refreshLocation = async () => {
+  const refreshLocation = useCallback(async () => {
     setIsLoading(true);
     setErrorMessage(null);
 
@@ -46,7 +46,7 @@ export const useDeviceLocation = (): DeviceLocationState => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   return {
     coordinates,

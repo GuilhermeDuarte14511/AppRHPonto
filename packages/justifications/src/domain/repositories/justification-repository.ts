@@ -56,6 +56,7 @@ export interface JustificationRepository {
   list(filters?: JustificationFilters): Promise<Justification[]>;
   listByEmployee(employeeId: string): Promise<Justification[]>;
   getById(id: string): Promise<Justification | null>;
+  listAttachmentsByJustification(justificationId: string): Promise<JustificationAttachment[]>;
   create(payload: CreateJustificationPayload): Promise<Justification>;
   approve(payload: ApproveJustificationPayload): Promise<Justification>;
   reject(payload: RejectJustificationPayload): Promise<Justification>;
@@ -63,4 +64,3 @@ export interface JustificationRepository {
 }
 
 export type JustificationsRepository = JustificationRepository;
-

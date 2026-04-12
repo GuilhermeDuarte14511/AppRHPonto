@@ -169,6 +169,10 @@ export class MockJustificationsRepository implements JustificationRepository {
     return justifications.find((justification) => justification.id === id) ?? null;
   }
 
+  async listAttachmentsByJustification(justificationId: string): Promise<JustificationAttachment[]> {
+    return attachments.filter((attachment) => attachment.justificationId === justificationId);
+  }
+
   async create(payload: CreateJustificationPayload): Promise<Justification> {
     const timestamp = new Date().toISOString();
     const justification: Justification = {

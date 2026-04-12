@@ -67,6 +67,8 @@ const resolveOutsideAreaStatus = (input: AttendanceLocationEvaluationInput): Att
 export const evaluateAttendanceLocation = (
   input: AttendanceLocationEvaluationInput,
 ): AttendanceLocationEvaluationResult => {
+  const coordinates = input.coordinates;
+
   if (!input.policy.geolocationRequired) {
     return {
       status: 'allowed',
@@ -82,7 +84,7 @@ export const evaluateAttendanceLocation = (
     };
   }
 
-  if (!input.coordinates) {
+  if (!coordinates) {
     const status =
       input.policy.validationStrategy === 'pending_review'
         ? 'pending_review'
@@ -144,7 +146,7 @@ export const evaluateAttendanceLocation = (
 
   const evaluatedLocations = allowedLocations.map((location) => ({
     location,
-    distanceMeters: calculateDistanceMeters(input.coordinates, {
+    distanceMeters: calculateDistanceMeters(coordinates, {
       latitude: location.latitude as number,
       longitude: location.longitude as number,
     }),
@@ -167,7 +169,13 @@ export const evaluateAttendanceLocation = (
     };
   }
 
-  const nearestAllowedLocation = evaluatedLocations.toSorted((left, right) => left.distanceMeters - right.distanceMeters)[0] ?? null;
+  const nearestAllowedLocation =
+    [...evaluatedLocations].sort(
+      (
+        left: { location: WorkLocation; distanceMeters: number },
+        right: { location: WorkLocation; distanceMeters: number },
+      ) => left.distanceMeters - right.distanceMeters,
+    )[0] ?? null;
   const status = resolveOutsideAreaStatus(input);
 
   return {

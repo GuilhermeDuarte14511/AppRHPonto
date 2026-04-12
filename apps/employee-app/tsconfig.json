@@ -1,11 +1,40 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
+    "paths": {  
+      "@/*": ["./src/*"],
+      "@rh-ponto/core": ["../../packages/core/src/index.ts"],
+      "@rh-ponto/core/*": ["../../packages/core/src/*"],
+      "@rh-ponto/config": ["../../packages/config/src/index.ts"],
+      "@rh-ponto/config/*": ["../../packages/config/src/*"],
+      "@rh-ponto/types": ["../../packages/types/src/index.ts"],
+      "@rh-ponto/types/*": ["../../packages/types/src/*"],
+      "@rh-ponto/validations": ["../../packages/validations/src/index.ts"],
+      "@rh-ponto/validations/*": ["../../packages/validations/src/*"],
+      "@rh-ponto/ui": ["../../packages/ui/src/index.ts"],
+      "@rh-ponto/ui/*": ["../../packages/ui/src/*"],
+      "@rh-ponto/auth": ["../../packages/auth/src/index.ts"],
+      "@rh-ponto/auth/*": ["../../packages/auth/src/*"],
+      "@rh-ponto/employees": ["../../packages/employees/src/index.ts"],
+      "@rh-ponto/employees/*": ["../../packages/employees/src/*"],
+      "@rh-ponto/work-schedules": ["../../packages/work-schedules/src/index.ts"],
+      "@rh-ponto/work-schedules/*": ["../../packages/work-schedules/src/*"],
+      "@rh-ponto/attendance-policies": ["../../packages/attendance-policies/src/index.ts"],
+      "@rh-ponto/attendance-policies/*": ["../../packages/attendance-policies/src/*"],
+      "@rh-ponto/time-records": ["../../packages/time-records/src/index.ts"],
+      "@rh-ponto/time-records/*": ["../../packages/time-records/src/*"],
+      "@rh-ponto/justifications": ["../../packages/justifications/src/index.ts"],
+      "@rh-ponto/justifications/*": ["../../packages/justifications/src/*"],
+      "@rh-ponto/devices": ["../../packages/devices/src/index.ts"],
+      "@rh-ponto/devices/*": ["../../packages/devices/src/*"],
+      "@rh-ponto/audit": ["../../packages/audit/src/index.ts"],
+      "@rh-ponto/audit/*": ["../../packages/audit/src/*"],
+      "@rh-ponto/api-client": ["../../packages/api-client/src/index.ts"],
+      "@rh-ponto/api-client/generated": ["../../packages/api-client/src/data-connect/generated/index.d.ts"],
+      "@rh-ponto/api-client/*": ["../../packages/api-client/src/*"],
+      "@rh-ponto/firebase": ["../../packages/firebase/src/index.ts"],
+      "@rh-ponto/firebase/*": ["../../packages/firebase/src/*"]
     }
   },
   "include": ["app", "src", "expo-env.d.ts"]
 }
-

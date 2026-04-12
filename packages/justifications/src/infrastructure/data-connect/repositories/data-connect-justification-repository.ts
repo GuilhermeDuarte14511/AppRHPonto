@@ -192,6 +192,14 @@ export class DataConnectJustificationRepository implements JustificationReposito
     return data.justification ? mapJustificationRecord(data.justification) : null;
   }
 
+  async listAttachmentsByJustification(justificationId: string): Promise<JustificationAttachment[]> {
+    const { data } = await listJustificationAttachments(getAppDataConnect());
+
+    return data.justificationAttachments
+      .map(mapAttachmentRecord)
+      .filter((attachment) => attachment.justificationId === justificationId);
+  }
+
   async create(payload: CreateJustificationPayload): Promise<Justification> {
     const { data } = await createJustificationMutation(getAppDataConnect(), buildCreateVariables(payload));
     const justification = await this.getById(data.justification_insert.id);
@@ -248,10 +256,9 @@ export class DataConnectJustificationRepository implements JustificationReposito
 
   async addAttachment(payload: AddJustificationAttachmentPayload): Promise<JustificationAttachment> {
     const { data } = await addJustificationAttachment(getAppDataConnect(), buildAttachmentVariables(payload));
-    const { data: attachmentsData } = await listJustificationAttachments(getAppDataConnect());
-    const attachment = attachmentsData.justificationAttachments
-      .map(mapAttachmentRecord)
-      .find((item) => item.id === data.justificationAttachment_insert.id);
+    const attachment = (await this.listAttachmentsByJustification(payload.justificationId)).find(
+      (item) => item.id === data.justificationAttachment_insert.id,
+    );
 
     if (!attachment) {
       throw new AppError(

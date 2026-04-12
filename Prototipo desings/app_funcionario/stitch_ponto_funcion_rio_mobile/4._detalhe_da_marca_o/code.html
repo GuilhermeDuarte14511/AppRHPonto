@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#bc4800",
+                    "tertiary-fixed": "#ffdbcd",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#191c1e",
+                    "surface-dim": "#d8dadc",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-primary-container": "#eeefff",
+                    "surface-variant": "#e0e3e5",
+                    "on-secondary-fixed": "#001453",
+                    "surface-tint": "#0053db",
+                    "secondary-fixed-dim": "#b8c4ff",
+                    "on-primary": "#ffffff",
+                    "primary": "#004ac6",
+                    "secondary-fixed": "#dde1ff",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#00217a",
+                    "outline-variant": "#c3c6d7",
+                    "surface-container-low": "#f2f4f6",
+                    "on-surface-variant": "#434655",
+                    "secondary": "#3755c3",
+                    "surface-container": "#eceef0",
+                    "secondary-container": "#708cfd",
+                    "outline": "#737686",
+                    "on-tertiary-fixed": "#360f00",
+                    "on-tertiary": "#ffffff",
+                    "background": "#f7f9fb",
+                    "primary-fixed": "#dbe1ff",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-container": "#ffede6",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-secondary-fixed-variant": "#173bab",
+                    "primary-container": "#2563eb",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "inverse-primary": "#b4c5ff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-surface": "#2d3133",
+                    "tertiary": "#943700",
+                    "error": "#ba1a1a",
+                    "on-background": "#191c1e",
+                    "on-primary-fixed": "#00174b",
+                    "on-primary-fixed-variant": "#003ea8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-50 bg-[#f7f9fb] dark:bg-slate-950 flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors tap-highlight-none">
+<span class="material-symbols-outlined text-on-surface-variant">arrow_back</span>
+</button>
+<h1 class="font-headline text-lg font-semibold tracking-tight text-on-surface">Detalhes da Marcação</h1>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors tap-highlight-none">
+<span class="material-symbols-outlined text-on-surface-variant">share</span>
+</button>
+</div>
+</header>
+<main class="px-6 py-8 max-w-2xl mx-auto space-y-10">
+<!-- Chronometer Display (Hero) -->
+<section class="space-y-2">
+<span class="font-label text-[10px] tracking-widest uppercase font-bold text-primary">Horário Registrado</span>
+<div class="flex items-baseline gap-2">
+<h2 class="font-headline text-6xl font-bold tracking-tighter text-on-surface">08:02</h2>
+<span class="font-headline text-2xl font-medium text-on-surface-variant">AM</span>
+</div>
+<p class="font-body text-on-surface-variant text-sm">Segunda-feira, 14 de Agosto de 2023</p>
+</section>
+<!-- Bento Grid Layout for Details -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Primary Info Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl space-y-6 shadow-[0_12px_32px_rgba(0,74,198,0.06)] border border-outline-variant/10">
+<div class="flex justify-between items-start">
+<div class="space-y-1">
+<span class="font-label text-[10px] tracking-wider uppercase font-bold text-on-surface-variant/60">Status</span>
+<div class="flex items-center gap-2 px-2.5 py-1 bg-green-50 text-green-700 rounded-full w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-green-600"></span>
+<span class="text-xs font-semibold">Confirmado</span>
+</div>
+</div>
+<div class="space-y-1 text-right">
+<span class="font-label text-[10px] tracking-wider uppercase font-bold text-on-surface-variant/60">Tipo</span>
+<p class="text-sm font-semibold text-on-surface">Entrada</p>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant/15 flex gap-4 items-center">
+<div class="w-10 h-10 bg-surface-container-high rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-weight="fill" style="font-variation-settings: 'FILL' 1;">smartphone</span>
+</div>
+<div>
+<span class="font-label text-[10px] tracking-wider uppercase font-bold text-on-surface-variant/60">Dispositivo</span>
+<p class="text-sm font-medium text-on-surface">iPhone 14 Pro de Lucas</p>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant/15">
+<span class="font-label text-[10px] tracking-wider uppercase font-bold text-on-surface-variant/60">Observação</span>
+<p class="text-sm text-on-surface-variant mt-1 leading-relaxed">Registro efetuado na recepção do Bloco B conforme orientação da gerência.</p>
+</div>
+</div>
+<!-- Visual Context Card (Selfie & Map) -->
+<div class="space-y-6">
+<!-- Selfie Placeholder -->
+<div class="relative group aspect-square rounded-xl overflow-hidden bg-surface-container-high shadow-[0_12px_32px_rgba(0,74,198,0.04)]">
+<img alt="Selfie confirmation" class="w-full h-full object-cover" data-alt="Close-up selfie of a professional young man in a modern office lobby with soft morning light and plants in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNJPdnAc12JJKFSfeTEJ5-lFj4N9WS1brH3-AWN8JZd2d9Zl_wLUcK0LBzOquVZeh7eyl4kmQEtrm70RsBQFgv6CmLAfV5kzpRN4vtuG5Fx5gW-EPkppUwECUmwWUiI8D-tfPZOWBlGR8v3LOzRS69x8Wjb0c5hWhiMqA8QtnGaaXeeqVO2knqa8khWjgifmXe-Yl6FpSQnW7zmVhoGcLezXIwxu69aKlPDLr5jeMVMJLJkGoCNpakLdDSyd0ByS1etisrLDL3ikA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-end items-end p-4">
+<div class="flex items-center gap-2 text-white">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+<span class="text-[10px] font-bold tracking-widest uppercase">Biometria Facial OK</span>
+</div>
+</div>
+</div>
+<!-- Location Shortcut -->
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center justify-between group cursor-pointer hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-outline-variant">
+<img alt="Map snippet" class="w-full h-full object-cover opacity-80" data-alt="Top down satellite view of a clean modern city street block with architectural buildings and green trees" data-location="São Paulo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB06VIBsyOn3fog0Uur9suku9DPmS7pP-fvpR0i1cL-wTUJjO3ylADZPG3i1sCeXMLxtdczwm7mh_AVAb7d3fhWPrOIi8U4zBH0oXKNAH1iOLne2Sge9VxXE7RYhK0e1zHtaxyXRqKXR-q9-cFF8b_kyGypPKntJUBBCPDqqr3DF68xNMUVjQc4FDRhbgsYypi3RhT6tSJbK6JpVRmxalqzKlP5KP5WtHU4gA5z-Tx8iPfunn69n1SxnS1AkgzaNTVuw28frh7S9Cc"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Av. Paulista, 1000</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Bela Vista, São Paulo - SP</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary-container group-hover:translate-x-1 transition-transform">arrow_forward_ios</span>
+</div>
+</div>
+</div>
+<!-- History/Log Section -->
+<section class="pt-4">
+<h3 class="font-headline text-sm font-bold text-on-surface mb-6 flex items-center gap-2">
+<span class="w-1 h-4 bg-primary rounded-full"></span>
+                Log de Auditoria
+            </h3>
+<div class="space-y-4">
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-2.5 h-2.5 rounded-full bg-primary mt-1.5"></div>
+<div class="w-0.5 h-full bg-surface-container-high my-1"></div>
+</div>
+<div>
+<p class="text-sm font-semibold text-on-surface">Registro Enviado</p>
+<p class="text-xs text-on-surface-variant">14 Ago 2023 • 08:02:14</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-2.5 h-2.5 rounded-full bg-surface-container-high mt-1.5"></div>
+</div>
+<div>
+<p class="text-sm font-medium text-on-surface-variant">Sincronizado com o servidor</p>
+<p class="text-xs text-on-surface-variant">14 Ago 2023 • 08:02:18</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Actions -->
+<div class="pt-8 flex flex-col gap-3">
+<button class="w-full py-4 bg-primary text-white rounded-xl font-headline font-bold text-sm shadow-[0_12px_32px_rgba(0,74,198,0.15)] flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+<span class="material-symbols-outlined text-lg">edit_document</span>
+                Solicitar Ajuste
+            </button>
+<button class="w-full py-4 bg-transparent text-on-surface-variant rounded-xl font-headline font-bold text-sm border border-outline-variant/30 flex items-center justify-center gap-2 hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-lg">download</span>
+                Exportar Comprovante
+            </button>
+</div>
+</main>
+<!-- Bottom Spacing for Floating Elements if any -->
+<div class="h-24"></div>
+<!-- BottomNavBar (Inactive context, but rendered as anchor) -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-[24px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-[0_-12px_32px_rgba(0,74,198,0.06)] md:hidden">
+<div class="flex justify-around items-center px-6 pb-6 pt-3">
+<div class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer">
+<span class="material-symbols-outlined mb-1">home_app_logo</span>
+<span class="font-['Inter'] text-[10px] tracking-wider uppercase font-medium">Início</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-2xl px-4 py-1.5 transition-all cursor-pointer">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="font-['Inter'] text-[10px] tracking-wider uppercase font-medium">Marcações</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer">
+<span class="material-symbols-outlined mb-1">edit_document</span>
+<span class="font-['Inter'] text-[10px] tracking-wider uppercase font-medium">Justificativas</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer">
+<span class="material-symbols-outlined mb-1">account_circle</span>
+<span class="font-['Inter'] text-[10px] tracking-wider uppercase font-medium">Perfil</span>
+</div>
+</div>
+</nav>
+</body></html>

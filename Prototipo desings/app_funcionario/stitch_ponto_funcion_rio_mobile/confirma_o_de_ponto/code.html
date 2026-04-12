@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ponto Eletrônico - Confirmação</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#434655",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#d8dadc",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface": "#f7f9fb",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#ffede6",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "error-container": "#ffdad6",
+                        "secondary": "#3755c3",
+                        "on-background": "#191c1e",
+                        "surface-bright": "#f7f9fb",
+                        "surface-container": "#eceef0",
+                        "on-primary-container": "#eeefff",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#173bab",
+                        "primary": "#004ac6",
+                        "on-primary-fixed": "#00174b",
+                        "surface-variant": "#e0e3e5",
+                        "secondary-fixed-dim": "#b8c4ff",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "secondary-fixed": "#dde1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f2f4f6",
+                        "primary-fixed": "#dbe1ff",
+                        "inverse-primary": "#b4c5ff",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c3c6d7",
+                        "surface-container-high": "#e6e8ea",
+                        "on-surface": "#191c1e",
+                        "primary-container": "#2563eb",
+                        "tertiary-fixed": "#ffdbcd",
+                        "tertiary-container": "#bc4800",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "outline": "#737686",
+                        "on-secondary-fixed": "#001453",
+                        "inverse-on-surface": "#eff1f3",
+                        "secondary-container": "#708cfd",
+                        "background": "#f7f9fb",
+                        "tertiary": "#943700",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "on-tertiary-fixed": "#360f00",
+                        "surface-tint": "#0053db",
+                        "on-secondary-container": "#00217a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .success-glow {
+            box-shadow: 0 0 40px rgba(22, 163, 74, 0.15);
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="bg-[#f7f9fb]/80 backdrop-blur-xl fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-slate-500" data-icon="menu">menu</span>
+<h1 class="text-lg font-black tracking-[0.2em] text-blue-700 font-['Inter']">CHRONOS</h1>
+</div>
+<div class="h-8 w-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a professional businessman in a grey suit with a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvN7q6NhBwe-yn45nyHMOCyQCkvVJT-72RnTeizYgHP5oqgd_-pJDUEP0FNZH4AsJa4f_6m7s728QgjEmyTMoG4dneUyrps6nA1aF8IlsMKnavH3STljDizoRXaXE17D6vQa0zSciyIKiJO0BSVMqVviUDS42HYz1i3bbUrSsWY-Ore_tHHfPBKRDrHAaMP_vb2MO8-OTbffp7zu6LuJhQGBKbnc8my1_GEnik2sMxLjYKmxtQzHLimvAaqO8K6rIn6JfH0BlFYac"/>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-md mx-auto flex flex-col items-center">
+<!-- Success Animation Placeholder / Icon -->
+<div class="relative mb-8">
+<div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center success-glow">
+<span class="material-symbols-outlined text-green-600 text-5xl" style="font-variation-settings: 'wght' 600;">check_circle</span>
+</div>
+</div>
+<!-- Confirmation Text -->
+<div class="text-center mb-10">
+<p class="text-sm font-bold tracking-[0.15em] text-on-surface-variant uppercase mb-2">Registro Realizado!</p>
+<h2 class="text-4xl font-extrabold tracking-tight text-on-surface">08:02 <span class="text-xl font-medium text-on-surface-variant">AM</span></h2>
+</div>
+<!-- Info Card -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-6 mb-6 space-y-6">
+<div class="flex justify-between items-center">
+<div>
+<p class="text-[10px] font-bold tracking-widest text-on-surface-variant uppercase">Data do Registro</p>
+<p class="text-base font-semibold text-on-surface">Segunda-feira, 14 de Agosto</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold tracking-widest text-on-surface-variant uppercase">Tipo</p>
+<div class="flex items-center gap-1 text-primary justify-end">
+<span class="material-symbols-outlined text-sm" data-icon="login">login</span>
+<p class="text-base font-bold">Entrada</p>
+</div>
+</div>
+</div>
+<!-- Location Map -->
+<div class="relative h-32 w-full rounded-lg overflow-hidden group">
+<img class="w-full h-full object-cover grayscale brightness-110" data-alt="top down view of a clean stylized city map with blue and grey tones showing urban blocks" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAEMyyV7OYsoFue-1B4GWteV0SiC_5rF_L6_B3bFzb1bY0comrxLbHfXQq45ppiMce-8EG8It9cg75q4yPnYoWlS62UHcc4kfN2x7IuW2vVKM8oMOVfsVBJvLKZ4AgsdSBiuv4XKngn7Yf76zZ5s46NExLLtOhaptC4EPoXafP7NJpFQRlHokyhX_i0enVI5jyjehjC25oCdKp76lCzAPHYil3ZqyfGEQfxP-l5BOM6eG26RFiYN9rZjBra0zIW5uXpcLgcQMOfN4"/>
+<div class="absolute inset-0 bg-primary/5"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-6 h-6 bg-primary border-4 border-white rounded-full shadow-lg"></div>
+</div>
+<div class="absolute bottom-2 left-2 bg-white/90 backdrop-blur px-3 py-1 rounded-full flex items-center gap-2">
+<span class="material-symbols-outlined text-xs text-primary" data-icon="location_on">location_on</span>
+<span class="text-[10px] font-bold text-on-surface">Av. Paulista, 1000</span>
+</div>
+</div>
+<!-- Security Info -->
+<div class="flex justify-between pt-2">
+<div class="flex items-center gap-2 px-3 py-2 bg-surface-container-low rounded-full">
+<span class="material-symbols-outlined text-sm text-on-surface-variant" data-icon="smartphone">smartphone</span>
+<span class="text-[10px] font-bold text-on-surface-variant">iPhone 14 Pro</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-2 bg-green-50 rounded-full">
+<span class="material-symbols-outlined text-sm text-green-600" data-icon="face" style="font-variation-settings: 'FILL' 1;">face</span>
+<span class="text-[10px] font-bold text-green-700">Biometria Facial OK</span>
+</div>
+</div>
+</div>
+<!-- Primary Action -->
+<div class="w-full space-y-4">
+<button class="w-full py-4 bg-primary text-white rounded-xl font-bold tracking-wide flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-xl" data-icon="description">description</span>
+                Ver Comprovante
+            </button>
+<button class="w-full py-4 bg-transparent text-on-surface-variant rounded-xl font-bold tracking-wide text-sm active:scale-95 transition-transform">
+                Voltar ao Início
+            </button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-6 left-0 right-0 z-50 flex justify-around items-center px-4 py-3 mx-auto max-w-md bg-[#f7f9fb]/80 backdrop-blur-xl rounded-full shadow-[0_12px_32px_rgba(0,74,198,0.06)] w-[90%]">
+<a class="flex flex-col items-center justify-center bg-blue-100 text-blue-700 rounded-full w-12 h-12 transition-transform active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 w-12 h-12 transition-transform active:scale-90 duration-200 hover:text-blue-600" href="#">
+<span class="material-symbols-outlined" data-icon="history_toggle_off">history_toggle_off</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 w-12 h-12 transition-transform active:scale-90 duration-200 hover:text-blue-600" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 w-12 h-12 transition-transform active:scale-90 duration-200 hover:text-blue-600" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+</nav>
+</body></html>

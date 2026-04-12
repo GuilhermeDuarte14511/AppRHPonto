@@ -1,75 +1,144 @@
-import { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { router } from 'expo-router';
+import { useEffect } from 'react';
+import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import type { AttendanceCoordinates } from '@rh-ponto/attendance-policies';
 
 import { useEmployeeAttendancePolicy } from '@/features/attendance/hooks/use-employee-attendance-policy';
-import { useAppSession } from '@/shared/providers/app-providers';
+import { useCurrentEmployee } from '@/features/employee/hooks/use-current-employee';
+import { useEmployeeTimeRecords } from '@/features/time-records/hooks/use-employee-time-records';
+import { useRegisterTimeRecord } from '@/features/time-records/hooks/use-register-time-record';
+import {
+  formatDurationFromMinutes,
+  formatTimeRecordDateTime,
+  formatTimeRecordTime,
+  timeRecordSourceLabels,
+  timeRecordTypeLabels,
+} from '@/features/time-records/lib/time-record-mobile';
+import { AppIcon } from '@/shared/components/app-icon';
 import { useDeviceLocation } from '@/shared/hooks/use-device-location';
+import { useAppSession } from '@/shared/providers/app-providers';
 import { mobileTheme } from '@/shared/theme/tokens';
-
-const simulationCoordinatesById: Record<string, AttendanceCoordinates> = {
-  matriz: {
-    latitude: -23.561684,
-    longitude: -46.656139,
-  },
-  fora: {
-    latitude: -23.5489,
-    longitude: -46.6388,
-  },
-};
 
 const statusPalette = {
   allowed: {
-    backgroundColor: '#dcfce7',
-    borderColor: '#86efac',
-    titleColor: '#166534',
+    backgroundColor: mobileTheme.primary,
+    highlight: '#22c55e',
+    label: 'Permitido',
+    description: 'A batida está liberada dentro da política atual.',
   },
   pending_review: {
-    backgroundColor: '#fef3c7',
-    borderColor: '#fcd34d',
-    titleColor: '#92400e',
+    backgroundColor: '#ad6a00',
+    highlight: '#facc15',
+    label: 'Em revisão',
+    description: 'O registro pode seguir, mas será revisado pelo RH.',
   },
   blocked: {
-    backgroundColor: '#fee2e2',
-    borderColor: '#fca5a5',
-    titleColor: '#991b1b',
+    backgroundColor: '#991b1b',
+    highlight: '#fca5a5',
+    label: 'Bloqueado',
+    description: 'A localização atual não permite registrar o ponto.',
   },
 } as const;
 
-const formatCoordinates = (coordinates: AttendanceCoordinates | null) => {
-  if (!coordinates) {
-    return 'Localização ainda não coletada.';
+const statusTextByRecordStatus = {
+  valid: 'Validado automaticamente',
+  pending_review: 'Aguardando revisão do RH',
+  adjusted: 'Ajustado pela operação',
+  rejected: 'Rejeitado pela revisão',
+} as const;
+
+const describeDistance = (distanceMeters?: number | null) => {
+  if (distanceMeters == null) {
+    return null;
   }
 
-  return `${coordinates.latitude.toFixed(6)}, ${coordinates.longitude.toFixed(6)}`;
+  if (distanceMeters < 1000) {
+    return `${distanceMeters} m do local mais próximo`;
+  }
+
+  return `${(distanceMeters / 1000).toFixed(1)} km do local mais próximo`;
 };
+
+const buildConfirmationParams = (
+  recordedAt: string | Date,
+  nextRecordType: keyof typeof timeRecordTypeLabels,
+  evaluationTitle?: string | null,
+  matchedLocationName?: string | null,
+  status?: 'valid' | 'pending_review' | 'adjusted' | 'rejected',
+) => ({
+  recordedAt: typeof recordedAt === 'string' ? recordedAt : recordedAt.toISOString(),
+  type: nextRecordType,
+  status: status ?? 'valid',
+  reason: evaluationTitle ?? '',
+  locationName: matchedLocationName ?? '',
+});
 
 export const HomeScreen = () => {
   const { session } = useAppSession();
+  const { employee, scenario, identity } = useCurrentEmployee(session);
   const location = useDeviceLocation();
-  const [simulationCoordinates, setSimulationCoordinates] = useState<AttendanceCoordinates | null>(null);
-  const [lastPunchMessage, setLastPunchMessage] = useState<string | null>(null);
-
-  const activeCoordinates = simulationCoordinates ?? location.coordinates;
-  const { scenario, policyQuery, effectivePolicy, evaluation } = useEmployeeAttendancePolicy(
-    session?.user.email,
-    activeCoordinates,
+  const { coordinates, errorMessage, isLoading: isLocationLoading, permissionStatus, refreshLocation } = location;
+  const { records, lastRecord, nextRecordType, workedMinutesToday, todayRecords, timeRecordsQuery } = useEmployeeTimeRecords(
+    employee?.id ?? scenario?.employeeId,
   );
+  const { policyQuery, effectivePolicy, evaluation } = useEmployeeAttendancePolicy(employee?.id ?? scenario?.employeeId, coordinates);
+  const registerTimeRecord = useRegisterTimeRecord();
 
-  const palette = evaluation ? statusPalette[evaluation.status] : statusPalette.pending_review;
+  useEffect(() => {
+    if (permissionStatus === 'idle' && !coordinates && !isLocationLoading) {
+      void refreshLocation();
+    }
+  }, [coordinates, isLocationLoading, permissionStatus, refreshLocation]);
 
-  const handleRegisterPunch = () => {
-    if (!evaluation?.canSubmitPunch) {
-      setLastPunchMessage('A marcação foi bloqueada porque você está fora da política de localização definida.');
+  const activeCoordinates: AttendanceCoordinates | null = coordinates;
+  const employeeName = identity.name;
+  const recentRecords = records.slice(0, 3);
+  const statusKey = evaluation?.status ?? 'pending_review';
+  const palette = statusPalette[statusKey];
+  const nextRecordLabel = timeRecordTypeLabels[nextRecordType];
+  const canRegister =
+    Boolean(employee?.id ?? scenario?.employeeId) &&
+    !policyQuery.isLoading &&
+    !timeRecordsQuery.isLoading &&
+    !registerTimeRecord.isPending &&
+    Boolean(evaluation?.canSubmitPunch);
+  const hoursTodayLabel = formatDurationFromMinutes(workedMinutesToday);
+  const distanceLabel = describeDistance(evaluation?.distanceMeters);
+
+  const handleRegisterPunch = async () => {
+    const employeeId = employee?.id ?? scenario?.employeeId;
+
+    if (!employeeId) {
+      Alert.alert('Cadastro indisponível', 'Não encontramos seu vínculo de colaborador para registrar o ponto.');
       return;
     }
 
-    setLastPunchMessage(
-      evaluation.status === 'pending_review'
-        ? 'Ponto enviado com revisão pendente do RH por divergência de localização.'
-        : 'Ponto registrado com sucesso dentro das regras da política atual.',
-    );
+    try {
+      const createdRecord = await registerTimeRecord.mutateAsync({
+        employeeId,
+        recordedByUserId: session?.user.id ?? null,
+        nextRecordType,
+        evaluation,
+        coordinates: activeCoordinates,
+      });
+
+      router.push({
+        pathname: '/punch-confirmation',
+        params: buildConfirmationParams(
+          createdRecord.recordedAt,
+          nextRecordType,
+          evaluation?.title ?? evaluation?.description ?? null,
+          evaluation?.matchedLocation?.name ?? evaluation?.nearestAllowedLocation?.name ?? null,
+          createdRecord.status,
+        ),
+      });
+    } catch (error) {
+      Alert.alert(
+        'Não foi possível registrar o ponto',
+        error instanceof Error ? error.message : 'Tente novamente em instantes.',
+      );
+    }
   };
 
   return (
@@ -78,130 +147,177 @@ export const HomeScreen = () => {
       contentInsetAdjustmentBehavior="automatic"
       style={styles.container}
     >
-      <View style={styles.hero}>
-        <Text selectable style={styles.title}>
-          Olá, {scenario?.name ?? session?.user.name ?? 'colaborador'}
-        </Text>
-        <Text style={styles.subtitle}>
-          Valide sua localização antes da batida e acompanhe como a política da jornada reage a cada cenário.
-        </Text>
-      </View>
-
-      <View style={styles.card}>
-        <Text style={styles.cardEyebrow}>Política atual</Text>
-        <Text selectable style={styles.cardTitle}>
-          {effectivePolicy?.name ?? 'Carregando política'}
-        </Text>
-        <Text style={styles.cardText}>
-          {effectivePolicy?.description ?? 'Buscando a regra operacional de marcação vinculada ao seu cadastro.'}
-        </Text>
-        <View style={styles.badgeRow}>
-          <View style={styles.badge}>
-            <Text style={styles.badgeText}>{effectivePolicy?.photoRequired ? 'Foto obrigatória' : 'Foto opcional'}</Text>
-          </View>
-          <View style={styles.badge}>
-            <Text style={styles.badgeText}>
-              {effectivePolicy?.geolocationRequired ? 'Com geolocalização' : 'Sem geolocalização'}
-            </Text>
-          </View>
+      <View style={styles.header}>
+        <View style={styles.avatar}>
+          <Text style={styles.avatarText}>{employeeName.charAt(0).toUpperCase()}</Text>
         </View>
-      </View>
-
-      <View style={[styles.card, styles.statusCard, palette]}>
-        <Text style={[styles.cardEyebrow, { color: palette.titleColor }]}>Validação da localização</Text>
-        <Text style={[styles.cardTitle, { color: palette.titleColor }]}>
-          {policyQuery.isLoading ? 'Carregando regra operacional...' : evaluation?.title ?? 'Aguardando validação'}
-        </Text>
-        <Text style={[styles.cardText, { color: palette.titleColor }]}>
-          {evaluation?.description ??
-            'Use sua localização atual ou uma simulação de teste para avaliar o comportamento da política.'}
-        </Text>
-        <Text selectable style={[styles.coordinatesText, { color: palette.titleColor }]}>
-          {formatCoordinates(activeCoordinates)}
-        </Text>
-        {evaluation?.nearestAllowedLocation ? (
-          <Text style={[styles.helperText, { color: palette.titleColor }]}>
-            Local autorizado mais próximo: {evaluation.nearestAllowedLocation.name}
-            {evaluation.distanceMeters ? ` · ${evaluation.distanceMeters} m` : ''}
+        <View style={styles.headerCopy}>
+          <Text style={styles.headerEyebrow}>Jornada de hoje</Text>
+          <Text style={styles.headerTitle}>Olá, {employeeName.split(' ')[0]}</Text>
+          <Text style={styles.headerSubtitle}>
+            Seu app já está lendo política, localização e histórico para orientar a próxima batida.
           </Text>
-        ) : null}
+        </View>
+        <Pressable style={styles.notificationButton} onPress={() => router.push('/(tabs)/profile')}>
+          <AppIcon color={mobileTheme.subtleText} name="person-circle-outline" size={24} />
+        </Pressable>
       </View>
 
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Validar localização</Text>
-        <Text style={styles.cardText}>
-          Você pode usar a posição real do aparelho ou simular cenários comuns para testar a política de marcação.
+      <View style={[styles.primaryCard, { backgroundColor: palette.backgroundColor }]}>
+        <View style={styles.primaryBadge}>
+          <View style={[styles.primaryDot, { backgroundColor: palette.highlight }]} />
+          <Text style={styles.primaryBadgeText}>{palette.label}</Text>
+        </View>
+        <Text style={styles.primaryLabel}>Próxima batida sugerida</Text>
+        <Text style={styles.primaryTime}>{nextRecordLabel}</Text>
+        <Text style={styles.primaryType}>
+          {lastRecord ? `Último registro às ${formatTimeRecordTime(lastRecord.recordedAt)}` : 'Você ainda não registrou ponto hoje'}
         </Text>
-        <View style={styles.actionGrid}>
-          <Pressable style={styles.primaryButton} onPress={() => void location.refreshLocation()}>
-            <Text style={styles.primaryButtonText}>
-              {location.isLoading ? 'Obtendo localização...' : 'Usar localização atual'}
+        <Text style={styles.primaryDescription}>{evaluation?.description ?? palette.description}</Text>
+        <Pressable
+          disabled={!canRegister}
+          onPress={() => void handleRegisterPunch()}
+          style={[
+            styles.primaryAction,
+            (!canRegister || registerTimeRecord.isPending) && styles.primaryActionDisabled,
+          ]}
+        >
+          {registerTimeRecord.isPending ? (
+            <ActivityIndicator color={mobileTheme.primary} size="small" />
+          ) : (
+            <AppIcon color={mobileTheme.primary} name="finger-print-outline" size={18} />
+          )}
+          <Text style={styles.primaryActionText}>
+            {registerTimeRecord.isPending ? 'Registrando ponto...' : `Registrar ${nextRecordLabel.toLowerCase()}`}
+          </Text>
+        </Pressable>
+      </View>
+
+      <View style={styles.grid}>
+        <View style={styles.metricCard}>
+          <View style={styles.metricIcon}>
+            <AppIcon color={mobileTheme.primary} name="time-outline" size={20} />
+          </View>
+          <Text style={styles.metricEyebrow}>Horas de hoje</Text>
+          <Text style={styles.metricValue}>{hoursTodayLabel}</Text>
+          <Text style={styles.metricHint}>
+            {todayRecords.length > 0
+              ? `${todayRecords.length} marcação(ões) na janela atual.`
+              : 'Nenhuma marcação registrada até agora.'}
+          </Text>
+        </View>
+
+        <View style={styles.secondaryCard}>
+          <Text style={styles.secondaryEyebrow}>Política aplicada</Text>
+          <Text style={styles.secondaryValue}>{effectivePolicy?.name ?? 'Carregando política'}</Text>
+          <Text style={styles.secondaryHint}>
+            {effectivePolicy?.description ?? 'Buscando a regra operacional vinculada ao seu cadastro.'}
+          </Text>
+        </View>
+
+        <View style={styles.shortcutsCard}>
+          <Text style={styles.secondaryEyebrow}>Atalhos</Text>
+          <View style={styles.shortcutsGrid}>
+            <Pressable style={styles.shortcutButton} onPress={() => router.push('/(tabs)/time-records')}>
+              <AppIcon color={mobileTheme.primary} name="receipt-outline" size={20} />
+              <Text style={styles.shortcutLabel}>Ver histórico</Text>
+            </Pressable>
+            <Pressable style={styles.shortcutButton} onPress={() => router.push('/(tabs)/justifications')}>
+              <AppIcon color={mobileTheme.tertiary} name="document-text-outline" size={20} />
+              <Text style={styles.shortcutLabel}>Justificar</Text>
+            </Pressable>
+          </View>
+        </View>
+      </View>
+
+      <View style={styles.locationCard}>
+        <Text style={styles.sectionTitle}>Localização e política</Text>
+        <Text style={styles.sectionText}>
+          {evaluation?.title ?? 'A validação de geofence usa os locais autorizados vinculados ao seu cadastro.'}
+        </Text>
+        <View style={styles.locationInfo}>
+          <View style={styles.locationInfoRow}>
+            <Text style={styles.locationInfoLabel}>Cadastro</Text>
+            <Text style={styles.locationInfoValue}>
+              {identity.roleLabel} · Matrícula {identity.registrationNumber}
+            </Text>
+          </View>
+          <View style={styles.locationInfoRow}>
+            <Text style={styles.locationInfoLabel}>Departamento</Text>
+            <Text style={styles.locationInfoValue}>{identity.department}</Text>
+          </View>
+          <View style={styles.locationInfoRow}>
+            <Text style={styles.locationInfoLabel}>Local mais próximo</Text>
+            <Text style={styles.locationInfoValue}>
+              {evaluation?.matchedLocation?.name ??
+                evaluation?.nearestAllowedLocation?.name ??
+                'Aguardando leitura da política'}
+            </Text>
+          </View>
+          {distanceLabel ? (
+            <View style={styles.locationInfoRow}>
+              <Text style={styles.locationInfoLabel}>Distância</Text>
+              <Text style={styles.locationInfoValue}>{distanceLabel}</Text>
+            </View>
+          ) : null}
+        </View>
+        <View style={styles.locationActions}>
+          <Pressable style={styles.inlineAction} onPress={() => void refreshLocation()}>
+            <AppIcon color={mobileTheme.primary} name="locate-outline" size={18} />
+            <Text style={styles.inlineActionText}>
+              {isLocationLoading ? 'Atualizando localização...' : 'Atualizar localização'}
             </Text>
           </Pressable>
-          <Pressable
-            style={styles.secondaryButton}
-            onPress={() => setSimulationCoordinates(simulationCoordinatesById.matriz)}
-          >
-            <Text style={styles.secondaryButtonText}>Simular matriz</Text>
-          </Pressable>
-          <Pressable style={styles.secondaryButton} onPress={() => setSimulationCoordinates(simulationCoordinatesById.fora)}>
-            <Text style={styles.secondaryButtonText}>Simular fora da área</Text>
-          </Pressable>
-          <Pressable style={styles.secondaryButton} onPress={() => setSimulationCoordinates(null)}>
-            <Text style={styles.secondaryButtonText}>Limpar simulação</Text>
+          <Pressable style={styles.inlineAction} onPress={() => router.push('/(tabs)/profile')}>
+            <AppIcon color={mobileTheme.primary} name="shield-checkmark-outline" size={18} />
+            <Text style={styles.inlineActionText}>Ver política aplicada</Text>
           </Pressable>
         </View>
-        {location.errorMessage ? <Text style={styles.errorText}>{location.errorMessage}</Text> : null}
+        {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
       </View>
 
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Bater ponto</Text>
-        <Text style={styles.cardText}>
-          O registro segue a decisão da política. Fora da área, o sistema pode bloquear ou encaminhar para revisão.
-        </Text>
-        <Pressable
-          disabled={!evaluation}
-          style={[styles.primaryButton, !evaluation && styles.buttonDisabled]}
-          onPress={handleRegisterPunch}
-        >
-          <Text style={styles.primaryButtonText}>Registrar ponto</Text>
-        </Pressable>
-        {lastPunchMessage ? <Text style={styles.helperText}>{lastPunchMessage}</Text> : null}
-      </View>
+      <View style={styles.recordsCard}>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Registros recentes</Text>
+          <Pressable onPress={() => router.push('/(tabs)/time-records')}>
+            <Text style={styles.sectionLink}>Ver todos</Text>
+          </Pressable>
+        </View>
 
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Locais autorizados</Text>
-        <Text style={styles.cardText}>A lista abaixo espelha os locais aceitos pela política atual do seu cadastro.</Text>
-        <View style={styles.list}>
-          {policyQuery.data?.locationCatalog
-            .filter((locationItem) =>
-              policyQuery.data?.allowedLocations.some((allowedLocation) => allowedLocation.workLocationId === locationItem.id),
-            )
-            .map((locationItem) => (
-              <View key={locationItem.id} style={styles.listItem}>
-                <Text style={styles.listItemTitle}>{locationItem.name}</Text>
-                <Text style={styles.listItemMeta}>
-                  {locationItem.city} · {locationItem.radiusMeters} m
-                </Text>
+        {timeRecordsQuery.isLoading ? (
+          <View style={styles.recordsPlaceholder}>
+            <ActivityIndicator color={mobileTheme.primary} />
+            <Text style={styles.recordsPlaceholderText}>Carregando seu histórico...</Text>
+          </View>
+        ) : recentRecords.length === 0 ? (
+          <View style={styles.recordsPlaceholder}>
+            <AppIcon color={mobileTheme.subtleText} name="time-outline" size={22} />
+            <Text style={styles.recordsPlaceholderText}>Sua primeira marcação aparecerá aqui.</Text>
+          </View>
+        ) : (
+          <View style={styles.recordsList}>
+            {recentRecords.map((record) => (
+              <View key={record.id} style={styles.recordItem}>
+                <View style={styles.recordIcon}>
+                  <AppIcon
+                    color={mobileTheme.primary}
+                    name={record.recordType.includes('break') ? 'restaurant-outline' : 'log-in-outline'}
+                    size={18}
+                  />
+                </View>
+                <View style={styles.recordContent}>
+                  <Text style={styles.recordTitle}>
+                    {timeRecordTypeLabels[record.recordType]} · {formatTimeRecordDateTime(record.recordedAt)}
+                  </Text>
+                  <Text style={styles.recordMeta}>
+                    {timeRecordSourceLabels[record.source]} · {statusTextByRecordStatus[record.status]}
+                  </Text>
+                </View>
+                <Text style={styles.recordStatus}>{formatTimeRecordTime(record.recordedAt)}</Text>
               </View>
             ))}
-        </View>
-      </View>
-
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Marcações recentes</Text>
-        <Text style={styles.cardText}>Resumo rápido do histórico recente para orientar o colaborador antes da nova batida.</Text>
-        <View style={styles.list}>
-          {scenario?.recentRecords.map((record) => (
-            <View key={record.id} style={styles.listItem}>
-              <Text style={styles.listItemTitle}>{record.label}</Text>
-              <Text style={styles.listItemMeta}>
-                {record.typeLabel} · {record.statusLabel} · {record.sourceLabel}
-              </Text>
-              <Text style={styles.listItemNote}>{record.notes}</Text>
-            </View>
-          ))}
-        </View>
+          </View>
+        )}
       </View>
     </ScrollView>
   );
@@ -213,128 +329,350 @@ const styles = StyleSheet.create({
     backgroundColor: mobileTheme.background,
   },
   content: {
-    padding: 20,
-    gap: 16,
+    paddingHorizontal: 20,
+    paddingTop: 16,
+    paddingBottom: 120,
+    gap: 18,
   },
-  hero: {
-    gap: 8,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: mobileTheme.text,
-  },
-  subtitle: {
-    color: mobileTheme.mutedText,
-    fontSize: 15,
-    lineHeight: 22,
-  },
-  card: {
-    borderRadius: 24,
-    backgroundColor: mobileTheme.surface,
-    padding: 20,
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 12,
   },
-  statusCard: {
-    borderWidth: 1,
+  avatar: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: mobileTheme.primarySoft,
   },
-  cardEyebrow: {
+  avatarText: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: mobileTheme.primary,
+  },
+  headerCopy: {
+    flex: 1,
+  },
+  headerEyebrow: {
     fontSize: 11,
     fontWeight: '800',
     letterSpacing: 1,
     textTransform: 'uppercase',
-    color: mobileTheme.primary,
+    color: mobileTheme.mutedText,
   },
-  cardTitle: {
-    fontSize: 20,
-    fontWeight: '700',
+  headerTitle: {
+    marginTop: 2,
+    fontSize: 32,
+    fontWeight: '900',
+    letterSpacing: -1.2,
     color: mobileTheme.text,
   },
-  cardText: {
+  headerSubtitle: {
+    marginTop: 4,
+    fontSize: 14,
+    lineHeight: 20,
     color: mobileTheme.mutedText,
-    lineHeight: 21,
   },
-  badgeRow: {
+  notificationButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: mobileTheme.surfaceRaised,
+  },
+  primaryCard: {
+    borderRadius: 28,
+    padding: 24,
+    shadowColor: mobileTheme.primary,
+    shadowOpacity: 0.14,
+    shadowRadius: 24,
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    elevation: 5,
+  },
+  primaryBadge: {
+    alignSelf: 'flex-start',
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    alignItems: 'center',
     gap: 8,
-  },
-  badge: {
     borderRadius: 999,
+    backgroundColor: 'rgba(255,255,255,0.18)',
     paddingHorizontal: 12,
     paddingVertical: 8,
-    backgroundColor: '#e2e8f0',
   },
-  badgeText: {
-    color: mobileTheme.text,
-    fontSize: 12,
-    fontWeight: '700',
+  primaryDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 999,
   },
-  coordinatesText: {
+  primaryBadgeText: {
+    color: '#ffffff',
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 1.1,
+    textTransform: 'uppercase',
+  },
+  primaryLabel: {
+    marginTop: 20,
+    color: 'rgba(255,255,255,0.8)',
     fontSize: 13,
     fontWeight: '600',
   },
-  actionGrid: {
-    gap: 10,
+  primaryTime: {
+    marginTop: 4,
+    color: '#ffffff',
+    fontSize: 38,
+    fontWeight: '900',
+    letterSpacing: -1.6,
   },
-  primaryButton: {
-    borderRadius: 18,
-    backgroundColor: mobileTheme.primary,
-    paddingVertical: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  primaryButtonText: {
-    color: '#fff',
+  primaryType: {
+    color: '#ffffff',
+    fontSize: 17,
     fontWeight: '700',
-    fontSize: 15,
   },
-  secondaryButton: {
-    borderRadius: 18,
-    backgroundColor: '#eff6ff',
-    paddingVertical: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  secondaryButtonText: {
-    color: '#1d4ed8',
-    fontWeight: '700',
+  primaryDescription: {
+    marginTop: 12,
+    color: 'rgba(255,255,255,0.84)',
     fontSize: 14,
+    lineHeight: 21,
   },
-  buttonDisabled: {
-    opacity: 0.6,
+  primaryAction: {
+    alignSelf: 'flex-start',
+    marginTop: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    borderRadius: 18,
+    backgroundColor: '#ffffff',
+    paddingHorizontal: 16,
+    paddingVertical: 14,
   },
-  helperText: {
+  primaryActionDisabled: {
+    opacity: 0.7,
+  },
+  primaryActionText: {
+    color: mobileTheme.primary,
+    fontSize: 14,
+    fontWeight: '800',
+  },
+  grid: {
+    gap: 14,
+  },
+  metricCard: {
+    borderRadius: 24,
+    backgroundColor: mobileTheme.surfaceRaised,
+    padding: 20,
+  },
+  metricIcon: {
+    width: 46,
+    height: 46,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#edf4ff',
+  },
+  metricEyebrow: {
+    marginTop: 16,
+    fontSize: 11,
+    fontWeight: '800',
+    letterSpacing: 1,
+    textTransform: 'uppercase',
     color: mobileTheme.mutedText,
-    lineHeight: 20,
   },
-  errorText: {
-    color: '#b91c1c',
-    lineHeight: 20,
+  metricValue: {
+    marginTop: 6,
+    fontSize: 34,
+    fontWeight: '900',
+    letterSpacing: -1.2,
+    color: mobileTheme.text,
   },
-  list: {
+  metricHint: {
+    marginTop: 8,
+    fontSize: 12,
+    lineHeight: 18,
+    color: mobileTheme.mutedText,
+  },
+  secondaryCard: {
+    borderRadius: 24,
+    backgroundColor: mobileTheme.surfaceLow,
+    padding: 20,
+    gap: 8,
+  },
+  secondaryEyebrow: {
+    fontSize: 11,
+    fontWeight: '800',
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+    color: mobileTheme.mutedText,
+  },
+  secondaryValue: {
+    fontSize: 24,
+    fontWeight: '800',
+    color: mobileTheme.text,
+  },
+  secondaryHint: {
+    fontSize: 13,
+    lineHeight: 20,
+    color: mobileTheme.mutedText,
+  },
+  shortcutsCard: {
+    borderRadius: 24,
+    backgroundColor: mobileTheme.surfaceLow,
+    padding: 20,
+    gap: 12,
+  },
+  shortcutsGrid: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  shortcutButton: {
+    flex: 1,
+    borderRadius: 18,
+    backgroundColor: mobileTheme.surfaceRaised,
+    padding: 16,
     gap: 10,
   },
-  listItem: {
-    borderRadius: 18,
-    backgroundColor: '#fff',
-    padding: 16,
-    gap: 6,
-    borderWidth: 1,
-    borderColor: mobileTheme.border,
-  },
-  listItemTitle: {
-    fontSize: 15,
+  shortcutLabel: {
+    fontSize: 13,
     fontWeight: '700',
     color: mobileTheme.text,
   },
-  listItemMeta: {
-    color: mobileTheme.mutedText,
-    fontSize: 13,
+  locationCard: {
+    borderRadius: 24,
+    backgroundColor: mobileTheme.surfaceRaised,
+    padding: 20,
+    gap: 12,
   },
-  listItemNote: {
+  locationInfo: {
+    borderRadius: 18,
+    backgroundColor: mobileTheme.surfaceLow,
+    padding: 14,
+    gap: 10,
+  },
+  locationInfoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 12,
+  },
+  locationInfoLabel: {
+    fontSize: 12,
+    fontWeight: '700',
     color: mobileTheme.mutedText,
-    lineHeight: 19,
+  },
+  locationInfoValue: {
+    flex: 1,
+    textAlign: 'right',
     fontSize: 13,
+    fontWeight: '700',
+    color: mobileTheme.text,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: mobileTheme.text,
+  },
+  sectionText: {
+    fontSize: 14,
+    lineHeight: 21,
+    color: mobileTheme.mutedText,
+  },
+  sectionLink: {
+    color: mobileTheme.primary,
+    fontSize: 12,
+    fontWeight: '800',
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
+  },
+  locationActions: {
+    gap: 10,
+    marginTop: 2,
+  },
+  inlineAction: {
+    minHeight: 48,
+    borderRadius: 18,
+    backgroundColor: mobileTheme.surfaceLow,
+    paddingHorizontal: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  inlineActionText: {
+    color: mobileTheme.primary,
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  errorText: {
+    fontSize: 13,
+    lineHeight: 19,
+    color: mobileTheme.danger,
+  },
+  recordsCard: {
+    borderRadius: 24,
+    backgroundColor: mobileTheme.surfaceRaised,
+    padding: 20,
+    gap: 14,
+  },
+  recordsList: {
+    gap: 10,
+  },
+  recordsPlaceholder: {
+    minHeight: 100,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: mobileTheme.surfaceLow,
+    gap: 10,
+    paddingHorizontal: 24,
+  },
+  recordsPlaceholderText: {
+    fontSize: 13,
+    textAlign: 'center',
+    color: mobileTheme.mutedText,
+  },
+  recordItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    borderRadius: 18,
+    backgroundColor: mobileTheme.surfaceLow,
+    padding: 14,
+  },
+  recordIcon: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: mobileTheme.surfaceRaised,
+  },
+  recordContent: {
+    flex: 1,
+    gap: 4,
+  },
+  recordTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: mobileTheme.text,
+  },
+  recordMeta: {
+    fontSize: 12,
+    color: mobileTheme.mutedText,
+  },
+  recordStatus: {
+    maxWidth: 92,
+    textAlign: 'right',
+    fontSize: 11,
+    fontWeight: '700',
+    color: mobileTheme.primary,
   },
 });

@@ -6,15 +6,11 @@ import { evaluateAttendanceLocation, type AttendanceCoordinates } from '@rh-pont
 
 import { getEmployeeAppServices } from '@/shared/lib/service-registry';
 
-import { resolveEmployeeAttendanceScenario } from '../lib/employee-attendance-scenarios';
-
-export const useEmployeeAttendancePolicy = (email?: string | null, coordinates?: AttendanceCoordinates | null) => {
-  const scenario = resolveEmployeeAttendanceScenario(email);
-
+export const useEmployeeAttendancePolicy = (employeeId?: string | null, coordinates?: AttendanceCoordinates | null) => {
   const policyQuery = useQuery({
-    queryKey: ['employee-attendance-policy', scenario?.employeeId],
-    enabled: Boolean(scenario?.employeeId),
-    queryFn: async () => getEmployeeAppServices().attendance.getEmployeeAttendancePolicyUseCase.execute(scenario!.employeeId),
+    queryKey: ['employee-app', 'attendance-policy', employeeId],
+    enabled: Boolean(employeeId),
+    queryFn: async () => getEmployeeAppServices().attendance.getEmployeeAttendancePolicyUseCase.execute(employeeId!),
   });
 
   const effectivePolicy =
@@ -32,7 +28,6 @@ export const useEmployeeAttendancePolicy = (email?: string | null, coordinates?:
       : null;
 
   return {
-    scenario,
     policyQuery,
     effectivePolicy,
     evaluation,

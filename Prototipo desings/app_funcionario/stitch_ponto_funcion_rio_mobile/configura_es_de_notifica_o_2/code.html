@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Configurações de Notificação - Chronos Precision</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#2563eb",
+                    "on-secondary-container": "#00217a",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e0e3e5",
+                    "tertiary": "#943700",
+                    "surface-container-low": "#f2f4f6",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-highest": "#e0e3e5",
+                    "secondary-fixed": "#dde1ff",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "inverse-primary": "#b4c5ff",
+                    "tertiary-fixed": "#ffdbcd",
+                    "surface": "#f7f9fb",
+                    "on-surface-variant": "#434655",
+                    "primary-fixed": "#dbe1ff",
+                    "on-tertiary-fixed": "#360f00",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "secondary-fixed-dim": "#b8c4ff",
+                    "on-secondary-fixed-variant": "#173bab",
+                    "on-tertiary-container": "#ffede6",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#0053db",
+                    "on-surface": "#191c1e",
+                    "on-secondary-fixed": "#001453",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "on-primary-fixed": "#00174b",
+                    "secondary": "#3755c3",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#bc4800",
+                    "on-background": "#191c1e",
+                    "inverse-on-surface": "#eff1f3",
+                    "secondary-container": "#708cfd",
+                    "surface-container": "#eceef0",
+                    "primary": "#004ac6",
+                    "on-error": "#ffffff",
+                    "outline-variant": "#c3c6d7",
+                    "surface-bright": "#f7f9fb",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e6e8ea",
+                    "background": "#f7f9fb",
+                    "outline": "#737686",
+                    "on-primary-container": "#eeefff",
+                    "surface-dim": "#d8dadc",
+                    "inverse-surface": "#2d3133"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .toggle-switch:checked + .toggle-bg {
+            background-color: #2563eb;
+        }
+        .toggle-switch:checked + .toggle-bg::after {
+            transform: translateX(1.25rem);
+        }
+        .glass-nav {
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-[#f7f9fb] dark:bg-[#191c1e] flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 hover:bg-[#f2f4f6] dark:hover:bg-[#2c2e33] transition-colors rounded-full active:opacity-70 active:scale-95 duration-150">
+<span class="material-symbols-outlined text-[#2563EB] dark:text-[#dbe1ff]" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="text-[#191c1e] dark:text-[#f7f9fb] text-lg font-semibold tracking-tight">Configurações</h1>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-[#f2f4f6] dark:hover:bg-[#2c2e33] transition-colors rounded-full">
+<span class="material-symbols-outlined text-[#434655]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</header>
+<main class="max-w-md mx-auto px-6 pt-8 space-y-10">
+<!-- Header Editorial Section -->
+<section class="space-y-1">
+<p class="text-[11px] font-bold tracking-[0.15em] text-primary uppercase">Preferências</p>
+<h2 class="text-3xl font-extrabold tracking-tight text-on-surface">Notificações</h2>
+<p class="text-sm text-on-surface-variant font-medium">Personalize como e quando você deseja ser alertado sobre sua jornada.</p>
+</section>
+<!-- Seção 1: Lembretes de Ponto -->
+<section class="space-y-4">
+<h3 class="text-[11px] font-bold tracking-[0.15em] text-outline uppercase px-1"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">schedule</span><span class="text-[11px] font-bold tracking-[0.15em] text-outline uppercase">Lembretes de Ponto</span></div></h3>
+<div class="space-y-6">
+<!-- Row Item -->
+<div class="flex items-center justify-between group">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-on-surface">Entrada</span>
+<span class="text-xs text-on-surface-variant">Lembrar de bater o ponto ao chegar</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-switch" type="checkbox"/>
+<div class="toggle-bg w-11 h-6 bg-surface-container-high rounded-full transition-colors relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all after:shadow-sm"></div>
+</label>
+</div>
+<!-- Row Item -->
+<div class="flex items-center justify-between group">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-on-surface">Pausa para Almoço</span>
+<span class="text-xs text-on-surface-variant">Aviso para início e fim do intervalo</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-switch" type="checkbox"/>
+<div class="toggle-bg w-11 h-6 bg-surface-container-high rounded-full transition-colors relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all after:shadow-sm"></div>
+</label>
+</div>
+<!-- Row Item -->
+<div class="flex items-center justify-between group">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-on-surface">Saída</span>
+<span class="text-xs text-on-surface-variant">Lembrar de encerrar a jornada diária</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-switch" type="checkbox"/>
+<div class="toggle-bg w-11 h-6 bg-surface-container-high rounded-full transition-colors relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all after:shadow-sm"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Seção 2: Justificativas -->
+<section class="space-y-4">
+<h3 class="text-[11px] font-bold tracking-[0.15em] text-outline uppercase px-1"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">assignment_turned_in</span><span class="text-[11px] font-bold tracking-[0.15em] text-outline uppercase">Justificativas</span></div></h3>
+<div class="bg-surface-container-low p-6 rounded-xl space-y-6">
+<!-- Row Item -->
+<div class="flex items-center justify-between group">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-on-surface">Aprovação de Justificativa</span>
+<span class="text-xs text-on-surface-variant">Quando o gestor validar um ajuste</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-switch" type="checkbox"/>
+<div class="toggle-bg w-11 h-6 bg-surface-container-highest rounded-full transition-colors relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all after:shadow-sm"></div>
+</label>
+</div>
+<!-- Row Item -->
+<div class="flex items-center justify-between group">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-on-surface">Ajuste Solicitado pelo RH</span>
+<span class="text-xs text-on-surface-variant">Correções pendentes de sua ação</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-switch" type="checkbox"/>
+<div class="toggle-bg w-11 h-6 bg-surface-container-highest rounded-full transition-colors relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all after:shadow-sm"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Seção 3: Comunicações -->
+<section class="space-y-4">
+<h3 class="text-[11px] font-bold tracking-[0.15em] text-outline uppercase px-1"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">campaign</span><span class="text-[11px] font-bold tracking-[0.15em] text-outline uppercase">Comunicações</span></div></h3>
+<div class="space-y-6">
+<!-- Row Item -->
+<div class="flex items-center justify-between group">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-on-surface">Novos Comunicados da Empresa</span>
+<span class="text-xs text-on-surface-variant">Informativos gerais e notícias</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only toggle-switch" type="checkbox"/>
+<div class="toggle-bg w-11 h-6 bg-surface-container-high rounded-full transition-colors relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all after:shadow-sm"></div>
+</label>
+</div>
+<!-- Row Item -->
+<div class="flex items-center justify-between group">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-on-surface">Alertas do Sistema</span>
+<span class="text-xs text-on-surface-variant">Manutenções e atualizações críticas</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-switch" type="checkbox"/>
+<div class="toggle-bg w-11 h-6 bg-surface-container-high rounded-full transition-colors relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all after:shadow-sm"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Contextual Help Card -->
+<div class="bg-primary-fixed p-6 rounded-xl border border-primary/5">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="info">info</span>
+<div class="space-y-1">
+<p class="text-sm font-bold text-on-primary-fixed">Notificações Inteligentes</p>
+<p class="text-xs text-on-primary-fixed-variant leading-relaxed">
+                        O sistema utiliza sua geolocalização para otimizar os alertas de entrada e saída. Certifique-se de que o GPS está ativo.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-6 left-0 right-0 z-50 flex justify-around items-center px-4">
+<div class="flex justify-around items-center bg-[#f7f9fb]/80 dark:bg-[#191e1e]/80 glass-nav w-[90%] max-w-md rounded-full shadow-[0_12px_32px_rgba(0,74,198,0.06)] p-2">
+<!-- Início -->
+<a class="flex flex-col items-center justify-center text-[#434655] dark:text-[#c3c6d7] p-3 hover:bg-[#f2f4f6] dark:hover:bg-[#2c2e33] rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[10px] font-medium tracking-wide mt-1">Início</span>
+</a>
+<!-- Ponto -->
+<a class="flex flex-col items-center justify-center text-[#434655] dark:text-[#c3c6d7] p-3 hover:bg-[#f2f4f6] dark:hover:bg-[#2c2e33] rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="timer">timer</span>
+<span class="text-[10px] font-medium tracking-wide mt-1">Ponto</span>
+</a>
+<!-- Histórico -->
+<a class="flex flex-col items-center justify-center text-[#434655] dark:text-[#c3c6d7] p-3 hover:bg-[#f2f4f6] dark:hover:bg-[#2c2e33] rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="text-[10px] font-medium tracking-wide mt-1">Histórico</span>
+</a>
+<!-- Ajustes (ACTIVE) -->
+<a class="flex flex-col items-center justify-center bg-[#dbe1ff] dark:bg-[#004ac6]/30 text-[#004ac6] dark:text-[#dbe1ff] rounded-full p-3 active:scale-90 duration-200 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="settings" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-[10px] font-semibold tracking-wide mt-1">Ajustes</span>
+</a>
+</div>
+</nav>
+</body></html>

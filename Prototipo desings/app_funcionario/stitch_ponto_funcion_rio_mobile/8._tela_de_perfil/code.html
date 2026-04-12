@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#bc4800",
+                    "tertiary-fixed": "#ffdbcd",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#191c1e",
+                    "surface-dim": "#d8dadc",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-primary-container": "#eeefff",
+                    "surface-variant": "#e0e3e5",
+                    "on-secondary-fixed": "#001453",
+                    "surface-tint": "#0053db",
+                    "secondary-fixed-dim": "#b8c4ff",
+                    "on-primary": "#ffffff",
+                    "primary": "#004ac6",
+                    "secondary-fixed": "#dde1ff",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#00217a",
+                    "outline-variant": "#c3c6d7",
+                    "surface-container-low": "#f2f4f6",
+                    "on-surface-variant": "#434655",
+                    "secondary": "#3755c3",
+                    "surface-container": "#eceef0",
+                    "secondary-container": "#708cfd",
+                    "outline": "#737686",
+                    "on-tertiary-fixed": "#360f00",
+                    "on-tertiary": "#ffffff",
+                    "background": "#f7f9fb",
+                    "primary-fixed": "#dbe1ff",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-container": "#ffede6",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-secondary-fixed-variant": "#173bab",
+                    "primary-container": "#2563eb",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "inverse-primary": "#b4c5ff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-surface": "#2d3133",
+                    "tertiary": "#943700",
+                    "error": "#ba1a1a",
+                    "on-background": "#191c1e",
+                    "on-primary-fixed": "#00174b",
+                    "on-primary-fixed-variant": "#003ea8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-50 bg-[#f7f9fb] dark:bg-slate-950 flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Professional headshot of a smiling executive man in a tailored suit against a clean, neutral architectural background with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMDJguqGUb7zY9G-pPtOesfCTXP1tN58zinzWTRIab28_cJto0YAqXfsuhoAeOrqSLB6zodEQ8B9dbTd5qRvYQlJjFmZYagXseh8U1ZSpfAju5M1TfKE41tGFHsorQTAlLs6nRE7sC6UPCG8NifhgHPypcH2fs-ms7-45-hOQnjDiRWcSpSFaQ_rifFwQH5MCk7ArrxHQpov2xPzVL0GjEAr1dHubBivsJeYb63nDO136vdXmrIoXZB7gMTVa0Cn9yLmI-js7VS_M"/>
+</div>
+<h1 class="font-['Inter'] text-lg font-semibold tracking-tight text-blue-700 dark:text-blue-400 font-black tracking-tighter">Ponto Eletrônico</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant hover:opacity-80 transition-all active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<main class="px-6 mt-4 max-w-2xl mx-auto">
+<!-- Profile Header Section (Asymmetric Editorial Style) -->
+<section class="mb-10">
+<div class="relative">
+<div class="w-24 h-24 rounded-[2rem] overflow-hidden shadow-xl mb-6 ring-4 ring-white">
+<img alt="Profile Large" class="w-full h-full object-cover" data-alt="Detailed close-up of a confident professional man with a friendly expression, soft office environment background with bokeh light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIT8YI1ZxYyCwfyk_FuKkJx-lbaEczmR3I6VQi81Ty310-OksSXFmIv7K2VrcH3GwawIi8gPf9hD05D_cI0XuIRC1M3RPUM5VUk-YpPN35-B-SUDH3XGXInPbbVOuE2Pg1o2MwqrDCoCdX66HxBw1kYat-EdwNj8NBawR0vcTYS2Efy8CtlIDNq13DpXYe0Cbog2s1-w7V1iBV0ymsnyEXa4K5WGolpkBP0GNmAUCPwbbUgUodNcmXoL-3lWft8xsrwzCpwYEKJTo"/>
+</div>
+<div class="space-y-1">
+<h2 class="text-3xl font-bold tracking-tight text-on-surface">Ricardo Mendonça</h2>
+<p class="text-on-surface-variant font-medium flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                        Arquiteto de Software Sênior
+                    </p>
+<p class="text-on-surface-variant/70 text-sm tracking-wide uppercase font-semibold">Tecnologia &amp; Inovação</p>
+</div>
+</div>
+</section>
+<!-- Personal Data Section (Surface Shifts instead of Borders) -->
+<section class="bg-surface-container-low rounded-[2rem] p-8 mb-6">
+<div class="mb-8">
+<span class="text-[10px] font-bold tracking-[0.1em] text-primary uppercase block mb-4">Dados Pessoais</span>
+<div class="grid gap-6">
+<!-- Data Entry -->
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-semibold text-on-surface-variant/60 uppercase tracking-wider">E-mail Corporativo</span>
+<span class="text-on-surface font-medium">ricardo.m@empresa.com.br</span>
+</div>
+</div>
+<!-- Data Entry -->
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined">call</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-semibold text-on-surface-variant/60 uppercase tracking-wider">Telefone</span>
+<span class="text-on-surface font-medium">+55 (11) 98765-4321</span>
+</div>
+</div>
+<!-- Data Entry -->
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined">badge</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-semibold text-on-surface-variant/60 uppercase tracking-wider">Matrícula</span>
+<span class="text-on-surface font-medium">EMP-99284-X</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Stats/Chips (Low Chroma) -->
+<div class="flex flex-wrap gap-2">
+<div class="px-4 py-2 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">verified</span> Ativo
+                </div>
+<div class="px-4 py-2 rounded-full bg-secondary/10 text-secondary text-xs font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">schedule</span> CLT 40h
+                </div>
+</div>
+</section>
+<!-- Account Actions (Clean List) -->
+<section class="space-y-3">
+<button class="w-full bg-white hover:bg-surface-container-low transition-colors rounded-2xl p-4 flex items-center justify-between group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-surface-container-low text-on-surface-variant group-hover:bg-primary/10 group-hover:text-primary transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">settings</span>
+</div>
+<span class="font-semibold text-on-surface">Configurações da Conta</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</button>
+<button class="w-full bg-white hover:bg-surface-container-low transition-colors rounded-2xl p-4 flex items-center justify-between group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-surface-container-low text-on-surface-variant group-hover:bg-primary/10 group-hover:text-primary transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">security</span>
+</div>
+<span class="font-semibold text-on-surface">Privacidade e Segurança</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</button>
+<button class="w-full bg-error-container/20 hover:bg-error-container/40 transition-colors rounded-2xl p-4 flex items-center justify-between group mt-8">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-white text-error flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined">logout</span>
+</div>
+<span class="font-bold text-error">Sair do Aplicativo</span>
+</div>
+</button>
+</section>
+<!-- App Info (Subtle) -->
+<div class="mt-12 text-center pb-12">
+<p class="text-xs text-on-surface-variant/40 font-medium tracking-widest uppercase">Versão 2.4.0 (Enterprise Edition)</p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-[24px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-[0_-12px_32px_rgba(0,74,198,0.06)] flex justify-around items-center px-6 pb-6 pt-3">
+<!-- Início -->
+<div class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 scale-95 active:scale-90 transition-all cursor-pointer">
+<span class="material-symbols-outlined mb-1">home_app_logo</span>
+<span class="font-['Inter'] text-[10px] tracking-wider uppercase font-medium">Início</span>
+</div>
+<!-- Marcações -->
+<div class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 scale-95 active:scale-90 transition-all cursor-pointer">
+<span class="material-symbols-outlined mb-1">history</span>
+<span class="font-['Inter'] text-[10px] tracking-wider uppercase font-medium">Marcações</span>
+</div>
+<!-- Justificativas -->
+<div class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 scale-95 active:scale-90 transition-all cursor-pointer">
+<span class="material-symbols-outlined mb-1">edit_document</span>
+<span class="font-['Inter'] text-[10px] tracking-wider uppercase font-medium">Justificativas</span>
+</div>
+<!-- Perfil (Active) -->
+<div class="flex flex-col items-center justify-center bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-2xl px-4 py-1.5 transition-all scale-95 active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span class="font-['Inter'] text-[10px] tracking-wider uppercase font-medium text-blue-600 dark:text-blue-400">Perfil</span>
+</div>
+</nav>
+</body></html>

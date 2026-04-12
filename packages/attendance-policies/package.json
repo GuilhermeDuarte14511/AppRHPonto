@@ -9,6 +9,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
+    "@rh-ponto/api-client": "workspace:*",
     "@rh-ponto/core": "workspace:*",
     "@rh-ponto/types": "workspace:*"
   }

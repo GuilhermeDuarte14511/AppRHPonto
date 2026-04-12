@@ -12,14 +12,17 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@expo/vector-icons": "^14.1.0",
     "@hookform/resolvers": "^5.0.1",
     "@rh-ponto/attendance-policies": "workspace:*",
     "@rh-ponto/auth": "workspace:*",
     "@rh-ponto/config": "workspace:*",
     "@rh-ponto/core": "workspace:*",
+    "@rh-ponto/employees": "workspace:*",
     "@rh-ponto/firebase": "workspace:*",
     "@rh-ponto/justifications": "workspace:*",
     "@rh-ponto/time-records": "workspace:*",
+    "@rh-ponto/types": "workspace:*",
     "@rh-ponto/validations": "workspace:*",
     "@tanstack/react-query": "^5.66.8",
     "expo": "~53.0.9",

@@ -2,10 +2,25 @@ import { themeTokens } from '@rh-ponto/config';
 
 export const mobileTheme = {
   background: themeTokens.colors.background,
+  backgroundAlt: '#eef3fb',
   surface: themeTokens.colors.card,
+  surfaceLow: '#f2f4f6',
+  surfaceHigh: '#e6e8ea',
+  surfaceRaised: '#ffffff',
   primary: themeTokens.colors.primary,
+  primaryStrong: '#2563eb',
+  primarySoft: '#dbe1ff',
+  secondary: '#3755c3',
+  tertiary: '#943700',
+  success: '#166534',
+  successSoft: '#dcfce7',
+  warning: '#92400e',
+  warningSoft: '#fef3c7',
+  danger: '#991b1b',
+  dangerSoft: '#fee2e2',
   text: themeTokens.colors.foreground,
   mutedText: themeTokens.colors.mutedForeground,
+  subtleText: '#737686',
   border: themeTokens.colors.border,
+  shadow: 'rgba(0, 74, 198, 0.08)',
 };
-

@@ -2,21 +2,35 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { Session } from '@rh-ponto/auth';
 import { AppError } from '@rh-ponto/core';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { getEmployeeAppServices } from '../lib/service-registry';
 import { clearEmployeeSession, persistEmployeeSession, restoreEmployeeSession } from '../lib/session-storage';
 
 interface AppSessionContextValue {
+  backendMode: 'mock' | 'firebase';
   isLoading: boolean;
   session: Session | null;
-  signInAsEmployee: () => Promise<void>;
+  signIn: (credentials: { email: string; password: string }) => Promise<void>;
   signOut: () => Promise<void>;
 }
 
 const AppSessionContext = createContext<AppSessionContextValue | undefined>(undefined);
 
 export const AppProviders = ({ children }: { children: React.ReactNode }) => {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 1000 * 60 * 3,
+            gcTime: 1000 * 60 * 30,
+            retry: 1,
+            refetchOnWindowFocus: false,
+          },
+        },
+      }),
+  );
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const services = getEmployeeAppServices();
@@ -51,17 +65,15 @@ export const AppProviders = ({ children }: { children: React.ReactNode }) => {
 
   const value = useMemo<AppSessionContextValue>(
     () => ({
+      backendMode: services.runtime.backendMode,
       isLoading,
       session,
-      async signInAsEmployee() {
-        const nextSession = await services.auth.signInUseCase.execute({
-          email: 'employee@empresa.com',
-          password: 'employee123',
-        });
+      async signIn(credentials) {
+        const nextSession = await services.auth.signInUseCase.execute(credentials);
 
         if (nextSession.user.role !== 'employee') {
           await services.auth.signOutUseCase.execute();
-          throw new AppError('AUTH_INVALID_ROLE', 'A sessao retornada nao pertence ao app do funcionario.');
+          throw new AppError('AUTH_INVALID_ROLE', 'A sessão retornada não pertence ao app do funcionário.');
         }
 
         setSession(nextSession);
@@ -77,9 +89,11 @@ export const AppProviders = ({ children }: { children: React.ReactNode }) => {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AppSessionContext.Provider value={value}>{children}</AppSessionContext.Provider>
-    </QueryClientProvider>
+    <SafeAreaProvider>
+      <QueryClientProvider client={queryClient}>
+        <AppSessionContext.Provider value={value}>{children}</AppSessionContext.Provider>
+      </QueryClientProvider>
+    </SafeAreaProvider>
   );
 };
 
