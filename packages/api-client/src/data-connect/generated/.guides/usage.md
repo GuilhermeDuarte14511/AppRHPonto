@@ -14,38 +14,38 @@ If a user is not using a supported framework, they can use the generated SDK dir
 Here's an example of how to use it with the first 5 operations:
 
 ```js
-import { listDevices, getDeviceById, createDevice, updateDevice, deactivateDevice, listEmployeeNotifications, markEmployeeNotificationAsRead, getEmployeeNotificationPreferences, updateEmployeeNotificationPreferences, listEmployeeDocuments } from '@rh-ponto/api-client/generated';
+import { listAttendancePolicies, listWorkLocations, listEmployeeAttendancePolicies, listEmployeeAllowedLocations, createAttendancePolicy, updateAttendancePolicy, createWorkLocation, createEmployeeAttendancePolicy, updateEmployeeAttendancePolicy, addEmployeeAllowedLocation } from '@rh-ponto/api-client/generated';
 
 
-// Operation ListDevices: 
-const { data } = await ListDevices(dataConnect);
+// Operation ListAttendancePolicies: 
+const { data } = await ListAttendancePolicies(dataConnect);
 
-// Operation GetDeviceById:  For variables, look at type GetDeviceByIdVars in ../index.d.ts
-const { data } = await GetDeviceById(dataConnect, getDeviceByIdVars);
+// Operation ListWorkLocations: 
+const { data } = await ListWorkLocations(dataConnect);
 
-// Operation CreateDevice:  For variables, look at type CreateDeviceVars in ../index.d.ts
-const { data } = await CreateDevice(dataConnect, createDeviceVars);
+// Operation ListEmployeeAttendancePolicies: 
+const { data } = await ListEmployeeAttendancePolicies(dataConnect);
 
-// Operation UpdateDevice:  For variables, look at type UpdateDeviceVars in ../index.d.ts
-const { data } = await UpdateDevice(dataConnect, updateDeviceVars);
+// Operation ListEmployeeAllowedLocations: 
+const { data } = await ListEmployeeAllowedLocations(dataConnect);
 
-// Operation DeactivateDevice:  For variables, look at type DeactivateDeviceVars in ../index.d.ts
-const { data } = await DeactivateDevice(dataConnect, deactivateDeviceVars);
+// Operation CreateAttendancePolicy:  For variables, look at type CreateAttendancePolicyVars in ../index.d.ts
+const { data } = await CreateAttendancePolicy(dataConnect, createAttendancePolicyVars);
 
-// Operation ListEmployeeNotifications:  For variables, look at type ListEmployeeNotificationsVars in ../index.d.ts
-const { data } = await ListEmployeeNotifications(dataConnect, listEmployeeNotificationsVars);
+// Operation UpdateAttendancePolicy:  For variables, look at type UpdateAttendancePolicyVars in ../index.d.ts
+const { data } = await UpdateAttendancePolicy(dataConnect, updateAttendancePolicyVars);
 
-// Operation MarkEmployeeNotificationAsRead:  For variables, look at type MarkEmployeeNotificationAsReadVars in ../index.d.ts
-const { data } = await MarkEmployeeNotificationAsRead(dataConnect, markEmployeeNotificationAsReadVars);
+// Operation CreateWorkLocation:  For variables, look at type CreateWorkLocationVars in ../index.d.ts
+const { data } = await CreateWorkLocation(dataConnect, createWorkLocationVars);
 
-// Operation GetEmployeeNotificationPreferences:  For variables, look at type GetEmployeeNotificationPreferencesVars in ../index.d.ts
-const { data } = await GetEmployeeNotificationPreferences(dataConnect, getEmployeeNotificationPreferencesVars);
+// Operation CreateEmployeeAttendancePolicy:  For variables, look at type CreateEmployeeAttendancePolicyVars in ../index.d.ts
+const { data } = await CreateEmployeeAttendancePolicy(dataConnect, createEmployeeAttendancePolicyVars);
 
-// Operation UpdateEmployeeNotificationPreferences:  For variables, look at type UpdateEmployeeNotificationPreferencesVars in ../index.d.ts
-const { data } = await UpdateEmployeeNotificationPreferences(dataConnect, updateEmployeeNotificationPreferencesVars);
+// Operation UpdateEmployeeAttendancePolicy:  For variables, look at type UpdateEmployeeAttendancePolicyVars in ../index.d.ts
+const { data } = await UpdateEmployeeAttendancePolicy(dataConnect, updateEmployeeAttendancePolicyVars);
 
-// Operation ListEmployeeDocuments:  For variables, look at type ListEmployeeDocumentsVars in ../index.d.ts
-const { data } = await ListEmployeeDocuments(dataConnect, listEmployeeDocumentsVars);
+// Operation AddEmployeeAllowedLocation:  For variables, look at type AddEmployeeAllowedLocationVars in ../index.d.ts
+const { data } = await AddEmployeeAllowedLocation(dataConnect, addEmployeeAllowedLocationVars);
 
 
 ```
