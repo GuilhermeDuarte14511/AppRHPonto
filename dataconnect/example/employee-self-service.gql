@@ -1,0 +1,183 @@
+query ListEmployeeNotifications($userId: UUID!)
+  @auth(level: USER, insecureReason: "Operação do aplicativo do colaborador para central de mensagens.") {
+  adminNotifications(
+    where: { recipientUserId: { eq: $userId } }
+    orderBy: [{ triggeredAt: DESC }]
+    limit: 50
+  ) {
+    id
+    category
+    title
+    description
+    href
+    entityName
+    entityId
+    severity
+    status
+    triggeredAt
+    readAt
+    createdAt
+    updatedAt
+  }
+}
+
+mutation MarkEmployeeNotificationAsRead($id: UUID!)
+  @auth(level: USER, insecureReason: "Operação do aplicativo do colaborador para leitura de mensagens.") {
+  adminNotification_update(
+    id: $id
+    data: {
+      status: "read"
+      readAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+query GetEmployeeNotificationPreferences($userId: UUID!)
+  @auth(level: USER, insecureReason: "Operação do aplicativo do colaborador para consultar preferências de notificação.") {
+  employeeNotificationPreferences(
+    where: { userId: { eq: $userId } }
+    limit: 1
+  ) {
+    id
+    user {
+      id
+    }
+    notifyEntryReminder
+    notifyBreakReminder
+    notifyExitReminder
+    notifyJustificationStatus
+    notifyRhAdjustment
+    notifyCompanyCommunications
+    notifySystemAlerts
+    notifyVacationStatus
+    notifyDocuments
+    notifyPayroll
+    createdAt
+    updatedAt
+  }
+}
+
+mutation UpdateEmployeeNotificationPreferences(
+  $id: UUID!
+  $notifyEntryReminder: Boolean!
+  $notifyBreakReminder: Boolean!
+  $notifyExitReminder: Boolean!
+  $notifyJustificationStatus: Boolean!
+  $notifyRhAdjustment: Boolean!
+  $notifyCompanyCommunications: Boolean!
+  $notifySystemAlerts: Boolean!
+  $notifyVacationStatus: Boolean!
+  $notifyDocuments: Boolean!
+  $notifyPayroll: Boolean!
+)
+  @auth(level: USER, insecureReason: "Operação do aplicativo do colaborador para atualizar preferências de notificação.") {
+  employeeNotificationPreference_update(
+    id: $id
+    data: {
+      notifyEntryReminder: $notifyEntryReminder
+      notifyBreakReminder: $notifyBreakReminder
+      notifyExitReminder: $notifyExitReminder
+      notifyJustificationStatus: $notifyJustificationStatus
+      notifyRhAdjustment: $notifyRhAdjustment
+      notifyCompanyCommunications: $notifyCompanyCommunications
+      notifySystemAlerts: $notifySystemAlerts
+      notifyVacationStatus: $notifyVacationStatus
+      notifyDocuments: $notifyDocuments
+      notifyPayroll: $notifyPayroll
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+query ListEmployeeDocuments($employeeId: UUID!)
+  @auth(level: USER, insecureReason: "Operação do aplicativo do colaborador para consultar documentos.") {
+  employeeDocuments(
+    where: { employeeId: { eq: $employeeId } }
+    orderBy: [{ issuedAt: DESC }]
+    limit: 100
+  ) {
+    id
+    employee {
+      id
+    }
+    category
+    title
+    description
+    status
+    fileName
+    fileUrl
+    issuedAt
+    acknowledgedAt
+    expiresAt
+    createdAt
+    updatedAt
+  }
+}
+
+query GetEmployeeDocumentById($id: UUID!)
+  @auth(level: USER, insecureReason: "Operação do aplicativo do colaborador para consultar um documento.") {
+  employeeDocument(id: $id) {
+    id
+    employee {
+      id
+    }
+    category
+    title
+    description
+    status
+    fileName
+    fileUrl
+    issuedAt
+    acknowledgedAt
+    expiresAt
+    createdAt
+    updatedAt
+  }
+}
+
+query ListPayrollStatements($employeeId: UUID!)
+  @auth(level: USER, insecureReason: "Operação do aplicativo do colaborador para consultar holerites.") {
+  payrollStatements(
+    where: { employeeId: { eq: $employeeId } }
+    orderBy: [{ referenceYear: DESC }, { referenceMonth: DESC }]
+    limit: 60
+  ) {
+    id
+    employee {
+      id
+    }
+    referenceLabel
+    referenceYear
+    referenceMonth
+    status
+    grossAmount
+    netAmount
+    fileName
+    fileUrl
+    issuedAt
+    createdAt
+    updatedAt
+  }
+}
+
+query GetPayrollStatementById($id: UUID!)
+  @auth(level: USER, insecureReason: "Operação do aplicativo do colaborador para consultar um holerite.") {
+  payrollStatement(id: $id) {
+    id
+    employee {
+      id
+    }
+    referenceLabel
+    referenceYear
+    referenceMonth
+    status
+    grossAmount
+    netAmount
+    fileName
+    fileUrl
+    issuedAt
+    createdAt
+    updatedAt
+  }
+}

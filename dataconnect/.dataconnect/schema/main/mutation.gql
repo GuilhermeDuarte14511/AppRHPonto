@@ -81,6 +81,24 @@ extend type Mutation {
     data: EmployeeAttendancePolicy_Data!
   ): EmployeeAttendancePolicy_KeyOutput! @fdc_generated(from: "EmployeeAttendancePolicy", purpose: INSERT_SINGLE)
   """
+  ✨ Insert a single `EmployeeDocument` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  employeeDocument_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: EmployeeDocument_Data!
+  ): EmployeeDocument_KeyOutput! @fdc_generated(from: "EmployeeDocument", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `EmployeeNotificationPreference` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  employeeNotificationPreference_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: EmployeeNotificationPreference_Data!
+  ): EmployeeNotificationPreference_KeyOutput! @fdc_generated(from: "EmployeeNotificationPreference", purpose: INSERT_SINGLE)
+  """
   ✨ Insert a single `EmployeeScheduleHistory` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
   """
   employeeScheduleHistory_insert(
@@ -125,6 +143,15 @@ extend type Mutation {
     """
     data: OnboardingTask_Data!
   ): OnboardingTask_KeyOutput! @fdc_generated(from: "OnboardingTask", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `PayrollStatement` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  payrollStatement_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: PayrollStatement_Data!
+  ): PayrollStatement_KeyOutput! @fdc_generated(from: "PayrollStatement", purpose: INSERT_SINGLE)
   """
   ✨ Insert a single `TimeRecord` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
   """
@@ -261,6 +288,24 @@ extend type Mutation {
     data: [EmployeeAttendancePolicy_Data!]!
   ): [EmployeeAttendancePolicy_KeyOutput!]! @fdc_generated(from: "EmployeeAttendancePolicy", purpose: INSERT_MULTIPLE)
   """
+  ✨ Insert `EmployeeDocument` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  employeeDocument_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [EmployeeDocument_Data!]!
+  ): [EmployeeDocument_KeyOutput!]! @fdc_generated(from: "EmployeeDocument", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `EmployeeNotificationPreference` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  employeeNotificationPreference_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [EmployeeNotificationPreference_Data!]!
+  ): [EmployeeNotificationPreference_KeyOutput!]! @fdc_generated(from: "EmployeeNotificationPreference", purpose: INSERT_MULTIPLE)
+  """
   ✨ Insert `EmployeeScheduleHistory` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
   """
   employeeScheduleHistory_insertMany(
@@ -305,6 +350,15 @@ extend type Mutation {
     """
     data: [OnboardingTask_Data!]!
   ): [OnboardingTask_KeyOutput!]! @fdc_generated(from: "OnboardingTask", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `PayrollStatement` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  payrollStatement_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [PayrollStatement_Data!]!
+  ): [PayrollStatement_KeyOutput!]! @fdc_generated(from: "PayrollStatement", purpose: INSERT_MULTIPLE)
   """
   ✨ Insert `TimeRecord` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
   """
@@ -441,6 +495,24 @@ extend type Mutation {
     data: EmployeeAttendancePolicy_Data!
   ): EmployeeAttendancePolicy_KeyOutput! @fdc_generated(from: "EmployeeAttendancePolicy", purpose: UPSERT_SINGLE)
   """
+  ✨ Insert or update a single `EmployeeDocument` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `EmployeeDocument`.
+  """
+  employeeDocument_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: EmployeeDocument_Data!
+  ): EmployeeDocument_KeyOutput! @fdc_generated(from: "EmployeeDocument", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `EmployeeNotificationPreference` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `EmployeeNotificationPreference`.
+  """
+  employeeNotificationPreference_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: EmployeeNotificationPreference_Data!
+  ): EmployeeNotificationPreference_KeyOutput! @fdc_generated(from: "EmployeeNotificationPreference", purpose: UPSERT_SINGLE)
+  """
   ✨ Insert or update a single `EmployeeScheduleHistory` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `EmployeeScheduleHistory`.
   """
   employeeScheduleHistory_upsert(
@@ -485,6 +557,15 @@ extend type Mutation {
     """
     data: OnboardingTask_Data!
   ): OnboardingTask_KeyOutput! @fdc_generated(from: "OnboardingTask", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `PayrollStatement` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `PayrollStatement`.
+  """
+  payrollStatement_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: PayrollStatement_Data!
+  ): PayrollStatement_KeyOutput! @fdc_generated(from: "PayrollStatement", purpose: UPSERT_SINGLE)
   """
   ✨ Insert or update a single `TimeRecord` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `TimeRecord`.
   """
@@ -621,6 +702,24 @@ extend type Mutation {
     data: [EmployeeAttendancePolicy_Data!]!
   ): [EmployeeAttendancePolicy_KeyOutput!]! @fdc_generated(from: "EmployeeAttendancePolicy", purpose: UPSERT_MULTIPLE)
   """
+  ✨ Insert or update `EmployeeDocument` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `EmployeeDocument`.
+  """
+  employeeDocument_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [EmployeeDocument_Data!]!
+  ): [EmployeeDocument_KeyOutput!]! @fdc_generated(from: "EmployeeDocument", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `EmployeeNotificationPreference` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `EmployeeNotificationPreference`.
+  """
+  employeeNotificationPreference_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [EmployeeNotificationPreference_Data!]!
+  ): [EmployeeNotificationPreference_KeyOutput!]! @fdc_generated(from: "EmployeeNotificationPreference", purpose: UPSERT_MULTIPLE)
+  """
   ✨ Insert or update `EmployeeScheduleHistory` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `EmployeeScheduleHistory`.
   """
   employeeScheduleHistory_upsertMany(
@@ -665,6 +764,15 @@ extend type Mutation {
     """
     data: [OnboardingTask_Data!]!
   ): [OnboardingTask_KeyOutput!]! @fdc_generated(from: "OnboardingTask", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `PayrollStatement` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `PayrollStatement`.
+  """
+  payrollStatement_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [PayrollStatement_Data!]!
+  ): [PayrollStatement_KeyOutput!]! @fdc_generated(from: "PayrollStatement", purpose: UPSERT_MULTIPLE)
   """
   ✨ Insert or update `TimeRecord` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `TimeRecord`.
   """
@@ -931,6 +1039,54 @@ extend type Mutation {
     data: EmployeeAttendancePolicy_Data!
   ): EmployeeAttendancePolicy_KeyOutput @fdc_generated(from: "EmployeeAttendancePolicy", purpose: UPDATE_SINGLE)
   """
+  ✨ Update a single `EmployeeDocument` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `EmployeeDocument` or `null` if not found.
+  """
+  employeeDocument_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: EmployeeDocument_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EmployeeDocument_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: EmployeeDocument_Data!
+  ): EmployeeDocument_KeyOutput @fdc_generated(from: "EmployeeDocument", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `EmployeeNotificationPreference` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `EmployeeNotificationPreference` or `null` if not found.
+  """
+  employeeNotificationPreference_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: EmployeeNotificationPreference_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EmployeeNotificationPreference_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: EmployeeNotificationPreference_Data!
+  ): EmployeeNotificationPreference_KeyOutput @fdc_generated(from: "EmployeeNotificationPreference", purpose: UPDATE_SINGLE)
+  """
   ✨ Update a single `EmployeeScheduleHistory` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `EmployeeScheduleHistory` or `null` if not found.
   """
   employeeScheduleHistory_update(
@@ -1050,6 +1206,30 @@ extend type Mutation {
     """
     data: OnboardingTask_Data!
   ): OnboardingTask_KeyOutput @fdc_generated(from: "OnboardingTask", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `PayrollStatement` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `PayrollStatement` or `null` if not found.
+  """
+  payrollStatement_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: PayrollStatement_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: PayrollStatement_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: PayrollStatement_Data!
+  ): PayrollStatement_KeyOutput @fdc_generated(from: "PayrollStatement", purpose: UPDATE_SINGLE)
   """
   ✨ Update a single `TimeRecord` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `TimeRecord` or `null` if not found.
   """
@@ -1366,6 +1546,44 @@ extend type Mutation {
     data: EmployeeAttendancePolicy_Data!
   ): Int! @fdc_generated(from: "EmployeeAttendancePolicy", purpose: UPDATE_MULTIPLE)
   """
+  ✨ Update `EmployeeDocument` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  employeeDocument_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: EmployeeDocument_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: EmployeeDocument_Data!
+  ): Int! @fdc_generated(from: "EmployeeDocument", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `EmployeeNotificationPreference` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  employeeNotificationPreference_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: EmployeeNotificationPreference_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: EmployeeNotificationPreference_Data!
+  ): Int! @fdc_generated(from: "EmployeeNotificationPreference", purpose: UPDATE_MULTIPLE)
+  """
   ✨ Update `EmployeeScheduleHistory` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
   """
   employeeScheduleHistory_updateMany(
@@ -1460,6 +1678,25 @@ extend type Mutation {
     """
     data: OnboardingTask_Data!
   ): Int! @fdc_generated(from: "OnboardingTask", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `PayrollStatement` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  payrollStatement_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: PayrollStatement_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: PayrollStatement_Data!
+  ): Int! @fdc_generated(from: "PayrollStatement", purpose: UPDATE_MULTIPLE)
   """
   ✨ Update `TimeRecord` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
   """
@@ -1741,6 +1978,44 @@ extend type Mutation {
     first: EmployeeAttendancePolicy_FirstRow
   ): EmployeeAttendancePolicy_KeyOutput @fdc_generated(from: "EmployeeAttendancePolicy", purpose: DELETE_SINGLE)
   """
+  ✨ Delete a single `EmployeeDocument` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  employeeDocument_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: EmployeeDocument_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EmployeeDocument_FirstRow
+  ): EmployeeDocument_KeyOutput @fdc_generated(from: "EmployeeDocument", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `EmployeeNotificationPreference` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  employeeNotificationPreference_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: EmployeeNotificationPreference_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EmployeeNotificationPreference_FirstRow
+  ): EmployeeNotificationPreference_KeyOutput @fdc_generated(from: "EmployeeNotificationPreference", purpose: DELETE_SINGLE)
+  """
   ✨ Delete a single `EmployeeScheduleHistory` based on `id`, `key` or `first` and return its key (or `null` if not found).
   """
   employeeScheduleHistory_delete(
@@ -1835,6 +2110,25 @@ extend type Mutation {
     """
     first: OnboardingTask_FirstRow
   ): OnboardingTask_KeyOutput @fdc_generated(from: "OnboardingTask", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `PayrollStatement` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  payrollStatement_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: PayrollStatement_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: PayrollStatement_FirstRow
+  ): PayrollStatement_KeyOutput @fdc_generated(from: "PayrollStatement", purpose: DELETE_SINGLE)
   """
   ✨ Delete a single `TimeRecord` based on `id`, `key` or `first` and return its key (or `null` if not found).
   """
@@ -2076,6 +2370,34 @@ extend type Mutation {
     all: Boolean = false
   ): Int! @fdc_generated(from: "EmployeeAttendancePolicy", purpose: DELETE_MULTIPLE)
   """
+  ✨ Delete `EmployeeDocument` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  employeeDocument_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: EmployeeDocument_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeDocument", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `EmployeeNotificationPreference` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  employeeNotificationPreference_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: EmployeeNotificationPreference_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeNotificationPreference", purpose: DELETE_MULTIPLE)
+  """
   ✨ Delete `EmployeeScheduleHistory` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
   """
   employeeScheduleHistory_deleteMany(
@@ -2145,6 +2467,20 @@ extend type Mutation {
     """
     all: Boolean = false
   ): Int! @fdc_generated(from: "OnboardingTask", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `PayrollStatement` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  payrollStatement_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: PayrollStatement_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollStatement", purpose: DELETE_MULTIPLE)
   """
   ✨ Delete `TimeRecord` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
   """

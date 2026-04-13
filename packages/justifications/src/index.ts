@@ -1,6 +1,7 @@
 export * from './application/dto/justification-dto';
 export * from './domain/entities/justification';
 export * from './domain/repositories/justification-repository';
+export * from './domain/use-cases/add-justification-attachment-use-case';
 export * from './domain/use-cases/approve-justification-use-case';
 export * from './domain/use-cases/create-justification-use-case';
 export * from './domain/use-cases/get-justification-by-id-use-case';

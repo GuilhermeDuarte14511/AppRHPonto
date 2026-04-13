@@ -1,8 +1,19 @@
-import { Platform } from 'react-native';
 import { type FirebaseApp } from 'firebase/app';
-import { getAuth, initializeAuth, getReactNativePersistence, onAuthStateChanged, signInWithEmailAndPassword, signOut, type User, type Auth } from 'firebase/auth';
+import {
+  getAuth,
+  initializeAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+  type Auth,
+  type Persistence,
+  type User,
+} from 'firebase/auth';
 
 const authInstances = new WeakMap<FirebaseApp, Auth>();
+
+const isReactNativeRuntime = () =>
+  typeof navigator !== 'undefined' && navigator.product === 'ReactNative';
 
 const getFirebaseAuth = (app: FirebaseApp): Auth => {
   if (authInstances.has(app)) {
@@ -11,11 +22,16 @@ const getFirebaseAuth = (app: FirebaseApp): Auth => {
 
   let auth: Auth;
 
-  if (Platform.OS !== 'web') {
+  if (isReactNativeRuntime()) {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const authModule = require('firebase/auth') as {
+      getReactNativePersistence: (storage: unknown) => unknown;
+    };
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const AsyncStorage = require('@react-native-async-storage/async-storage').default;
+
     auth = initializeAuth(app, {
-      persistence: getReactNativePersistence(AsyncStorage),
+      persistence: authModule.getReactNativePersistence(AsyncStorage) as Persistence,
     });
   } else {
     auth = getAuth(app);

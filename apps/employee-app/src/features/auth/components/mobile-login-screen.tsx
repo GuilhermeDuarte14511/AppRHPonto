@@ -24,13 +24,8 @@ const employeeCredentials = {
   password: 'employee123',
 } satisfies LoginSchema;
 
-const backendModeLabel = {
-  firebase: 'Conectado à autenticação real',
-  mock: 'Modo demonstração ativo',
-} as const;
-
 export const MobileLoginScreen = () => {
-  const { backendMode, signIn } = useAppSession();
+  const { signIn } = useAppSession();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -77,7 +72,7 @@ export const MobileLoginScreen = () => {
             <Text style={styles.description}>Insira suas credenciais para acessar sua conta no aplicativo do colaborador.</Text>
 
             <View style={styles.backendBadge}>
-              <Text style={styles.backendBadgeText}>{backendModeLabel[backendMode]}</Text>
+              <Text style={styles.backendBadgeText}>Conectado à autenticação real</Text>
             </View>
 
             <View style={styles.form}>
@@ -162,7 +157,7 @@ export const MobileLoginScreen = () => {
                   setSubmitError(null);
                 }}
               >
-                <Text style={styles.secondaryButtonText}>Usar conta de demonstração</Text>
+                <Text style={styles.secondaryButtonText}>Preencher acesso do colaborador</Text>
               </Pressable>
             </View>
 

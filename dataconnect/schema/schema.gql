@@ -167,6 +167,52 @@ type VacationRequest @table {
   updatedAt: Timestamp! @default(expr: "request.time")
 }
 
+type EmployeeDocument @table {
+  employee: Employee! @index
+  category: String! @index
+  title: String! @index
+  description: String
+  status: String! @default(value: "available") @index
+  fileName: String!
+  fileUrl: String!
+  issuedAt: Timestamp! @index
+  acknowledgedAt: Timestamp
+  expiresAt: Date @index
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type PayrollStatement @table {
+  employee: Employee! @index
+  referenceLabel: String! @index
+  referenceYear: Int! @index
+  referenceMonth: Int! @index
+  status: String! @default(value: "available") @index
+  grossAmount: Float!
+  netAmount: Float!
+  fileName: String!
+  fileUrl: String!
+  issuedAt: Timestamp! @index
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type EmployeeNotificationPreference @table {
+  user: User! @unique
+  notifyEntryReminder: Boolean! @default(value: true)
+  notifyBreakReminder: Boolean! @default(value: true)
+  notifyExitReminder: Boolean! @default(value: true)
+  notifyJustificationStatus: Boolean! @default(value: true)
+  notifyRhAdjustment: Boolean! @default(value: true)
+  notifyCompanyCommunications: Boolean! @default(value: false)
+  notifySystemAlerts: Boolean! @default(value: true)
+  notifyVacationStatus: Boolean! @default(value: true)
+  notifyDocuments: Boolean! @default(value: true)
+  notifyPayroll: Boolean! @default(value: true)
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
 type OnboardingJourney @table {
   employee: Employee! @index
   ownerUser: User @index

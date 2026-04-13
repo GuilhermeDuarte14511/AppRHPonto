@@ -36,11 +36,10 @@ type TimeRecordFilterPreset = (typeof filterOptions)[number]['id'];
 
 export const EmployeeTimeRecordsScreen = () => {
   const { session } = useAppSession();
-  const { employee, identity, scenario } = useCurrentEmployee(session);
-  const { effectivePolicy } = useEmployeeAttendancePolicy(employee?.id ?? scenario?.employeeId);
-  const { records, todayRecords, workedMinutesToday, nextRecordType, timeRecordsQuery } = useEmployeeTimeRecords(
-    employee?.id ?? scenario?.employeeId,
-  );
+  const { employee, identity } = useCurrentEmployee(session);
+  const employeeId = employee?.id ?? null;
+  const { effectivePolicy } = useEmployeeAttendancePolicy(employeeId);
+  const { records, todayRecords, workedMinutesToday, nextRecordType, timeRecordsQuery } = useEmployeeTimeRecords(employeeId);
   const [activeFilter, setActiveFilter] = useState<TimeRecordFilterPreset>('all');
 
   const filteredRecords = filterTimeRecordsByPreset(records, activeFilter);

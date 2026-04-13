@@ -12,14 +12,14 @@ const statusPalette = {
     soft: mobileTheme.successSoft,
     icon: 'checkmark-circle',
     title: 'Ponto registrado com sucesso',
-    description: 'Seu registro entrou na jornada atual e já está disponível para consulta.',
+    description: 'Seu registro já entrou na jornada atual e está disponível no histórico.',
   },
   pending_review: {
     accent: mobileTheme.warning,
     soft: mobileTheme.warningSoft,
     icon: 'alert-circle',
     title: 'Ponto enviado para revisão',
-    description: 'O RH poderá revisar essa batida antes da validação final.',
+    description: 'A batida foi aceita, mas ficará sinalizada para conferência do RH.',
   },
   adjusted: {
     accent: mobileTheme.primary,
@@ -44,6 +44,7 @@ export const PunchConfirmationScreen = () => {
     recordedAt?: string;
     locationName?: string;
     reason?: string;
+    coordinates?: string;
   }>();
 
   const statusKey = params.status && params.status in statusPalette ? params.status : 'valid';
@@ -52,11 +53,7 @@ export const PunchConfirmationScreen = () => {
   const recordedAtLabel = params.recordedAt ? formatTimeRecordDateTime(params.recordedAt) : 'Agora mesmo';
 
   return (
-    <ScrollView
-      contentInsetAdjustmentBehavior="automatic"
-      contentContainerStyle={styles.content}
-      style={styles.container}
-    >
+    <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content} style={styles.container}>
       <View style={styles.hero}>
         <View style={[styles.iconWrap, { backgroundColor: palette.soft }]}>
           <AppIcon color={palette.accent} name={palette.icon} size={44} />
@@ -68,7 +65,7 @@ export const PunchConfirmationScreen = () => {
       <View style={styles.summaryCard}>
         <Text style={styles.summaryEyebrow}>Resumo da marcação</Text>
         <View style={styles.summaryRow}>
-          <Text style={styles.summaryLabel}>Tipo</Text>
+          <Text style={styles.summaryLabel}>Tipo selecionado</Text>
           <Text style={styles.summaryValue}>{typeLabel}</Text>
         </View>
         <View style={styles.summaryRow}>
@@ -85,6 +82,12 @@ export const PunchConfirmationScreen = () => {
             <Text style={styles.summaryValue}>{params.locationName}</Text>
           </View>
         ) : null}
+        {params.coordinates ? (
+          <View style={styles.summaryRow}>
+            <Text style={styles.summaryLabel}>Coordenadas</Text>
+            <Text style={styles.summaryValue}>{params.coordinates}</Text>
+          </View>
+        ) : null}
       </View>
 
       {params.reason ? (
@@ -98,7 +101,7 @@ export const PunchConfirmationScreen = () => {
       ) : null}
 
       <View style={styles.actions}>
-        <Pressable style={styles.primaryButton} onPress={() => router.replace('/(tabs)/index')}>
+        <Pressable style={styles.primaryButton} onPress={() => router.replace('/(tabs)')}>
           <Text style={styles.primaryButtonText}>Voltar ao início</Text>
         </Pressable>
         <Pressable style={styles.secondaryButton} onPress={() => router.replace('/(tabs)/time-records')}>

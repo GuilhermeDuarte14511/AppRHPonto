@@ -2,32 +2,26 @@ import { resolveAppBackendMode, type AppBackendMode } from '@rh-ponto/config';
 import {
   DataConnectAttendancePolicyRepository,
   GetEmployeeAttendancePolicyUseCase,
-  MockAttendancePolicyRepository,
-  type AttendancePolicyRepository,
 } from '@rh-ponto/attendance-policies';
 import {
   FirebaseAuthRepository,
   GetCurrentSessionUseCase,
-  MockAuthRepository,
   SignInUseCase,
   SignOutUseCase,
-  type AuthRepository,
 } from '@rh-ponto/auth';
+import { AppError } from '@rh-ponto/core';
 import {
   DataConnectEmployeeRepository,
   ListEmployeesUseCase,
-  MockEmployeesRepository,
-  type EmployeeRepository,
 } from '@rh-ponto/employees';
 import { BrowserFirebaseAuthClient, getFirebaseApp } from '@rh-ponto/firebase';
 import {
+  AddJustificationAttachmentUseCase,
   CreateJustificationUseCase,
   DataConnectJustificationRepository,
   GetJustificationByIdUseCase,
   ListJustificationAttachmentsByJustificationUseCase,
   ListJustificationsByEmployeeUseCase,
-  MockJustificationsRepository,
-  type JustificationRepository,
 } from '@rh-ponto/justifications';
 import {
   CreateTimeRecordUseCase,
@@ -35,8 +29,6 @@ import {
   DataConnectTimeRecordRepository,
   ListEmployeeTimeRecordsUseCase,
   ListTimeRecordPhotosByRecordUseCase,
-  MockTimeRecordsRepository,
-  type TimeRecordRepository,
 } from '@rh-ponto/time-records';
 
 const runtimeEnv =
@@ -50,72 +42,37 @@ const hasFirebaseConfiguration = (env: Record<string, string | undefined>) =>
       (env.EXPO_PUBLIC_FIREBASE_APP_ID ?? env.NEXT_PUBLIC_FIREBASE_APP_ID),
   );
 
-const createAuthRepository = (backendMode: AppBackendMode): AuthRepository => {
-  switch (backendMode) {
-    case 'firebase':
-      if (!hasFirebaseConfiguration(runtimeEnv)) {
-        return new MockAuthRepository();
-      }
-
-      return new FirebaseAuthRepository(new BrowserFirebaseAuthClient(getFirebaseApp(runtimeEnv)));
-    case 'mock':
-    default:
-      return new MockAuthRepository();
+const assertFirebaseBackend = (backendMode: AppBackendMode) => {
+  if (backendMode !== 'firebase') {
+    throw new AppError(
+      'EMPLOYEE_APP_REQUIRES_FIREBASE',
+      'O aplicativo do colaborador opera apenas com autenticação e dados reais do Firebase.',
+    );
   }
 };
 
-const createAttendancePolicyRepository = (backendMode: AppBackendMode): AttendancePolicyRepository => {
-  switch (backendMode) {
-    case 'firebase':
-      return new DataConnectAttendancePolicyRepository();
-    case 'mock':
-    default:
-      return new MockAttendancePolicyRepository();
-  }
-};
-
-const createEmployeeRepository = (backendMode: AppBackendMode): EmployeeRepository => {
-  switch (backendMode) {
-    case 'firebase':
-      return new DataConnectEmployeeRepository();
-    case 'mock':
-    default:
-      return new MockEmployeesRepository();
-  }
-};
-
-const createTimeRecordRepository = (backendMode: AppBackendMode): TimeRecordRepository => {
-  switch (backendMode) {
-    case 'firebase':
-      return new DataConnectTimeRecordRepository();
-    case 'mock':
-    default:
-      return new MockTimeRecordsRepository();
-  }
-};
-
-const createJustificationRepository = (backendMode: AppBackendMode): JustificationRepository => {
-  switch (backendMode) {
-    case 'firebase':
-      return new DataConnectJustificationRepository();
-    case 'mock':
-    default:
-      return new MockJustificationsRepository();
+const assertFirebaseConfiguration = () => {
+  if (!hasFirebaseConfiguration(runtimeEnv)) {
+    throw new AppError(
+      'EMPLOYEE_APP_FIREBASE_CONFIG_MISSING',
+      'As variáveis do Firebase não estão configuradas para o aplicativo do colaborador.',
+    );
   }
 };
 
 export const createEmployeeAppServices = (backendMode = resolveAppBackendMode(runtimeEnv)) => {
-  const effectiveBackendMode =
-    backendMode === 'firebase' && !hasFirebaseConfiguration(runtimeEnv) ? 'mock' : backendMode;
-  const authRepository = createAuthRepository(effectiveBackendMode);
-  const attendancePolicyRepository = createAttendancePolicyRepository(effectiveBackendMode);
-  const employeeRepository = createEmployeeRepository(effectiveBackendMode);
-  const timeRecordRepository = createTimeRecordRepository(effectiveBackendMode);
-  const justificationRepository = createJustificationRepository(effectiveBackendMode);
+  assertFirebaseBackend(backendMode);
+  assertFirebaseConfiguration();
+
+  const authRepository = new FirebaseAuthRepository(new BrowserFirebaseAuthClient(getFirebaseApp(runtimeEnv)));
+  const attendancePolicyRepository = new DataConnectAttendancePolicyRepository();
+  const employeeRepository = new DataConnectEmployeeRepository();
+  const timeRecordRepository = new DataConnectTimeRecordRepository();
+  const justificationRepository = new DataConnectJustificationRepository();
 
   return {
     runtime: {
-      backendMode: effectiveBackendMode,
+      backendMode: 'firebase' as const,
     },
     auth: {
       getCurrentSessionUseCase: new GetCurrentSessionUseCase(authRepository),
@@ -135,6 +92,7 @@ export const createEmployeeAppServices = (backendMode = resolveAppBackendMode(ru
       listTimeRecordPhotosByRecordUseCase: new ListTimeRecordPhotosByRecordUseCase(timeRecordRepository),
     },
     justifications: {
+      addJustificationAttachmentUseCase: new AddJustificationAttachmentUseCase(justificationRepository),
       createJustificationUseCase: new CreateJustificationUseCase(justificationRepository),
       getJustificationByIdUseCase: new GetJustificationByIdUseCase(justificationRepository),
       listJustificationAttachmentsByJustificationUseCase: new ListJustificationAttachmentsByJustificationUseCase(

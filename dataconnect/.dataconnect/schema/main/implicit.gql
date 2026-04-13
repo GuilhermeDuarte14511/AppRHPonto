@@ -92,6 +92,26 @@ extend type EmployeeAttendancePolicy {
   """
   attendancePolicyId: UUID! @fdc_generated(from: "EmployeeAttendancePolicy.attendancePolicy", purpose: IMPLICIT_REF_FIELD)
 }
+extend type EmployeeDocument {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "EmployeeDocument", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `EmployeeDocument`.`employee`. It must match the value of `Employee`.`id`. See `@ref` for how to customize it.
+  """
+  employeeId: UUID! @fdc_generated(from: "EmployeeDocument.employee", purpose: IMPLICIT_REF_FIELD)
+}
+extend type EmployeeNotificationPreference {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "EmployeeNotificationPreference", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `EmployeeNotificationPreference`.`user`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  userId: UUID! @fdc_generated(from: "EmployeeNotificationPreference.user", purpose: IMPLICIT_REF_FIELD)
+}
 extend type EmployeeScheduleHistory {
   """
   ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
@@ -165,6 +185,16 @@ extend type OnboardingTask {
   ✨ Implicit foreign key field based on `OnboardingTask`.`journey`. It must match the value of `OnboardingJourney`.`id`. See `@ref` for how to customize it.
   """
   journeyId: UUID! @fdc_generated(from: "OnboardingTask.journey", purpose: IMPLICIT_REF_FIELD)
+}
+extend type PayrollStatement {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "PayrollStatement", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `PayrollStatement`.`employee`. It must match the value of `Employee`.`id`. See `@ref` for how to customize it.
+  """
+  employeeId: UUID! @fdc_generated(from: "PayrollStatement.employee", purpose: IMPLICIT_REF_FIELD)
 }
 extend type TimeRecord {
   """

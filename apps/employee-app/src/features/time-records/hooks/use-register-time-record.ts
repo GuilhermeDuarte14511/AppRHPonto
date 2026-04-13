@@ -10,7 +10,7 @@ import { getEmployeeAppServices } from '@/shared/lib/service-registry';
 interface RegisterTimeRecordInput {
   employeeId: string;
   recordedByUserId?: string | null;
-  nextRecordType: TimeRecordType;
+  recordType: TimeRecordType;
   evaluation: AttendanceLocationEvaluationResult | null;
   coordinates: AttendanceCoordinates | null;
   photo?: { uri: string; type?: string; size?: number } | null;
@@ -67,7 +67,7 @@ export const useRegisterTimeRecord = () => {
       const record = await getEmployeeAppServices().timeRecords.createTimeRecordUseCase.execute({
         employeeId: input.employeeId,
         recordedByUserId: input.recordedByUserId ?? null,
-        recordType: input.nextRecordType,
+        recordType: input.recordType,
         source: 'employee_app',
         status: mapEvaluationToStatus(input.evaluation),
         recordedAt: new Date().toISOString(),

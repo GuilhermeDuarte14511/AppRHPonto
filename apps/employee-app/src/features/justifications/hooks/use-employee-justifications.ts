@@ -8,8 +8,8 @@ import { filterJustificationsByStatus, sortJustificationsNewestFirst } from '../
 
 export const useEmployeeJustifications = (statusFilter: 'all' | 'pending' | 'approved' | 'rejected' = 'all') => {
   const { session } = useAppSession();
-  const { employee, scenario } = useCurrentEmployee(session);
-  const employeeId = employee?.id ?? scenario?.employeeId ?? null;
+  const { employee } = useCurrentEmployee(session);
+  const employeeId = employee?.id ?? null;
 
   const justificationsQuery = useQuery({
     queryKey: ['employee-app', 'justifications', employeeId],

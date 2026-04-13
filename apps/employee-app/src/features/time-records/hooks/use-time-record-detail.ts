@@ -8,8 +8,8 @@ import { useEmployeeTimeRecords } from './use-employee-time-records';
 
 export const useTimeRecordDetail = (recordId?: string | null) => {
   const { session } = useAppSession();
-  const { employee, scenario } = useCurrentEmployee(session);
-  const employeeId = employee?.id ?? scenario?.employeeId ?? null;
+  const { employee } = useCurrentEmployee(session);
+  const employeeId = employee?.id ?? null;
   const { records, timeRecordsQuery } = useEmployeeTimeRecords(employeeId);
 
   const record = recordId ? records.find((item) => item.id === recordId) ?? null : null;

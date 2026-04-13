@@ -166,6 +166,44 @@ extend type Query {
     first: EmployeeAttendancePolicy_FirstRow
   ): EmployeeAttendancePolicy @fdc_generated(from: "EmployeeAttendancePolicy", purpose: QUERY_SINGLE)
   """
+  ✨ Look up a single `EmployeeDocument` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  employeeDocument(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: EmployeeDocument_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EmployeeDocument_FirstRow
+  ): EmployeeDocument @fdc_generated(from: "EmployeeDocument", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `EmployeeNotificationPreference` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  employeeNotificationPreference(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: EmployeeNotificationPreference_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EmployeeNotificationPreference_FirstRow
+  ): EmployeeNotificationPreference @fdc_generated(from: "EmployeeNotificationPreference", purpose: QUERY_SINGLE)
+  """
   ✨ Look up a single `EmployeeScheduleHistory` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
   """
   employeeScheduleHistory(
@@ -260,6 +298,25 @@ extend type Query {
     """
     first: OnboardingTask_FirstRow
   ): OnboardingTask @fdc_generated(from: "OnboardingTask", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `PayrollStatement` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  payrollStatement(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: PayrollStatement_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: PayrollStatement_FirstRow
+  ): PayrollStatement @fdc_generated(from: "PayrollStatement", purpose: QUERY_SINGLE)
   """
   ✨ Look up a single `TimeRecord` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
   """
@@ -681,6 +738,74 @@ extend type Query {
     having: EmployeeAttendancePolicy_Having
   ): [EmployeeAttendancePolicy!]! @fdc_generated(from: "EmployeeAttendancePolicy", purpose: QUERY_MULTIPLE)
   """
+  ✨ List `EmployeeDocument` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  employeeDocuments(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: EmployeeDocument_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [EmployeeDocument_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: EmployeeDocument_Having
+  ): [EmployeeDocument!]! @fdc_generated(from: "EmployeeDocument", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `EmployeeNotificationPreference` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  employeeNotificationPreferences(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: EmployeeNotificationPreference_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [EmployeeNotificationPreference_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: EmployeeNotificationPreference_Having
+  ): [EmployeeNotificationPreference!]! @fdc_generated(from: "EmployeeNotificationPreference", purpose: QUERY_MULTIPLE)
+  """
   ✨ List `EmployeeScheduleHistory` objects in the table and return selected fields, optionally filtered by `where` conditions
   """
   employeeScheduleHistories(
@@ -850,6 +975,40 @@ extend type Query {
     """
     having: OnboardingTask_Having
   ): [OnboardingTask!]! @fdc_generated(from: "OnboardingTask", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `PayrollStatement` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  payrollStatements(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: PayrollStatement_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [PayrollStatement_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: PayrollStatement_Having
+  ): [PayrollStatement!]! @fdc_generated(from: "PayrollStatement", purpose: QUERY_MULTIPLE)
   """
   ✨ List `TimeRecord` objects in the table and return selected fields, optionally filtered by `where` conditions
   """

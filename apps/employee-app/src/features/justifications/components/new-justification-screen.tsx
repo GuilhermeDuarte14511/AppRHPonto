@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import * as DocumentPicker from 'expo-document-picker';
 import { router } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
@@ -25,6 +26,7 @@ import { AppIcon } from '@/shared/components/app-icon';
 import { useAppSession } from '@/shared/providers/app-providers';
 import { mobileTheme } from '@/shared/theme/tokens';
 
+import { useAddJustificationAttachment } from '../hooks/use-add-justification-attachment';
 import { useCreateJustification } from '../hooks/use-create-justification';
 import {
   employeeJustificationFormSchema,
@@ -42,13 +44,22 @@ const justificationTypeOptions = [
 
 const requestedTypeOptions = ['entry', 'break_start', 'break_end', 'exit'] as const satisfies readonly TimeRecordType[];
 
+interface SelectedAttachment {
+  uri: string;
+  name: string;
+  mimeType?: string | null;
+  size?: number | null;
+}
+
 export const NewJustificationScreen = () => {
   const { session } = useAppSession();
-  const { employee, scenario } = useCurrentEmployee(session);
-  const employeeId = employee?.id ?? scenario?.employeeId ?? null;
+  const { employee } = useCurrentEmployee(session);
+  const employeeId = employee?.id ?? null;
   const { records } = useEmployeeTimeRecords(employeeId);
   const createJustification = useCreateJustification();
+  const addAttachment = useAddJustificationAttachment();
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [selectedAttachments, setSelectedAttachments] = useState<SelectedAttachment[]>([]);
 
   const form = useForm<z.input<typeof employeeJustificationFormSchema>, unknown, EmployeeJustificationFormValues>({
     resolver: zodResolver(employeeJustificationFormSchema),
@@ -84,6 +95,39 @@ export const NewJustificationScreen = () => {
 
   const recentRecords = useMemo(() => records.slice(0, 6), [records]);
 
+  const handlePickAttachments = async () => {
+    const result = await DocumentPicker.getDocumentAsync({
+      multiple: true,
+      copyToCacheDirectory: true,
+      type: ['application/pdf', 'image/*'],
+    });
+
+    if (result.canceled) {
+      return;
+    }
+
+    setSelectedAttachments((current) => {
+      const next = [...current];
+
+      for (const asset of result.assets) {
+        if (!next.some((item) => item.uri === asset.uri)) {
+          next.push({
+            uri: asset.uri,
+            name: asset.name,
+            mimeType: asset.mimeType,
+            size: asset.size,
+          });
+        }
+      }
+
+      return next;
+    });
+  };
+
+  const handleRemoveAttachment = (uri: string) => {
+    setSelectedAttachments((current) => current.filter((item) => item.uri !== uri));
+  };
+
   const handleSubmit = form.handleSubmit(async (values) => {
     if (!employeeId) {
       Alert.alert('Cadastro indisponível', 'Não encontramos seu vínculo para enviar a justificativa.');
@@ -102,7 +146,23 @@ export const NewJustificationScreen = () => {
         requestedRecordedAt: parseRequestedDateTime(values.requestedRecordedAt),
       });
 
-      Alert.alert('Justificativa enviada', 'Sua solicitação foi registrada e já está aguardando análise do RH.');
+      if (selectedAttachments.length > 0) {
+        for (const attachment of selectedAttachments) {
+          await addAttachment.mutateAsync({
+            justificationId: created.id,
+            employeeId,
+            uploadedByUserId: session?.user.id ?? null,
+            file: attachment,
+          });
+        }
+      }
+
+      Alert.alert(
+        'Justificativa enviada',
+        selectedAttachments.length > 0
+          ? 'Sua solicitação foi registrada com os anexos selecionados e já está aguardando análise do RH.'
+          : 'Sua solicitação foi registrada e já está aguardando análise do RH.',
+      );
       router.replace(`/justifications/${created.id}`);
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : 'Não foi possível enviar a justificativa.');
@@ -127,7 +187,7 @@ export const NewJustificationScreen = () => {
         <View style={styles.hero}>
           <Text style={styles.heroTitle}>Explique a ocorrência</Text>
           <Text style={styles.heroSubtitle}>
-            Descreva o motivo, relacione uma batida quando fizer sentido e deixe claro o horário que deseja ajustar.
+            Descreva o motivo, relacione uma batida quando fizer sentido e anexe documentos que ajudem o RH a analisar.
           </Text>
         </View>
 
@@ -155,13 +215,17 @@ export const NewJustificationScreen = () => {
 
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Vincular uma marcação</Text>
-          <Text style={styles.sectionHint}>Opcional. Escolha uma batida recente quando a solicitação estiver ligada a um registro específico.</Text>
+          <Text style={styles.sectionHint}>
+            Opcional. Escolha uma batida recente quando a solicitação estiver ligada a um registro específico.
+          </Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.recordScroll}>
             <Pressable
               onPress={() => timeRecordField.field.onChange(undefined)}
               style={[styles.recordChip, !timeRecordField.field.value && styles.recordChipActive]}
             >
-              <Text style={[styles.recordChipTitle, !timeRecordField.field.value && styles.recordChipTitleActive]}>Sem vínculo</Text>
+              <Text style={[styles.recordChipTitle, !timeRecordField.field.value && styles.recordChipTitleActive]}>
+                Sem vínculo
+              </Text>
             </Pressable>
             {recentRecords.map((record) => {
               const isActive = timeRecordField.field.value === record.id;
@@ -186,7 +250,9 @@ export const NewJustificationScreen = () => {
 
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Ajuste solicitado</Text>
-          <Text style={styles.sectionHint}>Preencha se você estiver pedindo a criação ou correção de um horário específico.</Text>
+          <Text style={styles.sectionHint}>
+            Preencha se você estiver pedindo a criação ou correção de um horário específico.
+          </Text>
 
           <View style={styles.fieldGroup}>
             <Text style={styles.fieldLabel}>Tipo de batida</Text>
@@ -247,7 +313,7 @@ export const NewJustificationScreen = () => {
           <View style={[styles.inputContainer, styles.textAreaContainer]}>
             <TextInput
               multiline
-              placeholder="Explique o que aconteceu e, se possível, informe contexto suficiente para o RH analisar."
+              placeholder="Explique o que aconteceu e traga contexto suficiente para o RH analisar."
               placeholderTextColor={mobileTheme.subtleText}
               style={styles.textArea}
               textAlignVertical="top"
@@ -261,29 +327,60 @@ export const NewJustificationScreen = () => {
         </View>
 
         <View style={styles.card}>
-          <View style={styles.inlineInfo}>
-            <AppIcon color={mobileTheme.primary} name="information-circle-outline" size={18} />
-            <Text style={styles.inlineInfoText}>
-              O envio de anexos ficará disponível na próxima etapa. Se o RH já tiver um documento relacionado, ele aparecerá no detalhe.
-            </Text>
-          </View>
+          <Text style={styles.sectionTitle}>Anexos</Text>
+          <Text style={styles.sectionHint}>
+            Envie PDFs, comprovantes ou imagens para fortalecer sua justificativa.
+          </Text>
+          <Pressable style={styles.attachmentAction} onPress={() => void handlePickAttachments()}>
+            <AppIcon color={mobileTheme.primary} name="attach-outline" size={18} />
+            <Text style={styles.attachmentActionText}>Selecionar arquivos</Text>
+          </Pressable>
+
+          {selectedAttachments.length > 0 ? (
+            <View style={styles.attachmentList}>
+              {selectedAttachments.map((attachment) => (
+                <View key={attachment.uri} style={styles.attachmentCard}>
+                  <View style={styles.attachmentCopy}>
+                    <Text numberOfLines={1} style={styles.attachmentTitle}>
+                      {attachment.name}
+                    </Text>
+                    <Text style={styles.attachmentMeta}>
+                      {attachment.mimeType ?? 'Arquivo'}
+                      {attachment.size ? ` · ${Math.round(attachment.size / 1024)} KB` : ''}
+                    </Text>
+                  </View>
+                  <Pressable onPress={() => handleRemoveAttachment(attachment.uri)} style={styles.attachmentRemoveButton}>
+                    <AppIcon color={mobileTheme.danger} name="close-outline" size={18} />
+                  </Pressable>
+                </View>
+              ))}
+            </View>
+          ) : (
+            <View style={styles.inlineInfo}>
+              <AppIcon color={mobileTheme.primary} name="cloud-upload-outline" size={18} />
+              <Text style={styles.inlineInfoText}>Nenhum arquivo selecionado até agora.</Text>
+            </View>
+          )}
         </View>
 
         {submitError ? <Text style={styles.submitError}>{submitError}</Text> : null}
 
         <View style={styles.actions}>
           <Pressable
-            disabled={createJustification.isPending}
+            disabled={createJustification.isPending || addAttachment.isPending}
             onPress={() => void handleSubmit()}
-            style={[styles.primaryAction, createJustification.isPending && styles.actionDisabled]}
+            style={[
+              styles.primaryAction,
+              (createJustification.isPending || addAttachment.isPending) && styles.actionDisabled,
+            ]}
           >
-            {createJustification.isPending ? (
+            {createJustification.isPending || addAttachment.isPending ? (
               <ActivityIndicator color="#ffffff" size="small" />
             ) : (
               <AppIcon color="#ffffff" name="send-outline" size={18} />
             )}
             <Text style={styles.primaryActionText}>
-              {createJustification.isPending ? 'Enviando...' : 'Enviar justificativa'}
+              {createJustification.isPending || addAttachment.isPending ? 'Enviando...' : 'Enviar justificativa'}
             </Text>
           </Pressable>
           <Pressable style={styles.secondaryAction} onPress={() => router.back()}>
@@ -460,6 +557,52 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 18,
     color: mobileTheme.danger,
+  },
+  attachmentAction: {
+    minHeight: 48,
+    borderRadius: 18,
+    backgroundColor: mobileTheme.surfaceLow,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  attachmentActionText: {
+    fontSize: 14,
+    fontWeight: '800',
+    color: mobileTheme.primary,
+  },
+  attachmentList: {
+    gap: 10,
+  },
+  attachmentCard: {
+    borderRadius: 18,
+    backgroundColor: mobileTheme.surfaceLow,
+    padding: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  attachmentCopy: {
+    flex: 1,
+    gap: 4,
+  },
+  attachmentTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: mobileTheme.text,
+  },
+  attachmentMeta: {
+    fontSize: 12,
+    color: mobileTheme.mutedText,
+  },
+  attachmentRemoveButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: mobileTheme.surfaceRaised,
   },
   inlineInfo: {
     flexDirection: 'row',

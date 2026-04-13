@@ -1423,6 +1423,133 @@ mutation SeedRhPontoData
         createdAt: "2026-03-25T16:10:00.000Z"
         updatedAt: "2026-03-28T16:20:00.000Z"
       }
+      {
+        id: "edededed-eded-4ded-8ded-ededededed05"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1" }
+        requestedAt: "2026-04-09T15:40:00.000Z"
+        startDate: "2026-04-28"
+        endDate: "2026-05-02"
+        totalDays: 5
+        availableDays: 20
+        accrualPeriod: "2025/2026"
+        advanceThirteenthSalary: false
+        cashBonus: false
+        status: "pending"
+        attachmentFileName: "cobertura-time-produto.pdf"
+        attachmentFileUrl: "https://storage.googleapis.com/rh-ponto/vacations/cobertura-time-produto.pdf"
+        coverageNotes: "Alinhado com o time para cobertura durante o fechamento de sprint."
+        reviewNotes: "Solicitação em análise."
+        managerApprovalStatus: "completed"
+        managerApprovalActor: "Mariana Costa"
+        managerApprovalTimestamp: "2026-04-10T08:00:00.000Z"
+        managerApprovalNotes: "Cobertura validada com o líder técnico."
+        hrApprovalStatus: "pending"
+        hrApprovalActor: null
+        hrApprovalTimestamp: null
+        hrApprovalNotes: null
+        createdAt: "2026-04-09T15:40:00.000Z"
+        updatedAt: "2026-04-10T08:00:00.000Z"
+      }
+    ]
+  )
+
+  employeeDocument_upsertMany(
+    data: [
+      {
+        id: "d7d7d7d7-d7d7-47d7-87d7-d7d7d7d7d701"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1" }
+        category: "contract"
+        title: "Contrato de trabalho assinado"
+        description: "Via consolidada do contrato de admissão para consulta do colaborador."
+        status: "available"
+        fileName: "contrato-trabalho-joao-pereira.pdf"
+        fileUrl: "https://storage.googleapis.com/rh-ponto/documents/contrato-trabalho-joao-pereira.pdf"
+        issuedAt: "2025-01-03T10:00:00.000Z"
+        acknowledgedAt: "2025-01-03T13:10:00.000Z"
+        expiresAt: null
+        createdAt: "2025-01-03T10:00:00.000Z"
+        updatedAt: "2025-01-03T13:10:00.000Z"
+      }
+      {
+        id: "d7d7d7d7-d7d7-47d7-87d7-d7d7d7d7d702"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1" }
+        category: "policy"
+        title: "Política de home office"
+        description: "Termo vigente com orientações de marcação, jornada e uso de equipamentos."
+        status: "pending_signature"
+        fileName: "politica-home-office-2026.pdf"
+        fileUrl: "https://storage.googleapis.com/rh-ponto/documents/politica-home-office-2026.pdf"
+        issuedAt: "2026-04-08T09:00:00.000Z"
+        acknowledgedAt: null
+        expiresAt: "2027-04-08"
+        createdAt: "2026-04-08T09:00:00.000Z"
+        updatedAt: "2026-04-08T09:00:00.000Z"
+      }
+      {
+        id: "d7d7d7d7-d7d7-47d7-87d7-d7d7d7d7d703"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1" }
+        category: "receipt"
+        title: "Comprovante de entrega do crachá"
+        description: "Registro interno de recebimento do crachá e kit inicial."
+        status: "available"
+        fileName: "comprovante-entrega-cracha.pdf"
+        fileUrl: "https://storage.googleapis.com/rh-ponto/documents/comprovante-entrega-cracha.pdf"
+        issuedAt: "2025-01-05T11:30:00.000Z"
+        acknowledgedAt: "2025-01-05T11:45:00.000Z"
+        expiresAt: null
+        createdAt: "2025-01-05T11:30:00.000Z"
+        updatedAt: "2025-01-05T11:45:00.000Z"
+      }
+    ]
+  )
+
+  payrollStatement_upsertMany(
+    data: [
+      {
+        id: "e7e7e7e7-e7e7-47e7-87e7-e7e7e7e7e701"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1" }
+        referenceLabel: "Janeiro/2026"
+        referenceYear: 2026
+        referenceMonth: 1
+        status: "available"
+        grossAmount: 8450.75
+        netAmount: 6324.19
+        fileName: "holerite-2026-01-joao-pereira.pdf"
+        fileUrl: "https://storage.googleapis.com/rh-ponto/payroll/holerite-2026-01-joao-pereira.pdf"
+        issuedAt: "2026-02-05T09:00:00.000Z"
+        createdAt: "2026-02-05T09:00:00.000Z"
+        updatedAt: "2026-02-05T09:00:00.000Z"
+      }
+      {
+        id: "e7e7e7e7-e7e7-47e7-87e7-e7e7e7e7e702"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1" }
+        referenceLabel: "Fevereiro/2026"
+        referenceYear: 2026
+        referenceMonth: 2
+        status: "available"
+        grossAmount: 8521.2
+        netAmount: 6388.42
+        fileName: "holerite-2026-02-joao-pereira.pdf"
+        fileUrl: "https://storage.googleapis.com/rh-ponto/payroll/holerite-2026-02-joao-pereira.pdf"
+        issuedAt: "2026-03-05T09:00:00.000Z"
+        createdAt: "2026-03-05T09:00:00.000Z"
+        updatedAt: "2026-03-05T09:00:00.000Z"
+      }
+      {
+        id: "e7e7e7e7-e7e7-47e7-87e7-e7e7e7e7e703"
+        employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1" }
+        referenceLabel: "Março/2026"
+        referenceYear: 2026
+        referenceMonth: 3
+        status: "available"
+        grossAmount: 8688.55
+        netAmount: 6492.87
+        fileName: "holerite-2026-03-joao-pereira.pdf"
+        fileUrl: "https://storage.googleapis.com/rh-ponto/payroll/holerite-2026-03-joao-pereira.pdf"
+        issuedAt: "2026-04-05T09:00:00.000Z"
+        createdAt: "2026-04-05T09:00:00.000Z"
+        updatedAt: "2026-04-05T09:00:00.000Z"
+      }
     ]
   )
 
@@ -2003,6 +2130,27 @@ mutation SeedRhPontoData
     ]
   )
 
+  employeeNotificationPreference_upsertMany(
+    data: [
+      {
+        id: "f1f1f1f1-f1f1-4f1f-8f1f-f1f1f1f1f101"
+        user: { id: "33333333-3333-4333-8333-333333333333" }
+        notifyEntryReminder: true
+        notifyBreakReminder: true
+        notifyExitReminder: true
+        notifyJustificationStatus: true
+        notifyRhAdjustment: true
+        notifyCompanyCommunications: false
+        notifySystemAlerts: true
+        notifyVacationStatus: true
+        notifyDocuments: true
+        notifyPayroll: true
+        createdAt: "2026-04-05T08:30:00.000Z"
+        updatedAt: "2026-04-05T08:30:00.000Z"
+      }
+    ]
+  )
+
   adminNotification_upsertMany(
     data: [
       {
@@ -2038,6 +2186,74 @@ mutation SeedRhPontoData
         readAt: null
         createdAt: "2026-04-04T08:06:00.000Z"
         updatedAt: "2026-04-04T08:06:00.000Z"
+      }
+      {
+        id: "f0f0f0f0-f0f0-4f0f-8f0f-f0f0f0f0f101"
+        recipientUser: { id: "33333333-3333-4333-8333-333333333333" }
+        referenceKey: "employee:justification:99999999-9999-4999-8999-999999999994:approved"
+        category: "justification"
+        title: "Justificativa aprovada"
+        description: "Seu pedido de ajuste referente ao atraso do dia 02/04 foi aprovado pelo RH."
+        href: "/justifications/99999999-9999-4999-8999-999999999994"
+        entityName: "justification"
+        entityId: "99999999-9999-4999-8999-999999999994"
+        severity: "success"
+        status: "unread"
+        triggeredAt: "2026-04-10T09:10:00.000Z"
+        readAt: null
+        createdAt: "2026-04-10T09:10:00.000Z"
+        updatedAt: "2026-04-10T09:10:00.000Z"
+      }
+      {
+        id: "f0f0f0f0-f0f0-4f0f-8f0f-f0f0f0f0f102"
+        recipientUser: { id: "33333333-3333-4333-8333-333333333333" }
+        referenceKey: "employee:vacation:edededed-eded-4ded-8ded-ededededed05:pending"
+        category: "vacation"
+        title: "Pedido de férias em análise"
+        description: "Seu pedido de férias para abril já está com o RH e aguarda decisão final."
+        href: "/vacations/edededed-eded-4ded-8ded-ededededed05"
+        entityName: "vacation_request"
+        entityId: "edededed-eded-4ded-8ded-ededededed05"
+        severity: "warning"
+        status: "unread"
+        triggeredAt: "2026-04-10T09:20:00.000Z"
+        readAt: null
+        createdAt: "2026-04-10T09:20:00.000Z"
+        updatedAt: "2026-04-10T09:20:00.000Z"
+      }
+      {
+        id: "f0f0f0f0-f0f0-4f0f-8f0f-f0f0f0f0f103"
+        recipientUser: { id: "33333333-3333-4333-8333-333333333333" }
+        referenceKey: "employee:document:d7d7d7d7-d7d7-47d7-87d7-d7d7d7d7d702:signature"
+        category: "document"
+        title: "Documento aguardando ciência"
+        description: "A política de home office 2026 foi publicada e está disponível para leitura."
+        href: "/documents/d7d7d7d7-d7d7-47d7-87d7-d7d7d7d7d702"
+        entityName: "employee_document"
+        entityId: "d7d7d7d7-d7d7-47d7-87d7-d7d7d7d7d702"
+        severity: "info"
+        status: "unread"
+        triggeredAt: "2026-04-10T09:30:00.000Z"
+        readAt: null
+        createdAt: "2026-04-10T09:30:00.000Z"
+        updatedAt: "2026-04-10T09:30:00.000Z"
+      }
+      {
+        id: "f0f0f0f0-f0f0-4f0f-8f0f-f0f0f0f0f104"
+        recipientUser: { id: "33333333-3333-4333-8333-333333333333" }
+        referenceKey: "employee:payroll:e7e7e7e7-e7e7-47e7-87e7-e7e7e7e7e703:available"
+        category: "payroll"
+        title: "Holerite de março disponível"
+        description: "Seu comprovante referente a março de 2026 já pode ser consultado no aplicativo."
+        href: "/payroll/e7e7e7e7-e7e7-47e7-87e7-e7e7e7e7e703"
+        entityName: "payroll_statement"
+        entityId: "e7e7e7e7-e7e7-47e7-87e7-e7e7e7e7e703"
+        severity: "info"
+        status: "unread"
+        triggeredAt: "2026-04-10T09:40:00.000Z"
+        readAt: null
+        createdAt: "2026-04-10T09:40:00.000Z"
+        updatedAt: "2026-04-10T09:40:00.000Z"
       }
     ]
   )

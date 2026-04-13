@@ -1124,6 +1124,40 @@ extend type Employee {
     having: EmployeeAttendancePolicy_Having
   ): [EmployeeAttendancePolicy!]! @fdc_generated(from: "EmployeeAttendancePolicy.employee", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
   """
+  ✨ List `EmployeeDocument` objects in a one-to-many relationship (where `EmployeeDocument`.`employee` is this object).
+  """
+  employeeDocuments_on_employee(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: EmployeeDocument_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [EmployeeDocument_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: EmployeeDocument_Having
+  ): [EmployeeDocument!]! @fdc_generated(from: "EmployeeDocument.employee", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
   ✨ List `EmployeeScheduleHistory` objects in a one-to-many relationship (where `EmployeeScheduleHistory`.`employee` is this object).
   """
   employeeScheduleHistories_on_employee(
@@ -1225,6 +1259,40 @@ extend type Employee {
     """
     having: OnboardingJourney_Having
   ): [OnboardingJourney!]! @fdc_generated(from: "OnboardingJourney.employee", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  ✨ List `PayrollStatement` objects in a one-to-many relationship (where `PayrollStatement`.`employee` is this object).
+  """
+  payrollStatements_on_employee(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: PayrollStatement_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [PayrollStatement_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: PayrollStatement_Having
+  ): [PayrollStatement!]! @fdc_generated(from: "PayrollStatement.employee", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
   """
   ✨ List `TimeRecord` objects in a one-to-many relationship (where `TimeRecord`.`employee` is this object).
   """
@@ -1789,6 +1857,333 @@ extend type EmployeeAttendancePolicy {
   A generated field that is used for caching results in SDKs.
   """
   _id: ID! @fdc_generated(from: "EmployeeAttendancePolicy.employeeId,attendancePolicyId,createdAt", purpose: ENTITY_ID)
+}
+extend type EmployeeDocument {
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "EmployeeDocument", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `EmployeeDocument` table.
+  """
+  _count: Int! @fdc_generated(from: "EmployeeDocument.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeDocument` table where the `acknowledgedAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  acknowledgedAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeDocument.acknowledgedAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeDocument` table where the `category` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  category_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeDocument.category", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeDocument` table where the `createdAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  createdAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeDocument.createdAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeDocument` table where the `description` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  description_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeDocument.description", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeDocument` table where the `employeeId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  employeeId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeDocument.employeeId", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeDocument` table where the `expiresAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  expiresAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeDocument.expiresAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeDocument` table where the `fileName` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  fileName_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeDocument.fileName", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeDocument` table where the `fileUrl` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  fileUrl_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeDocument.fileUrl", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeDocument` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeDocument.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeDocument` table where the `issuedAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  issuedAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeDocument.issuedAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeDocument` table where the `status` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  status_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeDocument.status", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeDocument` table where the `title` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  title_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeDocument.title", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeDocument` table where the `updatedAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  updatedAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeDocument.updatedAt", purpose: QUERY_COUNT)
+  """
+  ✨ Minimum of the `acknowledgedAt` field in the `EmployeeDocument` table.
+  """
+  acknowledgedAt_min: Timestamp @fdc_generated(from: "EmployeeDocument.acknowledgedAt", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `createdAt` field in the `EmployeeDocument` table.
+  """
+  createdAt_min: Timestamp @fdc_generated(from: "EmployeeDocument.createdAt", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `expiresAt` field in the `EmployeeDocument` table.
+  """
+  expiresAt_min: Date @fdc_generated(from: "EmployeeDocument.expiresAt", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `issuedAt` field in the `EmployeeDocument` table.
+  """
+  issuedAt_min: Timestamp @fdc_generated(from: "EmployeeDocument.issuedAt", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `updatedAt` field in the `EmployeeDocument` table.
+  """
+  updatedAt_min: Timestamp @fdc_generated(from: "EmployeeDocument.updatedAt", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `acknowledgedAt` field in the `EmployeeDocument` table.
+  """
+  acknowledgedAt_max: Timestamp @fdc_generated(from: "EmployeeDocument.acknowledgedAt", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `createdAt` field in the `EmployeeDocument` table.
+  """
+  createdAt_max: Timestamp @fdc_generated(from: "EmployeeDocument.createdAt", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `expiresAt` field in the `EmployeeDocument` table.
+  """
+  expiresAt_max: Date @fdc_generated(from: "EmployeeDocument.expiresAt", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `issuedAt` field in the `EmployeeDocument` table.
+  """
+  issuedAt_max: Timestamp @fdc_generated(from: "EmployeeDocument.issuedAt", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `updatedAt` field in the `EmployeeDocument` table.
+  """
+  updatedAt_max: Timestamp @fdc_generated(from: "EmployeeDocument.updatedAt", purpose: QUERY_MAX)
+  """
+  A generated field that is used for caching results in SDKs.
+  """
+  _id: ID! @fdc_generated(from: "EmployeeDocument.id", purpose: ENTITY_ID)
+}
+extend type EmployeeNotificationPreference {
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "EmployeeNotificationPreference", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `EmployeeNotificationPreference` table.
+  """
+  _count: Int! @fdc_generated(from: "EmployeeNotificationPreference.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeNotificationPreference` table where the `createdAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  createdAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeNotificationPreference.createdAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeNotificationPreference` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeNotificationPreference.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeNotificationPreference` table where the `notifyBreakReminder` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  notifyBreakReminder_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeNotificationPreference.notifyBreakReminder", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeNotificationPreference` table where the `notifyCompanyCommunications` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  notifyCompanyCommunications_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeNotificationPreference.notifyCompanyCommunications", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeNotificationPreference` table where the `notifyDocuments` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  notifyDocuments_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeNotificationPreference.notifyDocuments", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeNotificationPreference` table where the `notifyEntryReminder` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  notifyEntryReminder_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeNotificationPreference.notifyEntryReminder", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeNotificationPreference` table where the `notifyExitReminder` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  notifyExitReminder_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeNotificationPreference.notifyExitReminder", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeNotificationPreference` table where the `notifyJustificationStatus` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  notifyJustificationStatus_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeNotificationPreference.notifyJustificationStatus", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeNotificationPreference` table where the `notifyPayroll` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  notifyPayroll_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeNotificationPreference.notifyPayroll", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeNotificationPreference` table where the `notifyRhAdjustment` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  notifyRhAdjustment_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeNotificationPreference.notifyRhAdjustment", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeNotificationPreference` table where the `notifySystemAlerts` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  notifySystemAlerts_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeNotificationPreference.notifySystemAlerts", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeNotificationPreference` table where the `notifyVacationStatus` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  notifyVacationStatus_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeNotificationPreference.notifyVacationStatus", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeNotificationPreference` table where the `updatedAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  updatedAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeNotificationPreference.updatedAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `EmployeeNotificationPreference` table where the `userId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  userId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EmployeeNotificationPreference.userId", purpose: QUERY_COUNT)
+  """
+  ✨ Minimum of the `createdAt` field in the `EmployeeNotificationPreference` table.
+  """
+  createdAt_min: Timestamp @fdc_generated(from: "EmployeeNotificationPreference.createdAt", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `updatedAt` field in the `EmployeeNotificationPreference` table.
+  """
+  updatedAt_min: Timestamp @fdc_generated(from: "EmployeeNotificationPreference.updatedAt", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `createdAt` field in the `EmployeeNotificationPreference` table.
+  """
+  createdAt_max: Timestamp @fdc_generated(from: "EmployeeNotificationPreference.createdAt", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `updatedAt` field in the `EmployeeNotificationPreference` table.
+  """
+  updatedAt_max: Timestamp @fdc_generated(from: "EmployeeNotificationPreference.updatedAt", purpose: QUERY_MAX)
+  """
+  A generated field that is used for caching results in SDKs.
+  """
+  _id: ID! @fdc_generated(from: "EmployeeNotificationPreference.id", purpose: ENTITY_ID)
 }
 extend type EmployeeScheduleHistory {
   """
@@ -2663,6 +3058,265 @@ extend type OnboardingTask {
   """
   _id: ID! @fdc_generated(from: "OnboardingTask.id", purpose: ENTITY_ID)
 }
+extend type PayrollStatement {
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "PayrollStatement", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `PayrollStatement` table.
+  """
+  _count: Int! @fdc_generated(from: "PayrollStatement.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollStatement` table where the `createdAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  createdAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollStatement.createdAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollStatement` table where the `employeeId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  employeeId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollStatement.employeeId", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollStatement` table where the `fileName` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  fileName_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollStatement.fileName", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollStatement` table where the `fileUrl` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  fileUrl_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollStatement.fileUrl", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollStatement` table where the `grossAmount` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  grossAmount_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollStatement.grossAmount", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollStatement` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollStatement.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollStatement` table where the `issuedAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  issuedAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollStatement.issuedAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollStatement` table where the `netAmount` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  netAmount_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollStatement.netAmount", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollStatement` table where the `referenceLabel` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  referenceLabel_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollStatement.referenceLabel", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollStatement` table where the `referenceMonth` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  referenceMonth_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollStatement.referenceMonth", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollStatement` table where the `referenceYear` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  referenceYear_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollStatement.referenceYear", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollStatement` table where the `status` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  status_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollStatement.status", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollStatement` table where the `updatedAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  updatedAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollStatement.updatedAt", purpose: QUERY_COUNT)
+  """
+  ✨ Sum the `grossAmount` field in the `PayrollStatement` table.
+  """
+  grossAmount_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "PayrollStatement.grossAmount", purpose: QUERY_SUM)
+  """
+  ✨ Sum the `netAmount` field in the `PayrollStatement` table.
+  """
+  netAmount_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "PayrollStatement.netAmount", purpose: QUERY_SUM)
+  """
+  ✨ Sum the `referenceMonth` field in the `PayrollStatement` table.
+  """
+  referenceMonth_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Int @fdc_generated(from: "PayrollStatement.referenceMonth", purpose: QUERY_SUM)
+  """
+  ✨ Sum the `referenceYear` field in the `PayrollStatement` table.
+  """
+  referenceYear_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Int @fdc_generated(from: "PayrollStatement.referenceYear", purpose: QUERY_SUM)
+  """
+  ✨ Average the `grossAmount` field in the `PayrollStatement` table.
+  """
+  grossAmount_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "PayrollStatement.grossAmount", purpose: QUERY_AVG)
+  """
+  ✨ Average the `netAmount` field in the `PayrollStatement` table.
+  """
+  netAmount_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "PayrollStatement.netAmount", purpose: QUERY_AVG)
+  """
+  ✨ Average the `referenceMonth` field in the `PayrollStatement` table.
+  """
+  referenceMonth_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "PayrollStatement.referenceMonth", purpose: QUERY_AVG)
+  """
+  ✨ Average the `referenceYear` field in the `PayrollStatement` table.
+  """
+  referenceYear_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "PayrollStatement.referenceYear", purpose: QUERY_AVG)
+  """
+  ✨ Minimum of the `createdAt` field in the `PayrollStatement` table.
+  """
+  createdAt_min: Timestamp @fdc_generated(from: "PayrollStatement.createdAt", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `grossAmount` field in the `PayrollStatement` table.
+  """
+  grossAmount_min: Float @fdc_generated(from: "PayrollStatement.grossAmount", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `issuedAt` field in the `PayrollStatement` table.
+  """
+  issuedAt_min: Timestamp @fdc_generated(from: "PayrollStatement.issuedAt", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `netAmount` field in the `PayrollStatement` table.
+  """
+  netAmount_min: Float @fdc_generated(from: "PayrollStatement.netAmount", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `referenceMonth` field in the `PayrollStatement` table.
+  """
+  referenceMonth_min: Int @fdc_generated(from: "PayrollStatement.referenceMonth", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `referenceYear` field in the `PayrollStatement` table.
+  """
+  referenceYear_min: Int @fdc_generated(from: "PayrollStatement.referenceYear", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `updatedAt` field in the `PayrollStatement` table.
+  """
+  updatedAt_min: Timestamp @fdc_generated(from: "PayrollStatement.updatedAt", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `createdAt` field in the `PayrollStatement` table.
+  """
+  createdAt_max: Timestamp @fdc_generated(from: "PayrollStatement.createdAt", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `grossAmount` field in the `PayrollStatement` table.
+  """
+  grossAmount_max: Float @fdc_generated(from: "PayrollStatement.grossAmount", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `issuedAt` field in the `PayrollStatement` table.
+  """
+  issuedAt_max: Timestamp @fdc_generated(from: "PayrollStatement.issuedAt", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `netAmount` field in the `PayrollStatement` table.
+  """
+  netAmount_max: Float @fdc_generated(from: "PayrollStatement.netAmount", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `referenceMonth` field in the `PayrollStatement` table.
+  """
+  referenceMonth_max: Int @fdc_generated(from: "PayrollStatement.referenceMonth", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `referenceYear` field in the `PayrollStatement` table.
+  """
+  referenceYear_max: Int @fdc_generated(from: "PayrollStatement.referenceYear", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `updatedAt` field in the `PayrollStatement` table.
+  """
+  updatedAt_max: Timestamp @fdc_generated(from: "PayrollStatement.updatedAt", purpose: QUERY_MAX)
+  """
+  A generated field that is used for caching results in SDKs.
+  """
+  _id: ID! @fdc_generated(from: "PayrollStatement.id", purpose: ENTITY_ID)
+}
 extend type TimeRecord {
   """
   ✨ List `Justification` objects in a one-to-many relationship (where `Justification`.`timeRecord` is this object).
@@ -3379,6 +4033,10 @@ extend type User {
   ✨ List `Employee` objects in a one-to-one relationship (where `Employee`.`user` is this object).
   """
   employee_on_user: Employee @fdc_generated(from: "Employee.user", purpose: QUERY_SINGLE_ONE_TO_ONE)
+  """
+  ✨ List `EmployeeNotificationPreference` objects in a one-to-one relationship (where `EmployeeNotificationPreference`.`user` is this object).
+  """
+  employeeNotificationPreference_on_user: EmployeeNotificationPreference @fdc_generated(from: "EmployeeNotificationPreference.user", purpose: QUERY_SINGLE_ONE_TO_ONE)
   """
   Implicit metadata field that cannot be written. It provides extra information about query results.
   """

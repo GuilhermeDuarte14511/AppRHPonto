@@ -3,8 +3,8 @@ import type { TimeRecordSource, TimeRecordStatus, TimeRecordType } from '@rh-pon
 
 export const timeRecordTypeLabels: Record<TimeRecordType, string> = {
   entry: 'Entrada',
-  break_start: 'Início do intervalo',
-  break_end: 'Fim do intervalo',
+  break_start: 'Saída almoço',
+  break_end: 'Volta almoço',
   exit: 'Saída',
 };
 

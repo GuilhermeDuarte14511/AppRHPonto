@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { useEmployeeAttendancePolicy } from '@/features/attendance/hooks/use-employee-attendance-policy';
@@ -6,13 +7,48 @@ import { AppIcon } from '@/shared/components/app-icon';
 import { useAppSession } from '@/shared/providers/app-providers';
 import { mobileTheme } from '@/shared/theme/tokens';
 
+const shortcuts = [
+  {
+    title: 'Notificações',
+    description: 'Mensagens e respostas do RH.',
+    icon: 'notifications-outline',
+    href: '/notifications',
+  },
+  {
+    title: 'Férias',
+    description: 'Pedidos e períodos aprovados.',
+    icon: 'airplane-outline',
+    href: '/vacations',
+  },
+  {
+    title: 'Documentos',
+    description: 'Termos, políticas e comprovantes.',
+    icon: 'folder-open-outline',
+    href: '/documents',
+  },
+  {
+    title: 'Holerites',
+    description: 'Comprovantes mensais da folha.',
+    icon: 'wallet-outline',
+    href: '/payroll',
+  },
+  {
+    title: 'Preferências',
+    description: 'Ajuste seus lembretes e alertas.',
+    icon: 'settings-outline',
+    href: '/notification-settings',
+  },
+] as const;
+
 export const ProfileScreen = () => {
   const { session, signOut } = useAppSession();
-  const { employee, scenario, identity, employeeQuery } = useCurrentEmployee(session);
-  const { effectivePolicy, policyQuery } = useEmployeeAttendancePolicy(employee?.id ?? scenario?.employeeId);
-  const allowedLocations = policyQuery.data?.locationCatalog.filter((locationItem) =>
-    policyQuery.data?.allowedLocations.some((allowedLocation) => allowedLocation.workLocationId === locationItem.id),
-  );
+  const { employee, identity, employeeQuery } = useCurrentEmployee(session);
+  const employeeId = employee?.id ?? null;
+  const { effectivePolicy, policyQuery } = useEmployeeAttendancePolicy(employeeId);
+  const allowedLocations =
+    policyQuery.data?.locationCatalog.filter((locationItem) =>
+      policyQuery.data?.allowedLocations.some((allowedLocation) => allowedLocation.workLocationId === locationItem.id),
+    ) ?? [];
 
   return (
     <ScrollView
@@ -28,12 +64,19 @@ export const ProfileScreen = () => {
           {identity.name}
         </Text>
         <Text selectable style={styles.meta}>
+          {identity.roleLabel}
+        </Text>
+        <Text selectable style={styles.meta}>
+          {identity.department} · Matrícula {identity.registrationNumber}
+        </Text>
+        <Text selectable style={styles.meta}>
           {identity.email ?? session?.user.email}
         </Text>
-        <Text style={styles.meta}>
-          {identity.roleLabel} · Matrícula {identity.registrationNumber}
-        </Text>
-        <Text style={styles.meta}>Departamento: {identity.department}</Text>
+        {identity.phone ? (
+          <Text selectable style={styles.meta}>
+            {identity.phone}
+          </Text>
+        ) : null}
       </View>
 
       <View style={styles.card}>
@@ -44,15 +87,17 @@ export const ProfileScreen = () => {
         {policyQuery.isLoading ? (
           <View style={styles.loadingRow}>
             <ActivityIndicator color={mobileTheme.primary} />
-            <Text style={styles.meta}>Carregando a política operacional vinculada ao seu cadastro.</Text>
+            <Text style={styles.meta}>Carregando a política operacional do seu cadastro.</Text>
           </View>
         ) : (
           <>
-            <Text style={styles.metaStrong}>{effectivePolicy?.name ?? 'Política indisponível'}</Text>
-            <Text style={styles.meta}>
+            <Text selectable style={styles.metaStrong}>
+              {effectivePolicy?.name ?? 'Política indisponível'}
+            </Text>
+            <Text selectable style={styles.meta}>
               {effectivePolicy?.description ?? 'Ainda não encontramos uma política ativa para o seu vínculo atual.'}
             </Text>
-            <Text style={styles.meta}>
+            <Text selectable style={styles.meta}>
               Foto: {effectivePolicy?.photoRequired ? 'obrigatória' : 'opcional'} · Geolocalização:{' '}
               {effectivePolicy?.geolocationRequired ? 'obrigatória' : 'opcional'}
             </Text>
@@ -68,22 +113,51 @@ export const ProfileScreen = () => {
         {employeeQuery.isLoading || policyQuery.isLoading ? (
           <View style={styles.loadingRow}>
             <ActivityIndicator color={mobileTheme.primary} />
-            <Text style={styles.meta}>Buscando locais vinculados à sua política.</Text>
+            <Text style={styles.meta}>Buscando os locais vinculados à sua política.</Text>
           </View>
-        ) : allowedLocations && allowedLocations.length > 0 ? (
+        ) : allowedLocations.length > 0 ? (
           <View style={styles.list}>
             {allowedLocations.map((locationItem) => (
               <View key={locationItem.id} style={styles.listItem}>
-                <Text style={styles.listTitle}>{locationItem.name}</Text>
-                <Text style={styles.meta}>
-                  {locationItem.city ?? 'Cidade não informada'} · Raio de {locationItem.radiusMeters} m
+                <Text selectable style={styles.listTitle}>
+                  {locationItem.name}
+                </Text>
+                <Text selectable style={styles.meta}>
+                  {locationItem.city ?? 'Cidade não informada'} · raio de {locationItem.radiusMeters} m
                 </Text>
               </View>
             ))}
           </View>
         ) : (
-          <Text style={styles.meta}>Sua política atual não exige locais fixos vinculados.</Text>
+          <Text selectable style={styles.meta}>
+            Sua política atual não exige locais fixos vinculados.
+          </Text>
         )}
+      </View>
+
+      <View style={styles.card}>
+        <View style={styles.sectionHeader}>
+          <AppIcon color={mobileTheme.primary} name="grid-outline" size={18} />
+          <Text style={styles.sectionTitle}>Autosserviço</Text>
+        </View>
+        <View style={styles.shortcutList}>
+          {shortcuts.map((item) => (
+            <Pressable key={item.href} onPress={() => router.push(item.href as never)} style={styles.shortcutRow}>
+              <View style={styles.shortcutIcon}>
+                <AppIcon color={mobileTheme.primary} name={item.icon} size={18} />
+              </View>
+              <View style={styles.shortcutCopy}>
+                <Text selectable style={styles.shortcutTitle}>
+                  {item.title}
+                </Text>
+                <Text selectable style={styles.shortcutDescription}>
+                  {item.description}
+                </Text>
+              </View>
+              <AppIcon color={mobileTheme.subtleText} name="chevron-forward-outline" size={18} />
+            </Pressable>
+          ))}
+        </View>
       </View>
 
       <Pressable style={styles.button} onPress={() => void signOut()}>
@@ -104,48 +178,31 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   heroCard: {
-    borderRadius: 24,
+    borderRadius: 28,
     backgroundColor: mobileTheme.surfaceRaised,
-    padding: 20,
-    gap: 8,
+    padding: 22,
+    gap: 6,
     alignItems: 'flex-start',
   },
   avatar: {
-    width: 52,
-    height: 52,
-    borderRadius: 20,
+    width: 56,
+    height: 56,
+    borderRadius: 22,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: mobileTheme.primarySoft,
+    marginBottom: 4,
   },
   avatarText: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: '800',
     color: mobileTheme.primary,
   },
-  card: {
-    borderRadius: 24,
-    backgroundColor: mobileTheme.surfaceRaised,
-    padding: 20,
-    gap: 10,
-  },
-  sectionHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    marginBottom: 4,
-  },
-  loadingRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
   name: {
-    marginTop: 4,
-    fontSize: 24,
-    fontWeight: '800',
+    fontSize: 26,
+    fontWeight: '900',
+    letterSpacing: -0.9,
     color: mobileTheme.text,
-    letterSpacing: -0.8,
   },
   metaStrong: {
     fontSize: 16,
@@ -156,10 +213,26 @@ const styles = StyleSheet.create({
     color: mobileTheme.mutedText,
     lineHeight: 20,
   },
+  card: {
+    borderRadius: 26,
+    backgroundColor: mobileTheme.surfaceRaised,
+    padding: 20,
+    gap: 12,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
   sectionTitle: {
     fontSize: 16,
     fontWeight: '800',
     color: mobileTheme.text,
+  },
+  loadingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
   },
   list: {
     gap: 10,
@@ -175,16 +248,49 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: mobileTheme.text,
   },
+  shortcutList: {
+    gap: 10,
+  },
+  shortcutRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    borderRadius: 20,
+    backgroundColor: mobileTheme.surfaceLow,
+    padding: 14,
+  },
+  shortcutIcon: {
+    width: 42,
+    height: 42,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: mobileTheme.surfaceRaised,
+  },
+  shortcutCopy: {
+    flex: 1,
+    gap: 3,
+  },
+  shortcutTitle: {
+    fontSize: 14,
+    fontWeight: '800',
+    color: mobileTheme.text,
+  },
+  shortcutDescription: {
+    fontSize: 12,
+    lineHeight: 18,
+    color: mobileTheme.mutedText,
+  },
   button: {
     backgroundColor: mobileTheme.primary,
-    borderRadius: 18,
+    borderRadius: 20,
     paddingVertical: 15,
     alignItems: 'center',
     marginTop: 4,
   },
   buttonText: {
     color: '#fff',
-    fontWeight: '700',
+    fontWeight: '800',
     fontSize: 14,
   },
 });
