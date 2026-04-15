@@ -44,6 +44,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  outputFileTracingRoot: workspaceDirectory,
   transpilePackages: [
     '@rh-ponto/api-client',
     '@rh-ponto/audit',
