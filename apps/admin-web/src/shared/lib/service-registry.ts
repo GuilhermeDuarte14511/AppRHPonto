@@ -59,7 +59,11 @@ import {
 } from '@rh-ponto/work-schedules';
 import {
   DataConnectDeviceRepository,
+  CreateDeviceUseCase,
+  DeactivateDeviceUseCase,
+  GetDeviceByIdUseCase,
   ListDevicesUseCase,
+  UpdateDeviceUseCase,
   type DeviceRepository,
 } from '@rh-ponto/devices';
 
@@ -173,7 +177,11 @@ export const createAdminServices = (backendMode = resolveAppBackendMode(process.
       updateWorkScheduleUseCase: new UpdateWorkScheduleUseCase(repositories.workSchedules),
     },
     devices: {
+      createDeviceUseCase: new CreateDeviceUseCase(repositories.devices),
+      deactivateDeviceUseCase: new DeactivateDeviceUseCase(repositories.devices),
+      getDeviceByIdUseCase: new GetDeviceByIdUseCase(repositories.devices),
       listDevicesUseCase: new ListDevicesUseCase(repositories.devices),
+      updateDeviceUseCase: new UpdateDeviceUseCase(repositories.devices),
     },
   };
 };

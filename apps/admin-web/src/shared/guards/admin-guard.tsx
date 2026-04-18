@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { resolveRoleHomeRoute } from '@/features/auth/lib/auth-routes';
+import { services } from '@/shared/lib/service-registry';
 
 import { AuthTransitionScreen } from '../components/auth-transition-screen';
 import { useSession } from '../providers/session-provider';
@@ -12,6 +13,7 @@ export const AdminGuard = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const router = useRouter();
   const { isLoading, session, signOut } = useSession();
+  const hasAdminAccess = session ? services.auth.accessControlService.canAccessAdmin(session.user) : false;
 
   useEffect(() => {
     if (isLoading) {
@@ -23,12 +25,12 @@ export const AdminGuard = ({ children }: { children: React.ReactNode }) => {
       return;
     }
 
-    if (session.user.role !== 'admin') {
+    if (!hasAdminAccess) {
       void signOut().finally(() => {
         router.replace(resolveRoleHomeRoute(session.user.role));
       });
     }
-  }, [isLoading, pathname, router, session, signOut]);
+  }, [hasAdminAccess, isLoading, pathname, router, session, signOut]);
 
   if (isLoading) {
     return (
@@ -39,7 +41,7 @@ export const AdminGuard = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  if (!session || session.user.role !== 'admin') {
+  if (!session || !hasAdminAccess) {
     return (
       <AuthTransitionScreen
         title="Redirecionando seu acesso"

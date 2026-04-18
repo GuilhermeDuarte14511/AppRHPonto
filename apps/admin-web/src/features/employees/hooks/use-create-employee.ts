@@ -14,7 +14,12 @@ export const useCreateEmployee = () => {
   return useMutation({
     mutationFn: (payload: CreateEmployeePayload) => services.employees.createEmployeeUseCase.execute(payload),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: queryKeys.employees });
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: queryKeys.employees }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.dashboard }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.analytics }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.settings }),
+      ]);
     },
     onError: (error) => {
       showActionErrorToast(error, 'Não foi possível criar o colaborador.');

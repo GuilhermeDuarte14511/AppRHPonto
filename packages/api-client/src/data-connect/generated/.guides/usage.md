@@ -14,38 +14,38 @@ If a user is not using a supported framework, they can use the generated SDK dir
 Here's an example of how to use it with the first 5 operations:
 
 ```js
-import { getPayrollClosureByReferenceKey, createPayrollClosure, updatePayrollClosure, listVacationRequests, getVacationRequestById, createVacationRequest, approveVacationRequest, rejectVacationRequest, listEmployeeNotifications, markEmployeeNotificationAsRead } from '@rh-ponto/api-client/generated';
+import { listDevices, getDeviceById, createDevice, updateDevice, deactivateDevice, listEmployeeNotifications, markEmployeeNotificationAsRead, getEmployeeNotificationPreferences, updateEmployeeNotificationPreferences, getCurrentEmployeeByUserId } from '@rh-ponto/api-client/generated';
 
 
-// Operation GetPayrollClosureByReferenceKey:  For variables, look at type GetPayrollClosureByReferenceKeyVars in ../index.d.ts
-const { data } = await GetPayrollClosureByReferenceKey(dataConnect, getPayrollClosureByReferenceKeyVars);
+// Operation ListDevices: 
+const { data } = await ListDevices(dataConnect);
 
-// Operation CreatePayrollClosure:  For variables, look at type CreatePayrollClosureVars in ../index.d.ts
-const { data } = await CreatePayrollClosure(dataConnect, createPayrollClosureVars);
+// Operation GetDeviceById:  For variables, look at type GetDeviceByIdVars in ../index.d.ts
+const { data } = await GetDeviceById(dataConnect, getDeviceByIdVars);
 
-// Operation UpdatePayrollClosure:  For variables, look at type UpdatePayrollClosureVars in ../index.d.ts
-const { data } = await UpdatePayrollClosure(dataConnect, updatePayrollClosureVars);
+// Operation CreateDevice:  For variables, look at type CreateDeviceVars in ../index.d.ts
+const { data } = await CreateDevice(dataConnect, createDeviceVars);
 
-// Operation ListVacationRequests: 
-const { data } = await ListVacationRequests(dataConnect);
+// Operation UpdateDevice:  For variables, look at type UpdateDeviceVars in ../index.d.ts
+const { data } = await UpdateDevice(dataConnect, updateDeviceVars);
 
-// Operation GetVacationRequestById:  For variables, look at type GetVacationRequestByIdVars in ../index.d.ts
-const { data } = await GetVacationRequestById(dataConnect, getVacationRequestByIdVars);
-
-// Operation CreateVacationRequest:  For variables, look at type CreateVacationRequestVars in ../index.d.ts
-const { data } = await CreateVacationRequest(dataConnect, createVacationRequestVars);
-
-// Operation ApproveVacationRequest:  For variables, look at type ApproveVacationRequestVars in ../index.d.ts
-const { data } = await ApproveVacationRequest(dataConnect, approveVacationRequestVars);
-
-// Operation RejectVacationRequest:  For variables, look at type RejectVacationRequestVars in ../index.d.ts
-const { data } = await RejectVacationRequest(dataConnect, rejectVacationRequestVars);
+// Operation DeactivateDevice:  For variables, look at type DeactivateDeviceVars in ../index.d.ts
+const { data } = await DeactivateDevice(dataConnect, deactivateDeviceVars);
 
 // Operation ListEmployeeNotifications:  For variables, look at type ListEmployeeNotificationsVars in ../index.d.ts
 const { data } = await ListEmployeeNotifications(dataConnect, listEmployeeNotificationsVars);
 
 // Operation MarkEmployeeNotificationAsRead:  For variables, look at type MarkEmployeeNotificationAsReadVars in ../index.d.ts
 const { data } = await MarkEmployeeNotificationAsRead(dataConnect, markEmployeeNotificationAsReadVars);
+
+// Operation GetEmployeeNotificationPreferences:  For variables, look at type GetEmployeeNotificationPreferencesVars in ../index.d.ts
+const { data } = await GetEmployeeNotificationPreferences(dataConnect, getEmployeeNotificationPreferencesVars);
+
+// Operation UpdateEmployeeNotificationPreferences:  For variables, look at type UpdateEmployeeNotificationPreferencesVars in ../index.d.ts
+const { data } = await UpdateEmployeeNotificationPreferences(dataConnect, updateEmployeeNotificationPreferencesVars);
+
+// Operation GetCurrentEmployeeByUserId:  For variables, look at type GetCurrentEmployeeByUserIdVars in ../index.d.ts
+const { data } = await GetCurrentEmployeeByUserId(dataConnect, getCurrentEmployeeByUserIdVars);
 
 
 ```

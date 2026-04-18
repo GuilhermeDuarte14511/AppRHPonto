@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Bell, Clock3, Database, MapPinned, ShieldCheck, Sparkles } from 'lucide-react';
+import { Bell, Clock3, Database, KeyRound, MapPinned, ShieldCheck, Sparkles } from 'lucide-react';
 import { useEffect, useId, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -22,16 +22,18 @@ import {
   SelectValue,
 } from '@rh-ponto/ui';
 import { adminSettingsFormSchema } from '@rh-ponto/validations';
+import { getPermissionsForRole, userRoles } from '@rh-ponto/types';
 
 import { OverviewPageSkeleton } from '@/shared/components/page-skeletons';
 import { showValidationToast } from '@/shared/lib/form-feedback';
 import { getActionErrorMessage } from '@/shared/lib/mutation-feedback';
+import { formatRoleLabel } from '@/shared/lib/admin-formatters';
 
 import { useSettingsOverview, useUpdateSettings } from '../hooks/use-settings-overview';
 import type { SettingsOverviewData } from '../lib/settings-contracts';
 
 type SettingsFormInput = z.input<typeof adminSettingsFormSchema>;
-type SettingsTabId = 'overview' | 'work-policy' | 'geofence' | 'notifications';
+type SettingsTabId = 'overview' | 'work-policy' | 'geofence' | 'notifications' | 'access-control';
 
 type SettingsTabDefinition = {
   id: SettingsTabId;
@@ -64,6 +66,12 @@ const settingsTabs: SettingsTabDefinition[] = [
     label: 'Alertas',
     description: 'Preferências do sino e sinais operacionais do RH.',
     icon: <Bell className="h-4 w-4" />,
+  },
+  {
+    id: 'access-control',
+    label: 'Acesso',
+    description: 'Papéis e permissões disponíveis na operação.',
+    icon: <KeyRound className="h-4 w-4" />,
   },
 ];
 
@@ -190,6 +198,11 @@ export const SettingsOverview = () => {
     resolver: zodResolver(adminSettingsFormSchema),
     defaultValues: toDefaultValues(),
   });
+  const accessControlRoles = userRoles.map((role) => ({
+    role,
+    label: formatRoleLabel(role),
+    permissions: getPermissionsForRole(role),
+  }));
 
   useEffect(() => {
     if (!data) {
@@ -555,6 +568,36 @@ export const SettingsOverview = () => {
                 />
               </div>
             </Card>
+          ) : null}
+
+          {activeTab === 'access-control' ? (
+            <section className="grid gap-6 xl:grid-cols-3">
+              {accessControlRoles.map((item) => (
+                <Card key={item.role} className="p-5 sm:p-8">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="font-headline text-sm font-extrabold text-[var(--on-surface)]">{item.label}</p>
+                      <p className="mt-2 text-sm leading-6 text-[var(--on-surface-variant)]">
+                        {item.role === 'admin'
+                          ? 'Acesso total aos módulos administrativos e operacionais.'
+                          : item.role === 'employee'
+                            ? 'Acesso à jornada própria, solicitações e documentos pessoais.'
+                            : 'Acesso restrito ao fluxo de batida e validação do terminal.'}
+                      </p>
+                    </div>
+                    <Badge variant="neutral">{item.permissions.length} permissões</Badge>
+                  </div>
+
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {item.permissions.slice(0, 8).map((permission) => (
+                      <Badge key={permission} variant="info">
+                        {permission}
+                      </Badge>
+                    ))}
+                  </div>
+                </Card>
+              ))}
+            </section>
           ) : null}
         </div>
       </form>
