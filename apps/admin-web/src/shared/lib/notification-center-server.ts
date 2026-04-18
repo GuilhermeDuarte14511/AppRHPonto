@@ -354,7 +354,7 @@ const buildDerivedNotifications = (data: NotificationsQueryData): DerivedNotific
         entityName: 'vacation_request',
         entityId: inboxItem.id,
         severity: 'warning',
-        triggeredAt: inboxItem.occurredAt,
+        triggeredAt: vacation ? `${vacation.startDate}T09:00:00.000Z` : inboxItem.occurredAt,
       });
 
       continue;
@@ -362,18 +362,19 @@ const buildDerivedNotifications = (data: NotificationsQueryData): DerivedNotific
 
     if (inboxItem.category === 'onboarding') {
       const task = data.onboardingTasks.find((item) => item.id === inboxItem.id);
+      const isBlocked = task?.status === 'blocked';
 
       items.push({
-        referenceKey: `onboarding-task:${inboxItem.id}:attention`,
+        referenceKey: `onboarding-task:${inboxItem.id}:${isBlocked ? 'blocked' : 'overdue'}:${task?.dueDate ?? 'no-date'}`,
         category: 'onboarding',
-        title: inboxItem.title,
+        title: isBlocked ? 'Etapa de onboarding bloqueada' : 'Etapa de onboarding vencida',
         description: task
           ? `${task.journey.employee.fullName} exige atenção em "${task.title}".`
           : inboxItem.description,
         href: inboxItem.href,
         entityName: 'onboarding_task',
         entityId: inboxItem.id,
-        severity: 'danger',
+        severity: isBlocked ? 'danger' : 'warning',
         triggeredAt: inboxItem.occurredAt,
       });
 
