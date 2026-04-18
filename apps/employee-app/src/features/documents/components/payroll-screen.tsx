@@ -1,10 +1,11 @@
 import { router } from 'expo-router';
-import { ActivityIndicator, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { useCurrentEmployee } from '@/features/employee/hooks/use-current-employee';
 import { AppIcon } from '@/shared/components/app-icon';
 import { MobileEmptyState } from '@/shared/components/mobile-empty-state';
 import { MobilePageHeader } from '@/shared/components/mobile-page-header';
+import { MobileListSkeleton } from '@/shared/components/mobile-skeleton';
 import { useAppSession } from '@/shared/providers/app-providers';
 import { mobileTheme } from '@/shared/theme/tokens';
 
@@ -43,10 +44,7 @@ export const PayrollScreen = () => {
       </View>
 
       {statementsQuery.isLoading ? (
-        <View style={styles.loadingCard}>
-          <ActivityIndicator color={mobileTheme.primary} />
-          <Text style={styles.loadingText}>Buscando seus holerites...</Text>
-        </View>
+        <MobileListSkeleton itemCount={3} showHero={false} />
       ) : statements.length === 0 ? (
         <MobileEmptyState
           iconName="wallet-outline"

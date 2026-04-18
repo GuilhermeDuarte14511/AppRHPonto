@@ -4,7 +4,12 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { AppIcon } from '@/shared/components/app-icon';
 import { mobileTheme } from '@/shared/theme/tokens';
 
-import { formatTimeRecordDateTime, timeRecordStatusLabels, timeRecordTypeLabels } from '../lib/time-record-mobile';
+import {
+  formatTimeRecordDateTime,
+  resolveNextTimeRecordTypeAfter,
+  timeRecordStatusLabels,
+  timeRecordTypeLabels,
+} from '../lib/time-record-mobile';
 
 const statusPalette = {
   valid: {
@@ -12,7 +17,7 @@ const statusPalette = {
     soft: mobileTheme.successSoft,
     icon: 'checkmark-circle',
     title: 'Ponto registrado com sucesso',
-    description: 'Seu registro já entrou na jornada atual e está disponível no histórico.',
+    description: 'Seu registro já entrou no histórico da jornada.',
   },
   pending_review: {
     accent: mobileTheme.warning,
@@ -33,7 +38,7 @@ const statusPalette = {
     soft: mobileTheme.dangerSoft,
     icon: 'close-circle',
     title: 'Ponto rejeitado',
-    description: 'Esse retorno não é esperado para uma nova batida, mas o registro foi consultado.',
+    description: 'Esse retorno não é esperado para uma nova batida.',
   },
 } as const;
 
@@ -45,15 +50,18 @@ export const PunchConfirmationScreen = () => {
     locationName?: string;
     reason?: string;
     coordinates?: string;
+    address?: string;
   }>();
 
   const statusKey = params.status && params.status in statusPalette ? params.status : 'valid';
   const palette = statusPalette[statusKey];
   const typeLabel = params.type && params.type in timeRecordTypeLabels ? timeRecordTypeLabels[params.type] : 'Registro';
   const recordedAtLabel = params.recordedAt ? formatTimeRecordDateTime(params.recordedAt) : 'Agora mesmo';
+  const nextExpectedType =
+    params.type && params.type in timeRecordTypeLabels ? resolveNextTimeRecordTypeAfter(params.type) : null;
 
   return (
-    <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content} style={styles.container}>
+    <ScrollView contentContainerStyle={styles.content} style={styles.container}>
       <View style={styles.hero}>
         <View style={[styles.iconWrap, { backgroundColor: palette.soft }]}>
           <AppIcon color={palette.accent} name={palette.icon} size={44} />
@@ -62,41 +70,21 @@ export const PunchConfirmationScreen = () => {
         <Text style={styles.subtitle}>{palette.description}</Text>
       </View>
 
-      <View style={styles.summaryCard}>
-        <Text style={styles.summaryEyebrow}>Resumo da marcação</Text>
-        <View style={styles.summaryRow}>
-          <Text style={styles.summaryLabel}>Tipo selecionado</Text>
-          <Text style={styles.summaryValue}>{typeLabel}</Text>
-        </View>
-        <View style={styles.summaryRow}>
-          <Text style={styles.summaryLabel}>Status</Text>
-          <Text style={styles.summaryValue}>{timeRecordStatusLabels[statusKey]}</Text>
-        </View>
-        <View style={styles.summaryRow}>
-          <Text style={styles.summaryLabel}>Horário</Text>
-          <Text style={styles.summaryValue}>{recordedAtLabel}</Text>
-        </View>
-        {params.locationName ? (
-          <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Local validado</Text>
-            <Text style={styles.summaryValue}>{params.locationName}</Text>
-          </View>
-        ) : null}
-        {params.coordinates ? (
-          <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Coordenadas</Text>
-            <Text style={styles.summaryValue}>{params.coordinates}</Text>
-          </View>
-        ) : null}
+      <View style={styles.card}>
+        <Text style={styles.eyebrow}>Resumo da marcação</Text>
+        <Row label="Tipo selecionado" value={typeLabel} />
+        <Row label="Status" value={timeRecordStatusLabels[statusKey]} />
+        <Row label="Horário" value={recordedAtLabel} />
+        <Row label="Próxima etapa" value={nextExpectedType ? timeRecordTypeLabels[nextExpectedType] : 'Jornada concluída'} />
+        {params.locationName ? <Row label="Local validado" value={params.locationName} /> : null}
+        {params.coordinates ? <Row label="Coordenadas" value={params.coordinates} /> : null}
+        {params.address ? <Row label="Endereço" value={params.address} multiline /> : null}
       </View>
 
       {params.reason ? (
-        <View style={styles.infoCard}>
-          <View style={styles.infoHeader}>
-            <AppIcon color={palette.accent} name="information-circle-outline" size={18} />
-            <Text style={styles.infoTitle}>Contexto da validação</Text>
-          </View>
-          <Text style={styles.infoText}>{params.reason}</Text>
+        <View style={styles.card}>
+          <Text style={styles.eyebrow}>Contexto da validação</Text>
+          <Text style={styles.reason}>{params.reason}</Text>
         </View>
       ) : null}
 
@@ -112,100 +100,29 @@ export const PunchConfirmationScreen = () => {
   );
 };
 
+const Row = ({ label, value, multiline = false }: { label: string; value: string; multiline?: boolean }) => (
+  <View style={[styles.row, multiline && styles.rowColumn]}>
+    <Text style={styles.label}>{label}</Text>
+    <Text style={[styles.value, multiline && styles.valueMultiline]}>{value}</Text>
+  </View>
+);
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: mobileTheme.background,
-  },
-  content: {
-    paddingHorizontal: 20,
-    paddingTop: 24,
-    paddingBottom: 48,
-    gap: 18,
-  },
-  hero: {
-    borderRadius: 28,
-    backgroundColor: mobileTheme.surfaceRaised,
-    padding: 24,
-    alignItems: 'center',
-    gap: 10,
-  },
-  iconWrap: {
-    width: 88,
-    height: 88,
-    borderRadius: 28,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '900',
-    color: mobileTheme.text,
-    textAlign: 'center',
-    letterSpacing: -0.7,
-  },
-  subtitle: {
-    fontSize: 14,
-    lineHeight: 21,
-    color: mobileTheme.mutedText,
-    textAlign: 'center',
-  },
-  summaryCard: {
-    borderRadius: 24,
-    backgroundColor: mobileTheme.surfaceRaised,
-    padding: 20,
-    gap: 12,
-  },
-  summaryEyebrow: {
-    fontSize: 11,
-    fontWeight: '800',
-    letterSpacing: 1,
-    textTransform: 'uppercase',
-    color: mobileTheme.primary,
-  },
-  summaryRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 16,
-    paddingVertical: 6,
-  },
-  summaryLabel: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: mobileTheme.mutedText,
-  },
-  summaryValue: {
-    flex: 1,
-    textAlign: 'right',
-    fontSize: 14,
-    fontWeight: '700',
-    color: mobileTheme.text,
-  },
-  infoCard: {
-    borderRadius: 24,
-    backgroundColor: mobileTheme.surfaceRaised,
-    padding: 20,
-    gap: 10,
-  },
-  infoHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  infoTitle: {
-    fontSize: 16,
-    fontWeight: '800',
-    color: mobileTheme.text,
-  },
-  infoText: {
-    fontSize: 14,
-    lineHeight: 21,
-    color: mobileTheme.mutedText,
-  },
-  actions: {
-    gap: 12,
-  },
+  container: { flex: 1, backgroundColor: mobileTheme.background },
+  content: { padding: 20, gap: 16, paddingBottom: 40 },
+  hero: { borderRadius: 28, backgroundColor: mobileTheme.surfaceRaised, padding: 24, alignItems: 'center', gap: 10 },
+  iconWrap: { width: 88, height: 88, borderRadius: 28, alignItems: 'center', justifyContent: 'center' },
+  title: { fontSize: 24, fontWeight: '900', color: mobileTheme.text, textAlign: 'center' },
+  subtitle: { fontSize: 14, lineHeight: 21, color: mobileTheme.mutedText, textAlign: 'center' },
+  card: { borderRadius: 24, backgroundColor: mobileTheme.surfaceRaised, padding: 20, gap: 12 },
+  eyebrow: { fontSize: 11, fontWeight: '800', letterSpacing: 1, textTransform: 'uppercase', color: mobileTheme.primary },
+  row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 16 },
+  rowColumn: { alignItems: 'flex-start', flexDirection: 'column' },
+  label: { fontSize: 12, fontWeight: '700', color: mobileTheme.mutedText },
+  value: { flex: 1, textAlign: 'right', fontSize: 14, fontWeight: '700', color: mobileTheme.text },
+  valueMultiline: { textAlign: 'left', width: '100%' },
+  reason: { fontSize: 14, lineHeight: 21, color: mobileTheme.mutedText },
+  actions: { gap: 12 },
   primaryButton: {
     minHeight: 54,
     borderRadius: 20,
@@ -213,11 +130,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: mobileTheme.primary,
   },
-  primaryButtonText: {
-    fontSize: 15,
-    fontWeight: '800',
-    color: '#ffffff',
-  },
+  primaryButtonText: { fontSize: 15, fontWeight: '800', color: '#ffffff' },
   secondaryButton: {
     minHeight: 54,
     borderRadius: 20,
@@ -225,9 +138,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: mobileTheme.surfaceRaised,
   },
-  secondaryButtonText: {
-    fontSize: 15,
-    fontWeight: '800',
-    color: mobileTheme.text,
-  },
+  secondaryButtonText: { fontSize: 15, fontWeight: '800', color: mobileTheme.text },
 });

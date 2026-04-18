@@ -2,10 +2,10 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import {
   createEmployeeVacationRequest,
-  fetchEmployeeVacationRequestById,
+  fetchEmployeeVacationRequestByIdForEmployee,
   fetchEmployeeVacationRequests,
   type CreateEmployeeVacationPayload,
-} from '@/shared/lib/employee-self-service-api';
+} from '../../../shared/lib/employee-self-service-api';
 
 export const useEmployeeVacations = (employeeId: string | null) =>
   useQuery({
@@ -14,11 +14,11 @@ export const useEmployeeVacations = (employeeId: string | null) =>
     queryFn: () => fetchEmployeeVacationRequests(employeeId as string),
   });
 
-export const useEmployeeVacationDetail = (vacationId?: string | null) =>
+export const useEmployeeVacationDetail = (vacationId?: string | null, employeeId?: string | null) =>
   useQuery({
-    queryKey: ['employee-app', 'vacations', 'detail', vacationId],
-    enabled: Boolean(vacationId),
-    queryFn: () => fetchEmployeeVacationRequestById(vacationId as string),
+    queryKey: ['employee-app', 'vacations', 'detail', employeeId, vacationId],
+    enabled: Boolean(vacationId && employeeId),
+    queryFn: () => fetchEmployeeVacationRequestByIdForEmployee(vacationId as string, employeeId as string),
   });
 
 export const useCreateEmployeeVacation = (employeeId: string | null) => {

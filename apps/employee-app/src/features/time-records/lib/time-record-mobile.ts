@@ -3,14 +3,14 @@ import type { TimeRecordSource, TimeRecordStatus, TimeRecordType } from '@rh-pon
 
 export const timeRecordTypeLabels: Record<TimeRecordType, string> = {
   entry: 'Entrada',
-  break_start: 'Saída almoço',
-  break_end: 'Volta almoço',
-  exit: 'Saída',
+  break_start: 'Saida almoco',
+  break_end: 'Volta almoco',
+  exit: 'Saida',
 };
 
 export const timeRecordStatusLabels: Record<TimeRecordStatus, string> = {
-  valid: 'Válido',
-  pending_review: 'Em revisão',
+  valid: 'Valido',
+  pending_review: 'Em revisao',
   adjusted: 'Ajustado',
   rejected: 'Rejeitado',
 };
@@ -22,10 +22,38 @@ export const timeRecordSourceLabels: Record<TimeRecordSource, string> = {
 };
 
 export const timeRecordStatusDescriptions: Record<TimeRecordStatus, string> = {
-  valid: 'A marcação entrou normalmente na jornada e não exige ação adicional.',
-  pending_review: 'O registro foi aceito, mas seguirá para análise operacional do RH.',
+  valid: 'A marcacao entrou normalmente na jornada e nao exige acao adicional.',
+  pending_review: 'O registro foi aceito, mas seguira para analise operacional do RH.',
   adjusted: 'A batida passou por ajuste posterior com trilha de auditoria preservada.',
-  rejected: 'A marcação foi rejeitada e pode precisar de justificativa complementar.',
+  rejected: 'A marcacao foi rejeitada e pode precisar de justificativa complementar.',
+};
+
+export const orderedTimeRecordTypes: TimeRecordType[] = ['entry', 'break_start', 'break_end', 'exit'];
+
+const dayStepCopyByNextType: Record<
+  TimeRecordType,
+  { dayStatusLabel: string; currentStepLabel: string; currentStepDescription: string }
+> = {
+  entry: {
+    dayStatusLabel: 'Aguardando entrada',
+    currentStepLabel: 'Entrada do dia',
+    currentStepDescription: 'Esta sera a primeira batida da sua jornada hoje.',
+  },
+  break_start: {
+    dayStatusLabel: 'Aguardando saida para almoco',
+    currentStepLabel: 'Saida para almoco',
+    currentStepDescription: 'A entrada de hoje ja foi registrada. A proxima batida esperada e a saida para o almoco.',
+  },
+  break_end: {
+    dayStatusLabel: 'Aguardando volta do almoco',
+    currentStepLabel: 'Volta do almoco',
+    currentStepDescription: 'A saida para almoco ja foi registrada. Agora o sistema espera a volta do intervalo.',
+  },
+  exit: {
+    dayStatusLabel: 'Aguardando saida',
+    currentStepLabel: 'Saida do dia',
+    currentStepDescription: 'A jornada esta em andamento e a proxima batida esperada e a saida.',
+  },
 };
 
 const dateTimeFormatter = new Intl.DateTimeFormat('pt-BR', {
@@ -45,6 +73,18 @@ const dateFormatter = new Intl.DateTimeFormat('pt-BR', {
   month: '2-digit',
   year: 'numeric',
 });
+
+export interface DailyTimeRecordFlow {
+  acceptedRecords: TimeRecord[];
+  completedTypes: TimeRecordType[];
+  currentStepLabel: string;
+  currentStepDescription: string;
+  dayStatusLabel: string;
+  isComplete: boolean;
+  hasUnexpectedSequence: boolean;
+  lastAcceptedRecordType: TimeRecordType | null;
+  nextRecordType: TimeRecordType | null;
+}
 
 export const formatTimeRecordDateTime = (value: string | Date) => dateTimeFormatter.format(new Date(value));
 
@@ -74,21 +114,75 @@ export const getRecordsForDay = (records: TimeRecord[], referenceDate = new Date
   );
 };
 
-export const resolveNextTimeRecordType = (records: TimeRecord[], referenceDate = new Date()): TimeRecordType => {
+export const resolveDailyTimeRecordFlow = (
+  records: TimeRecord[],
+  referenceDate = new Date(),
+): DailyTimeRecordFlow => {
   const todayRecords = getRecordsForDay(records, referenceDate);
-  const lastRecord = todayRecords.at(-1);
+  const acceptedRecords = todayRecords.filter((record) => record.status !== 'rejected');
+  const completedTypes: TimeRecordType[] = [];
+  let expectedIndex = 0;
+  let hasUnexpectedSequence = false;
 
-  switch (lastRecord?.recordType) {
-    case 'entry':
-      return 'break_start';
-    case 'break_start':
-      return 'break_end';
-    case 'break_end':
-      return 'exit';
-    case 'exit':
-    default:
-      return 'entry';
+  for (const record of acceptedRecords) {
+    const expectedType = orderedTimeRecordTypes[expectedIndex];
+
+    if (record.recordType === expectedType) {
+      completedTypes.push(record.recordType);
+      expectedIndex += 1;
+      continue;
+    }
+
+    hasUnexpectedSequence = true;
   }
+
+  const isComplete = expectedIndex >= orderedTimeRecordTypes.length;
+  const nextRecordType = isComplete ? null : orderedTimeRecordTypes[expectedIndex];
+  const lastAcceptedRecordType = acceptedRecords.at(-1)?.recordType ?? null;
+
+  if (isComplete) {
+    return {
+      acceptedRecords,
+      completedTypes,
+      currentStepLabel: 'Jornada encerrada',
+      currentStepDescription:
+        'As quatro batidas esperadas para hoje ja foram registradas. Se precisar registrar algo fora do fluxo, escolha manualmente o tipo da batida.',
+      dayStatusLabel: 'Jornada concluida',
+      isComplete: true,
+      hasUnexpectedSequence,
+      lastAcceptedRecordType,
+      nextRecordType: null,
+    };
+  }
+
+  const stepCopy = dayStepCopyByNextType[nextRecordType!];
+
+  return {
+    acceptedRecords,
+    completedTypes,
+    currentStepLabel: stepCopy.currentStepLabel,
+    currentStepDescription: hasUnexpectedSequence
+      ? 'Ha uma divergencia na sequencia das batidas do dia. O tipo abaixo segue a proxima etapa esperada, mas o RH pode revisar esse fluxo.'
+      : stepCopy.currentStepDescription,
+    dayStatusLabel: hasUnexpectedSequence ? `${stepCopy.dayStatusLabel} com revisao` : stepCopy.dayStatusLabel,
+    isComplete: false,
+    hasUnexpectedSequence,
+    lastAcceptedRecordType,
+    nextRecordType,
+  };
+};
+
+export const resolveNextTimeRecordType = (records: TimeRecord[], referenceDate = new Date()) =>
+  resolveDailyTimeRecordFlow(records, referenceDate).nextRecordType;
+
+export const resolveNextTimeRecordTypeAfter = (recordType: TimeRecordType) => {
+  const currentIndex = orderedTimeRecordTypes.indexOf(recordType);
+
+  if (currentIndex === -1 || currentIndex === orderedTimeRecordTypes.length - 1) {
+    return null;
+  }
+
+  return orderedTimeRecordTypes[currentIndex + 1];
 };
 
 export const filterTimeRecordsByPreset = (
@@ -115,7 +209,7 @@ export const filterTimeRecordsByPreset = (
 };
 
 export const calculateWorkedMinutes = (records: TimeRecord[], referenceDate = new Date()) => {
-  const todayRecords = getRecordsForDay(records, referenceDate);
+  const todayRecords = getRecordsForDay(records, referenceDate).filter((record) => record.status !== 'rejected');
   let openRangeStartedAt: Date | null = null;
   let totalMinutes = 0;
 

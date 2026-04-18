@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 
 import {
-  fetchEmployeeDocumentById,
+  fetchEmployeeDocumentByIdForEmployee,
   fetchEmployeeDocuments,
-  fetchPayrollStatementById,
+  fetchPayrollStatementByIdForEmployee,
   fetchPayrollStatements,
-} from '@/shared/lib/employee-self-service-api';
+} from '../../../shared/lib/employee-self-service-api';
 
 export const useEmployeeDocuments = (employeeId: string | null) =>
   useQuery({
@@ -14,11 +14,11 @@ export const useEmployeeDocuments = (employeeId: string | null) =>
     queryFn: () => fetchEmployeeDocuments(employeeId as string),
   });
 
-export const useEmployeeDocumentDetail = (documentId?: string | null) =>
+export const useEmployeeDocumentDetail = (documentId?: string | null, employeeId?: string | null) =>
   useQuery({
-    queryKey: ['employee-app', 'documents', 'detail', documentId],
-    enabled: Boolean(documentId),
-    queryFn: () => fetchEmployeeDocumentById(documentId as string),
+    queryKey: ['employee-app', 'documents', 'detail', employeeId, documentId],
+    enabled: Boolean(documentId && employeeId),
+    queryFn: () => fetchEmployeeDocumentByIdForEmployee(documentId as string, employeeId as string),
   });
 
 export const usePayrollStatements = (employeeId: string | null) =>
@@ -28,9 +28,9 @@ export const usePayrollStatements = (employeeId: string | null) =>
     queryFn: () => fetchPayrollStatements(employeeId as string),
   });
 
-export const usePayrollStatementDetail = (statementId?: string | null) =>
+export const usePayrollStatementDetail = (statementId?: string | null, employeeId?: string | null) =>
   useQuery({
-    queryKey: ['employee-app', 'payroll', 'detail', statementId],
-    enabled: Boolean(statementId),
-    queryFn: () => fetchPayrollStatementById(statementId as string),
+    queryKey: ['employee-app', 'payroll', 'detail', employeeId, statementId],
+    enabled: Boolean(statementId && employeeId),
+    queryFn: () => fetchPayrollStatementByIdForEmployee(statementId as string, employeeId as string),
   });

@@ -87,6 +87,7 @@ type TimeRecord @table {
   referenceRecord: TimeRecord @index
   latitude: Float
   longitude: Float
+  resolvedAddress: String
   ipAddress: String
   createdAt: Timestamp! @default(expr: "request.time") @index
   updatedAt: Timestamp! @default(expr: "request.time")
@@ -193,6 +194,22 @@ type PayrollStatement @table {
   fileName: String!
   fileUrl: String!
   issuedAt: Timestamp! @index
+  createdAt: Timestamp! @default(expr: "request.time") @index
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type PayrollClosure @table {
+  referenceKey: String! @unique
+  referenceLabel: String! @index
+  referenceYear: Int! @index
+  referenceMonth: Int! @index
+  periodStart: Date! @index
+  periodEnd: Date! @index
+  status: String! @default(value: "draft") @index
+  notes: String
+  closedAt: Timestamp @index
+  closedByUser: User @index
+  stateData: Any!
   createdAt: Timestamp! @default(expr: "request.time") @index
   updatedAt: Timestamp! @default(expr: "request.time")
 }

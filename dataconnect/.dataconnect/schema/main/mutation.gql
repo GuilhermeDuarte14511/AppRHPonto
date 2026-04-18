@@ -144,6 +144,15 @@ extend type Mutation {
     data: OnboardingTask_Data!
   ): OnboardingTask_KeyOutput! @fdc_generated(from: "OnboardingTask", purpose: INSERT_SINGLE)
   """
+  ✨ Insert a single `PayrollClosure` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  payrollClosure_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: PayrollClosure_Data!
+  ): PayrollClosure_KeyOutput! @fdc_generated(from: "PayrollClosure", purpose: INSERT_SINGLE)
+  """
   ✨ Insert a single `PayrollStatement` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
   """
   payrollStatement_insert(
@@ -350,6 +359,15 @@ extend type Mutation {
     """
     data: [OnboardingTask_Data!]!
   ): [OnboardingTask_KeyOutput!]! @fdc_generated(from: "OnboardingTask", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `PayrollClosure` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  payrollClosure_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [PayrollClosure_Data!]!
+  ): [PayrollClosure_KeyOutput!]! @fdc_generated(from: "PayrollClosure", purpose: INSERT_MULTIPLE)
   """
   ✨ Insert `PayrollStatement` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
   """
@@ -558,6 +576,15 @@ extend type Mutation {
     data: OnboardingTask_Data!
   ): OnboardingTask_KeyOutput! @fdc_generated(from: "OnboardingTask", purpose: UPSERT_SINGLE)
   """
+  ✨ Insert or update a single `PayrollClosure` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `PayrollClosure`.
+  """
+  payrollClosure_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: PayrollClosure_Data!
+  ): PayrollClosure_KeyOutput! @fdc_generated(from: "PayrollClosure", purpose: UPSERT_SINGLE)
+  """
   ✨ Insert or update a single `PayrollStatement` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `PayrollStatement`.
   """
   payrollStatement_upsert(
@@ -764,6 +791,15 @@ extend type Mutation {
     """
     data: [OnboardingTask_Data!]!
   ): [OnboardingTask_KeyOutput!]! @fdc_generated(from: "OnboardingTask", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `PayrollClosure` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `PayrollClosure`.
+  """
+  payrollClosure_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [PayrollClosure_Data!]!
+  ): [PayrollClosure_KeyOutput!]! @fdc_generated(from: "PayrollClosure", purpose: UPSERT_MULTIPLE)
   """
   ✨ Insert or update `PayrollStatement` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `PayrollStatement`.
   """
@@ -1206,6 +1242,30 @@ extend type Mutation {
     """
     data: OnboardingTask_Data!
   ): OnboardingTask_KeyOutput @fdc_generated(from: "OnboardingTask", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `PayrollClosure` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `PayrollClosure` or `null` if not found.
+  """
+  payrollClosure_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: PayrollClosure_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: PayrollClosure_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: PayrollClosure_Data!
+  ): PayrollClosure_KeyOutput @fdc_generated(from: "PayrollClosure", purpose: UPDATE_SINGLE)
   """
   ✨ Update a single `PayrollStatement` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `PayrollStatement` or `null` if not found.
   """
@@ -1679,6 +1739,25 @@ extend type Mutation {
     data: OnboardingTask_Data!
   ): Int! @fdc_generated(from: "OnboardingTask", purpose: UPDATE_MULTIPLE)
   """
+  ✨ Update `PayrollClosure` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  payrollClosure_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: PayrollClosure_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: PayrollClosure_Data!
+  ): Int! @fdc_generated(from: "PayrollClosure", purpose: UPDATE_MULTIPLE)
+  """
   ✨ Update `PayrollStatement` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
   """
   payrollStatement_updateMany(
@@ -2111,6 +2190,25 @@ extend type Mutation {
     first: OnboardingTask_FirstRow
   ): OnboardingTask_KeyOutput @fdc_generated(from: "OnboardingTask", purpose: DELETE_SINGLE)
   """
+  ✨ Delete a single `PayrollClosure` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  payrollClosure_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: PayrollClosure_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: PayrollClosure_FirstRow
+  ): PayrollClosure_KeyOutput @fdc_generated(from: "PayrollClosure", purpose: DELETE_SINGLE)
+  """
   ✨ Delete a single `PayrollStatement` based on `id`, `key` or `first` and return its key (or `null` if not found).
   """
   payrollStatement_delete(
@@ -2467,6 +2565,20 @@ extend type Mutation {
     """
     all: Boolean = false
   ): Int! @fdc_generated(from: "OnboardingTask", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `PayrollClosure` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  payrollClosure_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: PayrollClosure_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollClosure", purpose: DELETE_MULTIPLE)
   """
   ✨ Delete `PayrollStatement` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
   """

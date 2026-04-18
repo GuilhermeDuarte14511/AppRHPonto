@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { useEmployeeAttendancePolicy } from '@/features/attendance/hooks/use-employee-attendance-policy';
 import { useCurrentEmployee } from '@/features/employee/hooks/use-current-employee';
@@ -15,6 +15,7 @@ import {
   timeRecordTypeLabels,
 } from '@/features/time-records/lib/time-record-mobile';
 import { AppIcon } from '@/shared/components/app-icon';
+import { MobileListSkeleton } from '@/shared/components/mobile-skeleton';
 import { useAppSession } from '@/shared/providers/app-providers';
 import { mobileTheme } from '@/shared/theme/tokens';
 
@@ -66,7 +67,9 @@ export const EmployeeTimeRecordsScreen = () => {
           </View>
           <View style={styles.summaryMetric}>
             <Text style={styles.summaryMetricLabel}>Próxima batida</Text>
-            <Text style={styles.summaryMetricValue}>{timeRecordTypeLabels[nextRecordType]}</Text>
+            <Text style={styles.summaryMetricValue}>
+              {nextRecordType ? timeRecordTypeLabels[nextRecordType] : 'Concluida'}
+            </Text>
           </View>
         </View>
         <Text style={styles.summaryText}>
@@ -101,10 +104,7 @@ export const EmployeeTimeRecordsScreen = () => {
       </ScrollView>
 
       {timeRecordsQuery.isLoading ? (
-        <View style={styles.placeholderCard}>
-          <ActivityIndicator color={mobileTheme.primary} />
-          <Text style={styles.placeholderText}>Carregando suas marcações...</Text>
-        </View>
+        <MobileListSkeleton itemCount={4} showHero={false} />
       ) : timeRecordsQuery.isError ? (
         <View style={styles.placeholderCard}>
           <AppIcon color={mobileTheme.danger} name="alert-circle-outline" size={22} />

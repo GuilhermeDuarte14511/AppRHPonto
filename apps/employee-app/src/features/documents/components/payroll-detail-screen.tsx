@@ -1,17 +1,22 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import { ActivityIndicator, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { AppIcon } from '@/shared/components/app-icon';
 import { MobileEmptyState } from '@/shared/components/mobile-empty-state';
 import { MobilePageHeader } from '@/shared/components/mobile-page-header';
+import { MobileDetailSkeleton } from '@/shared/components/mobile-skeleton';
+import { useAppSession } from '@/shared/providers/app-providers';
 import { mobileTheme } from '@/shared/theme/tokens';
+import { useCurrentEmployee } from '@/features/employee/hooks/use-current-employee';
 
 import { usePayrollStatementDetail } from '../hooks/use-employee-documents';
 import { formatDocumentDate, formatMoney, payrollStatusLabels } from '../lib/documents-mobile';
 
 export const PayrollDetailScreen = () => {
   const params = useLocalSearchParams<{ id?: string }>();
-  const detailQuery = usePayrollStatementDetail(params.id);
+  const { session } = useAppSession();
+  const { employee } = useCurrentEmployee(session);
+  const detailQuery = usePayrollStatementDetail(params.id, employee?.id);
   const statement = detailQuery.data;
 
   return (
@@ -27,10 +32,7 @@ export const PayrollDetailScreen = () => {
       />
 
       {detailQuery.isLoading ? (
-        <View style={styles.loadingCard}>
-          <ActivityIndicator color={mobileTheme.primary} />
-          <Text style={styles.loadingText}>Carregando o holerite selecionado...</Text>
-        </View>
+        <MobileDetailSkeleton sectionCount={2} />
       ) : !statement ? (
         <MobileEmptyState
           iconName="wallet-outline"

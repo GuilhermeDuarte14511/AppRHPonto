@@ -1,10 +1,11 @@
 import { router } from 'expo-router';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { useCurrentEmployee } from '@/features/employee/hooks/use-current-employee';
 import { AppIcon } from '@/shared/components/app-icon';
 import { MobileEmptyState } from '@/shared/components/mobile-empty-state';
 import { MobilePageHeader } from '@/shared/components/mobile-page-header';
+import { MobileListSkeleton } from '@/shared/components/mobile-skeleton';
 import { useAppSession } from '@/shared/providers/app-providers';
 import { mobileTheme } from '@/shared/theme/tokens';
 
@@ -58,10 +59,7 @@ export const VacationsScreen = () => {
       </View>
 
       {vacationsQuery.isLoading ? (
-        <View style={styles.loadingCard}>
-          <ActivityIndicator color={mobileTheme.primary} />
-          <Text style={styles.loadingText}>Carregando suas solicitações de férias...</Text>
-        </View>
+        <MobileListSkeleton itemCount={3} showHero={false} />
       ) : vacations.length === 0 ? (
         <MobileEmptyState
           iconName="airplane-outline"

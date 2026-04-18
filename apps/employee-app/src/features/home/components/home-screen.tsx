@@ -1,8 +1,10 @@
+import { CameraView, useCameraPermissions } from 'expo-camera';
 import { router } from 'expo-router';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Image,
   Modal,
   Pressable,
   ScrollView,
@@ -10,7 +12,6 @@ import {
   Text,
   View,
 } from 'react-native';
-import { CameraView, useCameraPermissions } from 'expo-camera';
 
 import type { AttendanceCoordinates } from '@rh-ponto/attendance-policies';
 import type { TimeRecordType } from '@rh-ponto/types';
@@ -24,33 +25,20 @@ import {
   formatDurationFromMinutes,
   formatTimeRecordDateTime,
   formatTimeRecordTime,
+  orderedTimeRecordTypes,
   timeRecordSourceLabels,
   timeRecordTypeLabels,
 } from '@/features/time-records/lib/time-record-mobile';
 import { AppIcon } from '@/shared/components/app-icon';
+import { MobileDetailSkeleton, MobileListSkeleton } from '@/shared/components/mobile-skeleton';
 import { useDeviceLocation } from '@/shared/hooks/use-device-location';
 import { useAppSession } from '@/shared/providers/app-providers';
 import { mobileTheme } from '@/shared/theme/tokens';
 
 const statusPalette = {
-  allowed: {
-    backgroundColor: mobileTheme.primary,
-    highlight: '#22c55e',
-    label: 'Permitido',
-    description: 'Você está dentro do fluxo ideal para registrar o ponto agora.',
-  },
-  pending_review: {
-    backgroundColor: '#ad6a00',
-    highlight: '#facc15',
-    label: 'Em revisão',
-    description: 'O registro pode seguir, mas ficará sinalizado para conferência do RH.',
-  },
-  blocked: {
-    backgroundColor: '#991b1b',
-    highlight: '#fca5a5',
-    label: 'Bloqueado',
-    description: 'A localização atual não atende à política de marcação do seu cadastro.',
-  },
+  allowed: { backgroundColor: mobileTheme.primary, label: 'Permitido' },
+  pending_review: { backgroundColor: '#ad6a00', label: 'Em revisão' },
+  blocked: { backgroundColor: '#991b1b', label: 'Bloqueado' },
 } as const;
 
 const statusTextByRecordStatus = {
@@ -60,33 +48,38 @@ const statusTextByRecordStatus = {
   rejected: 'Rejeitado pela revisão',
 } as const;
 
-const describeDistance = (distanceMeters?: number | null) => {
-  if (distanceMeters == null) {
-    return null;
-  }
+const evaluationDetailPalette = {
+  allowed: {
+    accent: '#0f766e',
+    surface: '#ecfdf5',
+    border: '#99f6e4',
+    titleColor: '#115e59',
+    textColor: '#134e4a',
+    icon: 'shield-checkmark-outline' as const,
+  },
+  pending_review: {
+    accent: '#b45309',
+    surface: '#fff7ed',
+    border: '#fdba74',
+    titleColor: '#9a3412',
+    textColor: '#7c2d12',
+    icon: 'time-outline' as const,
+  },
+  blocked: {
+    accent: '#b91c1c',
+    surface: '#fef2f2',
+    border: '#fca5a5',
+    titleColor: '#991b1b',
+    textColor: '#7f1d1d',
+    icon: 'alert-circle-outline' as const,
+  },
+} as const;
 
-  if (distanceMeters < 1000) {
-    return `${distanceMeters} m do local autorizado mais próximo`;
-  }
+const formatCoordinatesLabel = (coordinates?: AttendanceCoordinates | null) =>
+  coordinates ? `${coordinates.latitude.toFixed(5)}, ${coordinates.longitude.toFixed(5)}` : 'Aguardando GPS';
 
-  return `${(distanceMeters / 1000).toFixed(1)} km do local autorizado mais próximo`;
-};
-
-const formatCoordinatesLabel = (coordinates?: AttendanceCoordinates | null) => {
-  if (!coordinates) {
-    return 'Aguardando leitura do GPS';
-  }
-
-  return `${coordinates.latitude.toFixed(5)}, ${coordinates.longitude.toFixed(5)}`;
-};
-
-const formatAccuracyLabel = (coordinates?: AttendanceCoordinates | null) => {
-  if (!coordinates?.accuracyMeters) {
-    return 'Precisão indisponível';
-  }
-
-  return `Precisão estimada de ${Math.round(coordinates.accuracyMeters)} m`;
-};
+const formatAccuracyLabel = (coordinates?: AttendanceCoordinates | null) =>
+  coordinates?.accuracyMeters ? `Precisão estimada de ${Math.round(coordinates.accuracyMeters)} m` : 'Precisão indisponível';
 
 const buildConfirmationParams = (
   recordedAt: string | Date,
@@ -95,6 +88,7 @@ const buildConfirmationParams = (
   matchedLocationName?: string | null,
   status?: 'valid' | 'pending_review' | 'adjusted' | 'rejected',
   coordinates?: AttendanceCoordinates | null,
+  resolvedAddress?: string | null,
 ) => ({
   recordedAt: typeof recordedAt === 'string' ? recordedAt : recordedAt.toISOString(),
   type: recordType,
@@ -102,23 +96,69 @@ const buildConfirmationParams = (
   reason: evaluationTitle ?? '',
   locationName: matchedLocationName ?? '',
   coordinates: formatCoordinatesLabel(coordinates),
+  address: resolvedAddress ?? '',
 });
+
+const getEvaluationExperienceCopy = (
+  status: 'allowed' | 'pending_review' | 'blocked',
+  reasonCode?: string | null,
+) => {
+  if (status === 'allowed' && reasonCode === 'allow_any_location') {
+    return {
+      headline: 'Sua política permite marcar de qualquer local',
+      description: 'Esta batida entra direto na jornada e não precisa passar pela revisão do RH.',
+      helper: 'Você ainda precisa confirmar foto, coordenadas e endereço antes de enviar.',
+    };
+  }
+
+  if (status === 'allowed') {
+    return {
+      headline: 'Sua batida entra direto na jornada',
+      description: 'Você está dentro da regra configurada para o seu vínculo e o ponto não depende de revisão do RH.',
+      helper: 'Confira foto, coordenadas e endereço antes de confirmar o envio.',
+    };
+  }
+
+  if (status === 'pending_review') {
+    return {
+      headline: 'Você pode registrar, mas o RH vai revisar',
+      description: 'A marcação será salva normalmente, porém ficará sinalizada para conferência operacional do RH.',
+      helper: 'Isso acontece quando a política permite exceção fora do perímetro, mas exige rastreabilidade.',
+    };
+  }
+
+  if (reasonCode === 'location_missing') {
+    return {
+      headline: 'Sua localização precisa ser confirmada',
+      description: 'Sem GPS e endereço validados, esta política não permite concluir a batida agora.',
+      helper: 'Atualize sua localização e tente novamente antes de abrir a câmera.',
+    };
+  }
+
+  return {
+    headline: 'Esta batida está fora da regra atual',
+    description: 'Sua política exige um perímetro autorizado para este registro, então o envio está bloqueado neste momento.',
+    helper: 'Se você estiver no local certo, atualize o GPS. Caso contrário, fale com o RH para revisar sua política.',
+  };
+};
 
 export const HomeScreen = () => {
   const { session } = useAppSession();
   const { employee, identity, employeeQuery } = useCurrentEmployee(session);
   const employeeId = employee?.id ?? null;
-  const location = useDeviceLocation();
-  const { coordinates, errorMessage, isLoading: isLocationLoading, permissionStatus, refreshLocation } = location;
-  const { records, nextRecordType, workedMinutesToday, todayRecords, timeRecordsQuery } = useEmployeeTimeRecords(employeeId);
+  const { address, coordinates, errorMessage, isLoading: isLocationLoading, permissionStatus, refreshLocation } =
+    useDeviceLocation();
+  const { dayFlow, records, nextRecordType, workedMinutesToday, todayRecords, timeRecordsQuery } =
+    useEmployeeTimeRecords(employeeId);
   const { policyQuery, effectivePolicy, evaluation } = useEmployeeAttendancePolicy(employeeId, coordinates);
   const registerTimeRecord = useRegisterTimeRecord();
-
   const [cameraPermission, requestCameraPermission] = useCameraPermissions();
   const [isTypeSheetVisible, setIsTypeSheetVisible] = useState(false);
   const [isCameraActive, setIsCameraActive] = useState(false);
+  const [isReviewVisible, setIsReviewVisible] = useState(false);
   const [isTakingPhoto, setIsTakingPhoto] = useState(false);
-  const [selectedRecordType, setSelectedRecordType] = useState<TimeRecordType>('entry');
+  const [capturedPhoto, setCapturedPhoto] = useState<{ uri: string; size?: number } | null>(null);
+  const [selectedRecordType, setSelectedRecordType] = useState<TimeRecordType | null>(null);
   const cameraRef = useRef<CameraView>(null);
 
   useEffect(() => {
@@ -131,38 +171,48 @@ export const HomeScreen = () => {
     }
   }, [coordinates, isLocationLoading, permissionStatus, refreshLocation]);
 
-  const activeCoordinates: AttendanceCoordinates | null = coordinates;
   const employeeName = identity.name;
   const recentRecords = records.slice(0, 3);
+  const activeCoordinates = coordinates;
+  const resolvedAddress = address?.displayAddress ?? null;
+  const hasResolvedLocation = Boolean(activeCoordinates && resolvedAddress);
   const statusKey = evaluation?.status ?? 'pending_review';
-  const palette = statusPalette[statusKey];
-  const selectedRecordLabel = timeRecordTypeLabels[selectedRecordType];
-  const recommendedRecordLabel = timeRecordTypeLabels[nextRecordType];
-  const hoursTodayLabel = formatDurationFromMinutes(workedMinutesToday);
-  const distanceLabel = describeDistance(evaluation?.distanceMeters);
+  const evaluationCopy = getEvaluationExperienceCopy(statusKey, evaluation?.reasonCode ?? null);
+  const evaluationPalette = evaluationDetailPalette[statusKey];
+  const selectedRecordLabel = selectedRecordType ? timeRecordTypeLabels[selectedRecordType] : 'Escolha manualmente';
+  const recommendedRecordLabel = nextRecordType ? timeRecordTypeLabels[nextRecordType] : 'Jornada concluída';
   const canRegister =
     Boolean(employeeId) &&
-    !employeeQuery.isLoading &&
-    !policyQuery.isLoading &&
-    !timeRecordsQuery.isLoading &&
-    !registerTimeRecord.isPending &&
-    Boolean(evaluation?.canSubmitPunch);
+    Boolean(selectedRecordType) &&
+    Boolean(evaluation?.canSubmitPunch) &&
+    hasResolvedLocation &&
+    !registerTimeRecord.isPending;
 
-  const locationSummary = useMemo(
-    () => ({
-      title:
-        evaluation?.matchedLocation?.name ??
-        evaluation?.nearestAllowedLocation?.name ??
-        'Aguardando localização validada',
-      coordinates: formatCoordinatesLabel(activeCoordinates),
-      accuracy: formatAccuracyLabel(activeCoordinates),
-    }),
-    [activeCoordinates, evaluation?.matchedLocation?.name, evaluation?.nearestAllowedLocation?.name],
-  );
+  if (employeeQuery.isLoading || policyQuery.isLoading || timeRecordsQuery.isLoading) {
+    return (
+      <ScrollView contentContainerStyle={styles.content} style={styles.container}>
+        <MobileDetailSkeleton sectionCount={2} />
+        <MobileListSkeleton itemCount={2} showHero={false} />
+      </ScrollView>
+    );
+  }
 
   const openCameraFlow = async () => {
     if (!employeeId) {
       Alert.alert('Cadastro indisponível', 'Não encontramos seu vínculo de colaborador para registrar o ponto.');
+      return;
+    }
+
+    if (!selectedRecordType) {
+      Alert.alert('Selecione a batida', 'Escolha o tipo de ponto antes de continuar.');
+      return;
+    }
+
+    if (!hasResolvedLocation) {
+      Alert.alert(
+        'Confirme sua localização',
+        'Atualize o GPS e aguarde o endereço aparecer antes de seguir para a foto.',
+      );
       return;
     }
 
@@ -173,7 +223,6 @@ export const HomeScreen = () => {
 
     if (!cameraPermission?.granted) {
       const permission = await requestCameraPermission();
-
       if (!permission.granted) {
         Alert.alert('Permissão necessária', 'É obrigatório permitir a câmera para registrar o ponto com foto.');
         return;
@@ -183,36 +232,34 @@ export const HomeScreen = () => {
     setIsCameraActive(true);
   };
 
-  const handleRegisterActionWithPhoto = async () => {
-    if (isTakingPhoto) {
+  const handleCapturePhoto = async () => {
+    if (isTakingPhoto || !cameraRef.current) {
       return;
     }
 
-    let photo: { uri: string; size?: number } | null = null;
+    setIsTakingPhoto(true);
 
-    if (cameraRef.current) {
-      setIsTakingPhoto(true);
+    try {
+      const picture = await cameraRef.current.takePictureAsync({ quality: 0.5, skipProcessing: true });
 
-      try {
-        const picture = await cameraRef.current.takePictureAsync({
-          quality: 0.5,
-          skipProcessing: true,
-        });
-
-        if (picture) {
-          photo = { uri: picture.uri, size: 0 };
-        }
-      } catch {
-        Alert.alert('Erro', 'Não foi possível tirar a foto para registrar o ponto.');
-        setIsTakingPhoto(false);
+      if (!picture) {
+        Alert.alert('Foto obrigatória', 'Não foi possível capturar a foto. Tente novamente.');
         return;
       }
-    }
 
-    if (!employeeId) {
-      Alert.alert('Cadastro indisponível', 'Não encontramos seu vínculo de colaborador para registrar o ponto.');
-      setIsTakingPhoto(false);
+      setCapturedPhoto({ uri: picture.uri, size: 0 });
       setIsCameraActive(false);
+      setIsReviewVisible(true);
+    } catch {
+      Alert.alert('Erro', 'Não foi possível tirar a foto para registrar o ponto.');
+    } finally {
+      setIsTakingPhoto(false);
+    }
+  };
+
+  const handleConfirmPunch = async () => {
+    if (!employeeId || !selectedRecordType || !capturedPhoto) {
+      Alert.alert('Dados incompletos', 'Confirme foto, tipo e localização antes de enviar.');
       return;
     }
 
@@ -223,11 +270,12 @@ export const HomeScreen = () => {
         recordType: selectedRecordType,
         evaluation,
         coordinates: activeCoordinates,
-        photo,
+        resolvedAddress,
+        photo: capturedPhoto,
       });
 
-      setIsCameraActive(false);
-      setIsTakingPhoto(false);
+      setIsReviewVisible(false);
+      setCapturedPhoto(null);
 
       router.push({
         pathname: '/punch-confirmation',
@@ -238,10 +286,10 @@ export const HomeScreen = () => {
           evaluation?.matchedLocation?.name ?? evaluation?.nearestAllowedLocation?.name ?? null,
           createdRecord.status,
           activeCoordinates,
+          resolvedAddress,
         ),
       });
     } catch (error) {
-      setIsTakingPhoto(false);
       Alert.alert(
         'Não foi possível registrar o ponto',
         error instanceof Error ? error.message : 'Tente novamente em instantes.',
@@ -251,11 +299,7 @@ export const HomeScreen = () => {
 
   return (
     <>
-      <ScrollView
-        contentContainerStyle={styles.content}
-        contentInsetAdjustmentBehavior="automatic"
-        style={styles.container}
-      >
+      <ScrollView contentContainerStyle={styles.content} style={styles.container}>
         <View style={styles.header}>
           <View style={styles.avatar}>
             <Text style={styles.avatarText}>{employeeName.charAt(0).toUpperCase()}</Text>
@@ -264,200 +308,123 @@ export const HomeScreen = () => {
             <Text style={styles.headerEyebrow}>Jornada de hoje</Text>
             <Text style={styles.headerTitle}>Olá, {employeeName.split(' ')[0]}</Text>
             <Text style={styles.headerSubtitle}>
-              Confira sua localização, selecione o tipo de batida e registre o ponto com foto.
+              O envio do ponto só acontece depois da confirmação da foto, das coordenadas e do endereço.
             </Text>
           </View>
-          <Pressable style={styles.notificationButton} onPress={() => router.push('/notifications' as never)}>
-            <AppIcon color={mobileTheme.subtleText} name="notifications-outline" size={24} />
-          </Pressable>
         </View>
 
-        <View style={[styles.primaryCard, { backgroundColor: palette.backgroundColor }]}>
-          <View style={styles.primaryBadge}>
-            <View style={[styles.primaryDot, { backgroundColor: palette.highlight }]} />
-            <Text style={styles.primaryBadgeText}>{palette.label}</Text>
+        <View style={[styles.heroCard, { backgroundColor: statusPalette[statusKey].backgroundColor }]}>
+          <Text style={styles.heroBadge}>{statusPalette[statusKey].label}</Text>
+          <Text style={styles.heroTitle}>{selectedRecordLabel}</Text>
+          <Text style={styles.heroText}>Próxima etapa sugerida: {recommendedRecordLabel}</Text>
+          <Text style={styles.heroText}>{dayFlow.currentStepLabel}</Text>
+          <View style={styles.chipRow}>
+            {orderedTimeRecordTypes.map((recordType) => (
+              <View key={recordType} style={styles.chip}>
+                <Text style={styles.chipText}>{timeRecordTypeLabels[recordType]}</Text>
+              </View>
+            ))}
           </View>
-
-          <Text style={styles.primaryLabel}>Tipo escolhido para esta batida</Text>
-          <Text style={styles.primaryTime}>{selectedRecordLabel}</Text>
-          <Text style={styles.primaryType}>Sugestão do sistema: {recommendedRecordLabel}</Text>
-          <Text style={styles.primaryDescription}>{evaluation?.description ?? palette.description}</Text>
-
-          <View style={styles.primaryActionRow}>
-            <Pressable style={styles.secondaryHeroAction} onPress={() => setIsTypeSheetVisible(true)}>
-              <AppIcon color="#ffffff" name="swap-horizontal-outline" size={18} />
-              <Text style={styles.secondaryHeroActionText}>Escolher tipo</Text>
+          <View style={styles.buttonStack}>
+            <Pressable style={styles.secondaryButton} onPress={() => setIsTypeSheetVisible(true)}>
+              <Text style={styles.secondaryButtonText}>Escolher tipo</Text>
             </Pressable>
             <Pressable
+              style={[styles.primaryButton, !canRegister && styles.buttonDisabled]}
               disabled={!canRegister}
               onPress={() => void openCameraFlow()}
-              style={[styles.primaryAction, (!canRegister || registerTimeRecord.isPending) && styles.primaryActionDisabled]}
             >
-              {registerTimeRecord.isPending ? (
-                <ActivityIndicator color={mobileTheme.primary} size="small" />
-              ) : (
-                <AppIcon color={mobileTheme.primary} name="camera-outline" size={18} />
-              )}
-              <Text style={styles.primaryActionText}>
-                {registerTimeRecord.isPending ? 'Registrando...' : 'Registrar com foto'}
+              <Text style={styles.primaryButtonText}>{registerTimeRecord.isPending ? 'Enviando...' : 'Capturar foto'}</Text>
+            </Pressable>
+          </View>
+        </View>
+
+        <View
+          style={[
+            styles.policyFeedbackCard,
+            {
+              backgroundColor: evaluationPalette.surface,
+              borderColor: evaluationPalette.border,
+            },
+          ]}
+        >
+          <View style={styles.policyFeedbackHeader}>
+            <View
+              style={[
+                styles.policyFeedbackIcon,
+                {
+                  backgroundColor: evaluationPalette.accent,
+                },
+              ]}
+            >
+              <AppIcon color="#fff" name={evaluationPalette.icon} size={18} />
+            </View>
+            <View style={styles.policyFeedbackCopy}>
+              <Text style={[styles.policyFeedbackEyebrow, { color: evaluationPalette.accent }]}>
+                Resultado da política
               </Text>
-            </Pressable>
-          </View>
-        </View>
-
-        <View style={styles.grid}>
-          <View style={styles.metricCard}>
-            <View style={styles.metricIcon}>
-              <AppIcon color={mobileTheme.primary} name="time-outline" size={20} />
-            </View>
-            <Text style={styles.metricEyebrow}>Horas do dia</Text>
-            <Text style={styles.metricValue}>{hoursTodayLabel}</Text>
-            <Text style={styles.metricHint}>
-              {todayRecords.length > 0
-                ? `${todayRecords.length} marcação(ões) registradas hoje.`
-                : 'Nenhuma marcação registrada até agora.'}
-            </Text>
-          </View>
-
-          <View style={styles.secondaryCard}>
-            <Text style={styles.secondaryEyebrow}>Política aplicada</Text>
-            <Text style={styles.secondaryValue}>{effectivePolicy?.name ?? 'Carregando política'}</Text>
-            <Text style={styles.secondaryHint}>
-              {effectivePolicy?.description ?? 'Buscando a regra operacional vinculada ao seu cadastro.'}
-            </Text>
-          </View>
-
-          <View style={styles.shortcutsCard}>
-            <Text style={styles.secondaryEyebrow}>Atalhos</Text>
-            <View style={styles.shortcutsGrid}>
-              <Pressable style={styles.shortcutButton} onPress={() => router.push('/(tabs)/time-records')}>
-                <AppIcon color={mobileTheme.primary} name="receipt-outline" size={20} />
-                <Text style={styles.shortcutLabel}>Ver histórico</Text>
-              </Pressable>
-              <Pressable style={styles.shortcutButton} onPress={() => router.push('/(tabs)/justifications')}>
-                <AppIcon color={mobileTheme.tertiary} name="document-text-outline" size={20} />
-                <Text style={styles.shortcutLabel}>Justificar</Text>
-              </Pressable>
-              <Pressable style={styles.shortcutButton} onPress={() => router.push('/vacations' as never)}>
-                <AppIcon color={mobileTheme.success} name="airplane-outline" size={20} />
-                <Text style={styles.shortcutLabel}>Férias</Text>
-              </Pressable>
-              <Pressable style={styles.shortcutButton} onPress={() => router.push('/documents' as never)}>
-                <AppIcon color={mobileTheme.secondary} name="folder-open-outline" size={20} />
-                <Text style={styles.shortcutLabel}>Documentos</Text>
-              </Pressable>
+              <Text style={[styles.policyFeedbackTitle, { color: evaluationPalette.titleColor }]}>
+                {evaluationCopy.headline}
+              </Text>
             </View>
           </View>
-        </View>
-
-        <View style={styles.locationCard}>
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Sua localização agora</Text>
-            <Pressable style={styles.inlinePill} onPress={() => void refreshLocation()}>
-              <AppIcon color={mobileTheme.primary} name="locate-outline" size={16} />
-              <Text style={styles.inlinePillText}>{isLocationLoading ? 'Atualizando' : 'Atualizar'}</Text>
-            </Pressable>
-          </View>
-          <Text style={styles.sectionText}>
-            {evaluation?.title ?? 'A validação da geofence usa os locais autorizados vinculados ao seu cadastro.'}
+          <Text style={[styles.policyFeedbackDescription, { color: evaluationPalette.textColor }]}>
+            {evaluation?.description ?? evaluationCopy.description}
           </Text>
+          <Text style={[styles.policyFeedbackHelper, { color: evaluationPalette.textColor }]}>
+            {evaluationCopy.helper}
+          </Text>
+        </View>
 
-          <View style={styles.locationHero}>
-            <View style={styles.locationHeroIcon}>
-              <AppIcon color={mobileTheme.primary} name="navigate-outline" size={22} />
-            </View>
-            <View style={styles.locationHeroCopy}>
-              <Text style={styles.locationHeroTitle}>{locationSummary.title}</Text>
-              <Text style={styles.locationHeroText}>{locationSummary.coordinates}</Text>
-              <Text style={styles.locationHeroHint}>{locationSummary.accuracy}</Text>
-            </View>
-          </View>
+        <View style={styles.card}>
+          <Text style={styles.cardTitle}>Resumo do dia</Text>
+          <Text style={styles.cardText}>Horas trabalhadas hoje: {formatDurationFromMinutes(workedMinutesToday)}</Text>
+          <Text style={styles.cardText}>Marcações de hoje: {todayRecords.length}</Text>
+          <Text style={styles.cardText}>Política aplicada: {effectivePolicy?.name ?? 'Carregando política'}</Text>
+        </View>
 
-          <View style={styles.locationInfo}>
-            <View style={styles.locationInfoRow}>
-              <Text style={styles.locationInfoLabel}>Matrícula</Text>
-              <Text style={styles.locationInfoValue}>{identity.registrationNumber}</Text>
-            </View>
-            <View style={styles.locationInfoRow}>
-              <Text style={styles.locationInfoLabel}>Departamento</Text>
-              <Text style={styles.locationInfoValue}>{identity.department}</Text>
-            </View>
-            <View style={styles.locationInfoRow}>
-              <Text style={styles.locationInfoLabel}>Política</Text>
-              <Text style={styles.locationInfoValue}>{effectivePolicy?.name ?? 'Carregando'}</Text>
-            </View>
-            {distanceLabel ? (
-              <View style={styles.locationInfoRow}>
-                <Text style={styles.locationInfoLabel}>Distância</Text>
-                <Text style={styles.locationInfoValue}>{distanceLabel}</Text>
-              </View>
-            ) : null}
-          </View>
-
-          <View style={styles.locationActions}>
-            <Pressable style={styles.inlineAction} onPress={() => setIsTypeSheetVisible(true)}>
-              <AppIcon color={mobileTheme.primary} name="checkmark-done-outline" size={18} />
-              <Text style={styles.inlineActionText}>Trocar tipo de batida</Text>
-            </Pressable>
-            <Pressable style={styles.inlineAction} onPress={() => router.push('/(tabs)/profile')}>
-              <AppIcon color={mobileTheme.primary} name="shield-checkmark-outline" size={18} />
-              <Text style={styles.inlineActionText}>Ver política e locais autorizados</Text>
+        <View style={styles.card}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.cardTitle}>Localização confirmada</Text>
+            <Pressable onPress={() => void refreshLocation()}>
+              <Text style={styles.cardLink}>{isLocationLoading ? 'Atualizando...' : 'Atualizar'}</Text>
             </Pressable>
           </View>
-
+          <Text style={styles.cardText}>{evaluation?.title ?? 'Validação de geofence em andamento.'}</Text>
+          <Text style={styles.infoLabel}>Coordenadas</Text>
+          <Text style={styles.infoValue}>{formatCoordinatesLabel(activeCoordinates)}</Text>
+          <Text style={styles.infoLabel}>Endereço</Text>
+          <Text style={styles.infoValue}>{resolvedAddress ?? 'Endereço ainda não confirmado'}</Text>
+          <Text style={styles.infoLabel}>Precisão</Text>
+          <Text style={styles.infoValue}>{formatAccuracyLabel(activeCoordinates)}</Text>
           {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
         </View>
 
-        <View style={styles.recordsCard}>
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Registros recentes</Text>
+        <View style={styles.card}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.cardTitle}>Registros recentes</Text>
             <Pressable onPress={() => router.push('/(tabs)/time-records')}>
-              <Text style={styles.sectionLink}>Ver todos</Text>
+              <Text style={styles.cardLink}>Ver todos</Text>
             </Pressable>
           </View>
-
-          {timeRecordsQuery.isLoading ? (
-            <View style={styles.recordsPlaceholder}>
-              <ActivityIndicator color={mobileTheme.primary} />
-              <Text style={styles.recordsPlaceholderText}>Carregando seu histórico...</Text>
-            </View>
-          ) : recentRecords.length === 0 ? (
-            <View style={styles.recordsPlaceholder}>
-              <AppIcon color={mobileTheme.subtleText} name="time-outline" size={22} />
-              <Text style={styles.recordsPlaceholderText}>Sua primeira marcação aparecerá aqui.</Text>
-            </View>
+          {recentRecords.length === 0 ? (
+            <Text style={styles.cardText}>Sua primeira marcação aparecerá aqui.</Text>
           ) : (
-            <View style={styles.recordsList}>
-              {recentRecords.map((record) => (
-                <View key={record.id} style={styles.recordItem}>
-                  <View style={styles.recordIcon}>
-                    <AppIcon
-                      color={mobileTheme.primary}
-                      name={record.recordType.includes('break') ? 'restaurant-outline' : 'log-in-outline'}
-                      size={18}
-                    />
-                  </View>
-                  <View style={styles.recordContent}>
-                    <Text style={styles.recordTitle}>
-                      {timeRecordTypeLabels[record.recordType]} · {formatTimeRecordDateTime(record.recordedAt)}
-                    </Text>
-                    <Text style={styles.recordMeta}>
-                      {timeRecordSourceLabels[record.source]} · {statusTextByRecordStatus[record.status]}
-                    </Text>
-                  </View>
-                  <Text style={styles.recordStatus}>{formatTimeRecordTime(record.recordedAt)}</Text>
+            recentRecords.map((record) => (
+              <View key={record.id} style={styles.recordRow}>
+                <View style={styles.recordCopy}>
+                  <Text style={styles.recordTitle}>
+                    {timeRecordTypeLabels[record.recordType]} • {formatTimeRecordDateTime(record.recordedAt)}
+                  </Text>
+                  <Text style={styles.recordMeta}>
+                    {timeRecordSourceLabels[record.source]} • {statusTextByRecordStatus[record.status]}
+                  </Text>
                 </View>
-              ))}
-            </View>
+                <Text style={styles.recordTime}>{formatTimeRecordTime(record.recordedAt)}</Text>
+              </View>
+            ))
           )}
         </View>
-
-        {employeeQuery.isLoading || policyQuery.isLoading ? (
-          <View style={styles.footerInfo}>
-            <ActivityIndicator color={mobileTheme.primary} />
-            <Text style={styles.footerInfoText}>Preparando seu contexto operacional...</Text>
-          </View>
-        ) : null}
       </ScrollView>
 
       <PunchTypeSheet
@@ -471,43 +438,65 @@ export const HomeScreen = () => {
         recommendedType={nextRecordType}
       />
 
-      <Modal visible={isCameraActive} animationType="slide" transparent={false} onRequestClose={() => setIsCameraActive(false)}>
+      <Modal visible={isReviewVisible} animationType="slide" transparent onRequestClose={() => setIsReviewVisible(false)}>
+        <View style={styles.modalBackdrop}>
+          <View style={styles.modalCard}>
+            <ScrollView contentContainerStyle={styles.modalContent}>
+              <Text style={styles.modalEyebrow}>Confirmação da marcação</Text>
+              <Text style={styles.modalTitle}>{selectedRecordLabel}</Text>
+              <Text style={styles.cardText}>Revise todos os dados antes de enviar ao banco.</Text>
+
+              {capturedPhoto ? <Image source={{ uri: capturedPhoto.uri }} style={styles.previewImage} /> : null}
+
+              <View style={styles.summaryBox}>
+                <Text style={styles.infoLabel}>Resultado da política</Text>
+                <Text style={styles.infoValue}>{evaluationCopy.headline}</Text>
+                <Text style={styles.infoLabel}>Tipo</Text>
+                <Text style={styles.infoValue}>{selectedRecordLabel}</Text>
+                <Text style={styles.infoLabel}>Coordenadas</Text>
+                <Text style={styles.infoValue}>{formatCoordinatesLabel(activeCoordinates)}</Text>
+                <Text style={styles.infoLabel}>Endereço</Text>
+                <Text style={styles.infoValue}>{resolvedAddress ?? 'Endereço ainda não confirmado'}</Text>
+              </View>
+
+              <Pressable
+                style={styles.secondaryModalButton}
+                onPress={() => {
+                  setIsReviewVisible(false);
+                  setIsCameraActive(true);
+                }}
+              >
+                <Text style={styles.secondaryModalButtonText}>Tirar outra foto</Text>
+              </Pressable>
+              <Pressable style={styles.secondaryModalButton} onPress={() => void refreshLocation()}>
+                <Text style={styles.secondaryModalButtonText}>Atualizar localização</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.confirmButton, registerTimeRecord.isPending && styles.buttonDisabled]}
+                onPress={() => void handleConfirmPunch()}
+                disabled={registerTimeRecord.isPending}
+              >
+                {registerTimeRecord.isPending ? <ActivityIndicator color="#fff" /> : <Text style={styles.confirmButtonText}>Confirmar e enviar</Text>}
+              </Pressable>
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal visible={isCameraActive} animationType="slide" onRequestClose={() => setIsCameraActive(false)}>
         <View style={styles.cameraContainer}>
           <CameraView ref={cameraRef} style={StyleSheet.absoluteFill} facing="front" animateShutter />
           <View style={styles.cameraOverlay}>
-            <View style={styles.cameraHeader}>
-              <Pressable style={styles.cameraCloseButton} onPress={() => setIsCameraActive(false)}>
-                <AppIcon name="close" size={24} color="#fff" />
-              </Pressable>
-              <View style={styles.cameraHeaderCopy}>
-                <Text style={styles.cameraTitle}>{selectedRecordLabel}</Text>
-                <Text style={styles.cameraSubtitle}>
-                  {evaluation?.matchedLocation?.name ?? evaluation?.nearestAllowedLocation?.name ?? 'Validando localização'}
-                </Text>
-              </View>
-            </View>
-
+            <Pressable style={styles.cameraClose} onPress={() => setIsCameraActive(false)}>
+              <AppIcon color="#fff" name="close" size={24} />
+            </Pressable>
             <View style={styles.cameraGuide}>
-              <Text style={styles.cameraGuideTitle}>Enquadre seu rosto e confirme a batida</Text>
-              <Text style={styles.cameraGuideText}>
-                Sua foto e a localização atual serão vinculadas ao registro para auditoria operacional.
-              </Text>
+              <Text style={styles.cameraTitle}>{selectedRecordLabel}</Text>
+              <Text style={styles.cameraText}>Depois da foto, você ainda confirma endereço e coordenadas.</Text>
             </View>
-
-            <View style={styles.cameraFooter}>
-              <Pressable
-                style={styles.cameraCaptureButton}
-                onPress={() => void handleRegisterActionWithPhoto()}
-                disabled={isTakingPhoto || registerTimeRecord.isPending}
-              >
-                {isTakingPhoto || registerTimeRecord.isPending ? (
-                  <ActivityIndicator color={mobileTheme.primary} size="large" />
-                ) : (
-                  <View style={styles.cameraCaptureInner} />
-                )}
-              </Pressable>
-              <Text style={styles.cameraHint}>Toque para registrar {selectedRecordLabel.toLowerCase()}</Text>
-            </View>
+            <Pressable style={styles.cameraButton} onPress={() => void handleCapturePhoto()} disabled={isTakingPhoto}>
+              {isTakingPhoto ? <ActivityIndicator color={mobileTheme.primary} /> : <View style={styles.cameraButtonInner} />}
+            </Pressable>
           </View>
         </View>
       </Modal>
@@ -516,21 +505,9 @@ export const HomeScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: mobileTheme.background,
-  },
-  content: {
-    paddingHorizontal: 20,
-    paddingTop: 16,
-    paddingBottom: 120,
-    gap: 18,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
+  container: { flex: 1, backgroundColor: mobileTheme.background },
+  content: { padding: 20, gap: 16, paddingBottom: 120 },
+  header: { flexDirection: 'row', gap: 12, alignItems: 'center' },
   avatar: {
     width: 44,
     height: 44,
@@ -539,488 +516,133 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: mobileTheme.primarySoft,
   },
-  avatarText: {
-    fontSize: 18,
+  avatarText: { fontSize: 18, fontWeight: '800', color: mobileTheme.primary },
+  headerCopy: { flex: 1 },
+  headerEyebrow: { fontSize: 11, fontWeight: '800', color: mobileTheme.mutedText, textTransform: 'uppercase' },
+  headerTitle: { fontSize: 30, fontWeight: '900', color: mobileTheme.text },
+  headerSubtitle: { marginTop: 4, fontSize: 14, lineHeight: 20, color: mobileTheme.mutedText },
+  heroCard: { borderRadius: 28, padding: 24, gap: 10 },
+  heroBadge: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 999,
+    backgroundColor: 'rgba(255,255,255,0.18)',
+    color: '#fff',
     fontWeight: '800',
-    color: mobileTheme.primary,
-  },
-  headerCopy: {
-    flex: 1,
-  },
-  headerEyebrow: {
     fontSize: 11,
-    fontWeight: '800',
-    letterSpacing: 1,
     textTransform: 'uppercase',
-    color: mobileTheme.mutedText,
   },
-  headerTitle: {
-    marginTop: 2,
-    fontSize: 32,
-    fontWeight: '900',
-    letterSpacing: -1.2,
-    color: mobileTheme.text,
+  heroTitle: { color: '#fff', fontSize: 36, fontWeight: '900' },
+  heroText: { color: '#fff', fontSize: 14, lineHeight: 20 },
+  chipRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 6 },
+  chip: { paddingHorizontal: 10, paddingVertical: 6, borderRadius: 999, backgroundColor: 'rgba(255,255,255,0.14)' },
+  chipText: { color: '#fff', fontSize: 12, fontWeight: '700' },
+  buttonStack: { gap: 10, marginTop: 8 },
+  primaryButton: { minHeight: 50, borderRadius: 18, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' },
+  primaryButtonText: { color: mobileTheme.primary, fontWeight: '800', fontSize: 14 },
+  secondaryButton: {
+    minHeight: 48,
+    borderRadius: 18,
+    backgroundColor: 'rgba(255,255,255,0.12)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  headerSubtitle: {
-    marginTop: 4,
-    fontSize: 14,
-    lineHeight: 20,
-    color: mobileTheme.mutedText,
+  secondaryButtonText: { color: '#fff', fontWeight: '700', fontSize: 14 },
+  buttonDisabled: { opacity: 0.6 },
+  policyFeedbackCard: {
+    borderRadius: 24,
+    borderWidth: 1,
+    padding: 18,
+    gap: 10,
   },
-  notificationButton: {
+  policyFeedbackHeader: { flexDirection: 'row', gap: 12, alignItems: 'center' },
+  policyFeedbackIcon: {
     width: 40,
     height: 40,
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: mobileTheme.surfaceRaised,
   },
-  primaryCard: {
-    borderRadius: 28,
-    padding: 24,
-    shadowColor: mobileTheme.primary,
-    shadowOpacity: 0.14,
-    shadowRadius: 24,
-    shadowOffset: { width: 0, height: 12 },
-    elevation: 5,
-  },
-  primaryBadge: {
-    alignSelf: 'flex-start',
+  policyFeedbackCopy: { flex: 1, gap: 2 },
+  policyFeedbackEyebrow: { fontSize: 11, fontWeight: '800', textTransform: 'uppercase' },
+  policyFeedbackTitle: { fontSize: 18, fontWeight: '900' },
+  policyFeedbackDescription: { fontSize: 14, lineHeight: 20, fontWeight: '700' },
+  policyFeedbackHelper: { fontSize: 13, lineHeight: 19 },
+  card: { borderRadius: 24, backgroundColor: mobileTheme.surfaceRaised, padding: 18, gap: 8 },
+  cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 12 },
+  cardTitle: { fontSize: 18, fontWeight: '800', color: mobileTheme.text },
+  cardLink: { fontSize: 12, fontWeight: '800', color: mobileTheme.primary, textTransform: 'uppercase' },
+  cardText: { fontSize: 14, lineHeight: 20, color: mobileTheme.mutedText },
+  infoLabel: { marginTop: 6, fontSize: 11, fontWeight: '800', color: mobileTheme.mutedText, textTransform: 'uppercase' },
+  infoValue: { fontSize: 14, lineHeight: 20, fontWeight: '700', color: mobileTheme.text },
+  errorText: { fontSize: 13, lineHeight: 19, color: mobileTheme.danger },
+  recordRow: {
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    borderRadius: 999,
-    backgroundColor: 'rgba(255,255,255,0.18)',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-  },
-  primaryDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 999,
-  },
-  primaryBadgeText: {
-    color: '#ffffff',
-    fontSize: 10,
-    fontWeight: '800',
-    letterSpacing: 1.1,
-    textTransform: 'uppercase',
-  },
-  primaryLabel: {
-    marginTop: 20,
-    color: 'rgba(255,255,255,0.8)',
-    fontSize: 13,
-    fontWeight: '600',
-  },
-  primaryTime: {
-    marginTop: 4,
-    color: '#ffffff',
-    fontSize: 38,
-    fontWeight: '900',
-    letterSpacing: -1.6,
-  },
-  primaryType: {
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: '700',
-  },
-  primaryDescription: {
-    marginTop: 12,
-    color: 'rgba(255,255,255,0.84)',
-    fontSize: 14,
-    lineHeight: 21,
-  },
-  primaryActionRow: {
-    marginTop: 24,
     gap: 12,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+    borderTopWidth: 1,
+    borderTopColor: mobileTheme.surfaceLow,
   },
-  primaryAction: {
+  recordCopy: { flex: 1, gap: 4 },
+  recordTitle: { fontSize: 14, fontWeight: '700', color: mobileTheme.text },
+  recordMeta: { fontSize: 12, color: mobileTheme.mutedText },
+  recordTime: { fontSize: 12, fontWeight: '700', color: mobileTheme.primary },
+  modalBackdrop: { flex: 1, backgroundColor: 'rgba(15,23,42,0.56)', justifyContent: 'flex-end' },
+  modalCard: {
+    maxHeight: '90%',
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    backgroundColor: mobileTheme.background,
+    padding: 20,
+  },
+  modalContent: { gap: 14, paddingBottom: 12 },
+  modalEyebrow: { fontSize: 11, fontWeight: '800', color: mobileTheme.primary, textTransform: 'uppercase' },
+  modalTitle: { fontSize: 24, fontWeight: '900', color: mobileTheme.text },
+  previewImage: { width: '100%', height: 220, borderRadius: 22, backgroundColor: mobileTheme.surfaceLow },
+  summaryBox: { borderRadius: 20, backgroundColor: mobileTheme.surfaceRaised, padding: 16, gap: 4 },
+  secondaryModalButton: {
+    minHeight: 50,
+    borderRadius: 18,
+    backgroundColor: mobileTheme.surfaceRaised,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  secondaryModalButtonText: { fontSize: 14, fontWeight: '800', color: mobileTheme.text },
+  confirmButton: {
     minHeight: 52,
     borderRadius: 18,
-    backgroundColor: '#ffffff',
-    paddingHorizontal: 16,
-    flexDirection: 'row',
+    backgroundColor: mobileTheme.primary,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
   },
-  primaryActionDisabled: {
-    opacity: 0.7,
-  },
-  primaryActionText: {
-    color: mobileTheme.primary,
-    fontSize: 14,
-    fontWeight: '800',
-  },
-  secondaryHeroAction: {
-    minHeight: 48,
-    borderRadius: 18,
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.24)',
-    backgroundColor: 'rgba(255,255,255,0.08)',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-  },
-  secondaryHeroActionText: {
-    color: '#ffffff',
-    fontSize: 14,
-    fontWeight: '700',
-  },
-  grid: {
-    gap: 14,
-  },
-  metricCard: {
-    borderRadius: 24,
-    backgroundColor: mobileTheme.surfaceRaised,
-    padding: 20,
-  },
-  metricIcon: {
-    width: 46,
-    height: 46,
-    borderRadius: 18,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#edf4ff',
-  },
-  metricEyebrow: {
-    marginTop: 16,
-    fontSize: 11,
-    fontWeight: '800',
-    letterSpacing: 1,
-    textTransform: 'uppercase',
-    color: mobileTheme.mutedText,
-  },
-  metricValue: {
-    marginTop: 6,
-    fontSize: 34,
-    fontWeight: '900',
-    letterSpacing: -1.2,
-    color: mobileTheme.text,
-  },
-  metricHint: {
-    marginTop: 8,
-    fontSize: 12,
-    lineHeight: 18,
-    color: mobileTheme.mutedText,
-  },
-  secondaryCard: {
-    borderRadius: 24,
-    backgroundColor: mobileTheme.surfaceLow,
-    padding: 20,
-    gap: 8,
-  },
-  secondaryEyebrow: {
-    fontSize: 11,
-    fontWeight: '800',
-    letterSpacing: 1,
-    textTransform: 'uppercase',
-    color: mobileTheme.mutedText,
-  },
-  secondaryValue: {
-    fontSize: 24,
-    fontWeight: '800',
-    color: mobileTheme.text,
-  },
-  secondaryHint: {
-    fontSize: 13,
-    lineHeight: 20,
-    color: mobileTheme.mutedText,
-  },
-  shortcutsCard: {
-    borderRadius: 24,
-    backgroundColor: mobileTheme.surfaceLow,
-    padding: 20,
-    gap: 12,
-  },
-  shortcutsGrid: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  shortcutButton: {
-    flex: 1,
-    borderRadius: 18,
-    backgroundColor: mobileTheme.surfaceRaised,
-    padding: 16,
-    gap: 10,
-  },
-  shortcutLabel: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: mobileTheme.text,
-  },
-  locationCard: {
-    borderRadius: 24,
-    backgroundColor: mobileTheme.surfaceRaised,
-    padding: 20,
-    gap: 14,
-  },
-  sectionHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 12,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '800',
-    color: mobileTheme.text,
-  },
-  sectionText: {
-    fontSize: 14,
-    lineHeight: 21,
-    color: mobileTheme.mutedText,
-  },
-  inlinePill: {
-    minHeight: 34,
-    paddingHorizontal: 12,
-    borderRadius: 999,
-    backgroundColor: mobileTheme.surfaceLow,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-  },
-  inlinePillText: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: mobileTheme.primary,
-  },
-  locationHero: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 14,
-    borderRadius: 20,
-    backgroundColor: mobileTheme.surfaceLow,
-    padding: 16,
-  },
-  locationHeroIcon: {
-    width: 48,
-    height: 48,
-    borderRadius: 18,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#edf4ff',
-  },
-  locationHeroCopy: {
-    flex: 1,
-    gap: 2,
-  },
-  locationHeroTitle: {
-    fontSize: 16,
-    fontWeight: '800',
-    color: mobileTheme.text,
-  },
-  locationHeroText: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: mobileTheme.primary,
-  },
-  locationHeroHint: {
-    fontSize: 12,
-    color: mobileTheme.mutedText,
-  },
-  locationInfo: {
-    borderRadius: 18,
-    backgroundColor: mobileTheme.surfaceLow,
-    padding: 14,
-    gap: 10,
-  },
-  locationInfoRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 12,
-  },
-  locationInfoLabel: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: mobileTheme.mutedText,
-  },
-  locationInfoValue: {
-    flex: 1,
-    textAlign: 'right',
-    fontSize: 13,
-    fontWeight: '700',
-    color: mobileTheme.text,
-  },
-  locationActions: {
-    gap: 10,
-  },
-  inlineAction: {
-    minHeight: 48,
-    borderRadius: 18,
-    backgroundColor: mobileTheme.surfaceLow,
-    paddingHorizontal: 14,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  inlineActionText: {
-    color: mobileTheme.primary,
-    fontSize: 14,
-    fontWeight: '700',
-  },
-  errorText: {
-    fontSize: 13,
-    lineHeight: 19,
-    color: mobileTheme.danger,
-  },
-  recordsCard: {
-    borderRadius: 24,
-    backgroundColor: mobileTheme.surfaceRaised,
-    padding: 20,
-    gap: 14,
-  },
-  sectionLink: {
-    color: mobileTheme.primary,
-    fontSize: 12,
-    fontWeight: '800',
-    textTransform: 'uppercase',
-    letterSpacing: 0.8,
-  },
-  recordsList: {
-    gap: 10,
-  },
-  recordsPlaceholder: {
-    minHeight: 100,
-    borderRadius: 18,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: mobileTheme.surfaceLow,
-    gap: 10,
-    paddingHorizontal: 24,
-  },
-  recordsPlaceholderText: {
-    fontSize: 13,
-    textAlign: 'center',
-    color: mobileTheme.mutedText,
-  },
-  recordItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-    borderRadius: 18,
-    backgroundColor: mobileTheme.surfaceLow,
-    padding: 14,
-  },
-  recordIcon: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: mobileTheme.surfaceRaised,
-  },
-  recordContent: {
-    flex: 1,
-    gap: 4,
-  },
-  recordTitle: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: mobileTheme.text,
-  },
-  recordMeta: {
-    fontSize: 12,
-    color: mobileTheme.mutedText,
-  },
-  recordStatus: {
-    maxWidth: 92,
-    textAlign: 'right',
-    fontSize: 11,
-    fontWeight: '700',
-    color: mobileTheme.primary,
-  },
-  footerInfo: {
-    minHeight: 54,
-    borderRadius: 18,
-    backgroundColor: mobileTheme.surfaceLow,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
-  },
-  footerInfoText: {
-    fontSize: 13,
-    color: mobileTheme.mutedText,
-  },
-  cameraContainer: {
-    flex: 1,
-    backgroundColor: '#000',
-  },
-  cameraOverlay: {
-    flex: 1,
-    justifyContent: 'space-between',
-    padding: 24,
-    paddingTop: 60,
-    backgroundColor: 'rgba(0,0,0,0.24)',
-  },
-  cameraHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 16,
-  },
-  cameraHeaderCopy: {
-    flex: 1,
-    gap: 4,
-  },
-  cameraCloseButton: {
+  confirmButtonText: { color: '#fff', fontSize: 15, fontWeight: '800' },
+  cameraContainer: { flex: 1, backgroundColor: '#000' },
+  cameraOverlay: { flex: 1, justifyContent: 'space-between', padding: 24, paddingTop: 56, backgroundColor: 'rgba(0,0,0,0.24)' },
+  cameraClose: {
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: 'rgba(0,0,0,0.4)',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'rgba(0,0,0,0.36)',
   },
-  cameraTitle: {
-    color: '#fff',
-    fontSize: 20,
-    fontWeight: '700',
-  },
-  cameraSubtitle: {
-    color: 'rgba(255,255,255,0.8)',
-    fontSize: 13,
-  },
-  cameraGuide: {
-    borderRadius: 20,
-    backgroundColor: 'rgba(15, 23, 42, 0.42)',
-    padding: 18,
-    gap: 6,
-  },
-  cameraGuideTitle: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '800',
-  },
-  cameraGuideText: {
-    color: 'rgba(255,255,255,0.84)',
-    fontSize: 14,
-    lineHeight: 20,
-  },
-  cameraFooter: {
-    alignItems: 'center',
-    paddingBottom: 40,
-    gap: 16,
-  },
-  cameraCaptureButton: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+  cameraGuide: { borderRadius: 22, backgroundColor: 'rgba(15,23,42,0.46)', padding: 18, gap: 6 },
+  cameraTitle: { color: '#fff', fontSize: 22, fontWeight: '800' },
+  cameraText: { color: 'rgba(255,255,255,0.84)', fontSize: 14, lineHeight: 20 },
+  cameraButton: {
+    alignSelf: 'center',
+    width: 82,
+    height: 82,
+    borderRadius: 41,
+    borderWidth: 4,
+    borderColor: '#fff',
     backgroundColor: 'rgba(255,255,255,0.3)',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 4,
-    borderColor: '#ffffff',
+    marginBottom: 32,
   },
-  cameraCaptureInner: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    backgroundColor: '#ffffff',
-  },
-  cameraHint: {
-    color: '#fff',
-    fontSize: 14,
-    fontWeight: '600',
-  },
+  cameraButtonInner: { width: 64, height: 64, borderRadius: 32, backgroundColor: '#fff' },
 });

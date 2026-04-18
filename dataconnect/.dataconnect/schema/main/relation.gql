@@ -3058,6 +3058,246 @@ extend type OnboardingTask {
   """
   _id: ID! @fdc_generated(from: "OnboardingTask.id", purpose: ENTITY_ID)
 }
+extend type PayrollClosure {
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "PayrollClosure", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `PayrollClosure` table.
+  """
+  _count: Int! @fdc_generated(from: "PayrollClosure.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollClosure` table where the `closedAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  closedAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollClosure.closedAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollClosure` table where the `closedByUserId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  closedByUserId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollClosure.closedByUserId", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollClosure` table where the `createdAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  createdAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollClosure.createdAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollClosure` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollClosure.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollClosure` table where the `notes` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  notes_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollClosure.notes", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollClosure` table where the `periodEnd` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  periodEnd_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollClosure.periodEnd", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollClosure` table where the `periodStart` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  periodStart_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollClosure.periodStart", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollClosure` table where the `referenceKey` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  referenceKey_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollClosure.referenceKey", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollClosure` table where the `referenceLabel` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  referenceLabel_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollClosure.referenceLabel", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollClosure` table where the `referenceMonth` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  referenceMonth_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollClosure.referenceMonth", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollClosure` table where the `referenceYear` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  referenceYear_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollClosure.referenceYear", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollClosure` table where the `stateData` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  stateData_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollClosure.stateData", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollClosure` table where the `status` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  status_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollClosure.status", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `PayrollClosure` table where the `updatedAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  updatedAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "PayrollClosure.updatedAt", purpose: QUERY_COUNT)
+  """
+  ✨ Sum the `referenceMonth` field in the `PayrollClosure` table.
+  """
+  referenceMonth_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Int @fdc_generated(from: "PayrollClosure.referenceMonth", purpose: QUERY_SUM)
+  """
+  ✨ Sum the `referenceYear` field in the `PayrollClosure` table.
+  """
+  referenceYear_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Int @fdc_generated(from: "PayrollClosure.referenceYear", purpose: QUERY_SUM)
+  """
+  ✨ Average the `referenceMonth` field in the `PayrollClosure` table.
+  """
+  referenceMonth_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "PayrollClosure.referenceMonth", purpose: QUERY_AVG)
+  """
+  ✨ Average the `referenceYear` field in the `PayrollClosure` table.
+  """
+  referenceYear_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "PayrollClosure.referenceYear", purpose: QUERY_AVG)
+  """
+  ✨ Minimum of the `closedAt` field in the `PayrollClosure` table.
+  """
+  closedAt_min: Timestamp @fdc_generated(from: "PayrollClosure.closedAt", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `createdAt` field in the `PayrollClosure` table.
+  """
+  createdAt_min: Timestamp @fdc_generated(from: "PayrollClosure.createdAt", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `periodEnd` field in the `PayrollClosure` table.
+  """
+  periodEnd_min: Date @fdc_generated(from: "PayrollClosure.periodEnd", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `periodStart` field in the `PayrollClosure` table.
+  """
+  periodStart_min: Date @fdc_generated(from: "PayrollClosure.periodStart", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `referenceMonth` field in the `PayrollClosure` table.
+  """
+  referenceMonth_min: Int @fdc_generated(from: "PayrollClosure.referenceMonth", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `referenceYear` field in the `PayrollClosure` table.
+  """
+  referenceYear_min: Int @fdc_generated(from: "PayrollClosure.referenceYear", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `stateData` field in the `PayrollClosure` table.
+  """
+  stateData_min: Any @fdc_generated(from: "PayrollClosure.stateData", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `updatedAt` field in the `PayrollClosure` table.
+  """
+  updatedAt_min: Timestamp @fdc_generated(from: "PayrollClosure.updatedAt", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `closedAt` field in the `PayrollClosure` table.
+  """
+  closedAt_max: Timestamp @fdc_generated(from: "PayrollClosure.closedAt", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `createdAt` field in the `PayrollClosure` table.
+  """
+  createdAt_max: Timestamp @fdc_generated(from: "PayrollClosure.createdAt", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `periodEnd` field in the `PayrollClosure` table.
+  """
+  periodEnd_max: Date @fdc_generated(from: "PayrollClosure.periodEnd", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `periodStart` field in the `PayrollClosure` table.
+  """
+  periodStart_max: Date @fdc_generated(from: "PayrollClosure.periodStart", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `referenceMonth` field in the `PayrollClosure` table.
+  """
+  referenceMonth_max: Int @fdc_generated(from: "PayrollClosure.referenceMonth", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `referenceYear` field in the `PayrollClosure` table.
+  """
+  referenceYear_max: Int @fdc_generated(from: "PayrollClosure.referenceYear", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `stateData` field in the `PayrollClosure` table.
+  """
+  stateData_max: Any @fdc_generated(from: "PayrollClosure.stateData", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `updatedAt` field in the `PayrollClosure` table.
+  """
+  updatedAt_max: Timestamp @fdc_generated(from: "PayrollClosure.updatedAt", purpose: QUERY_MAX)
+  """
+  A generated field that is used for caching results in SDKs.
+  """
+  _id: ID! @fdc_generated(from: "PayrollClosure.id", purpose: ENTITY_ID)
+}
 extend type PayrollStatement {
   """
   Implicit metadata field that cannot be written. It provides extra information about query results.
@@ -3555,6 +3795,15 @@ extend type TimeRecord {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "TimeRecord.referenceRecordId", purpose: QUERY_COUNT)
   """
+  ✨ Count the number of rows in the `TimeRecord` table where the `resolvedAddress` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  resolvedAddress_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "TimeRecord.resolvedAddress", purpose: QUERY_COUNT)
+  """
   ✨ Count the number of rows in the `TimeRecord` table where the `source` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
   source_count(
@@ -3995,6 +4244,40 @@ extend type User {
     """
     having: OnboardingTask_Having
   ): [OnboardingTask!]! @fdc_generated(from: "OnboardingTask.assignedUser", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  ✨ List `PayrollClosure` objects in a one-to-many relationship (where `PayrollClosure`.`closedByUser` is this object).
+  """
+  payrollClosures_on_closedByUser(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: PayrollClosure_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [PayrollClosure_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: PayrollClosure_Having
+  ): [PayrollClosure!]! @fdc_generated(from: "PayrollClosure.closedByUser", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
   """
   ✨ List `TimeRecord` objects in a one-to-many relationship (where `TimeRecord`.`recordedByUser` is this object).
   """

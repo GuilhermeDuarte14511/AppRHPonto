@@ -6,6 +6,7 @@ import { queryKeys } from '@rh-ponto/api-client';
 
 import { useAdminQueryGate } from '@/shared/hooks/use-admin-query-gate';
 import { showActionErrorToast } from '@/shared/lib/mutation-feedback';
+import { useSession } from '@/shared/providers/session-provider';
 
 import {
   closePayrollCycle,
@@ -46,9 +47,10 @@ const invalidatePayrollQueries = async (queryClient: ReturnType<typeof useQueryC
 
 export const useValidateAllPayrollRecords = () => {
   const queryClient = useQueryClient();
+  const { session } = useSession();
 
   return useMutation({
-    mutationFn: (notes?: string) => validateAllPayrollRecords(notes),
+    mutationFn: (notes?: string) => validateAllPayrollRecords(notes, session?.user.id),
     onSuccess: async () => {
       await invalidatePayrollQueries(queryClient);
     },
@@ -60,9 +62,10 @@ export const useValidateAllPayrollRecords = () => {
 
 export const useClosePayrollCycle = () => {
   const queryClient = useQueryClient();
+  const { session } = useSession();
 
   return useMutation({
-    mutationFn: (notes?: string) => closePayrollCycle(notes),
+    mutationFn: (notes?: string) => closePayrollCycle(notes, session?.user.id),
     onSuccess: async () => {
       await invalidatePayrollQueries(queryClient);
     },
@@ -74,9 +77,10 @@ export const useClosePayrollCycle = () => {
 
 export const useValidatePayrollRecord = () => {
   const queryClient = useQueryClient();
+  const { session } = useSession();
 
   return useMutation({
-    mutationFn: (recordId: string) => validatePayrollRecord(recordId),
+    mutationFn: (recordId: string) => validatePayrollRecord(recordId, session?.user.id),
     onSuccess: async (_data: PayrollRecordDetail | null, recordId) => {
       await invalidatePayrollQueries(queryClient, recordId);
     },

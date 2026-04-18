@@ -1,5 +1,13 @@
 import { Card, Skeleton } from '@rh-ponto/ui';
 
+export { AnalyticsSkeleton } from './page-skeletons/analytics-skeleton';
+export { DashboardSkeleton } from './page-skeletons/dashboard-skeleton';
+export { EmployeeDetailSkeleton } from './page-skeletons/employee-detail-skeleton';
+export { EmployeesListSkeleton } from './page-skeletons/employees-list-skeleton';
+export { FormPageSkeleton } from './page-skeletons/form-page-skeleton';
+export { ListPageSkeleton } from './page-skeletons/list-page-skeleton';
+export { TimeRecordsSkeleton } from './page-skeletons/time-records-skeleton';
+
 export const OverviewPageSkeleton = () => (
   <div className="space-y-8 sm:space-y-10">
     <div className="space-y-3">

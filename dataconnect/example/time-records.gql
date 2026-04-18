@@ -22,6 +22,7 @@ query ListTimeRecords @auth(level: USER, insecureReason: "Operação administrat
     }
     latitude
     longitude
+    resolvedAddress
     ipAddress
     createdAt
     updatedAt
@@ -52,6 +53,7 @@ query GetTimeRecordById($id: UUID!) @auth(level: USER, insecureReason: "Operaç�
     }
     latitude
     longitude
+    resolvedAddress
     ipAddress
     createdAt
     updatedAt
@@ -87,6 +89,7 @@ mutation CreateTimeRecord(
   $referenceRecordId: UUID
   $latitude: Float
   $longitude: Float
+  $resolvedAddress: String
   $ipAddress: String
 ) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
   timeRecord_insert(
@@ -104,6 +107,7 @@ mutation CreateTimeRecord(
       referenceRecord: { id: $referenceRecordId }
       latitude: $latitude
       longitude: $longitude
+      resolvedAddress: $resolvedAddress
       ipAddress: $ipAddress
       createdAt_expr: "request.time"
       updatedAt_expr: "request.time"

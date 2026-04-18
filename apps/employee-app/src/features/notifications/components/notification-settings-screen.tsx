@@ -1,9 +1,10 @@
 import { router } from 'expo-router';
 import { useEffect } from 'react';
-import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 
 import { MobileEmptyState } from '@/shared/components/mobile-empty-state';
 import { MobilePageHeader } from '@/shared/components/mobile-page-header';
+import { MobileDetailSkeleton } from '@/shared/components/mobile-skeleton';
 import { useAppSession } from '@/shared/providers/app-providers';
 import { mobileTheme } from '@/shared/theme/tokens';
 
@@ -123,10 +124,7 @@ export const NotificationSettingsScreen = () => {
       />
 
       {preferencesQuery.isLoading ? (
-        <View style={styles.loadingCard}>
-          <ActivityIndicator color={mobileTheme.primary} />
-          <Text style={styles.loadingText}>Carregando suas preferências de notificação...</Text>
-        </View>
+        <MobileDetailSkeleton sectionCount={3} />
       ) : !preferences ? (
         <MobileEmptyState
           iconName="settings-outline"

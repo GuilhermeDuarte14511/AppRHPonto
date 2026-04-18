@@ -3,10 +3,52 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { queryKeys } from '@rh-ponto/api-client';
-import type { AdjustTimeRecordPayload, CreateTimeRecordPayload } from '@rh-ponto/time-records';
+import type { AdjustTimeRecordPayload, CreateTimeRecordPayload, TimeRecord, TimeRecordPhoto } from '@rh-ponto/time-records';
 
 import { showActionErrorToast } from '@/shared/lib/mutation-feedback';
 import { services } from '@/shared/lib/service-registry';
+
+type CachedTimeRecordListItem = TimeRecord & {
+  employeeName: string;
+  department: string;
+  photos: TimeRecordPhoto[];
+};
+
+const sortTimeRecordsByRecordedAt = (records: CachedTimeRecordListItem[]) =>
+  [...records].sort((left, right) => {
+    const leftTimestamp = new Date(left.recordedAt).getTime();
+    const rightTimestamp = new Date(right.recordedAt).getTime();
+
+    return rightTimestamp - leftTimestamp;
+  });
+
+const synchronizeAdjustedTimeRecordCache = (
+  queryClient: ReturnType<typeof useQueryClient>,
+  updatedRecord: TimeRecord,
+) => {
+  queryClient.setQueryData<CachedTimeRecordListItem[] | undefined>(queryKeys.timeRecords, (currentRecords) => {
+    if (!currentRecords?.length) {
+      return currentRecords;
+    }
+
+    let hasMatch = false;
+
+    const nextRecords = currentRecords.map((record) => {
+      if (record.id !== updatedRecord.id) {
+        return record;
+      }
+
+      hasMatch = true;
+
+      return {
+        ...record,
+        ...updatedRecord,
+      };
+    });
+
+    return hasMatch ? sortTimeRecordsByRecordedAt(nextRecords) : currentRecords;
+  });
+};
 
 const invalidateTimeRecordQueries = async (queryClient: ReturnType<typeof useQueryClient>) => {
   await Promise.all([
@@ -37,7 +79,8 @@ export const useAdjustTimeRecord = () => {
 
   return useMutation({
     mutationFn: (payload: AdjustTimeRecordPayload) => services.timeRecords.adjustTimeRecordUseCase.execute(payload),
-    onSuccess: async () => {
+    onSuccess: async (updatedRecord) => {
+      synchronizeAdjustedTimeRecordCache(queryClient, updatedRecord);
       await invalidateTimeRecordQueries(queryClient);
     },
     onError: (error) => {

@@ -27,8 +27,8 @@ interface PunchTypeSheetProps {
   isVisible: boolean;
   onClose: () => void;
   onConfirm: (value: TimeRecordType) => void;
-  selectedType: TimeRecordType;
-  recommendedType: TimeRecordType;
+  selectedType: TimeRecordType | null;
+  recommendedType: TimeRecordType | null;
 }
 
 export const PunchTypeSheet = ({
@@ -59,7 +59,7 @@ export const PunchTypeSheet = ({
         <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
           {recordTypeOptions.map((option) => {
             const isSelected = option === selectedType;
-            const isRecommended = option === recommendedType;
+            const isRecommended = recommendedType != null && option === recommendedType;
 
             return (
               <Pressable

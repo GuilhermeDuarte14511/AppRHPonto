@@ -5,6 +5,16 @@ import { createQueryClientWrapper, createTestQueryClient } from '@/test/query-cl
 
 import { useAdjustTimeRecord, useCreateTimeRecord } from './use-time-record-mutations';
 
+vi.mock('@rh-ponto/api-client', () => ({
+  queryKeys: {
+    timeRecords: ['time-records'],
+    timeRecordCatalog: ['time-records', 'catalog'],
+    dashboard: ['dashboard'],
+    audit: ['audit'],
+    payroll: ['payroll'],
+  },
+}));
+
 const servicesMock = vi.hoisted(() => ({
   createTimeRecord: vi.fn(),
   adjustTimeRecord: vi.fn(),
@@ -59,10 +69,56 @@ describe('time-record mutation hooks', () => {
     });
   });
 
-  it('ajusta marcação e invalida leituras derivadas', async () => {
+  it('ajusta marcação, atualiza o cache local e invalida leituras derivadas', async () => {
     const queryClient = createTestQueryClient();
     const invalidateQueries = vi.spyOn(queryClient, 'invalidateQueries');
-    servicesMock.adjustTimeRecord.mockResolvedValue({ id: 'record-2' });
+
+    queryClient.setQueryData(['time-records'], [
+      {
+        id: 'record-2',
+        employeeId: 'employee-2',
+        employeeName: 'Ana Paula',
+        department: 'Financeiro',
+        deviceId: 'device-1',
+        recordedByUserId: 'user-1',
+        recordType: 'entry',
+        source: 'employee_app',
+        status: 'pending_review',
+        recordedAt: '2026-04-04T08:00:00.000Z',
+        originalRecordedAt: '2026-04-04T08:00:00.000Z',
+        notes: 'Horário original',
+        isManual: false,
+        referenceRecordId: null,
+        latitude: null,
+        longitude: null,
+        resolvedAddress: null,
+        ipAddress: null,
+        createdAt: '2026-04-04T08:00:00.000Z',
+        updatedAt: '2026-04-04T08:00:00.000Z',
+        photos: [],
+      },
+    ]);
+
+    servicesMock.adjustTimeRecord.mockResolvedValue({
+      id: 'record-2',
+      employeeId: 'employee-2',
+      deviceId: 'device-1',
+      recordedByUserId: 'user-1',
+      recordType: 'entry',
+      source: 'admin_adjustment',
+      status: 'adjusted',
+      recordedAt: '2026-04-04T09:10:00.000Z',
+      originalRecordedAt: '2026-04-04T08:00:00.000Z',
+      notes: 'Ajuste de horário',
+      isManual: true,
+      referenceRecordId: null,
+      latitude: null,
+      longitude: null,
+      resolvedAddress: null,
+      ipAddress: null,
+      createdAt: '2026-04-04T08:00:00.000Z',
+      updatedAt: '2026-04-04T09:10:00.000Z',
+    });
 
     const { result } = renderHook(() => useAdjustTimeRecord(), {
       wrapper: createQueryClientWrapper(queryClient),
@@ -81,5 +137,18 @@ describe('time-record mutation hooks', () => {
       expect(invalidateQueries).toHaveBeenCalledWith({ queryKey: ['audit'] });
       expect(invalidateQueries).toHaveBeenCalledWith({ queryKey: ['payroll'] });
     });
+
+    expect(queryClient.getQueryData(['time-records'])).toEqual([
+      expect.objectContaining({
+        id: 'record-2',
+        source: 'admin_adjustment',
+        status: 'adjusted',
+        recordedAt: '2026-04-04T09:10:00.000Z',
+        notes: 'Ajuste de horário',
+        employeeName: 'Ana Paula',
+        department: 'Financeiro',
+        photos: [],
+      }),
+    ]);
   });
 });

@@ -2,6 +2,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { ActivityIndicator, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { AppIcon } from '@/shared/components/app-icon';
+import { MobileDetailSkeleton } from '@/shared/components/mobile-skeleton';
 import { mobileTheme } from '@/shared/theme/tokens';
 
 import { useJustificationDetail } from '../hooks/use-justification-detail';
@@ -36,10 +37,9 @@ export const JustificationDetailScreen = () => {
 
   if (justificationQuery.isLoading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator color={mobileTheme.primary} />
-        <Text style={styles.loadingText}>Carregando sua justificativa...</Text>
-      </View>
+      <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content} style={styles.container}>
+        <MobileDetailSkeleton sectionCount={4} />
+      </ScrollView>
     );
   }
 

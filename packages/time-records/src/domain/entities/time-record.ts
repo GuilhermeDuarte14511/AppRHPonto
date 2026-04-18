@@ -24,6 +24,7 @@ export interface TimeRecord extends AuditableEntity {
   referenceRecordId: Nullable<string>;
   latitude: Nullable<number>;
   longitude: Nullable<number>;
+  resolvedAddress: Nullable<string>;
   ipAddress: Nullable<string>;
 }
 
@@ -62,6 +63,7 @@ export const createTimeRecord = (input: TimeRecord): TimeRecord =>
     referenceRecordId: normalizeNullableString(input.referenceRecordId),
     latitude: input.latitude ?? null,
     longitude: input.longitude ?? null,
+    resolvedAddress: normalizeNullableString(input.resolvedAddress),
     ipAddress: normalizeNullableString(input.ipAddress),
     createdAt: normalizeDateValue(input.createdAt, 'Data de criação da marcação'),
     updatedAt: normalizeDateValue(input.updatedAt, 'Data de atualização da marcação'),

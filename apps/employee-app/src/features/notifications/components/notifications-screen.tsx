@@ -1,10 +1,11 @@
 import { router } from 'expo-router';
-import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { useCurrentEmployee } from '@/features/employee/hooks/use-current-employee';
 import { AppIcon } from '@/shared/components/app-icon';
 import { MobileEmptyState } from '@/shared/components/mobile-empty-state';
 import { MobilePageHeader } from '@/shared/components/mobile-page-header';
+import { MobileListSkeleton } from '@/shared/components/mobile-skeleton';
 import { useAppSession } from '@/shared/providers/app-providers';
 import { mobileTheme } from '@/shared/theme/tokens';
 
@@ -92,10 +93,7 @@ export const NotificationsScreen = () => {
       </View>
 
       {notificationsQuery.isLoading ? (
-        <View style={styles.loadingCard}>
-          <ActivityIndicator color={mobileTheme.primary} />
-          <Text style={styles.loadingText}>Carregando suas mensagens mais recentes...</Text>
-        </View>
+        <MobileListSkeleton itemCount={4} showHero={false} />
       ) : groups.length === 0 ? (
         <MobileEmptyState
           iconName="notifications-off-outline"

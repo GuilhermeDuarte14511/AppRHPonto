@@ -5,6 +5,509 @@ export const connectorConfig = {
   service: 'myrh-32b0a-service',
   location: 'southamerica-east1'
 };
+export const getPayrollClosureByReferenceKeyRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetPayrollClosureByReferenceKey', inputVars);
+}
+getPayrollClosureByReferenceKeyRef.operationName = 'GetPayrollClosureByReferenceKey';
+
+export function getPayrollClosureByReferenceKey(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(getPayrollClosureByReferenceKeyRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const createPayrollClosureRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'CreatePayrollClosure', inputVars);
+}
+createPayrollClosureRef.operationName = 'CreatePayrollClosure';
+
+export function createPayrollClosure(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(createPayrollClosureRef(dcInstance, inputVars));
+}
+
+export const updatePayrollClosureRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'UpdatePayrollClosure', inputVars);
+}
+updatePayrollClosureRef.operationName = 'UpdatePayrollClosure';
+
+export function updatePayrollClosure(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(updatePayrollClosureRef(dcInstance, inputVars));
+}
+
+export const listVacationRequestsRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListVacationRequests');
+}
+listVacationRequestsRef.operationName = 'ListVacationRequests';
+
+export function listVacationRequests(dcOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
+  return executeQuery(listVacationRequestsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const getVacationRequestByIdRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetVacationRequestById', inputVars);
+}
+getVacationRequestByIdRef.operationName = 'GetVacationRequestById';
+
+export function getVacationRequestById(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(getVacationRequestByIdRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const createVacationRequestRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'CreateVacationRequest', inputVars);
+}
+createVacationRequestRef.operationName = 'CreateVacationRequest';
+
+export function createVacationRequest(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(createVacationRequestRef(dcInstance, inputVars));
+}
+
+export const approveVacationRequestRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'ApproveVacationRequest', inputVars);
+}
+approveVacationRequestRef.operationName = 'ApproveVacationRequest';
+
+export function approveVacationRequest(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(approveVacationRequestRef(dcInstance, inputVars));
+}
+
+export const rejectVacationRequestRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'RejectVacationRequest', inputVars);
+}
+rejectVacationRequestRef.operationName = 'RejectVacationRequest';
+
+export function rejectVacationRequest(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(rejectVacationRequestRef(dcInstance, inputVars));
+}
+
+export const listEmployeeNotificationsRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListEmployeeNotifications', inputVars);
+}
+listEmployeeNotificationsRef.operationName = 'ListEmployeeNotifications';
+
+export function listEmployeeNotifications(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(listEmployeeNotificationsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const markEmployeeNotificationAsReadRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'MarkEmployeeNotificationAsRead', inputVars);
+}
+markEmployeeNotificationAsReadRef.operationName = 'MarkEmployeeNotificationAsRead';
+
+export function markEmployeeNotificationAsRead(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(markEmployeeNotificationAsReadRef(dcInstance, inputVars));
+}
+
+export const getEmployeeNotificationPreferencesRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetEmployeeNotificationPreferences', inputVars);
+}
+getEmployeeNotificationPreferencesRef.operationName = 'GetEmployeeNotificationPreferences';
+
+export function getEmployeeNotificationPreferences(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(getEmployeeNotificationPreferencesRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const updateEmployeeNotificationPreferencesRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'UpdateEmployeeNotificationPreferences', inputVars);
+}
+updateEmployeeNotificationPreferencesRef.operationName = 'UpdateEmployeeNotificationPreferences';
+
+export function updateEmployeeNotificationPreferences(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(updateEmployeeNotificationPreferencesRef(dcInstance, inputVars));
+}
+
+export const getCurrentEmployeeByUserIdRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetCurrentEmployeeByUserId', inputVars);
+}
+getCurrentEmployeeByUserIdRef.operationName = 'GetCurrentEmployeeByUserId';
+
+export function getCurrentEmployeeByUserId(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(getCurrentEmployeeByUserIdRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const getCurrentEmployeeByEmailRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetCurrentEmployeeByEmail', inputVars);
+}
+getCurrentEmployeeByEmailRef.operationName = 'GetCurrentEmployeeByEmail';
+
+export function getCurrentEmployeeByEmail(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(getCurrentEmployeeByEmailRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const listEmployeeDocumentsRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListEmployeeDocuments', inputVars);
+}
+listEmployeeDocumentsRef.operationName = 'ListEmployeeDocuments';
+
+export function listEmployeeDocuments(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(listEmployeeDocumentsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const getEmployeeDocumentByIdRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetEmployeeDocumentById', inputVars);
+}
+getEmployeeDocumentByIdRef.operationName = 'GetEmployeeDocumentById';
+
+export function getEmployeeDocumentById(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(getEmployeeDocumentByIdRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const getEmployeeDocumentByIdForEmployeeRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetEmployeeDocumentByIdForEmployee', inputVars);
+}
+getEmployeeDocumentByIdForEmployeeRef.operationName = 'GetEmployeeDocumentByIdForEmployee';
+
+export function getEmployeeDocumentByIdForEmployee(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(getEmployeeDocumentByIdForEmployeeRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const listPayrollStatementsRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListPayrollStatements', inputVars);
+}
+listPayrollStatementsRef.operationName = 'ListPayrollStatements';
+
+export function listPayrollStatements(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(listPayrollStatementsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const getPayrollStatementByIdRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetPayrollStatementById', inputVars);
+}
+getPayrollStatementByIdRef.operationName = 'GetPayrollStatementById';
+
+export function getPayrollStatementById(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(getPayrollStatementByIdRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const getPayrollStatementByIdForEmployeeRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetPayrollStatementByIdForEmployee', inputVars);
+}
+getPayrollStatementByIdForEmployeeRef.operationName = 'GetPayrollStatementByIdForEmployee';
+
+export function getPayrollStatementByIdForEmployee(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(getPayrollStatementByIdForEmployeeRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const listEmployeeVacationRequestsByEmployeeRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListEmployeeVacationRequestsByEmployee', inputVars);
+}
+listEmployeeVacationRequestsByEmployeeRef.operationName = 'ListEmployeeVacationRequestsByEmployee';
+
+export function listEmployeeVacationRequestsByEmployee(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(listEmployeeVacationRequestsByEmployeeRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const getEmployeeVacationRequestByIdForEmployeeRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetEmployeeVacationRequestByIdForEmployee', inputVars);
+}
+getEmployeeVacationRequestByIdForEmployeeRef.operationName = 'GetEmployeeVacationRequestByIdForEmployee';
+
+export function getEmployeeVacationRequestByIdForEmployee(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(getEmployeeVacationRequestByIdForEmployeeRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const listEmployeesRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListEmployees');
+}
+listEmployeesRef.operationName = 'ListEmployees';
+
+export function listEmployees(dcOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
+  return executeQuery(listEmployeesRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const getEmployeeByIdRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetEmployeeById', inputVars);
+}
+getEmployeeByIdRef.operationName = 'GetEmployeeById';
+
+export function getEmployeeById(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(getEmployeeByIdRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const createEmployeeRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'CreateEmployee', inputVars);
+}
+createEmployeeRef.operationName = 'CreateEmployee';
+
+export function createEmployee(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(createEmployeeRef(dcInstance, inputVars));
+}
+
+export const updateEmployeeRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'UpdateEmployee', inputVars);
+}
+updateEmployeeRef.operationName = 'UpdateEmployee';
+
+export function updateEmployee(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(updateEmployeeRef(dcInstance, inputVars));
+}
+
+export const deactivateEmployeeRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'DeactivateEmployee', inputVars);
+}
+deactivateEmployeeRef.operationName = 'DeactivateEmployee';
+
+export function deactivateEmployee(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(deactivateEmployeeRef(dcInstance, inputVars));
+}
+
+export const seedRhPontoDataRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'SeedRhPontoData');
+}
+seedRhPontoDataRef.operationName = 'SeedRhPontoData';
+
+export function seedRhPontoData(dc) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dc, undefined);
+  return executeMutation(seedRhPontoDataRef(dcInstance, inputVars));
+}
+
+export const listTimeRecordsRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListTimeRecords');
+}
+listTimeRecordsRef.operationName = 'ListTimeRecords';
+
+export function listTimeRecords(dcOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
+  return executeQuery(listTimeRecordsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const getTimeRecordByIdRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetTimeRecordById', inputVars);
+}
+getTimeRecordByIdRef.operationName = 'GetTimeRecordById';
+
+export function getTimeRecordById(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(getTimeRecordByIdRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const listTimeRecordPhotosRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListTimeRecordPhotos');
+}
+listTimeRecordPhotosRef.operationName = 'ListTimeRecordPhotos';
+
+export function listTimeRecordPhotos(dcOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
+  return executeQuery(listTimeRecordPhotosRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const createTimeRecordRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'CreateTimeRecord', inputVars);
+}
+createTimeRecordRef.operationName = 'CreateTimeRecord';
+
+export function createTimeRecord(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(createTimeRecordRef(dcInstance, inputVars));
+}
+
+export const adjustTimeRecordRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'AdjustTimeRecord', inputVars);
+}
+adjustTimeRecordRef.operationName = 'AdjustTimeRecord';
+
+export function adjustTimeRecord(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(adjustTimeRecordRef(dcInstance, inputVars));
+}
+
+export const createTimeRecordPhotoRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'CreateTimeRecordPhoto', inputVars);
+}
+createTimeRecordPhotoRef.operationName = 'CreateTimeRecordPhoto';
+
+export function createTimeRecordPhoto(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(createTimeRecordPhotoRef(dcInstance, inputVars));
+}
+
+export const listWorkSchedulesRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListWorkSchedules');
+}
+listWorkSchedulesRef.operationName = 'ListWorkSchedules';
+
+export function listWorkSchedules(dcOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
+  return executeQuery(listWorkSchedulesRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const getWorkScheduleByIdRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetWorkScheduleById', inputVars);
+}
+getWorkScheduleByIdRef.operationName = 'GetWorkScheduleById';
+
+export function getWorkScheduleById(dcOrVars, varsOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  return executeQuery(getWorkScheduleByIdRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const listEmployeeScheduleHistoryRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListEmployeeScheduleHistory');
+}
+listEmployeeScheduleHistoryRef.operationName = 'ListEmployeeScheduleHistory';
+
+export function listEmployeeScheduleHistory(dcOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
+  return executeQuery(listEmployeeScheduleHistoryRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const createWorkScheduleRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'CreateWorkSchedule', inputVars);
+}
+createWorkScheduleRef.operationName = 'CreateWorkSchedule';
+
+export function createWorkSchedule(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(createWorkScheduleRef(dcInstance, inputVars));
+}
+
+export const updateWorkScheduleRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'UpdateWorkSchedule', inputVars);
+}
+updateWorkScheduleRef.operationName = 'UpdateWorkSchedule';
+
+export function updateWorkSchedule(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(updateWorkScheduleRef(dcInstance, inputVars));
+}
+
+export const assignWorkScheduleToEmployeeRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'AssignWorkScheduleToEmployee', inputVars);
+}
+assignWorkScheduleToEmployeeRef.operationName = 'AssignWorkScheduleToEmployee';
+
+export function assignWorkScheduleToEmployee(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(assignWorkScheduleToEmployeeRef(dcInstance, inputVars));
+}
+
 export const listAttendancePoliciesRef = (dc) => {
   const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
   dcInstance._useGeneratedSdk();
@@ -127,6 +630,31 @@ addEmployeeAllowedLocationRef.operationName = 'AddEmployeeAllowedLocation';
 export function addEmployeeAllowedLocation(dcOrVars, vars) {
   const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
   return executeMutation(addEmployeeAllowedLocationRef(dcInstance, inputVars));
+}
+
+export const listAuditLogsRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListAuditLogs');
+}
+listAuditLogsRef.operationName = 'ListAuditLogs';
+
+export function listAuditLogs(dcOrOptions, options) {
+  
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
+  return executeQuery(listAuditLogsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
+}
+
+export const createAuditLogRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'CreateAuditLog', inputVars);
+}
+createAuditLogRef.operationName = 'CreateAuditLog';
+
+export function createAuditLog(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
+  return executeMutation(createAuditLogRef(dcInstance, inputVars));
 }
 
 export const getUserByFirebaseUidRef = (dcOrVars, vars) => {
@@ -303,407 +831,6 @@ export function deactivateDevice(dcOrVars, vars) {
   return executeMutation(deactivateDeviceRef(dcInstance, inputVars));
 }
 
-export const listTimeRecordsRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListTimeRecords');
-}
-listTimeRecordsRef.operationName = 'ListTimeRecords';
-
-export function listTimeRecords(dcOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
-  return executeQuery(listTimeRecordsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const getTimeRecordByIdRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetTimeRecordById', inputVars);
-}
-getTimeRecordByIdRef.operationName = 'GetTimeRecordById';
-
-export function getTimeRecordById(dcOrVars, varsOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
-  return executeQuery(getTimeRecordByIdRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const listTimeRecordPhotosRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListTimeRecordPhotos');
-}
-listTimeRecordPhotosRef.operationName = 'ListTimeRecordPhotos';
-
-export function listTimeRecordPhotos(dcOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
-  return executeQuery(listTimeRecordPhotosRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const createTimeRecordRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'CreateTimeRecord', inputVars);
-}
-createTimeRecordRef.operationName = 'CreateTimeRecord';
-
-export function createTimeRecord(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(createTimeRecordRef(dcInstance, inputVars));
-}
-
-export const adjustTimeRecordRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'AdjustTimeRecord', inputVars);
-}
-adjustTimeRecordRef.operationName = 'AdjustTimeRecord';
-
-export function adjustTimeRecord(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(adjustTimeRecordRef(dcInstance, inputVars));
-}
-
-export const createTimeRecordPhotoRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'CreateTimeRecordPhoto', inputVars);
-}
-createTimeRecordPhotoRef.operationName = 'CreateTimeRecordPhoto';
-
-export function createTimeRecordPhoto(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(createTimeRecordPhotoRef(dcInstance, inputVars));
-}
-
-export const listVacationRequestsRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListVacationRequests');
-}
-listVacationRequestsRef.operationName = 'ListVacationRequests';
-
-export function listVacationRequests(dcOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
-  return executeQuery(listVacationRequestsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const getVacationRequestByIdRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetVacationRequestById', inputVars);
-}
-getVacationRequestByIdRef.operationName = 'GetVacationRequestById';
-
-export function getVacationRequestById(dcOrVars, varsOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
-  return executeQuery(getVacationRequestByIdRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const createVacationRequestRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'CreateVacationRequest', inputVars);
-}
-createVacationRequestRef.operationName = 'CreateVacationRequest';
-
-export function createVacationRequest(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(createVacationRequestRef(dcInstance, inputVars));
-}
-
-export const approveVacationRequestRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'ApproveVacationRequest', inputVars);
-}
-approveVacationRequestRef.operationName = 'ApproveVacationRequest';
-
-export function approveVacationRequest(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(approveVacationRequestRef(dcInstance, inputVars));
-}
-
-export const rejectVacationRequestRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'RejectVacationRequest', inputVars);
-}
-rejectVacationRequestRef.operationName = 'RejectVacationRequest';
-
-export function rejectVacationRequest(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(rejectVacationRequestRef(dcInstance, inputVars));
-}
-
-export const listWorkSchedulesRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListWorkSchedules');
-}
-listWorkSchedulesRef.operationName = 'ListWorkSchedules';
-
-export function listWorkSchedules(dcOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
-  return executeQuery(listWorkSchedulesRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const getWorkScheduleByIdRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetWorkScheduleById', inputVars);
-}
-getWorkScheduleByIdRef.operationName = 'GetWorkScheduleById';
-
-export function getWorkScheduleById(dcOrVars, varsOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
-  return executeQuery(getWorkScheduleByIdRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const listEmployeeScheduleHistoryRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListEmployeeScheduleHistory');
-}
-listEmployeeScheduleHistoryRef.operationName = 'ListEmployeeScheduleHistory';
-
-export function listEmployeeScheduleHistory(dcOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
-  return executeQuery(listEmployeeScheduleHistoryRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const createWorkScheduleRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'CreateWorkSchedule', inputVars);
-}
-createWorkScheduleRef.operationName = 'CreateWorkSchedule';
-
-export function createWorkSchedule(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(createWorkScheduleRef(dcInstance, inputVars));
-}
-
-export const updateWorkScheduleRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'UpdateWorkSchedule', inputVars);
-}
-updateWorkScheduleRef.operationName = 'UpdateWorkSchedule';
-
-export function updateWorkSchedule(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(updateWorkScheduleRef(dcInstance, inputVars));
-}
-
-export const assignWorkScheduleToEmployeeRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'AssignWorkScheduleToEmployee', inputVars);
-}
-assignWorkScheduleToEmployeeRef.operationName = 'AssignWorkScheduleToEmployee';
-
-export function assignWorkScheduleToEmployee(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(assignWorkScheduleToEmployeeRef(dcInstance, inputVars));
-}
-
-export const listAuditLogsRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListAuditLogs');
-}
-listAuditLogsRef.operationName = 'ListAuditLogs';
-
-export function listAuditLogs(dcOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
-  return executeQuery(listAuditLogsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const createAuditLogRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'CreateAuditLog', inputVars);
-}
-createAuditLogRef.operationName = 'CreateAuditLog';
-
-export function createAuditLog(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(createAuditLogRef(dcInstance, inputVars));
-}
-
-export const listEmployeeNotificationsRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListEmployeeNotifications', inputVars);
-}
-listEmployeeNotificationsRef.operationName = 'ListEmployeeNotifications';
-
-export function listEmployeeNotifications(dcOrVars, varsOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
-  return executeQuery(listEmployeeNotificationsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const markEmployeeNotificationAsReadRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'MarkEmployeeNotificationAsRead', inputVars);
-}
-markEmployeeNotificationAsReadRef.operationName = 'MarkEmployeeNotificationAsRead';
-
-export function markEmployeeNotificationAsRead(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(markEmployeeNotificationAsReadRef(dcInstance, inputVars));
-}
-
-export const getEmployeeNotificationPreferencesRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetEmployeeNotificationPreferences', inputVars);
-}
-getEmployeeNotificationPreferencesRef.operationName = 'GetEmployeeNotificationPreferences';
-
-export function getEmployeeNotificationPreferences(dcOrVars, varsOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
-  return executeQuery(getEmployeeNotificationPreferencesRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const updateEmployeeNotificationPreferencesRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'UpdateEmployeeNotificationPreferences', inputVars);
-}
-updateEmployeeNotificationPreferencesRef.operationName = 'UpdateEmployeeNotificationPreferences';
-
-export function updateEmployeeNotificationPreferences(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(updateEmployeeNotificationPreferencesRef(dcInstance, inputVars));
-}
-
-export const listEmployeeDocumentsRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListEmployeeDocuments', inputVars);
-}
-listEmployeeDocumentsRef.operationName = 'ListEmployeeDocuments';
-
-export function listEmployeeDocuments(dcOrVars, varsOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
-  return executeQuery(listEmployeeDocumentsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const getEmployeeDocumentByIdRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetEmployeeDocumentById', inputVars);
-}
-getEmployeeDocumentByIdRef.operationName = 'GetEmployeeDocumentById';
-
-export function getEmployeeDocumentById(dcOrVars, varsOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
-  return executeQuery(getEmployeeDocumentByIdRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const listPayrollStatementsRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListPayrollStatements', inputVars);
-}
-listPayrollStatementsRef.operationName = 'ListPayrollStatements';
-
-export function listPayrollStatements(dcOrVars, varsOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
-  return executeQuery(listPayrollStatementsRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const getPayrollStatementByIdRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetPayrollStatementById', inputVars);
-}
-getPayrollStatementByIdRef.operationName = 'GetPayrollStatementById';
-
-export function getPayrollStatementById(dcOrVars, varsOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
-  return executeQuery(getPayrollStatementByIdRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const listEmployeesRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListEmployees');
-}
-listEmployeesRef.operationName = 'ListEmployees';
-
-export function listEmployees(dcOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrOptions, options, undefined,false, false);
-  return executeQuery(listEmployeesRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const getEmployeeByIdRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetEmployeeById', inputVars);
-}
-getEmployeeByIdRef.operationName = 'GetEmployeeById';
-
-export function getEmployeeById(dcOrVars, varsOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
-  return executeQuery(getEmployeeByIdRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-
-export const createEmployeeRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'CreateEmployee', inputVars);
-}
-createEmployeeRef.operationName = 'CreateEmployee';
-
-export function createEmployee(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(createEmployeeRef(dcInstance, inputVars));
-}
-
-export const updateEmployeeRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'UpdateEmployee', inputVars);
-}
-updateEmployeeRef.operationName = 'UpdateEmployee';
-
-export function updateEmployee(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(updateEmployeeRef(dcInstance, inputVars));
-}
-
-export const deactivateEmployeeRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'DeactivateEmployee', inputVars);
-}
-deactivateEmployeeRef.operationName = 'DeactivateEmployee';
-
-export function deactivateEmployee(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(deactivateEmployeeRef(dcInstance, inputVars));
-}
-
 export const listJustificationsRef = (dc) => {
   const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
   dcInstance._useGeneratedSdk();
@@ -789,17 +916,5 @@ addJustificationAttachmentRef.operationName = 'AddJustificationAttachment';
 export function addJustificationAttachment(dcOrVars, vars) {
   const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
   return executeMutation(addJustificationAttachmentRef(dcInstance, inputVars));
-}
-
-export const seedRhPontoDataRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'SeedRhPontoData');
-}
-seedRhPontoDataRef.operationName = 'SeedRhPontoData';
-
-export function seedRhPontoData(dc) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dc, undefined);
-  return executeMutation(seedRhPontoDataRef(dcInstance, inputVars));
 }
 

@@ -1,8 +1,9 @@
 import { router } from 'expo-router';
 import { useMemo, useState } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { AppIcon } from '@/shared/components/app-icon';
+import { MobileListSkeleton } from '@/shared/components/mobile-skeleton';
 import { mobileTheme } from '@/shared/theme/tokens';
 
 import { useEmployeeJustifications } from '../hooks/use-employee-justifications';
@@ -82,10 +83,7 @@ export const EmployeeJustificationsScreen = () => {
       </ScrollView>
 
       {justificationsQuery.isLoading ? (
-        <View style={styles.placeholderCard}>
-          <ActivityIndicator color={mobileTheme.primary} />
-          <Text style={styles.placeholderText}>Carregando suas justificativas...</Text>
-        </View>
+        <MobileListSkeleton itemCount={3} showHero={false} />
       ) : justificationsQuery.isError ? (
         <View style={styles.placeholderCard}>
           <AppIcon color={mobileTheme.danger} name="alert-circle-outline" size={22} />

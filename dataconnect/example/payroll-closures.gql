@@ -1,0 +1,74 @@
+query GetPayrollClosureByReferenceKey($referenceKey: String!)
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o administrativa para consultar fechamento persistido da folha.") {
+  payrollClosures(where: { referenceKey: { eq: $referenceKey } }, limit: 1) {
+    id
+    referenceKey
+    referenceLabel
+    referenceYear
+    referenceMonth
+    periodStart
+    periodEnd
+    status
+    notes
+    closedAt
+    closedByUser {
+      id
+    }
+    stateData
+    createdAt
+    updatedAt
+  }
+}
+
+mutation CreatePayrollClosure(
+  $referenceKey: String!
+  $referenceLabel: String!
+  $referenceYear: Int!
+  $referenceMonth: Int!
+  $periodStart: Date!
+  $periodEnd: Date!
+  $status: String!
+  $notes: String
+  $closedByUserId: UUID
+  $stateData: Any!
+)
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o administrativa para persistir fechamento da folha.") {
+  payrollClosure_insert(
+    data: {
+      referenceKey: $referenceKey
+      referenceLabel: $referenceLabel
+      referenceYear: $referenceYear
+      referenceMonth: $referenceMonth
+      periodStart: $periodStart
+      periodEnd: $periodEnd
+      status: $status
+      notes: $notes
+      closedAt_expr: "request.time"
+      closedByUser: { id: $closedByUserId }
+      stateData: $stateData
+      createdAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+mutation UpdatePayrollClosure(
+  $id: UUID!
+  $status: String!
+  $notes: String
+  $closedByUserId: UUID
+  $stateData: Any!
+)
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o administrativa para atualizar fechamento persistido da folha.") {
+  payrollClosure_update(
+    id: $id
+    data: {
+      status: $status
+      notes: $notes
+      closedAt_expr: "request.time"
+      closedByUser: { id: $closedByUserId }
+      stateData: $stateData
+      updatedAt_expr: "request.time"
+    }
+  )
+}

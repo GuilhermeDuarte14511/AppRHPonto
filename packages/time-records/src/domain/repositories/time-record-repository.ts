@@ -31,6 +31,7 @@ export interface CreateTimeRecordPayload {
   referenceRecordId?: Nullable<string>;
   latitude?: Nullable<number>;
   longitude?: Nullable<number>;
+  resolvedAddress?: Nullable<string>;
   ipAddress?: Nullable<string>;
 }
 
@@ -52,4 +53,3 @@ export interface TimeRecordRepository {
 
 export type TimeRecordsRepository = TimeRecordRepository;
 export type ManualAdjustmentPayload = AdjustTimeRecordPayload;
-

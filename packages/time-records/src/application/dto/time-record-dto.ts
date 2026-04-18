@@ -15,6 +15,7 @@ export interface TimeRecordDto {
   referenceRecordId: Nullable<string>;
   latitude: Nullable<number>;
   longitude: Nullable<number>;
+  resolvedAddress: Nullable<string>;
   ipAddress: Nullable<string>;
   createdAt: DateValue;
   updatedAt: DateValue;

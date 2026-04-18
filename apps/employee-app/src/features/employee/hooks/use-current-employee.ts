@@ -1,10 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import type { Session } from '@rh-ponto/auth';
 
-import { getEmployeeAppServices } from '@/shared/lib/service-registry';
-import { useAppSession } from '@/shared/providers/app-providers';
-
-const normalizeEmail = (value?: string | null) => value?.trim().toLowerCase() ?? null;
+import { fetchCurrentEmployee } from '../../../shared/lib/employee-self-service-api';
+import { useAppSession } from '../../../shared/providers/app-providers';
 
 export const useCurrentEmployee = (sessionOverride?: Session | null) => {
   const appSession = useAppSession();
@@ -13,16 +11,11 @@ export const useCurrentEmployee = (sessionOverride?: Session | null) => {
   const employeeQuery = useQuery({
     queryKey: ['employee-app', 'current-employee', session?.user.id, session?.user.email],
     enabled: Boolean(session?.user.id || session?.user.email),
-    queryFn: async () => {
-      const employees = await getEmployeeAppServices().employees.listEmployeesUseCase.execute();
-      const sessionEmail = normalizeEmail(session?.user.email);
-
-      return (
-        employees.find((employee) => employee.userId === session?.user.id) ??
-        employees.find((employee) => normalizeEmail(employee.email) === sessionEmail) ??
-        null
-      );
-    },
+    queryFn: () =>
+      fetchCurrentEmployee({
+        userId: session?.user.id,
+        email: session?.user.email,
+      }),
   });
 
   const employee = employeeQuery.data ?? null;

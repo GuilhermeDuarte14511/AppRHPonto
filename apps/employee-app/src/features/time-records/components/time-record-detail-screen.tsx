@@ -2,6 +2,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { AppIcon } from '@/shared/components/app-icon';
+import { MobileDetailSkeleton } from '@/shared/components/mobile-skeleton';
 import { mobileTheme } from '@/shared/theme/tokens';
 
 import { useTimeRecordDetail } from '../hooks/use-time-record-detail';
@@ -9,6 +10,7 @@ import {
   formatTimeRecordDate,
   formatTimeRecordDateTime,
   formatTimeRecordTime,
+  resolveNextTimeRecordTypeAfter,
   timeRecordSourceLabels,
   timeRecordStatusDescriptions,
   timeRecordStatusLabels,
@@ -92,10 +94,9 @@ export const TimeRecordDetailScreen = () => {
 
   if (timeRecordsQuery.isLoading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator color={mobileTheme.primary} />
-        <Text style={styles.loadingText}>Carregando os detalhes da marcação...</Text>
-      </View>
+      <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content} style={styles.container}>
+        <MobileDetailSkeleton sectionCount={4} />
+      </ScrollView>
     );
   }
 
@@ -115,6 +116,7 @@ export const TimeRecordDetailScreen = () => {
   const palette = statusPalette[record.status];
   const photo = photosQuery.data?.[0] ?? null;
   const auditItems = buildAuditItems(record);
+  const nextExpectedType = resolveNextTimeRecordTypeAfter(record.recordType);
 
   return (
     <ScrollView
@@ -159,6 +161,12 @@ export const TimeRecordDetailScreen = () => {
               <Text style={styles.infoLabel}>Situação</Text>
               <Text style={styles.infoValue}>{timeRecordStatusDescriptions[record.status]}</Text>
             </View>
+            <View style={styles.infoRow}>
+              <Text style={styles.infoLabel}>PrÃ³xima etapa</Text>
+              <Text style={styles.infoValue}>
+                {nextExpectedType ? timeRecordTypeLabels[nextExpectedType] : 'Jornada concluÃ­da'}
+              </Text>
+            </View>
           </View>
         </View>
 
@@ -170,6 +178,10 @@ export const TimeRecordDetailScreen = () => {
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>Coordenadas</Text>
               <Text style={styles.infoValue}>{formatCoordinates(record.latitude, record.longitude)}</Text>
+            </View>
+            <View style={styles.infoRow}>
+              <Text style={styles.infoLabel}>Endereço</Text>
+              <Text style={styles.infoValue}>{record.resolvedAddress ?? 'Endereço não informado'}</Text>
             </View>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>IP</Text>

@@ -1,5 +1,5 @@
 query ListEmployeeNotifications($userId: UUID!)
-  @auth(level: USER, insecureReason: "Operação do aplicativo do colaborador para central de mensagens.") {
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o do aplicativo do colaborador para central de mensagens.") {
   adminNotifications(
     where: { recipientUserId: { eq: $userId } }
     orderBy: [{ triggeredAt: DESC }]
@@ -22,7 +22,7 @@ query ListEmployeeNotifications($userId: UUID!)
 }
 
 mutation MarkEmployeeNotificationAsRead($id: UUID!)
-  @auth(level: USER, insecureReason: "Operação do aplicativo do colaborador para leitura de mensagens.") {
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o do aplicativo do colaborador para leitura de mensagens.") {
   adminNotification_update(
     id: $id
     data: {
@@ -34,7 +34,7 @@ mutation MarkEmployeeNotificationAsRead($id: UUID!)
 }
 
 query GetEmployeeNotificationPreferences($userId: UUID!)
-  @auth(level: USER, insecureReason: "Operação do aplicativo do colaborador para consultar preferências de notificação.") {
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o do aplicativo do colaborador para consultar preferÃªncias de notificaÃ§Ã£o.") {
   employeeNotificationPreferences(
     where: { userId: { eq: $userId } }
     limit: 1
@@ -71,7 +71,7 @@ mutation UpdateEmployeeNotificationPreferences(
   $notifyDocuments: Boolean!
   $notifyPayroll: Boolean!
 )
-  @auth(level: USER, insecureReason: "Operação do aplicativo do colaborador para atualizar preferências de notificação.") {
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o do aplicativo do colaborador para atualizar preferÃªncias de notificaÃ§Ã£o.") {
   employeeNotificationPreference_update(
     id: $id
     data: {
@@ -90,8 +90,64 @@ mutation UpdateEmployeeNotificationPreferences(
   )
 }
 
+query GetCurrentEmployeeByUserId($userId: UUID!)
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o do aplicativo do colaborador para resolver o prÃ³prio cadastro pelo usuÃ¡rio autenticado.") {
+  employees(where: { userId: { eq: $userId } }, limit: 1) {
+    id
+    user {
+      id
+    }
+    registrationNumber
+    fullName
+    cpf
+    email
+    phone
+    birthDate
+    hireDate
+    departmentId
+    department {
+      id
+      name
+    }
+    position
+    profilePhotoUrl
+    pinCode
+    isActive
+    createdAt
+    updatedAt
+  }
+}
+
+query GetCurrentEmployeeByEmail($email: String!)
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o do aplicativo do colaborador para resolver o prÃ³prio cadastro pelo e-mail autenticado.") {
+  employees(where: { email: { eq: $email } }, limit: 1) {
+    id
+    user {
+      id
+    }
+    registrationNumber
+    fullName
+    cpf
+    email
+    phone
+    birthDate
+    hireDate
+    departmentId
+    department {
+      id
+      name
+    }
+    position
+    profilePhotoUrl
+    pinCode
+    isActive
+    createdAt
+    updatedAt
+  }
+}
+
 query ListEmployeeDocuments($employeeId: UUID!)
-  @auth(level: USER, insecureReason: "Operação do aplicativo do colaborador para consultar documentos.") {
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o do aplicativo do colaborador para consultar documentos.") {
   employeeDocuments(
     where: { employeeId: { eq: $employeeId } }
     orderBy: [{ issuedAt: DESC }]
@@ -116,7 +172,7 @@ query ListEmployeeDocuments($employeeId: UUID!)
 }
 
 query GetEmployeeDocumentById($id: UUID!)
-  @auth(level: USER, insecureReason: "Operação do aplicativo do colaborador para consultar um documento.") {
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o do aplicativo do colaborador para consultar um documento.") {
   employeeDocument(id: $id) {
     id
     employee {
@@ -136,8 +192,29 @@ query GetEmployeeDocumentById($id: UUID!)
   }
 }
 
+query GetEmployeeDocumentByIdForEmployee($id: UUID!, $employeeId: UUID!)
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o do aplicativo do colaborador para consultar um documento do prÃ³prio cadastro.") {
+  employeeDocuments(where: { id: { eq: $id }, employeeId: { eq: $employeeId } }, limit: 1) {
+    id
+    employee {
+      id
+    }
+    category
+    title
+    description
+    status
+    fileName
+    fileUrl
+    issuedAt
+    acknowledgedAt
+    expiresAt
+    createdAt
+    updatedAt
+  }
+}
+
 query ListPayrollStatements($employeeId: UUID!)
-  @auth(level: USER, insecureReason: "Operação do aplicativo do colaborador para consultar holerites.") {
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o do aplicativo do colaborador para consultar holerites.") {
   payrollStatements(
     where: { employeeId: { eq: $employeeId } }
     orderBy: [{ referenceYear: DESC }, { referenceMonth: DESC }]
@@ -162,7 +239,7 @@ query ListPayrollStatements($employeeId: UUID!)
 }
 
 query GetPayrollStatementById($id: UUID!)
-  @auth(level: USER, insecureReason: "Operação do aplicativo do colaborador para consultar um holerite.") {
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o do aplicativo do colaborador para consultar um holerite.") {
   payrollStatement(id: $id) {
     id
     employee {
@@ -177,6 +254,93 @@ query GetPayrollStatementById($id: UUID!)
     fileName
     fileUrl
     issuedAt
+    createdAt
+    updatedAt
+  }
+}
+
+query GetPayrollStatementByIdForEmployee($id: UUID!, $employeeId: UUID!)
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o do aplicativo do colaborador para consultar um holerite do prÃ³prio cadastro.") {
+  payrollStatements(where: { id: { eq: $id }, employeeId: { eq: $employeeId } }, limit: 1) {
+    id
+    employee {
+      id
+    }
+    referenceLabel
+    referenceYear
+    referenceMonth
+    status
+    grossAmount
+    netAmount
+    fileName
+    fileUrl
+    issuedAt
+    createdAt
+    updatedAt
+  }
+}
+
+query ListEmployeeVacationRequestsByEmployee($employeeId: UUID!)
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o do aplicativo do colaborador para consultar as prÃ³prias solicitaÃ§Ãµes de fÃ©rias.") {
+  vacationRequests(where: { employeeId: { eq: $employeeId } }, orderBy: [{ requestedAt: DESC }], limit: 100) {
+    id
+    employee {
+      id
+    }
+    requestedAt
+    startDate
+    endDate
+    totalDays
+    availableDays
+    accrualPeriod
+    advanceThirteenthSalary
+    cashBonus
+    status
+    attachmentFileName
+    attachmentFileUrl
+    coverageNotes
+    reviewNotes
+    managerApprovalStatus
+    managerApprovalActor
+    managerApprovalTimestamp
+    managerApprovalNotes
+    hrApprovalStatus
+    hrApprovalActor
+    hrApprovalTimestamp
+    hrApprovalNotes
+    createdAt
+    updatedAt
+  }
+}
+
+query GetEmployeeVacationRequestByIdForEmployee($id: UUID!, $employeeId: UUID!)
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o do aplicativo do colaborador para consultar uma solicitaÃ§Ã£o de fÃ©rias do prÃ³prio cadastro.") {
+  vacationRequests(where: { id: { eq: $id }, employeeId: { eq: $employeeId } }, limit: 1) {
+    id
+    employee {
+      id
+    }
+    requestedAt
+    startDate
+    endDate
+    totalDays
+    availableDays
+    accrualPeriod
+    advanceThirteenthSalary
+    cashBonus
+    status
+    attachmentFileName
+    attachmentFileUrl
+    coverageNotes
+    reviewNotes
+    managerApprovalStatus
+    managerApprovalActor
+    managerApprovalTimestamp
+    managerApprovalNotes
+    hrApprovalStatus
+    hrApprovalActor
+    hrApprovalTimestamp
+    hrApprovalNotes
     createdAt
     updatedAt
   }

@@ -5,7 +5,7 @@ import { getEmployeeAppServices } from '@/shared/lib/service-registry';
 import {
   calculateWorkedMinutes,
   getRecordsForDay,
-  resolveNextTimeRecordType,
+  resolveDailyTimeRecordFlow,
   sortTimeRecordsNewestFirst,
 } from '../lib/time-record-mobile';
 
@@ -20,7 +20,8 @@ export const useEmployeeTimeRecords = (employeeId?: string | null) => {
   const todayRecords = getRecordsForDay(records);
   const lastRecord = records[0] ?? null;
   const workedMinutesToday = calculateWorkedMinutes(records);
-  const nextRecordType = resolveNextTimeRecordType(records);
+  const dayFlow = resolveDailyTimeRecordFlow(records);
+  const nextRecordType = dayFlow.nextRecordType;
 
   return {
     timeRecordsQuery,
@@ -28,6 +29,7 @@ export const useEmployeeTimeRecords = (employeeId?: string | null) => {
     todayRecords,
     lastRecord,
     workedMinutesToday,
+    dayFlow,
     nextRecordType,
   };
 };

@@ -125,6 +125,8 @@ export interface CreateAuditLogVariables {
   entityId?: string | null;
   action: string;
   description?: string | null;
+  oldData?: unknown | null;
+  newData?: unknown | null;
   ipAddress?: string | null;
   deviceInfo?: string | null;
 }
@@ -205,6 +207,23 @@ export interface CreateJustificationVariables {
   requestedRecordedAt?: TimestampString | null;
 }
 
+export interface CreatePayrollClosureData {
+  payrollClosure_insert: PayrollClosure_Key;
+}
+
+export interface CreatePayrollClosureVariables {
+  referenceKey: string;
+  referenceLabel: string;
+  referenceYear: number;
+  referenceMonth: number;
+  periodStart: DateString;
+  periodEnd: DateString;
+  status: string;
+  notes?: string | null;
+  closedByUserId?: UUIDString | null;
+  stateData: unknown;
+}
+
 export interface CreateTimeRecordData {
   timeRecord_insert: TimeRecord_Key;
 }
@@ -236,6 +255,7 @@ export interface CreateTimeRecordVariables {
   referenceRecordId?: UUIDString | null;
   latitude?: number | null;
   longitude?: number | null;
+  resolvedAddress?: string | null;
   ipAddress?: string | null;
 }
 
@@ -357,6 +377,68 @@ export interface Employee_Key {
   __typename?: 'Employee_Key';
 }
 
+export interface GetCurrentEmployeeByEmailData {
+  employees: ({
+    id: UUIDString;
+    user?: {
+      id: UUIDString;
+    } & User_Key;
+      registrationNumber: string;
+      fullName: string;
+      cpf?: string | null;
+      email?: string | null;
+      phone?: string | null;
+      birthDate?: DateString | null;
+      hireDate?: DateString | null;
+      departmentId?: UUIDString | null;
+      department?: {
+        id: UUIDString;
+        name: string;
+      } & Department_Key;
+        position?: string | null;
+        profilePhotoUrl?: string | null;
+        pinCode?: string | null;
+        isActive: boolean;
+        createdAt: TimestampString;
+        updatedAt: TimestampString;
+  } & Employee_Key)[];
+}
+
+export interface GetCurrentEmployeeByEmailVariables {
+  email: string;
+}
+
+export interface GetCurrentEmployeeByUserIdData {
+  employees: ({
+    id: UUIDString;
+    user?: {
+      id: UUIDString;
+    } & User_Key;
+      registrationNumber: string;
+      fullName: string;
+      cpf?: string | null;
+      email?: string | null;
+      phone?: string | null;
+      birthDate?: DateString | null;
+      hireDate?: DateString | null;
+      departmentId?: UUIDString | null;
+      department?: {
+        id: UUIDString;
+        name: string;
+      } & Department_Key;
+        position?: string | null;
+        profilePhotoUrl?: string | null;
+        pinCode?: string | null;
+        isActive: boolean;
+        createdAt: TimestampString;
+        updatedAt: TimestampString;
+  } & Employee_Key)[];
+}
+
+export interface GetCurrentEmployeeByUserIdVariables {
+  userId: UUIDString;
+}
+
 export interface GetDepartmentByIdData {
   department?: {
     id: UUIDString;
@@ -452,6 +534,31 @@ export interface GetEmployeeDocumentByIdData {
   } & EmployeeDocument_Key;
 }
 
+export interface GetEmployeeDocumentByIdForEmployeeData {
+  employeeDocuments: ({
+    id: UUIDString;
+    employee: {
+      id: UUIDString;
+    } & Employee_Key;
+      category: string;
+      title: string;
+      description?: string | null;
+      status: string;
+      fileName: string;
+      fileUrl: string;
+      issuedAt: TimestampString;
+      acknowledgedAt?: TimestampString | null;
+      expiresAt?: DateString | null;
+      createdAt: TimestampString;
+      updatedAt: TimestampString;
+  } & EmployeeDocument_Key)[];
+}
+
+export interface GetEmployeeDocumentByIdForEmployeeVariables {
+  id: UUIDString;
+  employeeId: UUIDString;
+}
+
 export interface GetEmployeeDocumentByIdVariables {
   id: UUIDString;
 }
@@ -479,6 +586,43 @@ export interface GetEmployeeNotificationPreferencesData {
 
 export interface GetEmployeeNotificationPreferencesVariables {
   userId: UUIDString;
+}
+
+export interface GetEmployeeVacationRequestByIdForEmployeeData {
+  vacationRequests: ({
+    id: UUIDString;
+    employee: {
+      id: UUIDString;
+    } & Employee_Key;
+      requestedAt: TimestampString;
+      startDate: DateString;
+      endDate: DateString;
+      totalDays: number;
+      availableDays: number;
+      accrualPeriod?: string | null;
+      advanceThirteenthSalary: boolean;
+      cashBonus: boolean;
+      status: string;
+      attachmentFileName?: string | null;
+      attachmentFileUrl?: string | null;
+      coverageNotes?: string | null;
+      reviewNotes?: string | null;
+      managerApprovalStatus: string;
+      managerApprovalActor?: string | null;
+      managerApprovalTimestamp?: TimestampString | null;
+      managerApprovalNotes?: string | null;
+      hrApprovalStatus: string;
+      hrApprovalActor?: string | null;
+      hrApprovalTimestamp?: TimestampString | null;
+      hrApprovalNotes?: string | null;
+      createdAt: TimestampString;
+      updatedAt: TimestampString;
+  } & VacationRequest_Key)[];
+}
+
+export interface GetEmployeeVacationRequestByIdForEmployeeVariables {
+  id: UUIDString;
+  employeeId: UUIDString;
 }
 
 export interface GetJustificationByIdData {
@@ -509,6 +653,31 @@ export interface GetJustificationByIdVariables {
   id: UUIDString;
 }
 
+export interface GetPayrollClosureByReferenceKeyData {
+  payrollClosures: ({
+    id: UUIDString;
+    referenceKey: string;
+    referenceLabel: string;
+    referenceYear: number;
+    referenceMonth: number;
+    periodStart: DateString;
+    periodEnd: DateString;
+    status: string;
+    notes?: string | null;
+    closedAt?: TimestampString | null;
+    closedByUser?: {
+      id: UUIDString;
+    } & User_Key;
+      stateData: unknown;
+      createdAt: TimestampString;
+      updatedAt: TimestampString;
+  } & PayrollClosure_Key)[];
+}
+
+export interface GetPayrollClosureByReferenceKeyVariables {
+  referenceKey: string;
+}
+
 export interface GetPayrollStatementByIdData {
   payrollStatement?: {
     id: UUIDString;
@@ -527,6 +696,31 @@ export interface GetPayrollStatementByIdData {
       createdAt: TimestampString;
       updatedAt: TimestampString;
   } & PayrollStatement_Key;
+}
+
+export interface GetPayrollStatementByIdForEmployeeData {
+  payrollStatements: ({
+    id: UUIDString;
+    employee: {
+      id: UUIDString;
+    } & Employee_Key;
+      referenceLabel: string;
+      referenceYear: number;
+      referenceMonth: number;
+      status: string;
+      grossAmount: number;
+      netAmount: number;
+      fileName: string;
+      fileUrl: string;
+      issuedAt: TimestampString;
+      createdAt: TimestampString;
+      updatedAt: TimestampString;
+  } & PayrollStatement_Key)[];
+}
+
+export interface GetPayrollStatementByIdForEmployeeVariables {
+  id: UUIDString;
+  employeeId: UUIDString;
 }
 
 export interface GetPayrollStatementByIdVariables {
@@ -557,6 +751,7 @@ export interface GetTimeRecordByIdData {
           } & TimeRecord_Key;
             latitude?: number | null;
             longitude?: number | null;
+            resolvedAddress?: string | null;
             ipAddress?: string | null;
             createdAt: TimestampString;
             updatedAt: TimestampString;
@@ -706,6 +901,8 @@ export interface ListAuditLogsData {
       entityId?: string | null;
       action: string;
       description?: string | null;
+      oldData?: unknown | null;
+      newData?: unknown | null;
       ipAddress?: string | null;
       deviceInfo?: string | null;
       createdAt: TimestampString;
@@ -851,6 +1048,42 @@ export interface ListEmployeeScheduleHistoryData {
   } & EmployeeScheduleHistory_Key)[];
 }
 
+export interface ListEmployeeVacationRequestsByEmployeeData {
+  vacationRequests: ({
+    id: UUIDString;
+    employee: {
+      id: UUIDString;
+    } & Employee_Key;
+      requestedAt: TimestampString;
+      startDate: DateString;
+      endDate: DateString;
+      totalDays: number;
+      availableDays: number;
+      accrualPeriod?: string | null;
+      advanceThirteenthSalary: boolean;
+      cashBonus: boolean;
+      status: string;
+      attachmentFileName?: string | null;
+      attachmentFileUrl?: string | null;
+      coverageNotes?: string | null;
+      reviewNotes?: string | null;
+      managerApprovalStatus: string;
+      managerApprovalActor?: string | null;
+      managerApprovalTimestamp?: TimestampString | null;
+      managerApprovalNotes?: string | null;
+      hrApprovalStatus: string;
+      hrApprovalActor?: string | null;
+      hrApprovalTimestamp?: TimestampString | null;
+      hrApprovalNotes?: string | null;
+      createdAt: TimestampString;
+      updatedAt: TimestampString;
+  } & VacationRequest_Key)[];
+}
+
+export interface ListEmployeeVacationRequestsByEmployeeVariables {
+  employeeId: UUIDString;
+}
+
 export interface ListEmployeesData {
   employees: ({
     id: UUIDString;
@@ -982,6 +1215,7 @@ export interface ListTimeRecordsData {
           } & TimeRecord_Key;
             latitude?: number | null;
             longitude?: number | null;
+            resolvedAddress?: string | null;
             ipAddress?: string | null;
             createdAt: TimestampString;
             updatedAt: TimestampString;
@@ -1074,6 +1308,11 @@ export interface OnboardingTask_Key {
   __typename?: 'OnboardingTask_Key';
 }
 
+export interface PayrollClosure_Key {
+  id: UUIDString;
+  __typename?: 'PayrollClosure_Key';
+}
+
 export interface PayrollStatement_Key {
   id: UUIDString;
   __typename?: 'PayrollStatement_Key';
@@ -1118,6 +1357,7 @@ export interface SeedRhPontoDataData {
   vacationRequest_upsertMany: VacationRequest_Key[];
   employeeDocument_upsertMany: EmployeeDocument_Key[];
   payrollStatement_upsertMany: PayrollStatement_Key[];
+  payrollClosure_upsertMany: PayrollClosure_Key[];
   workLocation_upsertMany: WorkLocation_Key[];
   attendancePolicy_upsertMany: AttendancePolicy_Key[];
   employeeAttendancePolicy_upsertMany: EmployeeAttendancePolicy_Key[];
@@ -1248,6 +1488,18 @@ export interface UpdateEmployeeVariables {
   isActive?: boolean | null;
 }
 
+export interface UpdatePayrollClosureData {
+  payrollClosure_update?: PayrollClosure_Key | null;
+}
+
+export interface UpdatePayrollClosureVariables {
+  id: UUIDString;
+  status: string;
+  notes?: string | null;
+  closedByUserId?: UUIDString | null;
+  stateData: unknown;
+}
+
 export interface UpdateWorkScheduleData {
   workSchedule_update?: WorkSchedule_Key | null;
 }
@@ -1283,6 +1535,486 @@ export interface WorkSchedule_Key {
   id: UUIDString;
   __typename?: 'WorkSchedule_Key';
 }
+
+interface GetPayrollClosureByReferenceKeyRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetPayrollClosureByReferenceKeyVariables): QueryRef<GetPayrollClosureByReferenceKeyData, GetPayrollClosureByReferenceKeyVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetPayrollClosureByReferenceKeyVariables): QueryRef<GetPayrollClosureByReferenceKeyData, GetPayrollClosureByReferenceKeyVariables>;
+  operationName: string;
+}
+export const getPayrollClosureByReferenceKeyRef: GetPayrollClosureByReferenceKeyRef;
+
+export function getPayrollClosureByReferenceKey(vars: GetPayrollClosureByReferenceKeyVariables, options?: ExecuteQueryOptions): QueryPromise<GetPayrollClosureByReferenceKeyData, GetPayrollClosureByReferenceKeyVariables>;
+export function getPayrollClosureByReferenceKey(dc: DataConnect, vars: GetPayrollClosureByReferenceKeyVariables, options?: ExecuteQueryOptions): QueryPromise<GetPayrollClosureByReferenceKeyData, GetPayrollClosureByReferenceKeyVariables>;
+
+interface CreatePayrollClosureRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: CreatePayrollClosureVariables): MutationRef<CreatePayrollClosureData, CreatePayrollClosureVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: CreatePayrollClosureVariables): MutationRef<CreatePayrollClosureData, CreatePayrollClosureVariables>;
+  operationName: string;
+}
+export const createPayrollClosureRef: CreatePayrollClosureRef;
+
+export function createPayrollClosure(vars: CreatePayrollClosureVariables): MutationPromise<CreatePayrollClosureData, CreatePayrollClosureVariables>;
+export function createPayrollClosure(dc: DataConnect, vars: CreatePayrollClosureVariables): MutationPromise<CreatePayrollClosureData, CreatePayrollClosureVariables>;
+
+interface UpdatePayrollClosureRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: UpdatePayrollClosureVariables): MutationRef<UpdatePayrollClosureData, UpdatePayrollClosureVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: UpdatePayrollClosureVariables): MutationRef<UpdatePayrollClosureData, UpdatePayrollClosureVariables>;
+  operationName: string;
+}
+export const updatePayrollClosureRef: UpdatePayrollClosureRef;
+
+export function updatePayrollClosure(vars: UpdatePayrollClosureVariables): MutationPromise<UpdatePayrollClosureData, UpdatePayrollClosureVariables>;
+export function updatePayrollClosure(dc: DataConnect, vars: UpdatePayrollClosureVariables): MutationPromise<UpdatePayrollClosureData, UpdatePayrollClosureVariables>;
+
+interface ListVacationRequestsRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (): QueryRef<ListVacationRequestsData, undefined>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect): QueryRef<ListVacationRequestsData, undefined>;
+  operationName: string;
+}
+export const listVacationRequestsRef: ListVacationRequestsRef;
+
+export function listVacationRequests(options?: ExecuteQueryOptions): QueryPromise<ListVacationRequestsData, undefined>;
+export function listVacationRequests(dc: DataConnect, options?: ExecuteQueryOptions): QueryPromise<ListVacationRequestsData, undefined>;
+
+interface GetVacationRequestByIdRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetVacationRequestByIdVariables): QueryRef<GetVacationRequestByIdData, GetVacationRequestByIdVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetVacationRequestByIdVariables): QueryRef<GetVacationRequestByIdData, GetVacationRequestByIdVariables>;
+  operationName: string;
+}
+export const getVacationRequestByIdRef: GetVacationRequestByIdRef;
+
+export function getVacationRequestById(vars: GetVacationRequestByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetVacationRequestByIdData, GetVacationRequestByIdVariables>;
+export function getVacationRequestById(dc: DataConnect, vars: GetVacationRequestByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetVacationRequestByIdData, GetVacationRequestByIdVariables>;
+
+interface CreateVacationRequestRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: CreateVacationRequestVariables): MutationRef<CreateVacationRequestData, CreateVacationRequestVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: CreateVacationRequestVariables): MutationRef<CreateVacationRequestData, CreateVacationRequestVariables>;
+  operationName: string;
+}
+export const createVacationRequestRef: CreateVacationRequestRef;
+
+export function createVacationRequest(vars: CreateVacationRequestVariables): MutationPromise<CreateVacationRequestData, CreateVacationRequestVariables>;
+export function createVacationRequest(dc: DataConnect, vars: CreateVacationRequestVariables): MutationPromise<CreateVacationRequestData, CreateVacationRequestVariables>;
+
+interface ApproveVacationRequestRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: ApproveVacationRequestVariables): MutationRef<ApproveVacationRequestData, ApproveVacationRequestVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: ApproveVacationRequestVariables): MutationRef<ApproveVacationRequestData, ApproveVacationRequestVariables>;
+  operationName: string;
+}
+export const approveVacationRequestRef: ApproveVacationRequestRef;
+
+export function approveVacationRequest(vars: ApproveVacationRequestVariables): MutationPromise<ApproveVacationRequestData, ApproveVacationRequestVariables>;
+export function approveVacationRequest(dc: DataConnect, vars: ApproveVacationRequestVariables): MutationPromise<ApproveVacationRequestData, ApproveVacationRequestVariables>;
+
+interface RejectVacationRequestRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: RejectVacationRequestVariables): MutationRef<RejectVacationRequestData, RejectVacationRequestVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: RejectVacationRequestVariables): MutationRef<RejectVacationRequestData, RejectVacationRequestVariables>;
+  operationName: string;
+}
+export const rejectVacationRequestRef: RejectVacationRequestRef;
+
+export function rejectVacationRequest(vars: RejectVacationRequestVariables): MutationPromise<RejectVacationRequestData, RejectVacationRequestVariables>;
+export function rejectVacationRequest(dc: DataConnect, vars: RejectVacationRequestVariables): MutationPromise<RejectVacationRequestData, RejectVacationRequestVariables>;
+
+interface ListEmployeeNotificationsRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: ListEmployeeNotificationsVariables): QueryRef<ListEmployeeNotificationsData, ListEmployeeNotificationsVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: ListEmployeeNotificationsVariables): QueryRef<ListEmployeeNotificationsData, ListEmployeeNotificationsVariables>;
+  operationName: string;
+}
+export const listEmployeeNotificationsRef: ListEmployeeNotificationsRef;
+
+export function listEmployeeNotifications(vars: ListEmployeeNotificationsVariables, options?: ExecuteQueryOptions): QueryPromise<ListEmployeeNotificationsData, ListEmployeeNotificationsVariables>;
+export function listEmployeeNotifications(dc: DataConnect, vars: ListEmployeeNotificationsVariables, options?: ExecuteQueryOptions): QueryPromise<ListEmployeeNotificationsData, ListEmployeeNotificationsVariables>;
+
+interface MarkEmployeeNotificationAsReadRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: MarkEmployeeNotificationAsReadVariables): MutationRef<MarkEmployeeNotificationAsReadData, MarkEmployeeNotificationAsReadVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: MarkEmployeeNotificationAsReadVariables): MutationRef<MarkEmployeeNotificationAsReadData, MarkEmployeeNotificationAsReadVariables>;
+  operationName: string;
+}
+export const markEmployeeNotificationAsReadRef: MarkEmployeeNotificationAsReadRef;
+
+export function markEmployeeNotificationAsRead(vars: MarkEmployeeNotificationAsReadVariables): MutationPromise<MarkEmployeeNotificationAsReadData, MarkEmployeeNotificationAsReadVariables>;
+export function markEmployeeNotificationAsRead(dc: DataConnect, vars: MarkEmployeeNotificationAsReadVariables): MutationPromise<MarkEmployeeNotificationAsReadData, MarkEmployeeNotificationAsReadVariables>;
+
+interface GetEmployeeNotificationPreferencesRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetEmployeeNotificationPreferencesVariables): QueryRef<GetEmployeeNotificationPreferencesData, GetEmployeeNotificationPreferencesVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetEmployeeNotificationPreferencesVariables): QueryRef<GetEmployeeNotificationPreferencesData, GetEmployeeNotificationPreferencesVariables>;
+  operationName: string;
+}
+export const getEmployeeNotificationPreferencesRef: GetEmployeeNotificationPreferencesRef;
+
+export function getEmployeeNotificationPreferences(vars: GetEmployeeNotificationPreferencesVariables, options?: ExecuteQueryOptions): QueryPromise<GetEmployeeNotificationPreferencesData, GetEmployeeNotificationPreferencesVariables>;
+export function getEmployeeNotificationPreferences(dc: DataConnect, vars: GetEmployeeNotificationPreferencesVariables, options?: ExecuteQueryOptions): QueryPromise<GetEmployeeNotificationPreferencesData, GetEmployeeNotificationPreferencesVariables>;
+
+interface UpdateEmployeeNotificationPreferencesRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: UpdateEmployeeNotificationPreferencesVariables): MutationRef<UpdateEmployeeNotificationPreferencesData, UpdateEmployeeNotificationPreferencesVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: UpdateEmployeeNotificationPreferencesVariables): MutationRef<UpdateEmployeeNotificationPreferencesData, UpdateEmployeeNotificationPreferencesVariables>;
+  operationName: string;
+}
+export const updateEmployeeNotificationPreferencesRef: UpdateEmployeeNotificationPreferencesRef;
+
+export function updateEmployeeNotificationPreferences(vars: UpdateEmployeeNotificationPreferencesVariables): MutationPromise<UpdateEmployeeNotificationPreferencesData, UpdateEmployeeNotificationPreferencesVariables>;
+export function updateEmployeeNotificationPreferences(dc: DataConnect, vars: UpdateEmployeeNotificationPreferencesVariables): MutationPromise<UpdateEmployeeNotificationPreferencesData, UpdateEmployeeNotificationPreferencesVariables>;
+
+interface GetCurrentEmployeeByUserIdRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetCurrentEmployeeByUserIdVariables): QueryRef<GetCurrentEmployeeByUserIdData, GetCurrentEmployeeByUserIdVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetCurrentEmployeeByUserIdVariables): QueryRef<GetCurrentEmployeeByUserIdData, GetCurrentEmployeeByUserIdVariables>;
+  operationName: string;
+}
+export const getCurrentEmployeeByUserIdRef: GetCurrentEmployeeByUserIdRef;
+
+export function getCurrentEmployeeByUserId(vars: GetCurrentEmployeeByUserIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetCurrentEmployeeByUserIdData, GetCurrentEmployeeByUserIdVariables>;
+export function getCurrentEmployeeByUserId(dc: DataConnect, vars: GetCurrentEmployeeByUserIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetCurrentEmployeeByUserIdData, GetCurrentEmployeeByUserIdVariables>;
+
+interface GetCurrentEmployeeByEmailRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetCurrentEmployeeByEmailVariables): QueryRef<GetCurrentEmployeeByEmailData, GetCurrentEmployeeByEmailVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetCurrentEmployeeByEmailVariables): QueryRef<GetCurrentEmployeeByEmailData, GetCurrentEmployeeByEmailVariables>;
+  operationName: string;
+}
+export const getCurrentEmployeeByEmailRef: GetCurrentEmployeeByEmailRef;
+
+export function getCurrentEmployeeByEmail(vars: GetCurrentEmployeeByEmailVariables, options?: ExecuteQueryOptions): QueryPromise<GetCurrentEmployeeByEmailData, GetCurrentEmployeeByEmailVariables>;
+export function getCurrentEmployeeByEmail(dc: DataConnect, vars: GetCurrentEmployeeByEmailVariables, options?: ExecuteQueryOptions): QueryPromise<GetCurrentEmployeeByEmailData, GetCurrentEmployeeByEmailVariables>;
+
+interface ListEmployeeDocumentsRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: ListEmployeeDocumentsVariables): QueryRef<ListEmployeeDocumentsData, ListEmployeeDocumentsVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: ListEmployeeDocumentsVariables): QueryRef<ListEmployeeDocumentsData, ListEmployeeDocumentsVariables>;
+  operationName: string;
+}
+export const listEmployeeDocumentsRef: ListEmployeeDocumentsRef;
+
+export function listEmployeeDocuments(vars: ListEmployeeDocumentsVariables, options?: ExecuteQueryOptions): QueryPromise<ListEmployeeDocumentsData, ListEmployeeDocumentsVariables>;
+export function listEmployeeDocuments(dc: DataConnect, vars: ListEmployeeDocumentsVariables, options?: ExecuteQueryOptions): QueryPromise<ListEmployeeDocumentsData, ListEmployeeDocumentsVariables>;
+
+interface GetEmployeeDocumentByIdRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetEmployeeDocumentByIdVariables): QueryRef<GetEmployeeDocumentByIdData, GetEmployeeDocumentByIdVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetEmployeeDocumentByIdVariables): QueryRef<GetEmployeeDocumentByIdData, GetEmployeeDocumentByIdVariables>;
+  operationName: string;
+}
+export const getEmployeeDocumentByIdRef: GetEmployeeDocumentByIdRef;
+
+export function getEmployeeDocumentById(vars: GetEmployeeDocumentByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetEmployeeDocumentByIdData, GetEmployeeDocumentByIdVariables>;
+export function getEmployeeDocumentById(dc: DataConnect, vars: GetEmployeeDocumentByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetEmployeeDocumentByIdData, GetEmployeeDocumentByIdVariables>;
+
+interface GetEmployeeDocumentByIdForEmployeeRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetEmployeeDocumentByIdForEmployeeVariables): QueryRef<GetEmployeeDocumentByIdForEmployeeData, GetEmployeeDocumentByIdForEmployeeVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetEmployeeDocumentByIdForEmployeeVariables): QueryRef<GetEmployeeDocumentByIdForEmployeeData, GetEmployeeDocumentByIdForEmployeeVariables>;
+  operationName: string;
+}
+export const getEmployeeDocumentByIdForEmployeeRef: GetEmployeeDocumentByIdForEmployeeRef;
+
+export function getEmployeeDocumentByIdForEmployee(vars: GetEmployeeDocumentByIdForEmployeeVariables, options?: ExecuteQueryOptions): QueryPromise<GetEmployeeDocumentByIdForEmployeeData, GetEmployeeDocumentByIdForEmployeeVariables>;
+export function getEmployeeDocumentByIdForEmployee(dc: DataConnect, vars: GetEmployeeDocumentByIdForEmployeeVariables, options?: ExecuteQueryOptions): QueryPromise<GetEmployeeDocumentByIdForEmployeeData, GetEmployeeDocumentByIdForEmployeeVariables>;
+
+interface ListPayrollStatementsRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: ListPayrollStatementsVariables): QueryRef<ListPayrollStatementsData, ListPayrollStatementsVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: ListPayrollStatementsVariables): QueryRef<ListPayrollStatementsData, ListPayrollStatementsVariables>;
+  operationName: string;
+}
+export const listPayrollStatementsRef: ListPayrollStatementsRef;
+
+export function listPayrollStatements(vars: ListPayrollStatementsVariables, options?: ExecuteQueryOptions): QueryPromise<ListPayrollStatementsData, ListPayrollStatementsVariables>;
+export function listPayrollStatements(dc: DataConnect, vars: ListPayrollStatementsVariables, options?: ExecuteQueryOptions): QueryPromise<ListPayrollStatementsData, ListPayrollStatementsVariables>;
+
+interface GetPayrollStatementByIdRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetPayrollStatementByIdVariables): QueryRef<GetPayrollStatementByIdData, GetPayrollStatementByIdVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetPayrollStatementByIdVariables): QueryRef<GetPayrollStatementByIdData, GetPayrollStatementByIdVariables>;
+  operationName: string;
+}
+export const getPayrollStatementByIdRef: GetPayrollStatementByIdRef;
+
+export function getPayrollStatementById(vars: GetPayrollStatementByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetPayrollStatementByIdData, GetPayrollStatementByIdVariables>;
+export function getPayrollStatementById(dc: DataConnect, vars: GetPayrollStatementByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetPayrollStatementByIdData, GetPayrollStatementByIdVariables>;
+
+interface GetPayrollStatementByIdForEmployeeRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetPayrollStatementByIdForEmployeeVariables): QueryRef<GetPayrollStatementByIdForEmployeeData, GetPayrollStatementByIdForEmployeeVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetPayrollStatementByIdForEmployeeVariables): QueryRef<GetPayrollStatementByIdForEmployeeData, GetPayrollStatementByIdForEmployeeVariables>;
+  operationName: string;
+}
+export const getPayrollStatementByIdForEmployeeRef: GetPayrollStatementByIdForEmployeeRef;
+
+export function getPayrollStatementByIdForEmployee(vars: GetPayrollStatementByIdForEmployeeVariables, options?: ExecuteQueryOptions): QueryPromise<GetPayrollStatementByIdForEmployeeData, GetPayrollStatementByIdForEmployeeVariables>;
+export function getPayrollStatementByIdForEmployee(dc: DataConnect, vars: GetPayrollStatementByIdForEmployeeVariables, options?: ExecuteQueryOptions): QueryPromise<GetPayrollStatementByIdForEmployeeData, GetPayrollStatementByIdForEmployeeVariables>;
+
+interface ListEmployeeVacationRequestsByEmployeeRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: ListEmployeeVacationRequestsByEmployeeVariables): QueryRef<ListEmployeeVacationRequestsByEmployeeData, ListEmployeeVacationRequestsByEmployeeVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: ListEmployeeVacationRequestsByEmployeeVariables): QueryRef<ListEmployeeVacationRequestsByEmployeeData, ListEmployeeVacationRequestsByEmployeeVariables>;
+  operationName: string;
+}
+export const listEmployeeVacationRequestsByEmployeeRef: ListEmployeeVacationRequestsByEmployeeRef;
+
+export function listEmployeeVacationRequestsByEmployee(vars: ListEmployeeVacationRequestsByEmployeeVariables, options?: ExecuteQueryOptions): QueryPromise<ListEmployeeVacationRequestsByEmployeeData, ListEmployeeVacationRequestsByEmployeeVariables>;
+export function listEmployeeVacationRequestsByEmployee(dc: DataConnect, vars: ListEmployeeVacationRequestsByEmployeeVariables, options?: ExecuteQueryOptions): QueryPromise<ListEmployeeVacationRequestsByEmployeeData, ListEmployeeVacationRequestsByEmployeeVariables>;
+
+interface GetEmployeeVacationRequestByIdForEmployeeRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetEmployeeVacationRequestByIdForEmployeeVariables): QueryRef<GetEmployeeVacationRequestByIdForEmployeeData, GetEmployeeVacationRequestByIdForEmployeeVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetEmployeeVacationRequestByIdForEmployeeVariables): QueryRef<GetEmployeeVacationRequestByIdForEmployeeData, GetEmployeeVacationRequestByIdForEmployeeVariables>;
+  operationName: string;
+}
+export const getEmployeeVacationRequestByIdForEmployeeRef: GetEmployeeVacationRequestByIdForEmployeeRef;
+
+export function getEmployeeVacationRequestByIdForEmployee(vars: GetEmployeeVacationRequestByIdForEmployeeVariables, options?: ExecuteQueryOptions): QueryPromise<GetEmployeeVacationRequestByIdForEmployeeData, GetEmployeeVacationRequestByIdForEmployeeVariables>;
+export function getEmployeeVacationRequestByIdForEmployee(dc: DataConnect, vars: GetEmployeeVacationRequestByIdForEmployeeVariables, options?: ExecuteQueryOptions): QueryPromise<GetEmployeeVacationRequestByIdForEmployeeData, GetEmployeeVacationRequestByIdForEmployeeVariables>;
+
+interface ListEmployeesRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (): QueryRef<ListEmployeesData, undefined>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect): QueryRef<ListEmployeesData, undefined>;
+  operationName: string;
+}
+export const listEmployeesRef: ListEmployeesRef;
+
+export function listEmployees(options?: ExecuteQueryOptions): QueryPromise<ListEmployeesData, undefined>;
+export function listEmployees(dc: DataConnect, options?: ExecuteQueryOptions): QueryPromise<ListEmployeesData, undefined>;
+
+interface GetEmployeeByIdRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetEmployeeByIdVariables): QueryRef<GetEmployeeByIdData, GetEmployeeByIdVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetEmployeeByIdVariables): QueryRef<GetEmployeeByIdData, GetEmployeeByIdVariables>;
+  operationName: string;
+}
+export const getEmployeeByIdRef: GetEmployeeByIdRef;
+
+export function getEmployeeById(vars: GetEmployeeByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetEmployeeByIdData, GetEmployeeByIdVariables>;
+export function getEmployeeById(dc: DataConnect, vars: GetEmployeeByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetEmployeeByIdData, GetEmployeeByIdVariables>;
+
+interface CreateEmployeeRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: CreateEmployeeVariables): MutationRef<CreateEmployeeData, CreateEmployeeVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: CreateEmployeeVariables): MutationRef<CreateEmployeeData, CreateEmployeeVariables>;
+  operationName: string;
+}
+export const createEmployeeRef: CreateEmployeeRef;
+
+export function createEmployee(vars: CreateEmployeeVariables): MutationPromise<CreateEmployeeData, CreateEmployeeVariables>;
+export function createEmployee(dc: DataConnect, vars: CreateEmployeeVariables): MutationPromise<CreateEmployeeData, CreateEmployeeVariables>;
+
+interface UpdateEmployeeRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: UpdateEmployeeVariables): MutationRef<UpdateEmployeeData, UpdateEmployeeVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: UpdateEmployeeVariables): MutationRef<UpdateEmployeeData, UpdateEmployeeVariables>;
+  operationName: string;
+}
+export const updateEmployeeRef: UpdateEmployeeRef;
+
+export function updateEmployee(vars: UpdateEmployeeVariables): MutationPromise<UpdateEmployeeData, UpdateEmployeeVariables>;
+export function updateEmployee(dc: DataConnect, vars: UpdateEmployeeVariables): MutationPromise<UpdateEmployeeData, UpdateEmployeeVariables>;
+
+interface DeactivateEmployeeRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: DeactivateEmployeeVariables): MutationRef<DeactivateEmployeeData, DeactivateEmployeeVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: DeactivateEmployeeVariables): MutationRef<DeactivateEmployeeData, DeactivateEmployeeVariables>;
+  operationName: string;
+}
+export const deactivateEmployeeRef: DeactivateEmployeeRef;
+
+export function deactivateEmployee(vars: DeactivateEmployeeVariables): MutationPromise<DeactivateEmployeeData, DeactivateEmployeeVariables>;
+export function deactivateEmployee(dc: DataConnect, vars: DeactivateEmployeeVariables): MutationPromise<DeactivateEmployeeData, DeactivateEmployeeVariables>;
+
+interface SeedRhPontoDataRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (): MutationRef<SeedRhPontoDataData, undefined>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect): MutationRef<SeedRhPontoDataData, undefined>;
+  operationName: string;
+}
+export const seedRhPontoDataRef: SeedRhPontoDataRef;
+
+export function seedRhPontoData(): MutationPromise<SeedRhPontoDataData, undefined>;
+export function seedRhPontoData(dc: DataConnect): MutationPromise<SeedRhPontoDataData, undefined>;
+
+interface ListTimeRecordsRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (): QueryRef<ListTimeRecordsData, undefined>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect): QueryRef<ListTimeRecordsData, undefined>;
+  operationName: string;
+}
+export const listTimeRecordsRef: ListTimeRecordsRef;
+
+export function listTimeRecords(options?: ExecuteQueryOptions): QueryPromise<ListTimeRecordsData, undefined>;
+export function listTimeRecords(dc: DataConnect, options?: ExecuteQueryOptions): QueryPromise<ListTimeRecordsData, undefined>;
+
+interface GetTimeRecordByIdRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetTimeRecordByIdVariables): QueryRef<GetTimeRecordByIdData, GetTimeRecordByIdVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetTimeRecordByIdVariables): QueryRef<GetTimeRecordByIdData, GetTimeRecordByIdVariables>;
+  operationName: string;
+}
+export const getTimeRecordByIdRef: GetTimeRecordByIdRef;
+
+export function getTimeRecordById(vars: GetTimeRecordByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetTimeRecordByIdData, GetTimeRecordByIdVariables>;
+export function getTimeRecordById(dc: DataConnect, vars: GetTimeRecordByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetTimeRecordByIdData, GetTimeRecordByIdVariables>;
+
+interface ListTimeRecordPhotosRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (): QueryRef<ListTimeRecordPhotosData, undefined>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect): QueryRef<ListTimeRecordPhotosData, undefined>;
+  operationName: string;
+}
+export const listTimeRecordPhotosRef: ListTimeRecordPhotosRef;
+
+export function listTimeRecordPhotos(options?: ExecuteQueryOptions): QueryPromise<ListTimeRecordPhotosData, undefined>;
+export function listTimeRecordPhotos(dc: DataConnect, options?: ExecuteQueryOptions): QueryPromise<ListTimeRecordPhotosData, undefined>;
+
+interface CreateTimeRecordRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: CreateTimeRecordVariables): MutationRef<CreateTimeRecordData, CreateTimeRecordVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: CreateTimeRecordVariables): MutationRef<CreateTimeRecordData, CreateTimeRecordVariables>;
+  operationName: string;
+}
+export const createTimeRecordRef: CreateTimeRecordRef;
+
+export function createTimeRecord(vars: CreateTimeRecordVariables): MutationPromise<CreateTimeRecordData, CreateTimeRecordVariables>;
+export function createTimeRecord(dc: DataConnect, vars: CreateTimeRecordVariables): MutationPromise<CreateTimeRecordData, CreateTimeRecordVariables>;
+
+interface AdjustTimeRecordRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: AdjustTimeRecordVariables): MutationRef<AdjustTimeRecordData, AdjustTimeRecordVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: AdjustTimeRecordVariables): MutationRef<AdjustTimeRecordData, AdjustTimeRecordVariables>;
+  operationName: string;
+}
+export const adjustTimeRecordRef: AdjustTimeRecordRef;
+
+export function adjustTimeRecord(vars: AdjustTimeRecordVariables): MutationPromise<AdjustTimeRecordData, AdjustTimeRecordVariables>;
+export function adjustTimeRecord(dc: DataConnect, vars: AdjustTimeRecordVariables): MutationPromise<AdjustTimeRecordData, AdjustTimeRecordVariables>;
+
+interface CreateTimeRecordPhotoRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: CreateTimeRecordPhotoVariables): MutationRef<CreateTimeRecordPhotoData, CreateTimeRecordPhotoVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: CreateTimeRecordPhotoVariables): MutationRef<CreateTimeRecordPhotoData, CreateTimeRecordPhotoVariables>;
+  operationName: string;
+}
+export const createTimeRecordPhotoRef: CreateTimeRecordPhotoRef;
+
+export function createTimeRecordPhoto(vars: CreateTimeRecordPhotoVariables): MutationPromise<CreateTimeRecordPhotoData, CreateTimeRecordPhotoVariables>;
+export function createTimeRecordPhoto(dc: DataConnect, vars: CreateTimeRecordPhotoVariables): MutationPromise<CreateTimeRecordPhotoData, CreateTimeRecordPhotoVariables>;
+
+interface ListWorkSchedulesRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (): QueryRef<ListWorkSchedulesData, undefined>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect): QueryRef<ListWorkSchedulesData, undefined>;
+  operationName: string;
+}
+export const listWorkSchedulesRef: ListWorkSchedulesRef;
+
+export function listWorkSchedules(options?: ExecuteQueryOptions): QueryPromise<ListWorkSchedulesData, undefined>;
+export function listWorkSchedules(dc: DataConnect, options?: ExecuteQueryOptions): QueryPromise<ListWorkSchedulesData, undefined>;
+
+interface GetWorkScheduleByIdRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetWorkScheduleByIdVariables): QueryRef<GetWorkScheduleByIdData, GetWorkScheduleByIdVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetWorkScheduleByIdVariables): QueryRef<GetWorkScheduleByIdData, GetWorkScheduleByIdVariables>;
+  operationName: string;
+}
+export const getWorkScheduleByIdRef: GetWorkScheduleByIdRef;
+
+export function getWorkScheduleById(vars: GetWorkScheduleByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetWorkScheduleByIdData, GetWorkScheduleByIdVariables>;
+export function getWorkScheduleById(dc: DataConnect, vars: GetWorkScheduleByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetWorkScheduleByIdData, GetWorkScheduleByIdVariables>;
+
+interface ListEmployeeScheduleHistoryRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (): QueryRef<ListEmployeeScheduleHistoryData, undefined>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect): QueryRef<ListEmployeeScheduleHistoryData, undefined>;
+  operationName: string;
+}
+export const listEmployeeScheduleHistoryRef: ListEmployeeScheduleHistoryRef;
+
+export function listEmployeeScheduleHistory(options?: ExecuteQueryOptions): QueryPromise<ListEmployeeScheduleHistoryData, undefined>;
+export function listEmployeeScheduleHistory(dc: DataConnect, options?: ExecuteQueryOptions): QueryPromise<ListEmployeeScheduleHistoryData, undefined>;
+
+interface CreateWorkScheduleRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: CreateWorkScheduleVariables): MutationRef<CreateWorkScheduleData, CreateWorkScheduleVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: CreateWorkScheduleVariables): MutationRef<CreateWorkScheduleData, CreateWorkScheduleVariables>;
+  operationName: string;
+}
+export const createWorkScheduleRef: CreateWorkScheduleRef;
+
+export function createWorkSchedule(vars: CreateWorkScheduleVariables): MutationPromise<CreateWorkScheduleData, CreateWorkScheduleVariables>;
+export function createWorkSchedule(dc: DataConnect, vars: CreateWorkScheduleVariables): MutationPromise<CreateWorkScheduleData, CreateWorkScheduleVariables>;
+
+interface UpdateWorkScheduleRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: UpdateWorkScheduleVariables): MutationRef<UpdateWorkScheduleData, UpdateWorkScheduleVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: UpdateWorkScheduleVariables): MutationRef<UpdateWorkScheduleData, UpdateWorkScheduleVariables>;
+  operationName: string;
+}
+export const updateWorkScheduleRef: UpdateWorkScheduleRef;
+
+export function updateWorkSchedule(vars: UpdateWorkScheduleVariables): MutationPromise<UpdateWorkScheduleData, UpdateWorkScheduleVariables>;
+export function updateWorkSchedule(dc: DataConnect, vars: UpdateWorkScheduleVariables): MutationPromise<UpdateWorkScheduleData, UpdateWorkScheduleVariables>;
+
+interface AssignWorkScheduleToEmployeeRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: AssignWorkScheduleToEmployeeVariables): MutationRef<AssignWorkScheduleToEmployeeData, AssignWorkScheduleToEmployeeVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: AssignWorkScheduleToEmployeeVariables): MutationRef<AssignWorkScheduleToEmployeeData, AssignWorkScheduleToEmployeeVariables>;
+  operationName: string;
+}
+export const assignWorkScheduleToEmployeeRef: AssignWorkScheduleToEmployeeRef;
+
+export function assignWorkScheduleToEmployee(vars: AssignWorkScheduleToEmployeeVariables): MutationPromise<AssignWorkScheduleToEmployeeData, AssignWorkScheduleToEmployeeVariables>;
+export function assignWorkScheduleToEmployee(dc: DataConnect, vars: AssignWorkScheduleToEmployeeVariables): MutationPromise<AssignWorkScheduleToEmployeeData, AssignWorkScheduleToEmployeeVariables>;
 
 interface ListAttendancePoliciesRef {
   /* Allow users to create refs without passing in DataConnect */
@@ -1403,6 +2135,30 @@ export const addEmployeeAllowedLocationRef: AddEmployeeAllowedLocationRef;
 
 export function addEmployeeAllowedLocation(vars: AddEmployeeAllowedLocationVariables): MutationPromise<AddEmployeeAllowedLocationData, AddEmployeeAllowedLocationVariables>;
 export function addEmployeeAllowedLocation(dc: DataConnect, vars: AddEmployeeAllowedLocationVariables): MutationPromise<AddEmployeeAllowedLocationData, AddEmployeeAllowedLocationVariables>;
+
+interface ListAuditLogsRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (): QueryRef<ListAuditLogsData, undefined>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect): QueryRef<ListAuditLogsData, undefined>;
+  operationName: string;
+}
+export const listAuditLogsRef: ListAuditLogsRef;
+
+export function listAuditLogs(options?: ExecuteQueryOptions): QueryPromise<ListAuditLogsData, undefined>;
+export function listAuditLogs(dc: DataConnect, options?: ExecuteQueryOptions): QueryPromise<ListAuditLogsData, undefined>;
+
+interface CreateAuditLogRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: CreateAuditLogVariables): MutationRef<CreateAuditLogData, CreateAuditLogVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: CreateAuditLogVariables): MutationRef<CreateAuditLogData, CreateAuditLogVariables>;
+  operationName: string;
+}
+export const createAuditLogRef: CreateAuditLogRef;
+
+export function createAuditLog(vars: CreateAuditLogVariables): MutationPromise<CreateAuditLogData, CreateAuditLogVariables>;
+export function createAuditLog(dc: DataConnect, vars: CreateAuditLogVariables): MutationPromise<CreateAuditLogData, CreateAuditLogVariables>;
 
 interface GetUserByFirebaseUidRef {
   /* Allow users to create refs without passing in DataConnect */
@@ -1572,390 +2328,6 @@ export const deactivateDeviceRef: DeactivateDeviceRef;
 export function deactivateDevice(vars: DeactivateDeviceVariables): MutationPromise<DeactivateDeviceData, DeactivateDeviceVariables>;
 export function deactivateDevice(dc: DataConnect, vars: DeactivateDeviceVariables): MutationPromise<DeactivateDeviceData, DeactivateDeviceVariables>;
 
-interface ListTimeRecordsRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (): QueryRef<ListTimeRecordsData, undefined>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect): QueryRef<ListTimeRecordsData, undefined>;
-  operationName: string;
-}
-export const listTimeRecordsRef: ListTimeRecordsRef;
-
-export function listTimeRecords(options?: ExecuteQueryOptions): QueryPromise<ListTimeRecordsData, undefined>;
-export function listTimeRecords(dc: DataConnect, options?: ExecuteQueryOptions): QueryPromise<ListTimeRecordsData, undefined>;
-
-interface GetTimeRecordByIdRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: GetTimeRecordByIdVariables): QueryRef<GetTimeRecordByIdData, GetTimeRecordByIdVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: GetTimeRecordByIdVariables): QueryRef<GetTimeRecordByIdData, GetTimeRecordByIdVariables>;
-  operationName: string;
-}
-export const getTimeRecordByIdRef: GetTimeRecordByIdRef;
-
-export function getTimeRecordById(vars: GetTimeRecordByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetTimeRecordByIdData, GetTimeRecordByIdVariables>;
-export function getTimeRecordById(dc: DataConnect, vars: GetTimeRecordByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetTimeRecordByIdData, GetTimeRecordByIdVariables>;
-
-interface ListTimeRecordPhotosRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (): QueryRef<ListTimeRecordPhotosData, undefined>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect): QueryRef<ListTimeRecordPhotosData, undefined>;
-  operationName: string;
-}
-export const listTimeRecordPhotosRef: ListTimeRecordPhotosRef;
-
-export function listTimeRecordPhotos(options?: ExecuteQueryOptions): QueryPromise<ListTimeRecordPhotosData, undefined>;
-export function listTimeRecordPhotos(dc: DataConnect, options?: ExecuteQueryOptions): QueryPromise<ListTimeRecordPhotosData, undefined>;
-
-interface CreateTimeRecordRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: CreateTimeRecordVariables): MutationRef<CreateTimeRecordData, CreateTimeRecordVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: CreateTimeRecordVariables): MutationRef<CreateTimeRecordData, CreateTimeRecordVariables>;
-  operationName: string;
-}
-export const createTimeRecordRef: CreateTimeRecordRef;
-
-export function createTimeRecord(vars: CreateTimeRecordVariables): MutationPromise<CreateTimeRecordData, CreateTimeRecordVariables>;
-export function createTimeRecord(dc: DataConnect, vars: CreateTimeRecordVariables): MutationPromise<CreateTimeRecordData, CreateTimeRecordVariables>;
-
-interface AdjustTimeRecordRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: AdjustTimeRecordVariables): MutationRef<AdjustTimeRecordData, AdjustTimeRecordVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: AdjustTimeRecordVariables): MutationRef<AdjustTimeRecordData, AdjustTimeRecordVariables>;
-  operationName: string;
-}
-export const adjustTimeRecordRef: AdjustTimeRecordRef;
-
-export function adjustTimeRecord(vars: AdjustTimeRecordVariables): MutationPromise<AdjustTimeRecordData, AdjustTimeRecordVariables>;
-export function adjustTimeRecord(dc: DataConnect, vars: AdjustTimeRecordVariables): MutationPromise<AdjustTimeRecordData, AdjustTimeRecordVariables>;
-
-interface CreateTimeRecordPhotoRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: CreateTimeRecordPhotoVariables): MutationRef<CreateTimeRecordPhotoData, CreateTimeRecordPhotoVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: CreateTimeRecordPhotoVariables): MutationRef<CreateTimeRecordPhotoData, CreateTimeRecordPhotoVariables>;
-  operationName: string;
-}
-export const createTimeRecordPhotoRef: CreateTimeRecordPhotoRef;
-
-export function createTimeRecordPhoto(vars: CreateTimeRecordPhotoVariables): MutationPromise<CreateTimeRecordPhotoData, CreateTimeRecordPhotoVariables>;
-export function createTimeRecordPhoto(dc: DataConnect, vars: CreateTimeRecordPhotoVariables): MutationPromise<CreateTimeRecordPhotoData, CreateTimeRecordPhotoVariables>;
-
-interface ListVacationRequestsRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (): QueryRef<ListVacationRequestsData, undefined>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect): QueryRef<ListVacationRequestsData, undefined>;
-  operationName: string;
-}
-export const listVacationRequestsRef: ListVacationRequestsRef;
-
-export function listVacationRequests(options?: ExecuteQueryOptions): QueryPromise<ListVacationRequestsData, undefined>;
-export function listVacationRequests(dc: DataConnect, options?: ExecuteQueryOptions): QueryPromise<ListVacationRequestsData, undefined>;
-
-interface GetVacationRequestByIdRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: GetVacationRequestByIdVariables): QueryRef<GetVacationRequestByIdData, GetVacationRequestByIdVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: GetVacationRequestByIdVariables): QueryRef<GetVacationRequestByIdData, GetVacationRequestByIdVariables>;
-  operationName: string;
-}
-export const getVacationRequestByIdRef: GetVacationRequestByIdRef;
-
-export function getVacationRequestById(vars: GetVacationRequestByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetVacationRequestByIdData, GetVacationRequestByIdVariables>;
-export function getVacationRequestById(dc: DataConnect, vars: GetVacationRequestByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetVacationRequestByIdData, GetVacationRequestByIdVariables>;
-
-interface CreateVacationRequestRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: CreateVacationRequestVariables): MutationRef<CreateVacationRequestData, CreateVacationRequestVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: CreateVacationRequestVariables): MutationRef<CreateVacationRequestData, CreateVacationRequestVariables>;
-  operationName: string;
-}
-export const createVacationRequestRef: CreateVacationRequestRef;
-
-export function createVacationRequest(vars: CreateVacationRequestVariables): MutationPromise<CreateVacationRequestData, CreateVacationRequestVariables>;
-export function createVacationRequest(dc: DataConnect, vars: CreateVacationRequestVariables): MutationPromise<CreateVacationRequestData, CreateVacationRequestVariables>;
-
-interface ApproveVacationRequestRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: ApproveVacationRequestVariables): MutationRef<ApproveVacationRequestData, ApproveVacationRequestVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: ApproveVacationRequestVariables): MutationRef<ApproveVacationRequestData, ApproveVacationRequestVariables>;
-  operationName: string;
-}
-export const approveVacationRequestRef: ApproveVacationRequestRef;
-
-export function approveVacationRequest(vars: ApproveVacationRequestVariables): MutationPromise<ApproveVacationRequestData, ApproveVacationRequestVariables>;
-export function approveVacationRequest(dc: DataConnect, vars: ApproveVacationRequestVariables): MutationPromise<ApproveVacationRequestData, ApproveVacationRequestVariables>;
-
-interface RejectVacationRequestRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: RejectVacationRequestVariables): MutationRef<RejectVacationRequestData, RejectVacationRequestVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: RejectVacationRequestVariables): MutationRef<RejectVacationRequestData, RejectVacationRequestVariables>;
-  operationName: string;
-}
-export const rejectVacationRequestRef: RejectVacationRequestRef;
-
-export function rejectVacationRequest(vars: RejectVacationRequestVariables): MutationPromise<RejectVacationRequestData, RejectVacationRequestVariables>;
-export function rejectVacationRequest(dc: DataConnect, vars: RejectVacationRequestVariables): MutationPromise<RejectVacationRequestData, RejectVacationRequestVariables>;
-
-interface ListWorkSchedulesRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (): QueryRef<ListWorkSchedulesData, undefined>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect): QueryRef<ListWorkSchedulesData, undefined>;
-  operationName: string;
-}
-export const listWorkSchedulesRef: ListWorkSchedulesRef;
-
-export function listWorkSchedules(options?: ExecuteQueryOptions): QueryPromise<ListWorkSchedulesData, undefined>;
-export function listWorkSchedules(dc: DataConnect, options?: ExecuteQueryOptions): QueryPromise<ListWorkSchedulesData, undefined>;
-
-interface GetWorkScheduleByIdRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: GetWorkScheduleByIdVariables): QueryRef<GetWorkScheduleByIdData, GetWorkScheduleByIdVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: GetWorkScheduleByIdVariables): QueryRef<GetWorkScheduleByIdData, GetWorkScheduleByIdVariables>;
-  operationName: string;
-}
-export const getWorkScheduleByIdRef: GetWorkScheduleByIdRef;
-
-export function getWorkScheduleById(vars: GetWorkScheduleByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetWorkScheduleByIdData, GetWorkScheduleByIdVariables>;
-export function getWorkScheduleById(dc: DataConnect, vars: GetWorkScheduleByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetWorkScheduleByIdData, GetWorkScheduleByIdVariables>;
-
-interface ListEmployeeScheduleHistoryRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (): QueryRef<ListEmployeeScheduleHistoryData, undefined>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect): QueryRef<ListEmployeeScheduleHistoryData, undefined>;
-  operationName: string;
-}
-export const listEmployeeScheduleHistoryRef: ListEmployeeScheduleHistoryRef;
-
-export function listEmployeeScheduleHistory(options?: ExecuteQueryOptions): QueryPromise<ListEmployeeScheduleHistoryData, undefined>;
-export function listEmployeeScheduleHistory(dc: DataConnect, options?: ExecuteQueryOptions): QueryPromise<ListEmployeeScheduleHistoryData, undefined>;
-
-interface CreateWorkScheduleRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: CreateWorkScheduleVariables): MutationRef<CreateWorkScheduleData, CreateWorkScheduleVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: CreateWorkScheduleVariables): MutationRef<CreateWorkScheduleData, CreateWorkScheduleVariables>;
-  operationName: string;
-}
-export const createWorkScheduleRef: CreateWorkScheduleRef;
-
-export function createWorkSchedule(vars: CreateWorkScheduleVariables): MutationPromise<CreateWorkScheduleData, CreateWorkScheduleVariables>;
-export function createWorkSchedule(dc: DataConnect, vars: CreateWorkScheduleVariables): MutationPromise<CreateWorkScheduleData, CreateWorkScheduleVariables>;
-
-interface UpdateWorkScheduleRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: UpdateWorkScheduleVariables): MutationRef<UpdateWorkScheduleData, UpdateWorkScheduleVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: UpdateWorkScheduleVariables): MutationRef<UpdateWorkScheduleData, UpdateWorkScheduleVariables>;
-  operationName: string;
-}
-export const updateWorkScheduleRef: UpdateWorkScheduleRef;
-
-export function updateWorkSchedule(vars: UpdateWorkScheduleVariables): MutationPromise<UpdateWorkScheduleData, UpdateWorkScheduleVariables>;
-export function updateWorkSchedule(dc: DataConnect, vars: UpdateWorkScheduleVariables): MutationPromise<UpdateWorkScheduleData, UpdateWorkScheduleVariables>;
-
-interface AssignWorkScheduleToEmployeeRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: AssignWorkScheduleToEmployeeVariables): MutationRef<AssignWorkScheduleToEmployeeData, AssignWorkScheduleToEmployeeVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: AssignWorkScheduleToEmployeeVariables): MutationRef<AssignWorkScheduleToEmployeeData, AssignWorkScheduleToEmployeeVariables>;
-  operationName: string;
-}
-export const assignWorkScheduleToEmployeeRef: AssignWorkScheduleToEmployeeRef;
-
-export function assignWorkScheduleToEmployee(vars: AssignWorkScheduleToEmployeeVariables): MutationPromise<AssignWorkScheduleToEmployeeData, AssignWorkScheduleToEmployeeVariables>;
-export function assignWorkScheduleToEmployee(dc: DataConnect, vars: AssignWorkScheduleToEmployeeVariables): MutationPromise<AssignWorkScheduleToEmployeeData, AssignWorkScheduleToEmployeeVariables>;
-
-interface ListAuditLogsRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (): QueryRef<ListAuditLogsData, undefined>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect): QueryRef<ListAuditLogsData, undefined>;
-  operationName: string;
-}
-export const listAuditLogsRef: ListAuditLogsRef;
-
-export function listAuditLogs(options?: ExecuteQueryOptions): QueryPromise<ListAuditLogsData, undefined>;
-export function listAuditLogs(dc: DataConnect, options?: ExecuteQueryOptions): QueryPromise<ListAuditLogsData, undefined>;
-
-interface CreateAuditLogRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: CreateAuditLogVariables): MutationRef<CreateAuditLogData, CreateAuditLogVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: CreateAuditLogVariables): MutationRef<CreateAuditLogData, CreateAuditLogVariables>;
-  operationName: string;
-}
-export const createAuditLogRef: CreateAuditLogRef;
-
-export function createAuditLog(vars: CreateAuditLogVariables): MutationPromise<CreateAuditLogData, CreateAuditLogVariables>;
-export function createAuditLog(dc: DataConnect, vars: CreateAuditLogVariables): MutationPromise<CreateAuditLogData, CreateAuditLogVariables>;
-
-interface ListEmployeeNotificationsRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: ListEmployeeNotificationsVariables): QueryRef<ListEmployeeNotificationsData, ListEmployeeNotificationsVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: ListEmployeeNotificationsVariables): QueryRef<ListEmployeeNotificationsData, ListEmployeeNotificationsVariables>;
-  operationName: string;
-}
-export const listEmployeeNotificationsRef: ListEmployeeNotificationsRef;
-
-export function listEmployeeNotifications(vars: ListEmployeeNotificationsVariables, options?: ExecuteQueryOptions): QueryPromise<ListEmployeeNotificationsData, ListEmployeeNotificationsVariables>;
-export function listEmployeeNotifications(dc: DataConnect, vars: ListEmployeeNotificationsVariables, options?: ExecuteQueryOptions): QueryPromise<ListEmployeeNotificationsData, ListEmployeeNotificationsVariables>;
-
-interface MarkEmployeeNotificationAsReadRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: MarkEmployeeNotificationAsReadVariables): MutationRef<MarkEmployeeNotificationAsReadData, MarkEmployeeNotificationAsReadVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: MarkEmployeeNotificationAsReadVariables): MutationRef<MarkEmployeeNotificationAsReadData, MarkEmployeeNotificationAsReadVariables>;
-  operationName: string;
-}
-export const markEmployeeNotificationAsReadRef: MarkEmployeeNotificationAsReadRef;
-
-export function markEmployeeNotificationAsRead(vars: MarkEmployeeNotificationAsReadVariables): MutationPromise<MarkEmployeeNotificationAsReadData, MarkEmployeeNotificationAsReadVariables>;
-export function markEmployeeNotificationAsRead(dc: DataConnect, vars: MarkEmployeeNotificationAsReadVariables): MutationPromise<MarkEmployeeNotificationAsReadData, MarkEmployeeNotificationAsReadVariables>;
-
-interface GetEmployeeNotificationPreferencesRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: GetEmployeeNotificationPreferencesVariables): QueryRef<GetEmployeeNotificationPreferencesData, GetEmployeeNotificationPreferencesVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: GetEmployeeNotificationPreferencesVariables): QueryRef<GetEmployeeNotificationPreferencesData, GetEmployeeNotificationPreferencesVariables>;
-  operationName: string;
-}
-export const getEmployeeNotificationPreferencesRef: GetEmployeeNotificationPreferencesRef;
-
-export function getEmployeeNotificationPreferences(vars: GetEmployeeNotificationPreferencesVariables, options?: ExecuteQueryOptions): QueryPromise<GetEmployeeNotificationPreferencesData, GetEmployeeNotificationPreferencesVariables>;
-export function getEmployeeNotificationPreferences(dc: DataConnect, vars: GetEmployeeNotificationPreferencesVariables, options?: ExecuteQueryOptions): QueryPromise<GetEmployeeNotificationPreferencesData, GetEmployeeNotificationPreferencesVariables>;
-
-interface UpdateEmployeeNotificationPreferencesRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: UpdateEmployeeNotificationPreferencesVariables): MutationRef<UpdateEmployeeNotificationPreferencesData, UpdateEmployeeNotificationPreferencesVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: UpdateEmployeeNotificationPreferencesVariables): MutationRef<UpdateEmployeeNotificationPreferencesData, UpdateEmployeeNotificationPreferencesVariables>;
-  operationName: string;
-}
-export const updateEmployeeNotificationPreferencesRef: UpdateEmployeeNotificationPreferencesRef;
-
-export function updateEmployeeNotificationPreferences(vars: UpdateEmployeeNotificationPreferencesVariables): MutationPromise<UpdateEmployeeNotificationPreferencesData, UpdateEmployeeNotificationPreferencesVariables>;
-export function updateEmployeeNotificationPreferences(dc: DataConnect, vars: UpdateEmployeeNotificationPreferencesVariables): MutationPromise<UpdateEmployeeNotificationPreferencesData, UpdateEmployeeNotificationPreferencesVariables>;
-
-interface ListEmployeeDocumentsRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: ListEmployeeDocumentsVariables): QueryRef<ListEmployeeDocumentsData, ListEmployeeDocumentsVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: ListEmployeeDocumentsVariables): QueryRef<ListEmployeeDocumentsData, ListEmployeeDocumentsVariables>;
-  operationName: string;
-}
-export const listEmployeeDocumentsRef: ListEmployeeDocumentsRef;
-
-export function listEmployeeDocuments(vars: ListEmployeeDocumentsVariables, options?: ExecuteQueryOptions): QueryPromise<ListEmployeeDocumentsData, ListEmployeeDocumentsVariables>;
-export function listEmployeeDocuments(dc: DataConnect, vars: ListEmployeeDocumentsVariables, options?: ExecuteQueryOptions): QueryPromise<ListEmployeeDocumentsData, ListEmployeeDocumentsVariables>;
-
-interface GetEmployeeDocumentByIdRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: GetEmployeeDocumentByIdVariables): QueryRef<GetEmployeeDocumentByIdData, GetEmployeeDocumentByIdVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: GetEmployeeDocumentByIdVariables): QueryRef<GetEmployeeDocumentByIdData, GetEmployeeDocumentByIdVariables>;
-  operationName: string;
-}
-export const getEmployeeDocumentByIdRef: GetEmployeeDocumentByIdRef;
-
-export function getEmployeeDocumentById(vars: GetEmployeeDocumentByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetEmployeeDocumentByIdData, GetEmployeeDocumentByIdVariables>;
-export function getEmployeeDocumentById(dc: DataConnect, vars: GetEmployeeDocumentByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetEmployeeDocumentByIdData, GetEmployeeDocumentByIdVariables>;
-
-interface ListPayrollStatementsRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: ListPayrollStatementsVariables): QueryRef<ListPayrollStatementsData, ListPayrollStatementsVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: ListPayrollStatementsVariables): QueryRef<ListPayrollStatementsData, ListPayrollStatementsVariables>;
-  operationName: string;
-}
-export const listPayrollStatementsRef: ListPayrollStatementsRef;
-
-export function listPayrollStatements(vars: ListPayrollStatementsVariables, options?: ExecuteQueryOptions): QueryPromise<ListPayrollStatementsData, ListPayrollStatementsVariables>;
-export function listPayrollStatements(dc: DataConnect, vars: ListPayrollStatementsVariables, options?: ExecuteQueryOptions): QueryPromise<ListPayrollStatementsData, ListPayrollStatementsVariables>;
-
-interface GetPayrollStatementByIdRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: GetPayrollStatementByIdVariables): QueryRef<GetPayrollStatementByIdData, GetPayrollStatementByIdVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: GetPayrollStatementByIdVariables): QueryRef<GetPayrollStatementByIdData, GetPayrollStatementByIdVariables>;
-  operationName: string;
-}
-export const getPayrollStatementByIdRef: GetPayrollStatementByIdRef;
-
-export function getPayrollStatementById(vars: GetPayrollStatementByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetPayrollStatementByIdData, GetPayrollStatementByIdVariables>;
-export function getPayrollStatementById(dc: DataConnect, vars: GetPayrollStatementByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetPayrollStatementByIdData, GetPayrollStatementByIdVariables>;
-
-interface ListEmployeesRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (): QueryRef<ListEmployeesData, undefined>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect): QueryRef<ListEmployeesData, undefined>;
-  operationName: string;
-}
-export const listEmployeesRef: ListEmployeesRef;
-
-export function listEmployees(options?: ExecuteQueryOptions): QueryPromise<ListEmployeesData, undefined>;
-export function listEmployees(dc: DataConnect, options?: ExecuteQueryOptions): QueryPromise<ListEmployeesData, undefined>;
-
-interface GetEmployeeByIdRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: GetEmployeeByIdVariables): QueryRef<GetEmployeeByIdData, GetEmployeeByIdVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: GetEmployeeByIdVariables): QueryRef<GetEmployeeByIdData, GetEmployeeByIdVariables>;
-  operationName: string;
-}
-export const getEmployeeByIdRef: GetEmployeeByIdRef;
-
-export function getEmployeeById(vars: GetEmployeeByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetEmployeeByIdData, GetEmployeeByIdVariables>;
-export function getEmployeeById(dc: DataConnect, vars: GetEmployeeByIdVariables, options?: ExecuteQueryOptions): QueryPromise<GetEmployeeByIdData, GetEmployeeByIdVariables>;
-
-interface CreateEmployeeRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: CreateEmployeeVariables): MutationRef<CreateEmployeeData, CreateEmployeeVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: CreateEmployeeVariables): MutationRef<CreateEmployeeData, CreateEmployeeVariables>;
-  operationName: string;
-}
-export const createEmployeeRef: CreateEmployeeRef;
-
-export function createEmployee(vars: CreateEmployeeVariables): MutationPromise<CreateEmployeeData, CreateEmployeeVariables>;
-export function createEmployee(dc: DataConnect, vars: CreateEmployeeVariables): MutationPromise<CreateEmployeeData, CreateEmployeeVariables>;
-
-interface UpdateEmployeeRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: UpdateEmployeeVariables): MutationRef<UpdateEmployeeData, UpdateEmployeeVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: UpdateEmployeeVariables): MutationRef<UpdateEmployeeData, UpdateEmployeeVariables>;
-  operationName: string;
-}
-export const updateEmployeeRef: UpdateEmployeeRef;
-
-export function updateEmployee(vars: UpdateEmployeeVariables): MutationPromise<UpdateEmployeeData, UpdateEmployeeVariables>;
-export function updateEmployee(dc: DataConnect, vars: UpdateEmployeeVariables): MutationPromise<UpdateEmployeeData, UpdateEmployeeVariables>;
-
-interface DeactivateEmployeeRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: DeactivateEmployeeVariables): MutationRef<DeactivateEmployeeData, DeactivateEmployeeVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: DeactivateEmployeeVariables): MutationRef<DeactivateEmployeeData, DeactivateEmployeeVariables>;
-  operationName: string;
-}
-export const deactivateEmployeeRef: DeactivateEmployeeRef;
-
-export function deactivateEmployee(vars: DeactivateEmployeeVariables): MutationPromise<DeactivateEmployeeData, DeactivateEmployeeVariables>;
-export function deactivateEmployee(dc: DataConnect, vars: DeactivateEmployeeVariables): MutationPromise<DeactivateEmployeeData, DeactivateEmployeeVariables>;
-
 interface ListJustificationsRef {
   /* Allow users to create refs without passing in DataConnect */
   (): QueryRef<ListJustificationsData, undefined>;
@@ -2039,16 +2411,4 @@ export const addJustificationAttachmentRef: AddJustificationAttachmentRef;
 
 export function addJustificationAttachment(vars: AddJustificationAttachmentVariables): MutationPromise<AddJustificationAttachmentData, AddJustificationAttachmentVariables>;
 export function addJustificationAttachment(dc: DataConnect, vars: AddJustificationAttachmentVariables): MutationPromise<AddJustificationAttachmentData, AddJustificationAttachmentVariables>;
-
-interface SeedRhPontoDataRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (): MutationRef<SeedRhPontoDataData, undefined>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect): MutationRef<SeedRhPontoDataData, undefined>;
-  operationName: string;
-}
-export const seedRhPontoDataRef: SeedRhPontoDataRef;
-
-export function seedRhPontoData(): MutationPromise<SeedRhPontoDataData, undefined>;
-export function seedRhPontoData(dc: DataConnect): MutationPromise<SeedRhPontoDataData, undefined>;
 

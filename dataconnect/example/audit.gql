@@ -8,6 +8,8 @@ query ListAuditLogs @auth(level: USER, insecureReason: "Operação administrativ
     entityId
     action
     description
+    oldData
+    newData
     ipAddress
     deviceInfo
     createdAt
@@ -20,6 +22,8 @@ mutation CreateAuditLog(
   $entityId: String
   $action: String!
   $description: String
+  $oldData: Any
+  $newData: Any
   $ipAddress: String
   $deviceInfo: String
 ) @auth(level: USER, insecureReason: "Operação administrativa do MVP para o painel interno de RH.") {
@@ -30,6 +34,8 @@ mutation CreateAuditLog(
       entityId: $entityId
       action: $action
       description: $description
+      oldData: $oldData
+      newData: $newData
       ipAddress: $ipAddress
       deviceInfo: $deviceInfo
       createdAt_expr: "request.time"

@@ -44,6 +44,7 @@ interface TimeRecordDialogProps {
   mode: 'create' | 'adjust';
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onRecordSaved?: (record: TimeRecord) => void;
   record?: TimeRecord | null;
   recordedByUserId?: string | null;
 }
@@ -97,6 +98,7 @@ export const CreateTimeRecordDialog = ({
   mode,
   open,
   onOpenChange,
+  onRecordSaved,
   record = null,
   recordedByUserId = null,
 }: TimeRecordDialogProps) => {
@@ -310,15 +312,16 @@ export const CreateTimeRecordDialog = ({
           }
 
           if (isAdjustMode) {
-            await adjustTimeRecord.mutateAsync({
+            const updatedRecord = await adjustTimeRecord.mutateAsync({
               timeRecordId: record.id,
               recordedAt: new Date(pendingValues.recordedAt).toISOString(),
               notes: pendingValues.notes ?? null,
             });
 
+            onRecordSaved?.(updatedRecord);
             toast.success('Marcação ajustada com sucesso.');
           } else {
-            await createTimeRecord.mutateAsync({
+            const createdRecord = await createTimeRecord.mutateAsync({
               employeeId: pendingValues.employeeId,
               deviceId: pendingValues.deviceId ?? null,
               recordedByUserId,
@@ -335,6 +338,7 @@ export const CreateTimeRecordDialog = ({
               ipAddress: null,
             });
 
+            onRecordSaved?.(createdRecord);
             toast.success('Marcação criada com sucesso.');
           }
 

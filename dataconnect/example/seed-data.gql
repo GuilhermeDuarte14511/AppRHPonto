@@ -657,6 +657,7 @@ mutation SeedRhPontoData
         isManual: false
         latitude: null
         longitude: null
+        resolvedAddress: null
         ipAddress: "10.0.0.10"
         createdAt: "2026-04-03T10:58:00.000Z"
         updatedAt: "2026-04-03T10:58:00.000Z"
@@ -675,6 +676,7 @@ mutation SeedRhPontoData
         isManual: false
         latitude: -23.55052
         longitude: -46.633308
+        resolvedAddress: "Avenida Paulista, 1000 - Bela Vista - São Paulo - SP"
         ipAddress: "10.0.0.18"
         createdAt: "2026-04-03T12:18:00.000Z"
         updatedAt: "2026-04-03T12:18:00.000Z"
@@ -693,6 +695,7 @@ mutation SeedRhPontoData
         isManual: false
         latitude: -23.55052
         longitude: -46.633308
+        resolvedAddress: "Avenida Paulista, 1000 - Bela Vista - São Paulo - SP"
         ipAddress: "10.0.0.14"
         createdAt: "2026-04-03T11:02:00.000Z"
         updatedAt: "2026-04-03T11:02:00.000Z"
@@ -711,6 +714,7 @@ mutation SeedRhPontoData
         isManual: false
         latitude: null
         longitude: null
+        resolvedAddress: null
         ipAddress: "10.0.0.10"
         createdAt: "2026-04-03T15:01:00.000Z"
         updatedAt: "2026-04-03T15:01:00.000Z"
@@ -729,6 +733,7 @@ mutation SeedRhPontoData
         isManual: false
         latitude: null
         longitude: null
+        resolvedAddress: null
         ipAddress: "10.0.0.10"
         createdAt: "2026-04-03T16:03:00.000Z"
         updatedAt: "2026-04-03T16:03:00.000Z"
@@ -747,6 +752,7 @@ mutation SeedRhPontoData
         isManual: true
         latitude: null
         longitude: null
+        resolvedAddress: null
         ipAddress: "177.10.10.20"
         createdAt: "2026-04-03T11:36:00.000Z"
         updatedAt: "2026-04-03T11:40:00.000Z"
@@ -765,6 +771,7 @@ mutation SeedRhPontoData
         isManual: true
         latitude: null
         longitude: null
+        resolvedAddress: null
         ipAddress: "177.10.10.21"
         createdAt: "2026-04-02T12:10:00.000Z"
         updatedAt: "2026-04-02T12:10:00.000Z"
@@ -783,6 +790,7 @@ mutation SeedRhPontoData
         isManual: false
         latitude: -23.56415
         longitude: -46.65242
+        resolvedAddress: "Rua Haddock Lobo, 595 - Cerqueira César - São Paulo - SP"
         ipAddress: "177.55.10.10"
         createdAt: "2026-04-02T12:14:00.000Z"
         updatedAt: "2026-04-02T12:14:00.000Z"
@@ -801,6 +809,7 @@ mutation SeedRhPontoData
         isManual: false
         latitude: null
         longitude: null
+        resolvedAddress: null
         ipAddress: "10.0.0.12"
         createdAt: "2026-03-31T12:17:00.000Z"
         updatedAt: "2026-03-31T12:17:00.000Z"
@@ -819,6 +828,7 @@ mutation SeedRhPontoData
         isManual: false
         latitude: -23.5912
         longitude: -46.6761
+        resolvedAddress: null
         ipAddress: "177.55.10.14"
         createdAt: "2026-04-02T21:41:00.000Z"
         updatedAt: "2026-04-02T22:12:00.000Z"
@@ -837,6 +847,7 @@ mutation SeedRhPontoData
         isManual: true
         latitude: null
         longitude: null
+        resolvedAddress: null
         ipAddress: "177.10.10.30"
         createdAt: "2026-04-04T11:20:00.000Z"
         updatedAt: "2026-04-04T11:20:00.000Z"
@@ -855,6 +866,7 @@ mutation SeedRhPontoData
         isManual: false
         latitude: -23.567
         longitude: -46.648
+        resolvedAddress: null
         ipAddress: "177.20.10.20"
         createdAt: "2026-04-01T12:31:00.000Z"
         updatedAt: "2026-04-01T12:31:00.000Z"
@@ -873,6 +885,7 @@ mutation SeedRhPontoData
         isManual: false
         latitude: -23.567
         longitude: -46.648
+        resolvedAddress: null
         ipAddress: "177.20.10.20"
         createdAt: "2026-04-01T21:06:00.000Z"
         updatedAt: "2026-04-01T21:06:00.000Z"
@@ -891,6 +904,7 @@ mutation SeedRhPontoData
         isManual: false
         latitude: null
         longitude: null
+        resolvedAddress: null
         ipAddress: "10.0.0.22"
         createdAt: "2026-04-04T10:59:00.000Z"
         updatedAt: "2026-04-04T10:59:00.000Z"
@@ -909,6 +923,7 @@ mutation SeedRhPontoData
         isManual: false
         latitude: null
         longitude: null
+        resolvedAddress: null
         ipAddress: "10.0.0.22"
         createdAt: "2026-04-04T20:15:00.000Z"
         updatedAt: "2026-04-04T20:15:00.000Z"
@@ -927,6 +942,7 @@ mutation SeedRhPontoData
         isManual: true
         latitude: null
         longitude: null
+        resolvedAddress: null
         ipAddress: "177.10.10.31"
         createdAt: "2026-04-01T08:04:00.000Z"
         updatedAt: "2026-04-01T08:04:00.000Z"
@@ -1549,6 +1565,300 @@ mutation SeedRhPontoData
         issuedAt: "2026-04-05T09:00:00.000Z"
         createdAt: "2026-04-05T09:00:00.000Z"
         updatedAt: "2026-04-05T09:00:00.000Z"
+      }
+    ]
+  )
+
+  payrollClosure_upsertMany(
+    data: [
+      {
+        id: "f8f8f8f8-f8f8-48f8-88f8-f8f8f8f8f801"
+        referenceKey: "2026-04"
+        referenceLabel: "Abril/2026"
+        referenceYear: 2026
+        referenceMonth: 4
+        periodStart: "2026-04-01"
+        periodEnd: "2026-04-30"
+        status: "closed"
+        notes: "Competência consolidada com fechamento persistido para validação dos fluxos administrativos."
+        closedAt: "2026-04-18T12:00:00.000Z"
+        closedByUser: { id: "11111111-1111-4111-8111-111111111111" }
+        stateData: {
+          kind: "payroll-closure-state"
+          version: 1
+          state: {
+            periodLabel: "Abril de 2026"
+            progress: 50
+            validated: 1
+            employeesTotal: 2
+            pending: 1
+            overtime: "03h 35m"
+            criticalIssues: 1
+            isClosed: true
+            records: [
+              {
+                id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1"
+                employeeName: "João Pereira"
+                registrationNumber: "M-1001"
+                department: "Operações"
+                role: "Analista de Campo"
+                avatarName: "João Pereira"
+                companyName: "RH Ponto"
+                unitName: "Matriz São Paulo"
+                periodLabel: "Abril de 2026"
+                periodStartLabel: "01/04/2026"
+                periodEndLabel: "30/04/2026"
+                employeeCpf: "123.456.789-01"
+                hireDateLabel: "16/01/2023"
+                scheduleLabel: "Administrativo 08:00 às 17:00"
+                costCenter: "Operações"
+                managerName: "Mariana Costa"
+                rhManagerName: "Caio Almeida"
+                generatedAtLabel: "18/04/2026, 09:00"
+                workedHoursLabel: "171h 35m"
+                workedHoursHint: "Total apurado considerando as marcações persistidas e os documentos homologados no mês."
+                normalHoursLabel: "168h 00m"
+                normalHoursHint: "Carga regular contratual considerada no fechamento."
+                bankHoursLabel: "+00h 00m"
+                bankHoursHint: "Não houve saldo líquido destinado ao banco de horas nesta competência."
+                overtimeHoursLabel: "03h 35m"
+                overtimeHoursHint: "Horas extras destinadas a pagamento, sem duplicidade com banco de horas."
+                overtime50HoursLabel: "02h 40m"
+                overtime100HoursLabel: "00h 55m"
+                nightHoursLabel: "00h 00m"
+                lateHoursLabel: "00h 08m"
+                absencesLabel: "00h 00m"
+                absencesHint: "Sem ausências não abonadas na competência."
+                approvedAbsencesLabel: "08h 00m"
+                unapprovedAbsencesLabel: "00h 00m"
+                additionalsLabel: "R$ 0,00"
+                totalExtraPayLabel: "R$ 187,40"
+                mealAllowanceLabel: "R$ 640,00"
+                status: "validado"
+                validationStatusLabel: "Validado pelo RH e liberado para consulta."
+                validationHint: "Espelho individual pronto para envio ao colaborador."
+                occurrenceSummary: [
+                  "22 dias operacionais considerados na competência."
+                  "1 ausência abonada por atestado homologado."
+                  "2 ocorrências com hora extra aprovadas pela liderança."
+                  "Sem pendências críticas para o colaborador."
+                ]
+                documents: [
+                  {
+                    id: "d9d9d9d9-d9d9-49d9-89d9-d9d9d9d9d901"
+                    name: "atestado-abril-joao.pdf"
+                    typeLabel: "Justificativa"
+                    issuer: "RH aprovado"
+                    issuedAtLabel: "08/04/2026"
+                    statusLabel: "Homologado"
+                  }
+                  {
+                    id: "d9d9d9d9-d9d9-49d9-89d9-d9d9d9d9d902"
+                    name: "aprovacao-hora-extra-joao.pdf"
+                    typeLabel: "Aprovação"
+                    issuer: "Mariana Costa"
+                    issuedAtLabel: "15/04/2026"
+                    statusLabel: "Vinculado"
+                  }
+                ]
+                signatures: [
+                  {
+                    id: "sig-rh-joao"
+                    label: "Gestor de RH"
+                    name: "Caio Almeida"
+                    role: "Head de RH"
+                  }
+                  {
+                    id: "sig-manager-joao"
+                    label: "Gestor imediato"
+                    name: "Mariana Costa"
+                    role: "Gerente de Operações"
+                  }
+                  {
+                    id: "sig-employee-joao"
+                    label: "Colaborador"
+                    name: "João Pereira"
+                    role: "Analista de Campo"
+                  }
+                ]
+                days: [
+                  {
+                    id: "2026-04-01-joao"
+                    date: "01/04/2026"
+                    weekday: "Terça"
+                    firstEntry: "08:01"
+                    firstExit: "12:00"
+                    secondEntry: "13:00"
+                    secondExit: "17:12"
+                    expectedHours: "08h 00m"
+                    regularHours: "08h 00m"
+                    overtimeHours: "00h 11m"
+                    balance: "+00h 11m"
+                    total: "08h 11m"
+                    note: "Hora extra"
+                    noteTone: "warning"
+                    occurrenceDetail: "Jornada excedente aprovada pelo gestor imediato."
+                    sourceLabel: "Aplicativo do colaborador"
+                  }
+                  {
+                    id: "2026-04-08-joao"
+                    date: "08/04/2026"
+                    weekday: "Quarta"
+                    firstEntry: null
+                    firstExit: null
+                    secondEntry: null
+                    secondExit: null
+                    expectedHours: "08h 00m"
+                    regularHours: "08h 00m"
+                    overtimeHours: "00h 00m"
+                    balance: "+00h 00m"
+                    total: "08h 00m"
+                    note: "Ausência abonada"
+                    noteTone: "info"
+                    occurrenceDetail: "Atestado médico homologado e vinculado ao fechamento."
+                    sourceLabel: "Fluxo administrativo"
+                  }
+                  {
+                    id: "2026-04-17-joao"
+                    date: "17/04/2026"
+                    weekday: "Sexta"
+                    firstEntry: "07:56"
+                    firstExit: "12:03"
+                    secondEntry: "13:00"
+                    secondExit: "18:20"
+                    expectedHours: "08h 00m"
+                    regularHours: "08h 00m"
+                    overtimeHours: "01h 27m"
+                    balance: "+01h 27m"
+                    total: "09h 27m"
+                    note: "Hora extra"
+                    noteTone: "warning"
+                    occurrenceDetail: "Atendimento emergencial com extensão de jornada aprovada."
+                    sourceLabel: "Aplicativo do colaborador"
+                  }
+                ]
+              }
+              {
+                id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2"
+                employeeName: "Ana Ribeiro"
+                registrationNumber: "M-1002"
+                department: "Financeiro"
+                role: "Assistente Financeira"
+                avatarName: "Ana Ribeiro"
+                companyName: "RH Ponto"
+                unitName: "Matriz São Paulo"
+                periodLabel: "Abril de 2026"
+                periodStartLabel: "01/04/2026"
+                periodEndLabel: "30/04/2026"
+                employeeCpf: "987.654.321-00"
+                hireDateLabel: "01/09/2022"
+                scheduleLabel: "Administrativo 08:00 às 17:00"
+                costCenter: "Financeiro"
+                managerName: "Mariana Costa"
+                rhManagerName: "Caio Almeida"
+                generatedAtLabel: "18/04/2026, 09:00"
+                workedHoursLabel: "167h 12m"
+                workedHoursHint: "Total apurado na competência com pendência de conferência em um lançamento."
+                normalHoursLabel: "166h 40m"
+                normalHoursHint: "Carga regular fechada parcialmente abaixo da meta devido a revisão em aberto."
+                bankHoursLabel: "-00h 48m"
+                bankHoursHint: "Saldo negativo aguardando tratativa do RH após revisão da marcação."
+                overtimeHoursLabel: "00h 32m"
+                overtimeHoursHint: "Pequena extensão de jornada registrada, ainda não homologada no fechamento final."
+                overtime50HoursLabel: "00h 32m"
+                overtime100HoursLabel: "00h 00m"
+                nightHoursLabel: "00h 00m"
+                lateHoursLabel: "00h 21m"
+                absencesLabel: "00h 00m"
+                absencesHint: "Sem ausências não abonadas, mas com atraso em análise."
+                approvedAbsencesLabel: "00h 00m"
+                unapprovedAbsencesLabel: "00h 00m"
+                additionalsLabel: "R$ 0,00"
+                totalExtraPayLabel: "R$ 18,20"
+                mealAllowanceLabel: "R$ 640,00"
+                status: "em_analise"
+                validationStatusLabel: "Em análise pelo RH por divergência em marcação."
+                validationHint: "Há pendências que precisam de revisão antes da liberação do espelho."
+                occurrenceSummary: [
+                  "21 dias operacionais considerados na competência."
+                  "1 marcação manual ainda em análise."
+                  "1 atraso superior à tolerância da escala."
+                  "Revisão pendente antes do encerramento definitivo."
+                ]
+                documents: [
+                  {
+                    id: "d9d9d9d9-d9d9-49d9-89d9-d9d9d9d9d903"
+                    name: "solicitacao-ajuste-ana.pdf"
+                    typeLabel: "Justificativa"
+                    issuer: "Colaboradora"
+                    issuedAtLabel: "16/04/2026"
+                    statusLabel: "Em revisão"
+                  }
+                ]
+                signatures: [
+                  {
+                    id: "sig-rh-ana"
+                    label: "Gestor de RH"
+                    name: "Caio Almeida"
+                    role: "Head de RH"
+                  }
+                  {
+                    id: "sig-manager-ana"
+                    label: "Gestor imediato"
+                    name: "Mariana Costa"
+                    role: "Gerente Financeira"
+                  }
+                  {
+                    id: "sig-employee-ana"
+                    label: "Colaboradora"
+                    name: "Ana Ribeiro"
+                    role: "Assistente Financeira"
+                  }
+                ]
+                days: [
+                  {
+                    id: "2026-04-02-ana"
+                    date: "02/04/2026"
+                    weekday: "Quinta"
+                    firstEntry: "08:19"
+                    firstExit: "12:00"
+                    secondEntry: "13:00"
+                    secondExit: "17:02"
+                    expectedHours: "08h 00m"
+                    regularHours: "07h 43m"
+                    overtimeHours: "00h 00m"
+                    balance: "-00h 17m"
+                    total: "07h 43m"
+                    note: "Atraso"
+                    noteTone: "danger"
+                    occurrenceDetail: "Entrada acima da tolerância da escala."
+                    sourceLabel: "Aplicativo do colaborador"
+                  }
+                  {
+                    id: "2026-04-16-ana"
+                    date: "16/04/2026"
+                    weekday: "Quinta"
+                    firstEntry: "08:03"
+                    firstExit: "12:01"
+                    secondEntry: "13:10"
+                    secondExit: "17:44"
+                    expectedHours: "08h 00m"
+                    regularHours: "07h 32m"
+                    overtimeHours: "00h 32m"
+                    balance: "-00h 28m"
+                    total: "08h 04m"
+                    note: "Em revisão"
+                    noteTone: "warning"
+                    occurrenceDetail: "Retorno do almoço fora da janela prevista, aguardando decisão do RH."
+                    sourceLabel: "Aplicativo do colaborador"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+        createdAt: "2026-04-18T12:00:00.000Z"
+        updatedAt: "2026-04-18T12:00:00.000Z"
       }
     ]
   )

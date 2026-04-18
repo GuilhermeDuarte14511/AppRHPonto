@@ -15,3 +15,6 @@ android
 ios
 apps/*/node_modules
 packages/*/node_modules
+apps/admin-web/playwright-report
+apps/admin-web/test-results
+apps/admin-web/e2e/.snapshots

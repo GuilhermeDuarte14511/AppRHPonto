@@ -1,4 +1,9 @@
-import type { AttendancePolicy, EmployeeAllowedLocation, EmployeeAttendancePolicy, WorkLocation } from '../../domain/entities/attendance-policy';
+import type {
+  AttendancePolicy,
+  EmployeeAllowedLocation,
+  EmployeeAttendancePolicy,
+  WorkLocation,
+} from '../../domain/entities/attendance-policy';
 
 export interface AttendanceCoordinates {
   latitude: number;
@@ -52,12 +57,23 @@ const calculateDistanceMeters = (
   return 2 * earthRadiusMeters * Math.atan2(Math.sqrt(haversine), Math.sqrt(1 - haversine));
 };
 
+const resolveValidationStrategy = (input: AttendanceLocationEvaluationInput) =>
+  input.policyAssignment?.validationStrategy ?? input.policy.validationStrategy;
+
+const resolveGeolocationRequired = (input: AttendanceLocationEvaluationInput) =>
+  input.policyAssignment?.geolocationRequired ?? input.policy.geolocationRequired;
+
+const resolvePhotoRequired = (input: AttendanceLocationEvaluationInput) =>
+  input.policyAssignment?.photoRequired ?? input.policy.photoRequired;
+
 const resolveOutsideAreaStatus = (input: AttendanceLocationEvaluationInput): AttendanceLocationEvaluationResult['status'] => {
-  if (input.policyAssignment?.blockOutsideAllowedLocations || input.policy.validationStrategy === 'block') {
+  const validationStrategy = resolveValidationStrategy(input);
+
+  if (input.policyAssignment?.blockOutsideAllowedLocations || validationStrategy === 'block') {
     return 'blocked';
   }
 
-  if (input.policy.validationStrategy === 'pending_review') {
+  if (validationStrategy === 'pending_review') {
     return 'pending_review';
   }
 
@@ -68,14 +84,17 @@ export const evaluateAttendanceLocation = (
   input: AttendanceLocationEvaluationInput,
 ): AttendanceLocationEvaluationResult => {
   const coordinates = input.coordinates;
+  const validationStrategy = resolveValidationStrategy(input);
+  const geolocationRequired = resolveGeolocationRequired(input);
+  const photoRequired = resolvePhotoRequired(input);
 
-  if (!input.policy.geolocationRequired) {
+  if (!geolocationRequired) {
     return {
       status: 'allowed',
       reasonCode: 'location_not_required',
       title: 'Localização não obrigatória',
       description: 'A política atual não exige geolocalização para registrar o ponto.',
-      requiresPhoto: input.policy.photoRequired,
+      requiresPhoto: photoRequired,
       requiresGeolocation: false,
       matchedLocation: null,
       nearestAllowedLocation: null,
@@ -86,9 +105,9 @@ export const evaluateAttendanceLocation = (
 
   if (!coordinates) {
     const status =
-      input.policy.validationStrategy === 'pending_review'
+      validationStrategy === 'pending_review'
         ? 'pending_review'
-        : input.policy.validationStrategy === 'allow'
+        : validationStrategy === 'allow'
           ? 'allowed'
           : 'blocked';
 
@@ -100,7 +119,7 @@ export const evaluateAttendanceLocation = (
         status === 'blocked'
           ? 'A política exige geolocalização para registrar o ponto neste momento.'
           : 'A localização não foi obtida. O registro pode seguir, mas deve ser revisado pelo RH.',
-      requiresPhoto: input.policy.photoRequired,
+      requiresPhoto: photoRequired,
       requiresGeolocation: true,
       matchedLocation: null,
       nearestAllowedLocation: null,
@@ -111,11 +130,11 @@ export const evaluateAttendanceLocation = (
 
   if (input.policyAssignment?.allowAnyLocation || !input.policy.requiresAllowedLocations) {
     return {
-      status: input.policy.validationStrategy === 'pending_review' ? 'pending_review' : 'allowed',
+      status: validationStrategy === 'pending_review' ? 'pending_review' : 'allowed',
       reasonCode: 'allow_any_location',
       title: 'Marcação liberada',
       description: 'A política atual permite registrar o ponto sem restringir a geofence a um local específico.',
-      requiresPhoto: input.policy.photoRequired,
+      requiresPhoto: photoRequired,
       requiresGeolocation: true,
       matchedLocation: null,
       nearestAllowedLocation: null,
@@ -126,7 +145,11 @@ export const evaluateAttendanceLocation = (
 
   const allowedLocationIds = new Set(input.allowedLocations.map((item) => item.workLocationId));
   const allowedLocations = input.locationCatalog.filter(
-    (location) => location.isActive && allowedLocationIds.has(location.id) && location.latitude != null && location.longitude != null,
+    (location) =>
+      location.isActive &&
+      allowedLocationIds.has(location.id) &&
+      location.latitude != null &&
+      location.longitude != null,
   );
 
   if (allowedLocations.length === 0) {
@@ -135,7 +158,7 @@ export const evaluateAttendanceLocation = (
       reasonCode: 'missing_allowed_locations',
       title: 'Sem locais autorizados',
       description: 'A política exige locais autorizados, mas nenhum local ativo foi vinculado a este colaborador.',
-      requiresPhoto: input.policy.photoRequired,
+      requiresPhoto: photoRequired,
       requiresGeolocation: true,
       matchedLocation: null,
       nearestAllowedLocation: null,
@@ -160,7 +183,7 @@ export const evaluateAttendanceLocation = (
       reasonCode: 'within_allowed_area',
       title: 'Dentro da área autorizada',
       description: `A marcação está dentro do raio configurado para ${matchedLocation.location.name}.`,
-      requiresPhoto: input.policy.photoRequired,
+      requiresPhoto: photoRequired,
       requiresGeolocation: true,
       matchedLocation: matchedLocation.location,
       nearestAllowedLocation: matchedLocation.location,
@@ -170,12 +193,7 @@ export const evaluateAttendanceLocation = (
   }
 
   const nearestAllowedLocation =
-    [...evaluatedLocations].sort(
-      (
-        left: { location: WorkLocation; distanceMeters: number },
-        right: { location: WorkLocation; distanceMeters: number },
-      ) => left.distanceMeters - right.distanceMeters,
-    )[0] ?? null;
+    [...evaluatedLocations].sort((left, right) => left.distanceMeters - right.distanceMeters)[0] ?? null;
   const status = resolveOutsideAreaStatus(input);
 
   return {
@@ -191,7 +209,7 @@ export const evaluateAttendanceLocation = (
       nearestAllowedLocation == null
         ? 'A localização atual não coincide com nenhum local autorizado.'
         : `O ponto está fora da geofence. Local autorizado mais próximo: ${nearestAllowedLocation.location.name}.`,
-    requiresPhoto: input.policy.photoRequired,
+    requiresPhoto: photoRequired,
     requiresGeolocation: true,
     matchedLocation: null,
     nearestAllowedLocation: nearestAllowedLocation?.location ?? null,

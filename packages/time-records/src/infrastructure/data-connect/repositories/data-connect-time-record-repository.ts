@@ -72,6 +72,7 @@ const mapTimeRecordRecord = (
     referenceRecordId: record.referenceRecord?.id ?? null,
     latitude: record.latitude ?? null,
     longitude: record.longitude ?? null,
+    resolvedAddress: record.resolvedAddress ?? null,
     ipAddress: record.ipAddress ?? null,
     createdAt: record.createdAt,
     updatedAt: record.updatedAt,
@@ -105,6 +106,7 @@ const buildCreateVariables = (payload: CreateTimeRecordPayload): CreateTimeRecor
   referenceRecordId: payload.referenceRecordId ?? null,
   latitude: payload.latitude ?? null,
   longitude: payload.longitude ?? null,
+  resolvedAddress: payload.resolvedAddress ?? null,
   ipAddress: payload.ipAddress ?? null,
 });
 

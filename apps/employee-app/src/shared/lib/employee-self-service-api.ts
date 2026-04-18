@@ -1,18 +1,21 @@
 import {
   createVacationRequest,
-  getEmployeeDocumentById,
+  getCurrentEmployeeByEmail,
+  getCurrentEmployeeByUserId,
+  getEmployeeDocumentByIdForEmployee,
   getEmployeeNotificationPreferences,
-  getPayrollStatementById,
-  getVacationRequestById,
+  getEmployeeVacationRequestByIdForEmployee,
+  getPayrollStatementByIdForEmployee,
   listEmployeeDocuments,
   listEmployeeNotifications,
+  listEmployeeVacationRequestsByEmployee,
   listPayrollStatements,
-  listVacationRequests,
   markEmployeeNotificationAsRead,
   updateEmployeeNotificationPreferences,
 } from '@rh-ponto/api-client/generated';
 import { getAppDataConnect } from '@rh-ponto/api-client';
 import { AppError } from '@rh-ponto/core';
+import { createEmployee, type Employee } from '@rh-ponto/employees';
 
 export type EmployeeNotificationSeverity = 'info' | 'warning' | 'danger' | 'success';
 export type EmployeeNotificationStatus = 'unread' | 'read';
@@ -114,6 +117,8 @@ export interface CreateEmployeeVacationPayload {
   coverageNotes?: string | null;
 }
 
+const normalizeEmail = (value?: string | null) => value?.trim().toLowerCase() ?? null;
+
 const mapNotificationSeverity = (value: string): EmployeeNotificationSeverity => {
   if (value === 'info' || value === 'warning' || value === 'danger' || value === 'success') {
     return value;
@@ -191,7 +196,7 @@ const createPayrollStatementItem = (
 });
 
 const createVacationItem = (
-  item: Awaited<ReturnType<typeof listVacationRequests>>['data']['vacationRequests'][number],
+  item: Awaited<ReturnType<typeof listEmployeeVacationRequestsByEmployee>>['data']['vacationRequests'][number],
 ): EmployeeVacationItem => ({
   id: item.id,
   employeeId: item.employee.id,
@@ -217,6 +222,56 @@ const createVacationItem = (
   hrApprovalTimestamp: item.hrApprovalTimestamp ?? null,
   hrApprovalNotes: item.hrApprovalNotes ?? null,
 });
+
+const createCurrentEmployee = (
+  item:
+    | Awaited<ReturnType<typeof getCurrentEmployeeByUserId>>['data']['employees'][number]
+    | Awaited<ReturnType<typeof getCurrentEmployeeByEmail>>['data']['employees'][number],
+): Employee =>
+  createEmployee({
+    id: item.id,
+    userId: item.user?.id ?? null,
+    registrationNumber: item.registrationNumber,
+    fullName: item.fullName,
+    cpf: item.cpf ?? null,
+    email: item.email ?? null,
+    phone: item.phone ?? null,
+    birthDate: item.birthDate ?? null,
+    hireDate: item.hireDate ?? null,
+    departmentId: item.departmentId ?? null,
+    department: item.department?.name ?? null,
+    position: item.position ?? null,
+    profilePhotoUrl: item.profilePhotoUrl ?? null,
+    pinCode: item.pinCode ?? null,
+    isActive: item.isActive,
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+  });
+
+export const fetchCurrentEmployee = async (input: {
+  userId?: string | null;
+  email?: string | null;
+}): Promise<Employee | null> => {
+  if (input.userId) {
+    const { data } = await getCurrentEmployeeByUserId(getAppDataConnect(), { userId: input.userId });
+    const item = data.employees[0];
+
+    if (item) {
+      return createCurrentEmployee(item);
+    }
+  }
+
+  const email = normalizeEmail(input.email);
+
+  if (!email) {
+    return null;
+  }
+
+  const { data } = await getCurrentEmployeeByEmail(getAppDataConnect(), { email });
+  const item = data.employees[0];
+
+  return item ? createCurrentEmployee(item) : null;
+};
 
 export const fetchEmployeeNotifications = async (userId: string): Promise<EmployeeNotificationItem[]> => {
   const { data } = await listEmployeeNotifications(getAppDataConnect(), { userId });
@@ -259,9 +314,14 @@ export const fetchEmployeeDocuments = async (employeeId: string): Promise<Employ
   return data.employeeDocuments.map(createEmployeeDocumentItem);
 };
 
-export const fetchEmployeeDocumentById = async (id: string): Promise<EmployeeDocumentItem | null> => {
-  const { data } = await getEmployeeDocumentById(getAppDataConnect(), { id });
-  return data.employeeDocument ? createEmployeeDocumentItem(data.employeeDocument) : null;
+export const fetchEmployeeDocumentByIdForEmployee = async (
+  id: string,
+  employeeId: string,
+): Promise<EmployeeDocumentItem | null> => {
+  const { data } = await getEmployeeDocumentByIdForEmployee(getAppDataConnect(), { id, employeeId });
+  const item = data.employeeDocuments[0];
+
+  return item ? createEmployeeDocumentItem(item) : null;
 };
 
 export const fetchPayrollStatements = async (employeeId: string): Promise<PayrollStatementItem[]> => {
@@ -269,21 +329,29 @@ export const fetchPayrollStatements = async (employeeId: string): Promise<Payrol
   return data.payrollStatements.map(createPayrollStatementItem);
 };
 
-export const fetchPayrollStatementById = async (id: string): Promise<PayrollStatementItem | null> => {
-  const { data } = await getPayrollStatementById(getAppDataConnect(), { id });
-  return data.payrollStatement ? createPayrollStatementItem(data.payrollStatement) : null;
+export const fetchPayrollStatementByIdForEmployee = async (
+  id: string,
+  employeeId: string,
+): Promise<PayrollStatementItem | null> => {
+  const { data } = await getPayrollStatementByIdForEmployee(getAppDataConnect(), { id, employeeId });
+  const item = data.payrollStatements[0];
+
+  return item ? createPayrollStatementItem(item) : null;
 };
 
 export const fetchEmployeeVacationRequests = async (employeeId: string): Promise<EmployeeVacationItem[]> => {
-  const { data } = await listVacationRequests(getAppDataConnect());
-  return data.vacationRequests
-    .filter((item) => item.employee.id === employeeId)
-    .map(createVacationItem);
+  const { data } = await listEmployeeVacationRequestsByEmployee(getAppDataConnect(), { employeeId });
+  return data.vacationRequests.map(createVacationItem);
 };
 
-export const fetchEmployeeVacationRequestById = async (id: string): Promise<EmployeeVacationItem | null> => {
-  const { data } = await getVacationRequestById(getAppDataConnect(), { id });
-  return data.vacationRequest ? createVacationItem(data.vacationRequest) : null;
+export const fetchEmployeeVacationRequestByIdForEmployee = async (
+  id: string,
+  employeeId: string,
+): Promise<EmployeeVacationItem | null> => {
+  const { data } = await getEmployeeVacationRequestByIdForEmployee(getAppDataConnect(), { id, employeeId });
+  const item = data.vacationRequests[0];
+
+  return item ? createVacationItem(item) : null;
 };
 
 export const createEmployeeVacationRequest = async (
@@ -303,10 +371,13 @@ export const createEmployeeVacationRequest = async (
     coverageNotes: payload.coverageNotes ?? null,
   });
 
-  const created = await fetchEmployeeVacationRequestById(data.vacationRequest_insert.id);
+  const created = await fetchEmployeeVacationRequestByIdForEmployee(
+    data.vacationRequest_insert.id,
+    payload.employeeId,
+  );
 
   if (!created) {
-    throw new AppError('EMPLOYEE_VACATION_NOT_FOUND_AFTER_CREATE', 'Solicitação de férias não encontrada após criação.');
+    throw new AppError('EMPLOYEE_VACATION_NOT_FOUND_AFTER_CREATE', 'SolicitaÃ§Ã£o de fÃ©rias nÃ£o encontrada apÃ³s criaÃ§Ã£o.');
   }
 
   return created;
