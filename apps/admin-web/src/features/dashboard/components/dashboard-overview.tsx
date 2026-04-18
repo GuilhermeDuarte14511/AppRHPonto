@@ -205,6 +205,11 @@ export const DashboardOverview = () => {
                 </div>
                 <div className="space-y-3">
                   <QuickActionRow
+                    href="/operations"
+                    label="Abrir inbox do RH"
+                    value={String(data.totalApprovalsPending + data.pendingTimeRecords)}
+                  />
+                  <QuickActionRow
                     href="/justifications"
                     label="Justificativas pendentes"
                     value={String(data.pendingJustifications)}
