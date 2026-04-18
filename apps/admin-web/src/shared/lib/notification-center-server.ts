@@ -1,5 +1,7 @@
 import { formatDateTime } from '@rh-ponto/core';
 
+import { buildOperationsInbox } from '@/features/operations/lib/operations-inbox-service';
+
 import { executeAdminGraphql } from './admin-server-data-connect';
 import type { AdminNotificationFeed, AdminNotificationItem, AdminNotificationSeverity } from './notification-center-contracts';
 import { formatJustificationTypeLabel, formatTimeRecordTypeLabel } from './admin-formatters';
@@ -28,6 +30,7 @@ interface NotificationsQueryData {
   }>;
   vacationRequests: Array<{
     id: string;
+    requestedAt: string;
     startDate: string;
     endDate: string;
     employee: { fullName: string };
@@ -116,6 +119,7 @@ const notificationsQuery = `
     }
     vacationRequests(where: { status: { eq: "pending" } }, orderBy: [{ requestedAt: DESC }], limit: 8) {
       id
+      requestedAt
       startDate
       endDate
       employee {
@@ -244,67 +248,149 @@ const toItem = (item: NotificationsQueryData['adminNotifications'][number]): Adm
 const buildDerivedNotifications = (data: NotificationsQueryData): DerivedNotificationDefinition[] => {
   const settings = data.adminSettings;
   const items: DerivedNotificationDefinition[] = [];
+  const inbox = buildOperationsInbox({
+    pendingTimeRecords: settings?.notifyOvertimeSummary
+      ? data.timeRecords.map((timeRecord) => ({
+          id: timeRecord.id,
+          employeeName: timeRecord.employee.fullName,
+          recordedAt: timeRecord.recordedAt,
+          status: 'pending_review' as const,
+        }))
+      : [],
+    pendingJustifications: settings?.notifyPendingVacations
+      ? data.justifications.map((justification) => ({
+          id: justification.id,
+          employeeName: justification.employee.fullName,
+          createdAt: justification.createdAt,
+          type: formatJustificationTypeLabel(justification.type as never).toLowerCase(),
+        }))
+      : [],
+    pendingVacations: settings?.notifyPendingVacations
+      ? data.vacationRequests.map((vacation) => ({
+          id: vacation.id,
+          employeeName: vacation.employee.fullName,
+          requestedAt: vacation.requestedAt,
+        }))
+      : [],
+    blockedOnboardingTasks: data.onboardingTasks
+      .filter((task) => {
+        const isOverdue =
+          task.dueDate != null &&
+          task.status !== 'completed' &&
+          new Date(`${task.dueDate}T23:59:59.999Z`).getTime() < Date.now();
 
-  if (settings?.notifyPendingVacations) {
-    for (const vacation of data.vacationRequests) {
+        return task.status === 'blocked' || isOverdue;
+      })
+      .map((task) => ({
+        id: task.id,
+        title: task.title,
+        status: task.status as 'blocked' | 'pending' | 'in_progress' | 'completed',
+        dueDate: task.dueDate ?? null,
+        employeeName: task.journey.employee.fullName,
+        journeyId: task.journey.id,
+      })),
+    inactiveDevices: settings?.notifyDeviceSync
+      ? data.devices.map((device) => ({
+          id: device.id,
+          name: device.name,
+          locationName: device.locationName ?? null,
+          lastSyncAt: device.lastSyncAt ?? null,
+        }))
+      : [],
+  });
+
+  for (const inboxItem of inbox.items) {
+    if (inboxItem.category === 'time-record') {
+      const timeRecord = data.timeRecords.find((item) => item.id === inboxItem.id);
+
       items.push({
-        referenceKey: `vacation:${vacation.id}:pending`,
+        referenceKey: `time-record:${inboxItem.id}:review`,
+        category: 'time_record',
+        title: inboxItem.title,
+        description: timeRecord
+          ? `${timeRecord.employee.fullName} registrou ${formatTimeRecordTypeLabel(timeRecord.recordType as never).toLowerCase()} em ${formatDateTime(timeRecord.recordedAt)}.`
+          : inboxItem.description,
+        href: inboxItem.href,
+        entityName: 'time_record',
+        entityId: inboxItem.id,
+        severity: 'warning',
+        triggeredAt: inboxItem.occurredAt,
+      });
+
+      continue;
+    }
+
+    if (inboxItem.category === 'justification') {
+      const justification = data.justifications.find((item) => item.id === inboxItem.id);
+
+      items.push({
+        referenceKey: `justification:${inboxItem.id}:pending`,
+        category: 'justification',
+        title: inboxItem.title,
+        description: justification
+          ? `${justification.employee.fullName} abriu uma ${formatJustificationTypeLabel(justification.type as never).toLowerCase()}.`
+          : inboxItem.description,
+        href: inboxItem.href,
+        entityName: 'justification',
+        entityId: inboxItem.id,
+        severity: 'info',
+        triggeredAt: inboxItem.occurredAt,
+      });
+
+      continue;
+    }
+
+    if (inboxItem.category === 'vacation') {
+      const vacation = data.vacationRequests.find((item) => item.id === inboxItem.id);
+
+      items.push({
+        referenceKey: `vacation:${inboxItem.id}:pending`,
         category: 'vacation',
         title: 'Pedido de férias aguardando aprovação',
-        description: `${vacation.employee.fullName} solicitou férias de ${vacation.startDate} a ${vacation.endDate}.`,
-        href: `/vacations/${vacation.id}`,
+        description: vacation
+          ? `${vacation.employee.fullName} solicitou férias de ${vacation.startDate} a ${vacation.endDate}.`
+          : inboxItem.description,
+        href: vacation ? `/vacations/${vacation.id}` : inboxItem.href,
         entityName: 'vacation_request',
-        entityId: vacation.id,
+        entityId: inboxItem.id,
         severity: 'warning',
-        triggeredAt: `${vacation.startDate}T09:00:00.000Z`,
+        triggeredAt: inboxItem.occurredAt,
       });
+
+      continue;
     }
 
-    for (const justification of data.justifications) {
-      items.push({
-        referenceKey: `justification:${justification.id}:pending`,
-        category: 'justification',
-        title: 'Justificativa aguardando análise',
-        description: `${justification.employee.fullName} abriu uma ${formatJustificationTypeLabel(justification.type as never).toLowerCase()}.`,
-        href: '/justifications',
-        entityName: 'justification',
-        entityId: justification.id,
-        severity: 'info',
-        triggeredAt: justification.createdAt,
-      });
-    }
-  }
+    if (inboxItem.category === 'onboarding') {
+      const task = data.onboardingTasks.find((item) => item.id === inboxItem.id);
 
-  if (settings?.notifyOvertimeSummary) {
-    for (const timeRecord of data.timeRecords) {
       items.push({
-        referenceKey: `time-record:${timeRecord.id}:review`,
-        category: 'time_record',
-        title: 'Marcação em revisão',
-        description: `${timeRecord.employee.fullName} registrou ${formatTimeRecordTypeLabel(timeRecord.recordType as never).toLowerCase()} em ${formatDateTime(timeRecord.recordedAt)}.`,
-        href: '/time-records',
-        entityName: 'time_record',
-        entityId: timeRecord.id,
-        severity: 'warning',
-        triggeredAt: timeRecord.recordedAt,
-      });
-    }
-  }
-
-  if (settings?.notifyDeviceSync) {
-    for (const device of data.devices) {
-      items.push({
-        referenceKey: `device:${device.id}:inactive`,
-        category: 'device',
-        title: 'Dispositivo com atenção operacional',
-        description: `${device.name}${device.locationName ? ` em ${device.locationName}` : ''} está inativo ou precisa de verificação de sincronização.`,
-        href: '/settings',
-        entityName: 'device',
-        entityId: device.id,
+        referenceKey: `onboarding-task:${inboxItem.id}:attention`,
+        category: 'onboarding',
+        title: inboxItem.title,
+        description: task
+          ? `${task.journey.employee.fullName} exige atenção em "${task.title}".`
+          : inboxItem.description,
+        href: inboxItem.href,
+        entityName: 'onboarding_task',
+        entityId: inboxItem.id,
         severity: 'danger',
-        triggeredAt: device.lastSyncAt ?? new Date().toISOString(),
+        triggeredAt: inboxItem.occurredAt,
       });
+
+      continue;
     }
+
+    items.push({
+      referenceKey: `device:${inboxItem.id}:inactive`,
+      category: 'device',
+      title: 'Dispositivo com atenção operacional',
+      description: inboxItem.description,
+      href: '/settings',
+      entityName: 'device',
+      entityId: inboxItem.id,
+      severity: 'danger',
+      triggeredAt: inboxItem.occurredAt,
+    });
   }
 
   if (settings?.notifyAuditSummary) {
@@ -319,27 +405,6 @@ const buildDerivedNotifications = (data: NotificationsQueryData): DerivedNotific
         entityId: audit.id,
         severity: 'info',
         triggeredAt: audit.createdAt,
-      });
-    }
-  }
-
-  for (const task of data.onboardingTasks) {
-    const isOverdue =
-      task.dueDate != null &&
-      task.status !== 'completed' &&
-      new Date(`${task.dueDate}T23:59:59.999Z`).getTime() < Date.now();
-
-    if (task.status === 'blocked' || isOverdue) {
-      items.push({
-        referenceKey: `onboarding-task:${task.id}:${task.status}:${task.dueDate ?? 'no-date'}`,
-        category: 'onboarding',
-        title: task.status === 'blocked' ? 'Etapa de onboarding bloqueada' : 'Etapa de onboarding vencida',
-        description: `${task.journey.employee.fullName} exige atenção em "${task.title}".`,
-        href: `/onboarding/${task.journey.id}`,
-        entityName: 'onboarding_task',
-        entityId: task.id,
-        severity: task.status === 'blocked' ? 'danger' : 'warning',
-        triggeredAt: task.dueDate ? `${task.dueDate}T09:00:00.000Z` : new Date().toISOString(),
       });
     }
   }
