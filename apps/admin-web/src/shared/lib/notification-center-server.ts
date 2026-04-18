@@ -1,10 +1,7 @@
-import { formatDateTime } from '@rh-ponto/core';
-
 import { buildOperationsInbox } from '@/features/operations/lib/operations-inbox-service';
 
 import { executeAdminGraphql } from './admin-server-data-connect';
 import type { AdminNotificationFeed, AdminNotificationItem, AdminNotificationSeverity } from './notification-center-contracts';
-import { formatJustificationTypeLabel, formatTimeRecordTypeLabel } from './admin-formatters';
 
 interface NotificationsQueryData {
   adminSettings: {
@@ -58,6 +55,7 @@ interface NotificationsQueryData {
     title: string;
     status: string;
     dueDate?: string | null;
+    updatedAt: string;
     journey: {
       id: string;
       employee: { fullName: string };
@@ -157,6 +155,7 @@ const notificationsQuery = `
       title
       status
       dueDate
+      updatedAt
       journey {
         id
         employee {
@@ -255,6 +254,7 @@ const buildDerivedNotifications = (data: NotificationsQueryData): DerivedNotific
           employeeName: timeRecord.employee.fullName,
           recordedAt: timeRecord.recordedAt,
           status: 'pending_review' as const,
+          recordType: timeRecord.recordType,
         }))
       : [],
     pendingJustifications: settings?.notifyPendingVacations
@@ -262,7 +262,7 @@ const buildDerivedNotifications = (data: NotificationsQueryData): DerivedNotific
           id: justification.id,
           employeeName: justification.employee.fullName,
           createdAt: justification.createdAt,
-          type: formatJustificationTypeLabel(justification.type as never).toLowerCase(),
+          type: justification.type,
         }))
       : [],
     pendingVacations: settings?.notifyPendingVacations
@@ -270,6 +270,8 @@ const buildDerivedNotifications = (data: NotificationsQueryData): DerivedNotific
           id: vacation.id,
           employeeName: vacation.employee.fullName,
           requestedAt: vacation.requestedAt,
+          startDate: vacation.startDate,
+          endDate: vacation.endDate,
         }))
       : [],
     blockedOnboardingTasks: data.onboardingTasks
@@ -288,6 +290,7 @@ const buildDerivedNotifications = (data: NotificationsQueryData): DerivedNotific
         dueDate: task.dueDate ?? null,
         employeeName: task.journey.employee.fullName,
         journeyId: task.journey.id,
+        updatedAt: task.updatedAt,
       })),
     inactiveDevices: settings?.notifyDeviceSync
       ? data.devices.map((device) => ({
@@ -299,100 +302,7 @@ const buildDerivedNotifications = (data: NotificationsQueryData): DerivedNotific
       : [],
   });
 
-  for (const inboxItem of inbox.items) {
-    if (inboxItem.category === 'time-record') {
-      const timeRecord = data.timeRecords.find((item) => item.id === inboxItem.id);
-
-      items.push({
-        referenceKey: `time-record:${inboxItem.id}:review`,
-        category: 'time_record',
-        title: inboxItem.title,
-        description: timeRecord
-          ? `${timeRecord.employee.fullName} registrou ${formatTimeRecordTypeLabel(timeRecord.recordType as never).toLowerCase()} em ${formatDateTime(timeRecord.recordedAt)}.`
-          : inboxItem.description,
-        href: inboxItem.href,
-        entityName: 'time_record',
-        entityId: inboxItem.id,
-        severity: 'warning',
-        triggeredAt: inboxItem.occurredAt,
-      });
-
-      continue;
-    }
-
-    if (inboxItem.category === 'justification') {
-      const justification = data.justifications.find((item) => item.id === inboxItem.id);
-
-      items.push({
-        referenceKey: `justification:${inboxItem.id}:pending`,
-        category: 'justification',
-        title: inboxItem.title,
-        description: justification
-          ? `${justification.employee.fullName} abriu uma ${formatJustificationTypeLabel(justification.type as never).toLowerCase()}.`
-          : inboxItem.description,
-        href: inboxItem.href,
-        entityName: 'justification',
-        entityId: inboxItem.id,
-        severity: 'info',
-        triggeredAt: inboxItem.occurredAt,
-      });
-
-      continue;
-    }
-
-    if (inboxItem.category === 'vacation') {
-      const vacation = data.vacationRequests.find((item) => item.id === inboxItem.id);
-
-      items.push({
-        referenceKey: `vacation:${inboxItem.id}:pending`,
-        category: 'vacation',
-        title: 'Pedido de férias aguardando aprovação',
-        description: vacation
-          ? `${vacation.employee.fullName} solicitou férias de ${vacation.startDate} a ${vacation.endDate}.`
-          : inboxItem.description,
-        href: vacation ? `/vacations/${vacation.id}` : inboxItem.href,
-        entityName: 'vacation_request',
-        entityId: inboxItem.id,
-        severity: 'warning',
-        triggeredAt: vacation ? `${vacation.startDate}T09:00:00.000Z` : inboxItem.occurredAt,
-      });
-
-      continue;
-    }
-
-    if (inboxItem.category === 'onboarding') {
-      const task = data.onboardingTasks.find((item) => item.id === inboxItem.id);
-      const isBlocked = task?.status === 'blocked';
-
-      items.push({
-        referenceKey: `onboarding-task:${inboxItem.id}:${isBlocked ? 'blocked' : 'overdue'}:${task?.dueDate ?? 'no-date'}`,
-        category: 'onboarding',
-        title: isBlocked ? 'Etapa de onboarding bloqueada' : 'Etapa de onboarding vencida',
-        description: task
-          ? `${task.journey.employee.fullName} exige atenção em "${task.title}".`
-          : inboxItem.description,
-        href: inboxItem.href,
-        entityName: 'onboarding_task',
-        entityId: inboxItem.id,
-        severity: isBlocked ? 'danger' : 'warning',
-        triggeredAt: inboxItem.occurredAt,
-      });
-
-      continue;
-    }
-
-    items.push({
-      referenceKey: `device:${inboxItem.id}:inactive`,
-      category: 'device',
-      title: 'Dispositivo com atenção operacional',
-      description: inboxItem.description,
-      href: '/settings',
-      entityName: 'device',
-      entityId: inboxItem.id,
-      severity: 'danger',
-      triggeredAt: inboxItem.occurredAt,
-    });
-  }
+  items.push(...inbox.items.map((item) => item.notification));
 
   if (settings?.notifyAuditSummary) {
     for (const audit of data.auditLogs) {
