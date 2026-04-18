@@ -14,38 +14,38 @@ If a user is not using a supported framework, they can use the generated SDK dir
 Here's an example of how to use it with the first 5 operations:
 
 ```js
-import { listDevices, getDeviceById, createDevice, updateDevice, deactivateDevice, listEmployeeNotifications, markEmployeeNotificationAsRead, getEmployeeNotificationPreferences, updateEmployeeNotificationPreferences, getCurrentEmployeeByUserId } from '@rh-ponto/api-client/generated';
+import { listJustifications, getJustificationById, listJustificationAttachments, createJustification, approveJustification, rejectJustification, addJustificationAttachment, listVacationRequests, getVacationRequestById, createVacationRequest } from '@rh-ponto/api-client/generated';
 
 
-// Operation ListDevices: 
-const { data } = await ListDevices(dataConnect);
+// Operation ListJustifications: 
+const { data } = await ListJustifications(dataConnect);
 
-// Operation GetDeviceById:  For variables, look at type GetDeviceByIdVars in ../index.d.ts
-const { data } = await GetDeviceById(dataConnect, getDeviceByIdVars);
+// Operation GetJustificationById:  For variables, look at type GetJustificationByIdVars in ../index.d.ts
+const { data } = await GetJustificationById(dataConnect, getJustificationByIdVars);
 
-// Operation CreateDevice:  For variables, look at type CreateDeviceVars in ../index.d.ts
-const { data } = await CreateDevice(dataConnect, createDeviceVars);
+// Operation ListJustificationAttachments: 
+const { data } = await ListJustificationAttachments(dataConnect);
 
-// Operation UpdateDevice:  For variables, look at type UpdateDeviceVars in ../index.d.ts
-const { data } = await UpdateDevice(dataConnect, updateDeviceVars);
+// Operation CreateJustification:  For variables, look at type CreateJustificationVars in ../index.d.ts
+const { data } = await CreateJustification(dataConnect, createJustificationVars);
 
-// Operation DeactivateDevice:  For variables, look at type DeactivateDeviceVars in ../index.d.ts
-const { data } = await DeactivateDevice(dataConnect, deactivateDeviceVars);
+// Operation ApproveJustification:  For variables, look at type ApproveJustificationVars in ../index.d.ts
+const { data } = await ApproveJustification(dataConnect, approveJustificationVars);
 
-// Operation ListEmployeeNotifications:  For variables, look at type ListEmployeeNotificationsVars in ../index.d.ts
-const { data } = await ListEmployeeNotifications(dataConnect, listEmployeeNotificationsVars);
+// Operation RejectJustification:  For variables, look at type RejectJustificationVars in ../index.d.ts
+const { data } = await RejectJustification(dataConnect, rejectJustificationVars);
 
-// Operation MarkEmployeeNotificationAsRead:  For variables, look at type MarkEmployeeNotificationAsReadVars in ../index.d.ts
-const { data } = await MarkEmployeeNotificationAsRead(dataConnect, markEmployeeNotificationAsReadVars);
+// Operation AddJustificationAttachment:  For variables, look at type AddJustificationAttachmentVars in ../index.d.ts
+const { data } = await AddJustificationAttachment(dataConnect, addJustificationAttachmentVars);
 
-// Operation GetEmployeeNotificationPreferences:  For variables, look at type GetEmployeeNotificationPreferencesVars in ../index.d.ts
-const { data } = await GetEmployeeNotificationPreferences(dataConnect, getEmployeeNotificationPreferencesVars);
+// Operation ListVacationRequests: 
+const { data } = await ListVacationRequests(dataConnect);
 
-// Operation UpdateEmployeeNotificationPreferences:  For variables, look at type UpdateEmployeeNotificationPreferencesVars in ../index.d.ts
-const { data } = await UpdateEmployeeNotificationPreferences(dataConnect, updateEmployeeNotificationPreferencesVars);
+// Operation GetVacationRequestById:  For variables, look at type GetVacationRequestByIdVars in ../index.d.ts
+const { data } = await GetVacationRequestById(dataConnect, getVacationRequestByIdVars);
 
-// Operation GetCurrentEmployeeByUserId:  For variables, look at type GetCurrentEmployeeByUserIdVars in ../index.d.ts
-const { data } = await GetCurrentEmployeeByUserId(dataConnect, getCurrentEmployeeByUserIdVars);
+// Operation CreateVacationRequest:  For variables, look at type CreateVacationRequestVars in ../index.d.ts
+const { data } = await CreateVacationRequest(dataConnect, createVacationRequestVars);
 
 
 ```

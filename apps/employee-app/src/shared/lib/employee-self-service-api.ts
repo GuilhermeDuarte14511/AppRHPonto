@@ -11,6 +11,7 @@ import {
   listEmployeeVacationRequestsByEmployee,
   listPayrollStatements,
   markEmployeeNotificationAsRead,
+  markEmployeeNotificationsAsRead,
   updateEmployeeNotificationPreferences,
 } from '@rh-ponto/api-client/generated';
 import { getAppDataConnect } from '@rh-ponto/api-client';
@@ -280,6 +281,10 @@ export const fetchEmployeeNotifications = async (userId: string): Promise<Employ
 
 export const markEmployeeNotificationRead = async (notificationId: string): Promise<void> => {
   await markEmployeeNotificationAsRead(getAppDataConnect(), { id: notificationId });
+};
+
+export const markAllEmployeeNotificationsRead = async (userId: string): Promise<void> => {
+  await markEmployeeNotificationsAsRead(getAppDataConnect(), { userId });
 };
 
 export const fetchEmployeeNotificationPreferences = async (

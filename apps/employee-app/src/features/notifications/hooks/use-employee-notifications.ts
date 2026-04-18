@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   fetchEmployeeNotificationPreferences,
   fetchEmployeeNotifications,
+  markAllEmployeeNotificationsRead,
   markEmployeeNotificationRead,
   type EmployeeNotificationPreferences,
   updateEmployeeNotificationPreferenceSet,
@@ -24,6 +25,17 @@ export const useMarkEmployeeNotificationRead = (userId: string | null) => {
 
   return useMutation({
     mutationFn: (notificationId: string) => markEmployeeNotificationRead(notificationId),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: notificationsKey(userId) });
+    },
+  });
+};
+
+export const useMarkAllEmployeeNotificationsRead = (userId: string | null) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => markAllEmployeeNotificationsRead(userId as string),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: notificationsKey(userId) });
     },

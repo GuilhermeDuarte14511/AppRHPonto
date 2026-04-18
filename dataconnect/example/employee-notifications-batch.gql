@@ -1,0 +1,14 @@
+mutation MarkEmployeeNotificationsAsRead($userId: UUID!)
+  @auth(level: USER, insecureReason: "Operação do app do colaborador para limpar notificações pendentes.") {
+  adminNotification_updateMany(
+    where: {
+      recipientUserId: { eq: $userId }
+      status: { eq: "unread" }
+    }
+    data: {
+      status: "read"
+      readAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  )
+}
