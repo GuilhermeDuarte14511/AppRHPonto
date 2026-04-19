@@ -34,6 +34,7 @@ export const getOperationsInboxAt = async (now: Date): Promise<OperationsInboxDa
   ]);
 
   const employeeDirectory = new Map(snapshot.employees.map((employee) => [employee.id, employee.fullName]));
+  const employeeDocuments = snapshot.employeeDocuments ?? [];
 
   const inbox = buildOperationsInbox({
     pendingTimeRecords: snapshot.timeRecords
@@ -61,6 +62,14 @@ export const getOperationsInboxAt = async (now: Date): Promise<OperationsInboxDa
         requestedAt: vacation.requestedAt,
         startDate: vacation.startDate,
         endDate: vacation.endDate,
+      })),
+    pendingDocumentAcknowledgements: employeeDocuments
+      .filter((document) => document.status === 'pending_signature' && !document.acknowledgedAt)
+      .map((document) => ({
+        id: document.id,
+        employeeName: employeeDirectory.get(document.employeeId) ?? 'Colaborador não identificado',
+        title: document.title,
+        issuedAt: toIsoString(document.issuedAt) ?? new Date(0).toISOString(),
       })),
     blockedOnboardingTasks: onboardingAttention.items,
     inactiveDevices: snapshot.devices

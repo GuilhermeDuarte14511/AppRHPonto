@@ -25,13 +25,16 @@ export const DocumentDetailScreen = () => {
   const document = detailQuery.data;
   const attention = document ? resolveEmployeeDocumentAttention(document) : null;
 
-  const handlePrimaryAction = async () => {
-    if (!document || !attention) {
+  const handleOpenDocument = async () => {
+    if (!document) {
       return;
     }
 
-    if (!attention.requiresAcknowledgement) {
-      await Linking.openURL(document.fileUrl);
+    await Linking.openURL(document.fileUrl);
+  };
+
+  const handleAcknowledgeDocument = async () => {
+    if (!document || !attention?.requiresAcknowledgement) {
       return;
     }
 
@@ -129,25 +132,27 @@ export const DocumentDetailScreen = () => {
                 {attention?.statusDescription ?? 'Esse arquivo já está disponível para consulta no seu portal.'}
               </Text>
             </View>
-            <Pressable
-              disabled={acknowledgeDocument.isPending}
-              style={[
-                styles.primaryAction,
-                acknowledgeDocument.isPending ? styles.primaryActionDisabled : null,
-              ]}
-              onPress={() => {
-                void handlePrimaryAction();
-              }}
-            >
-              <AppIcon
-                color="#ffffff"
-                name={attention?.requiresAcknowledgement ? 'checkmark-done-outline' : 'download-outline'}
-                size={18}
-              />
-              <Text style={styles.primaryActionText}>
-                {acknowledgeDocument.isPending ? 'Registrando...' : attention?.primaryActionLabel ?? 'Abrir arquivo'}
-              </Text>
+            <Pressable style={styles.secondaryOutlineAction} onPress={() => void handleOpenDocument()}>
+              <AppIcon color={mobileTheme.primary} name="download-outline" size={18} />
+              <Text style={styles.secondaryOutlineActionText}>{attention?.openActionLabel ?? 'Abrir arquivo'}</Text>
             </Pressable>
+            {attention?.requiresAcknowledgement ? (
+              <Pressable
+                disabled={acknowledgeDocument.isPending}
+                style={[
+                  styles.primaryAction,
+                  acknowledgeDocument.isPending ? styles.primaryActionDisabled : null,
+                ]}
+                onPress={() => {
+                  void handleAcknowledgeDocument();
+                }}
+              >
+                <AppIcon color="#ffffff" name="checkmark-done-outline" size={18} />
+                <Text style={styles.primaryActionText}>
+                  {acknowledgeDocument.isPending ? 'Registrando...' : attention.acknowledgeActionLabel}
+                </Text>
+              </Pressable>
+            ) : null}
             <Pressable style={styles.secondaryAction} onPress={() => router.replace('/documents' as never)}>
               <Text style={styles.secondaryActionText}>Voltar para documentos</Text>
             </Pressable>
@@ -269,6 +274,22 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '800',
     color: '#ffffff',
+  },
+  secondaryOutlineAction: {
+    minHeight: 52,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: mobileTheme.primary,
+    backgroundColor: mobileTheme.surfaceRaised,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    gap: 8,
+  },
+  secondaryOutlineActionText: {
+    fontSize: 14,
+    fontWeight: '800',
+    color: mobileTheme.primary,
   },
   secondaryAction: {
     minHeight: 52,

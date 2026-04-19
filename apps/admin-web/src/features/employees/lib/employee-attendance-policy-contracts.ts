@@ -26,6 +26,8 @@ export interface EmployeeAttendanceLocationCatalogItem {
   type: WorkLocationType;
   city: string | null;
   state: string | null;
+  latitude: number | null;
+  longitude: number | null;
   radiusMeters: number;
   isActive: boolean;
 }

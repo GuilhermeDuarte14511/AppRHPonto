@@ -120,14 +120,8 @@ export class DataConnectWorkScheduleRepository implements WorkScheduleRepository
   }
 
   async update(payload: UpdateWorkSchedulePayload): Promise<WorkSchedule> {
-    const { data } = await updateWorkSchedule(getAppDataConnect(), buildUpdateVariables(payload));
-    const scheduleId = data.workSchedule_update?.id;
-
-    if (!scheduleId) {
-      throw new AppError('WORK_SCHEDULE_NOT_FOUND', 'Jornada não encontrada para atualização.');
-    }
-
-    const schedule = await this.getById(scheduleId);
+    await updateWorkSchedule(getAppDataConnect(), buildUpdateVariables(payload));
+    const schedule = await this.getById(payload.id);
 
     if (!schedule) {
       throw new AppError('WORK_SCHEDULE_NOT_FOUND_AFTER_UPDATE', 'Jornada não encontrada após atualização.');

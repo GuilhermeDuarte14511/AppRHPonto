@@ -43,6 +43,7 @@ const categoryLabels: Record<PortalDocumentCategory, string> = {
   justificativas: 'Justificativas',
   ferias: 'Férias',
   atestados: 'Atestados',
+  holerites: 'Holerites',
   outros: 'Outros',
 };
 
@@ -64,6 +65,10 @@ const statusMeta: Record<
   em_revisao: {
     label: 'Em revisão',
     description: 'Documento ainda depende de conferência operacional.',
+  },
+  publicado: {
+    label: 'Publicado',
+    description: 'Documento oficial já liberado no portal do colaborador para consulta e download.',
   },
   arquivado: {
     label: 'Fluxo encerrado',
@@ -212,6 +217,47 @@ export const getDocumentsOverview = async (): Promise<DocumentsOverviewData> => 
         signedArtifact: null,
       });
     }),
+    ...snapshot.payrollStatements.map((statement) => {
+      const employee = employeeDirectory.get(statement.employeeId);
+
+      return withSections({
+        id: statement.id,
+        sourceId: statement.id,
+        sourceType: 'payroll_statement',
+        title: `Holerite ${statement.referenceLabel}`,
+        type: inferDocumentType(statement.fileName),
+        category: 'holerites',
+        categoryLabel: categoryLabels.holerites,
+        size: 'Comprovante oficial',
+        employeeId: employee?.id ?? null,
+        employeeName: employee?.fullName ?? 'Colaborador não identificado',
+        employeeRole: employee?.position ?? null,
+        employeeDepartment: employee?.department ?? null,
+        uploadedAt: statement.issuedAt,
+        uploadedAtLabel: formatDate(statement.issuedAt),
+        status: 'publicado',
+        statusLabel: statusMeta.publicado.label,
+        statusDescription: statusMeta.publicado.description,
+        fileUrl: statement.fileUrl,
+        fileName: statement.fileName,
+        description: `Comprovante da competência ${statement.referenceLabel} com valores bruto e líquido publicados para o colaborador.`,
+        tags: ['Holerite', inferDocumentType(statement.fileName)],
+        isSignable: false,
+        previewTitle: `Holerite ${statement.referenceLabel}`,
+        previewSubtitle: `Folha publicada • ${employee?.fullName ?? 'Colaborador não identificado'}`,
+        signatureHint: 'O holerite está disponível para consulta e exportação no portal do colaborador.',
+        history: [
+          {
+            id: 'published',
+            icon: 'upload',
+            title: 'Holerite publicado',
+            description: 'A competência foi liberada no arquivo digital do colaborador.',
+            occurredAtLabel: formatDateTime(statement.issuedAt),
+          },
+        ],
+        signedArtifact: null,
+      });
+    }),
     ...snapshot.justificationAttachments.map((attachment) => {
       const justification = justificationDirectory.get(attachment.justificationId);
       const employee = justification ? employeeDirectory.get(justification.employeeId) : null;
@@ -322,6 +368,12 @@ export const getDocumentsOverview = async (): Promise<DocumentsOverviewData> => 
         id: 'justifications',
         label: 'Justificativas',
         count: documents.filter((item) => item.category === 'justificativas').length,
+        active: false,
+      },
+      {
+        id: 'payroll',
+        label: 'Holerites',
+        count: documents.filter((item) => item.category === 'holerites').length,
         active: false,
       },
       {

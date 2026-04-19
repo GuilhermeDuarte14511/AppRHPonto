@@ -9,6 +9,9 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@attendance-policies/*": [
+        "../../packages/attendance-policies/src/*"
       ]
     },
     "incremental": true,

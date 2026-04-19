@@ -87,6 +87,7 @@ export const getDashboardSummary = async () => {
     justificationAttachments,
     employeeScheduleHistories,
   } = snapshot;
+  const employeeDocuments = snapshot.employeeDocuments ?? [];
 
   const employeeMap = new Map(employees.map((employee) => [employee.id, employee]));
   const orderedTimeRecords = [...timeRecords].sort(
@@ -187,6 +188,9 @@ export const getDashboardSummary = async () => {
 
     return relatedJustification?.status === 'pending';
   }).length;
+  const pendingDocumentAcknowledgements = employeeDocuments.filter(
+    (document) => document.status === 'pending_signature' && !document.acknowledgedAt,
+  ).length;
   const today = new Date();
   const upcomingVacations = vacationRequests.filter((request) => {
     if (request.status !== 'approved') {
@@ -211,7 +215,12 @@ export const getDashboardSummary = async () => {
   }).length;
   const totalApprovalsPending = pendingJustifications + pendingVacations;
   const operationsInboxTotal =
-    pendingTimeRecords + pendingJustifications + pendingVacations + onboardingAttention.total + inactiveDevices;
+    pendingTimeRecords +
+    pendingJustifications +
+    pendingVacations +
+    pendingDocumentAcknowledgements +
+    onboardingAttention.total +
+    inactiveDevices;
   const payrollStatusLabel = payrollOverview.isClosed
     ? 'Competência fechada'
     : payrollOverview.pending === 0
@@ -229,6 +238,7 @@ export const getDashboardSummary = async () => {
     pendingJustifications,
     pendingTimeRecords,
     pendingVacations,
+    pendingDocumentAcknowledgements,
     totalApprovalsPending,
     operationsInboxTotal,
     documentsRequiringReview,

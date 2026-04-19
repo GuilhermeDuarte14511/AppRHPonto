@@ -1,21 +1,14 @@
 import { router } from 'expo-router';
 import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { useEmployeeDocuments } from '@/features/documents/hooks/use-employee-documents';
-import { documentStatusLabels } from '@/features/documents/lib/documents-mobile';
+import { useEmployeeDocuments, usePayrollStatements } from '@/features/documents/hooks/use-employee-documents';
 import { useCurrentEmployee } from '@/features/employee/hooks/use-current-employee';
 import { useEmployeeJustifications } from '@/features/justifications/hooks/use-employee-justifications';
-import {
-  justificationStatusDescriptions,
-  justificationStatusLabels,
-  justificationTypeLabels,
-} from '@/features/justifications/lib/justification-mobile';
 import {
   useEmployeeNotifications,
   useMarkEmployeeNotificationRead,
 } from '@/features/notifications/hooks/use-employee-notifications';
 import { useEmployeeVacations } from '@/features/vacations/hooks/use-employee-vacations';
-import { formatVacationWindow, vacationStatusLabels } from '@/features/vacations/lib/vacations-mobile';
 import { AppIcon } from '@/shared/components/app-icon';
 import { MobileEmptyState } from '@/shared/components/mobile-empty-state';
 import { MobilePageHeader } from '@/shared/components/mobile-page-header';
@@ -29,10 +22,12 @@ import {
   type ActionCenterSource,
   type ActionCenterStatusBucket,
 } from '../lib/action-center-groups';
+import { buildActionCenterItems } from '../lib/action-center-feed';
 
 const sourceMeta: Record<ActionCenterSource, { label: string; icon: string }> = {
   notification: { label: 'Notificação', icon: 'notifications-outline' },
   document: { label: 'Documento', icon: 'document-text-outline' },
+  payroll: { label: 'Holerite', icon: 'wallet-outline' },
   vacation: { label: 'Férias', icon: 'airplane-outline' },
   justification: { label: 'Justificativa', icon: 'chatbubble-ellipses-outline' },
 };
@@ -91,213 +86,6 @@ const formatActionCenterTime = (value: string) =>
     hour: '2-digit',
     minute: '2-digit',
   }).format(new Date(value));
-
-const mapNotificationDedupeKey = (item: {
-  id: string;
-  entityName: string | null;
-  entityId: string | null;
-}) => {
-  if (!item.entityId) {
-    return `notification:${item.id}`;
-  }
-
-  if (item.entityName === 'justification') {
-    return `justification:${item.entityId}`;
-  }
-
-  if (item.entityName === 'vacation_request') {
-    return `vacation:${item.entityId}`;
-  }
-
-  if (item.entityName === 'document' || item.entityName === 'employee_document') {
-    return `document:${item.entityId}`;
-  }
-
-  return `notification:${item.id}`;
-};
-
-const createNotificationItems = (items: {
-  id: string;
-  title: string;
-  description: string;
-  href: string | null;
-  status: 'unread' | 'read';
-  triggeredAt: string;
-  entityName: string | null;
-  entityId: string | null;
-}[] = []): ActionCenterItem[] =>
-  items
-    .filter((item) => item.status === 'unread')
-    .map((item) => ({
-      id: `notification:${item.id}`,
-      source: 'notification',
-      statusBucket: 'requires-action',
-      title: item.title,
-      description: item.description,
-      href: item.href ?? '/notifications',
-      occurredAt: item.triggeredAt,
-      statusLabel: 'Não lida',
-      dedupeKey: mapNotificationDedupeKey(item),
-      notificationId: item.id,
-    }));
-
-const createDocumentItems = (items: {
-  id: string;
-  title: string;
-  description: string | null;
-  status: string;
-  issuedAt: string;
-  acknowledgedAt: string | null;
-}[] = []): ActionCenterItem[] =>
-  items.flatMap<ActionCenterItem>((item) => {
-    if (item.status === 'pending_signature') {
-      return [{
-        id: `document:${item.id}`,
-        source: 'document',
-        statusBucket: 'requires-action',
-        title: item.title,
-        description: item.description ?? 'Documento publicado e aguardando sua leitura ou ciência.',
-        href: `/documents/${item.id}`,
-        occurredAt: item.issuedAt,
-        statusLabel: documentStatusLabels[item.status] ?? 'Aguardando ciência',
-        dedupeKey: `document:${item.id}`,
-      }];
-    }
-
-    if (item.acknowledgedAt) {
-      return [{
-        id: `document:${item.id}`,
-        source: 'document',
-        statusBucket: 'recent',
-        title: item.title,
-        description: 'Documento já registrado no seu arquivo digital.',
-        href: `/documents/${item.id}`,
-        occurredAt: item.acknowledgedAt,
-        statusLabel: 'Ciência concluída',
-        dedupeKey: `document:${item.id}`,
-      }];
-    }
-
-    return [];
-  });
-
-const createVacationItems = (items: {
-  id: string;
-  status: string;
-  startDate: string;
-  endDate: string;
-  requestedAt: string;
-  reviewNotes: string | null;
-  managerApprovalTimestamp: string | null;
-  hrApprovalTimestamp: string | null;
-}[] = []): ActionCenterItem[] =>
-  items.flatMap<ActionCenterItem>((item) => {
-    if (item.status === 'pending') {
-      return [{
-        id: `vacation:${item.id}`,
-        source: 'vacation',
-        statusBucket: 'in-review',
-        title: `Pedido de férias: ${formatVacationWindow(item)}`,
-        description: 'Sua solicitação segue em análise do gestor e do RH.',
-        href: `/vacations/${item.id}`,
-        occurredAt: item.requestedAt,
-        statusLabel: vacationStatusLabels[item.status] ?? 'Em análise',
-        dedupeKey: `vacation:${item.id}`,
-      }];
-    }
-
-    if (item.status === 'rejected') {
-      return [{
-        id: `vacation:${item.id}`,
-        source: 'vacation',
-        statusBucket: 'requires-action',
-        title: `Pedido recusado: ${formatVacationWindow(item)}`,
-        description:
-          item.reviewNotes?.trim() ||
-          'Confira os apontamentos do RH e ajuste o período se precisar reenviar.',
-        href: `/vacations/${item.id}`,
-        occurredAt: item.hrApprovalTimestamp ?? item.managerApprovalTimestamp ?? item.requestedAt,
-        statusLabel: vacationStatusLabels[item.status] ?? 'Reprovada',
-        dedupeKey: `vacation:${item.id}`,
-      }];
-    }
-
-    if (item.status === 'approved' || item.status === 'cancelled') {
-      return [{
-        id: `vacation:${item.id}`,
-        source: 'vacation',
-        statusBucket: 'recent',
-        title: `Férias ${item.status === 'approved' ? 'confirmadas' : 'canceladas'}: ${formatVacationWindow(item)}`,
-        description:
-          item.reviewNotes?.trim() ||
-          (item.status === 'approved'
-            ? 'O período já foi confirmado e está registrado para acompanhamento.'
-            : 'O pedido foi encerrado sem nova ação pendente neste momento.'),
-        href: `/vacations/${item.id}`,
-        occurredAt: item.hrApprovalTimestamp ?? item.managerApprovalTimestamp ?? item.requestedAt,
-        statusLabel: vacationStatusLabels[item.status] ?? 'Atualizada',
-        dedupeKey: `vacation:${item.id}`,
-      }];
-    }
-
-    return [];
-  });
-
-const createJustificationItems = (items: {
-  id: string;
-  type: keyof typeof justificationTypeLabels;
-  status: keyof typeof justificationStatusLabels;
-  createdAt: string | Date;
-  updatedAt: string | Date;
-  reviewNotes: string | null;
-}[] = []): ActionCenterItem[] =>
-  items.flatMap<ActionCenterItem>((item) => {
-    if (item.status === 'pending') {
-      return [{
-        id: `justification:${item.id}`,
-        source: 'justification',
-        statusBucket: 'in-review',
-        title: justificationTypeLabels[item.type],
-        description: justificationStatusDescriptions[item.status],
-        href: `/justifications/${item.id}`,
-        occurredAt: new Date(item.createdAt).toISOString(),
-        statusLabel: justificationStatusLabels[item.status],
-        dedupeKey: `justification:${item.id}`,
-      }];
-    }
-
-    if (item.status === 'rejected') {
-      return [{
-        id: `justification:${item.id}`,
-        source: 'justification',
-        statusBucket: 'requires-action',
-        title: `${justificationTypeLabels[item.type]} recusada`,
-        description:
-          item.reviewNotes?.trim() ||
-          'Revise a devolutiva do RH e complemente as informações, se necessário.',
-        href: `/justifications/${item.id}`,
-        occurredAt: new Date(item.updatedAt).toISOString(),
-        statusLabel: justificationStatusLabels[item.status],
-        dedupeKey: `justification:${item.id}`,
-      }];
-    }
-
-    if (item.status === 'approved') {
-      return [{
-        id: `justification:${item.id}`,
-        source: 'justification',
-        statusBucket: 'recent',
-        title: `${justificationTypeLabels[item.type]} aprovada`,
-        description: justificationStatusDescriptions[item.status],
-        href: `/justifications/${item.id}`,
-        occurredAt: new Date(item.updatedAt).toISOString(),
-        statusLabel: justificationStatusLabels[item.status],
-        dedupeKey: `justification:${item.id}`,
-      }];
-    }
-
-    return [];
-  });
 
 const ActionCenterSection = ({
   bucket,
@@ -380,6 +168,7 @@ export const ActionCenterScreen = () => {
   const notificationsQuery = useEmployeeNotifications(userId);
   const markNotificationAsRead = useMarkEmployeeNotificationRead(userId);
   const documentsQuery = useEmployeeDocuments(employeeId);
+  const payrollQuery = usePayrollStatements(employeeId);
   const vacationsQuery = useEmployeeVacations(employeeId);
   const { allJustifications, justificationsQuery } = useEmployeeJustifications();
 
@@ -398,17 +187,18 @@ export const ActionCenterScreen = () => {
     router.push(item.href as never);
   };
 
-  const items = [
-    ...createNotificationItems(notificationsQuery.data),
-    ...createDocumentItems(documentsQuery.data),
-    ...createVacationItems(vacationsQuery.data),
-    ...createJustificationItems(allJustifications),
-  ];
+  const items = buildActionCenterItems({
+    notifications: notificationsQuery.data,
+    documents: documentsQuery.data,
+    payrollStatements: payrollQuery.data,
+    vacations: vacationsQuery.data,
+    justifications: allJustifications,
+  });
 
   const groups = groupActionCenterItems(items);
   const pendingTotal = groups.requiresAction.length + groups.inReview.length;
   const hasAnyItems = pendingTotal + groups.recent.length > 0;
-  const queryStates = [notificationsQuery, documentsQuery, vacationsQuery, justificationsQuery];
+  const queryStates = [notificationsQuery, documentsQuery, payrollQuery, vacationsQuery, justificationsQuery];
   const isLoading = employeeQuery.isLoading || (queryStates.some((query) => query.isLoading) && !hasAnyItems);
   const hasPartialError = queryStates.some((query) => query.isError);
 

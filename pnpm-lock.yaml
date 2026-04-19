@@ -89,6 +89,9 @@ importers:
       '@rh-ponto/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
+      '@rh-ponto/attendance-policies':
+        specifier: workspace:*
+        version: link:../../packages/attendance-policies
       '@rh-ponto/audit':
         specifier: workspace:*
         version: link:../../packages/audit

@@ -17,6 +17,7 @@ const statusVariantMap = {
   assinado: 'success',
   pendente_assinatura: 'warning',
   em_revisao: 'info',
+  publicado: 'info',
   arquivado: 'neutral',
 } as const;
 

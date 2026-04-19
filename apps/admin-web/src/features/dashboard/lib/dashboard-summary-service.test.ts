@@ -41,6 +41,23 @@ describe('getDashboardSummary', () => {
           lastSyncAt: '2026-04-18T09:00:00.000Z',
         },
       ],
+      employeeDocuments: [
+        {
+          id: 'document-1',
+          employeeId: 'employee-1',
+          category: 'policy',
+          title: 'Política de home office',
+          description: 'Documento oficial pendente.',
+          status: 'pending_signature',
+          fileName: 'politica-home-office.pdf',
+          fileUrl: 'https://example.com/politica-home-office.pdf',
+          issuedAt: '2026-04-18T11:00:00.000Z',
+          acknowledgedAt: null,
+          expiresAt: null,
+          createdAt: '2026-04-18T11:00:00.000Z',
+          updatedAt: '2026-04-18T11:00:00.000Z',
+        },
+      ],
       employeeScheduleHistories: [],
       employees: [
         {
@@ -117,13 +134,15 @@ describe('getDashboardSummary', () => {
 
     const result = await getDashboardSummary();
 
-    expect(result.operationsInboxTotal).toBe(6);
+    expect(result.pendingDocumentAcknowledgements).toBe(1);
+    expect(result.operationsInboxTotal).toBe(7);
   });
 
   it('fails when onboarding attention cannot be loaded for the dashboard shortcut count', async () => {
     fetchAdminLiveDataSnapshotMock.mockResolvedValue({
       auditLogs: [],
       devices: [],
+      employeeDocuments: [],
       employeeScheduleHistories: [],
       employees: [],
       justificationAttachments: [],

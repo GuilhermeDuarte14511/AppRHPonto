@@ -23,7 +23,8 @@ describe('resolveEmployeeDocumentAttention', () => {
   it('sinaliza ação obrigatória quando o documento ainda aguarda ciência', () => {
     expect(resolveEmployeeDocumentAttention(createDocument())).toMatchObject({
       requiresAcknowledgement: true,
-      primaryActionLabel: 'Confirmar ciência',
+      openActionLabel: 'Ler documento',
+      acknowledgeActionLabel: 'Confirmar ciência',
       statusHeadline: 'Aguardando sua ciência',
     });
   });
@@ -38,7 +39,8 @@ describe('resolveEmployeeDocumentAttention', () => {
       ),
     ).toMatchObject({
       requiresAcknowledgement: false,
-      primaryActionLabel: 'Abrir arquivo',
+      openActionLabel: 'Abrir arquivo',
+      acknowledgeActionLabel: null,
       statusHeadline: 'Ciência concluída',
       completedAt: '2026-04-18T11:30:00.000Z',
     });

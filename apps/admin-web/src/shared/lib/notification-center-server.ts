@@ -38,6 +38,13 @@ interface NotificationsQueryData {
     createdAt: string;
     employee: { fullName: string };
   }>;
+  employeeDocuments: Array<{
+    id: string;
+    title: string;
+    issuedAt: string;
+    acknowledgedAt?: string | null;
+    employee: { fullName: string };
+  }>;
   timeRecords: Array<{
     id: string;
     recordType: string;
@@ -128,6 +135,19 @@ const notificationsQuery = `
       id
       type
       createdAt
+      employee {
+        fullName
+      }
+    }
+    employeeDocuments(
+      where: { status: { eq: "pending_signature" } }
+      orderBy: [{ issuedAt: DESC }]
+      limit: 8
+    ) {
+      id
+      title
+      issuedAt
+      acknowledgedAt
       employee {
         fullName
       }
@@ -274,6 +294,14 @@ const buildDerivedNotifications = (data: NotificationsQueryData): DerivedNotific
           endDate: vacation.endDate,
         }))
       : [],
+    pendingDocumentAcknowledgements: data.employeeDocuments
+      .filter((document) => !document.acknowledgedAt)
+      .map((document) => ({
+        id: document.id,
+        employeeName: document.employee.fullName,
+        title: document.title,
+        issuedAt: document.issuedAt,
+      })),
     blockedOnboardingTasks: data.onboardingTasks
       .filter((task) => {
         const isOverdue =

@@ -215,6 +215,11 @@ export const DashboardOverview = () => {
                     value={String(data.pendingJustifications)}
                   />
                   <QuickActionRow href="/vacations" label="Férias aguardando decisão" value={String(data.pendingVacations)} />
+                  <QuickActionRow
+                    href="/documents"
+                    label="Documentos aguardando ciência"
+                    value={String(data.pendingDocumentAcknowledgements)}
+                  />
                   <QuickActionRow href="/documents" label="Documentos em revisão" value={String(data.documentsRequiringReview)} />
                   <QuickActionRow href="/schedules" label="Funcionários sem escala" value={String(data.employeesWithoutSchedule)} />
                 </div>

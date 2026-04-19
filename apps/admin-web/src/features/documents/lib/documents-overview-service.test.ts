@@ -88,4 +88,57 @@ describe('getDocumentsOverview', () => {
       status: 'pendente_assinatura',
     });
   });
+
+  it('inclui holerites publicados como documentos oficiais do portal administrativo', async () => {
+    fetchAdminLiveDataSnapshotMock.mockResolvedValue({
+      auditLogs: [],
+      devices: [],
+      employeeScheduleHistories: [],
+      employees: [
+        {
+          id: 'employee-1',
+          fullName: 'João Pereira',
+          department: 'Produto',
+          position: 'Analista de produto',
+          isActive: true,
+        },
+      ],
+      justificationAttachments: [],
+      justifications: [],
+      timeRecordPhotos: [],
+      timeRecords: [],
+      vacationRequests: [],
+      workSchedules: [],
+      employeeDocuments: [],
+      payrollStatements: [
+        {
+          id: 'payroll-1',
+          employeeId: 'employee-1',
+          referenceLabel: 'Março/2026',
+          referenceYear: 2026,
+          referenceMonth: 3,
+          status: 'available',
+          grossAmount: 8688.55,
+          netAmount: 6492.87,
+          fileName: 'holerite-2026-03-joao-pereira.pdf',
+          fileUrl: 'https://example.com/holerite-2026-03-joao-pereira.pdf',
+          issuedAt: '2026-04-05T09:00:00.000Z',
+          createdAt: '2026-04-05T09:00:00.000Z',
+          updatedAt: '2026-04-05T09:00:00.000Z',
+        },
+      ],
+    });
+
+    const result = await getDocumentsOverview();
+
+    expect(result.summary.total).toBe(1);
+    expect(result.documents[0]).toMatchObject({
+      id: 'payroll-1',
+      sourceType: 'payroll_statement',
+      category: 'holerites',
+      status: 'publicado',
+      title: 'Holerite Março/2026',
+      employeeName: 'João Pereira',
+    });
+  });
 });

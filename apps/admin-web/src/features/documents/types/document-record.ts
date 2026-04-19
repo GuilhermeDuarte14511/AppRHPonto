@@ -1,8 +1,12 @@
-export type PortalDocumentStatus = 'assinado' | 'pendente_assinatura' | 'em_revisao' | 'arquivado';
+export type PortalDocumentStatus = 'assinado' | 'pendente_assinatura' | 'em_revisao' | 'publicado' | 'arquivado';
 
-export type PortalDocumentCategory = 'justificativas' | 'ferias' | 'atestados' | 'outros';
+export type PortalDocumentCategory = 'justificativas' | 'ferias' | 'atestados' | 'holerites' | 'outros';
 
-export type PortalDocumentSourceType = 'justification_attachment' | 'vacation_attachment' | 'employee_document';
+export type PortalDocumentSourceType =
+  | 'justification_attachment'
+  | 'vacation_attachment'
+  | 'employee_document'
+  | 'payroll_statement';
 
 export type DocumentSignatureMode = 'senha' | 'desenho';
 

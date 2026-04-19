@@ -24,6 +24,7 @@
     "@radix-ui/react-slot": "^1.1.2",
     "@react-pdf/renderer": "^4.3.2",
     "@rh-ponto/api-client": "workspace:*",
+    "@rh-ponto/attendance-policies": "workspace:*",
     "@rh-ponto/audit": "workspace:*",
     "@rh-ponto/auth": "workspace:*",
     "@rh-ponto/config": "workspace:*",

@@ -45,6 +45,8 @@ interface EmployeeAttendancePolicyOverviewQueryData {
     type: string;
     city?: string | null;
     state?: string | null;
+    latitude?: number | null;
+    longitude?: number | null;
     radiusMeters: number;
     isActive: boolean;
   }>;
@@ -113,6 +115,8 @@ const employeeAttendancePolicyOverviewQuery = `
       type
       city
       state
+      latitude
+      longitude
       radiusMeters
       isActive
     }
@@ -301,6 +305,8 @@ const mapEmployeeAttendancePolicyOverview = async (
       type: item.type as EmployeeAttendancePolicyViewData['locationCatalog'][number]['type'],
       city: item.city ?? null,
       state: item.state ?? null,
+      latitude: item.latitude ?? null,
+      longitude: item.longitude ?? null,
       radiusMeters: item.radiusMeters,
       isActive: item.isActive,
     })),

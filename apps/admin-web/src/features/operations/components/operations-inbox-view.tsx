@@ -8,6 +8,7 @@ import {
   BriefcaseBusiness,
   CalendarClock,
   ClipboardList,
+  FileClock,
   HardDriveDownload,
   TimerReset,
 } from 'lucide-react';
@@ -44,6 +45,11 @@ const categoryMeta: Record<
     title: 'Férias aguardando decisão',
     description: 'Pedidos que afetam cobertura e planejamento do time.',
     icon: CalendarClock,
+  },
+  document: {
+    title: 'Ciências documentais pendentes',
+    description: 'Documentos oficiais publicados que ainda aguardam confirmação do colaborador.',
+    icon: FileClock,
   },
   onboarding: {
     title: 'Onboarding com bloqueios',

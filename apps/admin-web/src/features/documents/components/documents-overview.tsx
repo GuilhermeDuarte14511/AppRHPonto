@@ -17,10 +17,11 @@ const documentStatusVariant = {
   assinado: 'success',
   pendente_assinatura: 'warning',
   em_revisao: 'info',
+  publicado: 'info',
   arquivado: 'neutral',
 } as const;
 
-type CategoryFilter = 'all' | 'justificativas' | 'ferias' | 'atestados' | 'arquivado';
+type CategoryFilter = 'all' | 'justificativas' | 'ferias' | 'atestados' | 'holerites' | 'arquivado';
 
 export const DocumentsOverview = () => {
   const { data, error, isError, isLoading, refetch } = useDocumentsOverview();
@@ -138,6 +139,11 @@ export const DocumentsOverview = () => {
                     id: 'atestados',
                     label: 'Atestados',
                     count: data.documents.filter((item) => item.category === 'atestados').length,
+                  },
+                  {
+                    id: 'holerites',
+                    label: 'Holerites',
+                    count: data.documents.filter((item) => item.category === 'holerites').length,
                   },
                   { id: 'arquivado', label: 'Fluxo encerrado', count: data.documents.filter((item) => item.status === 'arquivado').length },
                 ].map((category) => (

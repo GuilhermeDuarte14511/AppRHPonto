@@ -4,6 +4,7 @@ const categoryDescriptions: Record<PortalDocumentCategory, string> = {
   justificativas: 'Documento de suporte vinculado a uma justificativa operacional do colaborador.',
   ferias: 'Documento associado ao fluxo de férias e planejamento de cobertura.',
   atestados: 'Documento médico ou comprobatório sujeito à conferência do RH.',
+  holerites: 'Comprovante oficial de folha e remuneração disponibilizado ao colaborador.',
   outros: 'Documento administrativo disponível no portal interno de RH.',
 };
 
@@ -57,6 +58,17 @@ export const createDocumentSections = (document: Omit<PortalDocument, 'sections'
         id: 'justificativa',
         title: 'Justificativa relacionada',
         body: 'O conteúdo apoia a análise de ajuste de ponto, ausência ou atraso, mantendo histórico completo para futuras auditorias.',
+      },
+    ];
+  }
+
+  if (document.category === 'holerites') {
+    return [
+      ...sharedSections,
+      {
+        id: 'holerite',
+        title: 'Competência e remuneração',
+        body: 'O holerite consolida a competência processada, valores bruto e líquido e o arquivo oficial liberado para consulta do colaborador.',
       },
     ];
   }

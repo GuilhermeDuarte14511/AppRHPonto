@@ -3,6 +3,7 @@
 import { formatDateTime } from '@rh-ponto/core';
 import type { TimeRecord } from '@rh-ponto/time-records';
 import { Badge, Button, Dialog, DialogContent } from '@rh-ponto/ui';
+import { useMemo } from 'react';
 import {
   Camera,
   Clock3,
@@ -15,6 +16,7 @@ import {
   TimerReset,
 } from 'lucide-react';
 
+import { useEmployeeAttendancePolicy } from '@/features/employees/hooks/use-employee-attendance-policy';
 import {
   formatFileNameLabel,
   formatTimeRecordSourceLabel,
@@ -23,6 +25,7 @@ import {
 } from '@/shared/lib/admin-formatters';
 
 import type { TimeRecordListItem } from './time-record-list-item';
+import { resolveTimeRecordLocationCompliance } from '../lib/time-record-location-compliance';
 
 interface TimeRecordDetailsDialogProps {
   open: boolean;
@@ -53,6 +56,24 @@ const formatCoordinates = (latitude: number | null, longitude: number | null) =>
   }
 
   return `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
+};
+
+const buildMapFrameUrls = (latitude: number | null, longitude: number | null) => {
+  if (latitude == null || longitude == null) {
+    return null;
+  }
+
+  const delta = 0.0035;
+  const west = (longitude - delta).toFixed(6);
+  const south = (latitude - delta).toFixed(6);
+  const east = (longitude + delta).toFixed(6);
+  const north = (latitude + delta).toFixed(6);
+  const marker = `${latitude.toFixed(6)},${longitude.toFixed(6)}`;
+
+  return {
+    embedUrl: `https://www.openstreetmap.org/export/embed.html?bbox=${west}%2C${south}%2C${east}%2C${north}&layer=mapnik&marker=${marker}`,
+    externalUrl: `https://www.openstreetmap.org/?mlat=${latitude.toFixed(6)}&mlon=${longitude.toFixed(6)}#map=18/${latitude.toFixed(6)}/${longitude.toFixed(6)}`,
+  };
 };
 
 const formatPhotoCount = (count: number) => {
@@ -92,7 +113,17 @@ export const TimeRecordDetailsDialog = ({
   record,
   deviceLabel,
 }: TimeRecordDetailsDialogProps) => {
+  const employeeId = record?.employeeId ?? '';
+  const attendancePolicyQuery = useEmployeeAttendancePolicy(employeeId);
   const primaryPhoto = record?.photos.find((photo) => photo.isPrimary) ?? record?.photos[0] ?? null;
+  const mapUrls = buildMapFrameUrls(record?.latitude ?? null, record?.longitude ?? null);
+  const locationCompliance = useMemo(() => {
+    if (!record || !attendancePolicyQuery.data) {
+      return null;
+    }
+
+    return resolveTimeRecordLocationCompliance(record, attendancePolicyQuery.data);
+  }, [attendancePolicyQuery.data, record]);
 
   if (!record) {
     return null;
@@ -230,6 +261,105 @@ export const TimeRecordDetailsDialog = ({
                       value={record.resolvedAddress ? 'Endereço resolvido com sucesso' : 'Sem resolução de endereço'}
                       hint="Baseado nos dados persistidos junto da marcação."
                     />
+                  </div>
+
+                  <div className="mt-4 border-t border-[color:color-mix(in_srgb,var(--outline-variant)_14%,transparent)] pt-4">
+                    <div className="rounded-[1.25rem] bg-[var(--surface-container-low)] p-4">
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                          <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
+                            Conformidade da política
+                          </p>
+                          <p className="mt-1 text-sm leading-6 text-[var(--on-surface-variant)]">
+                            Validação da marcação com base na política de presença ativa do colaborador.
+                          </p>
+                        </div>
+
+                        {locationCompliance ? (
+                          <Badge variant={locationCompliance.badgeVariant}>{locationCompliance.badgeLabel}</Badge>
+                        ) : null}
+                      </div>
+
+                      {attendancePolicyQuery.isLoading ? (
+                        <p className="mt-4 text-sm leading-6 text-[var(--on-surface-variant)]">
+                          Carregando a política de marcação do colaborador para validar a geofence desta batida.
+                        </p>
+                      ) : attendancePolicyQuery.isError ? (
+                        <p className="mt-4 text-sm leading-6 text-[var(--error)]">
+                          Não foi possível verificar a conformidade com a política de marcação agora.
+                        </p>
+                      ) : locationCompliance ? (
+                        <>
+                          <div className="mt-4">
+                            <p className="text-base font-semibold text-[var(--on-surface)]">{locationCompliance.title}</p>
+                            <p className="mt-2 text-sm leading-7 text-[var(--on-surface-variant)]">
+                              {locationCompliance.description}
+                            </p>
+                          </div>
+
+                          <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                            <SummaryField label="Política aplicada" value={locationCompliance.policyName} />
+                            <SummaryField
+                              label="Local compatível"
+                              value={locationCompliance.matchedLocationName ?? 'Nenhum local correspondente'}
+                            />
+                            <SummaryField
+                              label="Local autorizado mais próximo"
+                              value={locationCompliance.nearestAllowedLocationName ?? 'Não se aplica'}
+                            />
+                            <SummaryField
+                              label="Distância apurada"
+                              value={locationCompliance.distanceLabel ?? 'Sem distância calculada'}
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        <p className="mt-4 text-sm leading-6 text-[var(--on-surface-variant)]">
+                          Não há política suficiente para avaliar esta marcação com a regra de perímetro.
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
+                          Mini mapa da marcação
+                        </p>
+                        <p className="mt-1 text-sm leading-6 text-[var(--on-surface-variant)]">
+                          Visualização rápida do ponto geográfico persistido junto da batida.
+                        </p>
+                      </div>
+
+                      {mapUrls ? (
+                        <a
+                          className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--primary)] transition hover:opacity-80"
+                          href={mapUrls.externalUrl}
+                          rel="noreferrer"
+                          target="_blank"
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                          Abrir no mapa
+                        </a>
+                      ) : null}
+                    </div>
+
+                    {mapUrls ? (
+                      <div className="overflow-hidden rounded-[1.4rem] border border-[color:color-mix(in_srgb,var(--outline-variant)_16%,transparent)] bg-[var(--surface-container-low)]">
+                        <iframe
+                          className="h-56 w-full border-0"
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                          src={mapUrls.embedUrl}
+                          title="Mini mapa da marcação"
+                        />
+                      </div>
+                    ) : (
+                      <div className="rounded-[1.4rem] border border-dashed border-[color:color-mix(in_srgb,var(--outline-variant)_22%,transparent)] bg-[var(--surface-container-low)] px-4 py-5">
+                        <p className="text-sm leading-6 text-[var(--on-surface-variant)]">
+                          Não há latitude e longitude registradas para exibir o mapa desta marcação.
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </article>
 

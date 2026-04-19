@@ -68,7 +68,7 @@ interface SettingsQueryData {
 interface SettingsMutationData {
   adminSettings_insert?: { id: string } | null;
   adminSettings_update?: { id: string } | null;
-  workSchedule_update?: { id: string } | null;
+  workSchedule_update?: unknown;
   auditLog_insert?: { id: string } | null;
 }
 
@@ -251,9 +251,7 @@ const updateWorkScheduleMutation = `
         expectedDailyMinutes: $expectedDailyMinutes
         updatedAt_expr: "request.time"
       }
-    ) {
-      id
-    }
+    )
   }
 `;
 

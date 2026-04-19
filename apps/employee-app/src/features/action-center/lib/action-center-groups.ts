@@ -1,6 +1,6 @@
 export type ActionCenterStatusBucket = 'requires-action' | 'in-review' | 'recent';
 
-export type ActionCenterSource = 'notification' | 'document' | 'vacation' | 'justification';
+export type ActionCenterSource = 'notification' | 'document' | 'payroll' | 'vacation' | 'justification';
 
 export interface ActionCenterItem {
   id: string;
@@ -34,7 +34,7 @@ const isInsideRecentWindow = (item: ActionCenterItem, now: Date, recentWindowDay
   return occurredAt >= windowStart && occurredAt <= now.getTime();
 };
 
-const dedupeActionCenterItems = (items: ActionCenterItem[]) => {
+export const dedupeActionCenterItems = (items: ActionCenterItem[]) => {
   const orderedItems = items.slice().sort(compareNewestFirst);
   const uniqueItems = new Map<string, ActionCenterItem>();
 

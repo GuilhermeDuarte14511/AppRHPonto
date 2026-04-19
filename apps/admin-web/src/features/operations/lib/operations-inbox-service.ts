@@ -2,7 +2,13 @@ import { formatDateTime } from '@rh-ponto/core';
 
 import { formatJustificationTypeLabel, formatTimeRecordTypeLabel } from '@/shared/lib/admin-formatters';
 
-export type OperationsInboxCategory = 'time-record' | 'justification' | 'vacation' | 'onboarding' | 'device';
+export type OperationsInboxCategory =
+  | 'time-record'
+  | 'justification'
+  | 'vacation'
+  | 'document'
+  | 'onboarding'
+  | 'device';
 export type OperationsInboxPriority = 'high' | 'medium' | 'low';
 export type OperationsInboxNotificationSeverity = 'info' | 'warning' | 'danger' | 'success';
 
@@ -66,6 +72,12 @@ export interface BuildOperationsInboxInput {
     requestedAt: string;
     startDate: string;
     endDate: string;
+  }>;
+  pendingDocumentAcknowledgements: Array<{
+    id: string;
+    employeeName: string;
+    title: string;
+    issuedAt: string;
   }>;
   blockedOnboardingTasks: Array<{
     id: string;
@@ -162,6 +174,29 @@ const createVacationItem = (
   },
 });
 
+const createDocumentItem = (
+  document: BuildOperationsInboxInput['pendingDocumentAcknowledgements'][number],
+): OperationsInboxItem => ({
+  id: document.id,
+  category: 'document',
+  priority: 'medium',
+  title: `Ciência pendente: ${document.employeeName}`,
+  description: `${document.title} foi publicado e ainda aguarda confirmação do colaborador.`,
+  href: '/documents',
+  occurredAt: document.issuedAt,
+  notification: {
+    referenceKey: `employee-document:${document.id}:pending-ack`,
+    category: 'document',
+    title: 'Documento aguardando ciência',
+    description: `${document.employeeName} ainda não confirmou o documento ${document.title}.`,
+    href: '/documents',
+    entityName: 'employee_document',
+    entityId: document.id,
+    severity: 'info',
+    triggeredAt: document.issuedAt,
+  },
+});
+
 const createOnboardingItem = (
   task: BuildOperationsInboxInput['blockedOnboardingTasks'][number],
 ): OperationsInboxItem => {
@@ -211,13 +246,21 @@ const createDeviceItem = (device: BuildOperationsInboxInput['inactiveDevices'][n
   },
 });
 
-const categoryOrder: OperationsInboxCategory[] = ['time-record', 'justification', 'vacation', 'onboarding', 'device'];
+const categoryOrder: OperationsInboxCategory[] = [
+  'time-record',
+  'justification',
+  'vacation',
+  'document',
+  'onboarding',
+  'device',
+];
 
 export const buildOperationsInbox = (input: BuildOperationsInboxInput) => {
   const items: OperationsInboxItem[] = [
     ...input.pendingTimeRecords.map(createTimeRecordItem),
     ...input.pendingJustifications.map(createJustificationItem),
     ...input.pendingVacations.map(createVacationItem),
+    ...input.pendingDocumentAcknowledgements.map(createDocumentItem),
     ...input.blockedOnboardingTasks.map(createOnboardingItem),
     ...input.inactiveDevices.map(createDeviceItem),
   ];

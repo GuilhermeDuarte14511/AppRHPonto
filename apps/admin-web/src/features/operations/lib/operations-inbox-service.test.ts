@@ -26,6 +26,7 @@ describe('buildOperationsInbox', () => {
           endDate: '2026-04-25',
         },
       ],
+      pendingDocumentAcknowledgements: [],
       blockedOnboardingTasks: [],
       inactiveDevices: [],
     });
@@ -40,6 +41,7 @@ describe('buildOperationsInbox', () => {
       pendingTimeRecords: [],
       pendingJustifications: [],
       pendingVacations: [],
+      pendingDocumentAcknowledgements: [],
       blockedOnboardingTasks: [
         {
           id: 'task-1',
@@ -71,6 +73,7 @@ describe('buildOperationsInbox', () => {
       pendingTimeRecords: [],
       pendingJustifications: [],
       pendingVacations: [],
+      pendingDocumentAcknowledgements: [],
       blockedOnboardingTasks: [
         {
           id: 'task-2',
@@ -117,6 +120,7 @@ describe('buildOperationsInbox', () => {
           endDate: '2026-06-20',
         },
       ],
+      pendingDocumentAcknowledgements: [],
       blockedOnboardingTasks: [],
       inactiveDevices: [],
     });
