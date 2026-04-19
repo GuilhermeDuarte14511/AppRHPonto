@@ -11,6 +11,7 @@ import { mobileTheme } from '@/shared/theme/tokens';
 
 import {
   useEmployeeNotifications,
+  useMarkAllEmployeeNotificationsRead,
   useMarkEmployeeNotificationRead,
 } from '../hooks/use-employee-notifications';
 import {
@@ -26,6 +27,7 @@ export const NotificationsScreen = () => {
   const userId = session?.user.id ?? null;
   const notificationsQuery = useEmployeeNotifications(userId);
   const markAsRead = useMarkEmployeeNotificationRead(userId);
+  const markAllAsRead = useMarkAllEmployeeNotificationsRead(userId);
 
   const groups = groupNotificationsByDay(notificationsQuery.data ?? []);
   const unreadNotifications = (notificationsQuery.data ?? []).filter((item) => item.status === 'unread');
@@ -45,16 +47,14 @@ export const NotificationsScreen = () => {
   };
 
   const handleReadAll = async () => {
-    if (unreadNotifications.length === 0 || markAsRead.isPending) {
+    if (unreadNotifications.length === 0 || markAllAsRead.isPending) {
       return;
     }
 
     try {
-      for (const item of unreadNotifications) {
-        await markAsRead.mutateAsync(item.id);
-      }
+      await markAllAsRead.mutateAsync();
     } catch {
-      Alert.alert('Atualização parcial', 'Algumas mensagens podem continuar como não lidas. Tente novamente em instantes.');
+      Alert.alert('Não foi possível concluir', 'Tente novamente em instantes para limpar todas as mensagens.');
     }
   };
 
@@ -80,15 +80,20 @@ export const NotificationsScreen = () => {
           Centro de mensagens
         </Text>
         <Text selectable style={styles.heroTitle}>
-          {employee?.fullName?.split(' ')[0] ?? 'Colaborador'}, você tem {unreadNotifications.length} alerta(s) em aberto
+          {employee?.fullName?.split(' ')[0] ?? 'Colaborador'}, você tem {unreadNotifications.length} item(ns) que podem exigir ação
         </Text>
         <Pressable
-          disabled={unreadNotifications.length === 0 || markAsRead.isPending}
+          disabled={unreadNotifications.length === 0 || markAllAsRead.isPending}
           onPress={() => void handleReadAll()}
-          style={[styles.heroAction, (unreadNotifications.length === 0 || markAsRead.isPending) && styles.heroActionDisabled]}
+          style={[
+            styles.heroAction,
+            (unreadNotifications.length === 0 || markAllAsRead.isPending) && styles.heroActionDisabled,
+          ]}
         >
           <AppIcon color="#ffffff" name="mail-open-outline" size={18} />
-          <Text style={styles.heroActionText}>Marcar tudo como lido</Text>
+          <Text style={styles.heroActionText}>
+            {markAllAsRead.isPending ? 'Atualizando...' : 'Marcar tudo como lido'}
+          </Text>
         </Pressable>
       </View>
 

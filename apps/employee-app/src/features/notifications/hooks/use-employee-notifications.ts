@@ -31,11 +31,11 @@ export const useMarkEmployeeNotificationRead = (userId: string | null) => {
   });
 };
 
-export const useMarkAllEmployeeNotificationsRead = (userId: string) => {
+export const useMarkAllEmployeeNotificationsRead = (userId: string | null) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: () => markAllEmployeeNotificationsRead(userId),
+    mutationFn: () => markAllEmployeeNotificationsRead(userId as string),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: notificationsKey(userId) });
     },

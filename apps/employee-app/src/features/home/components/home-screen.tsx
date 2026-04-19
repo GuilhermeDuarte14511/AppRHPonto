@@ -383,6 +383,27 @@ export const HomeScreen = () => {
           <Text style={styles.cardText}>Política aplicada: {effectivePolicy?.name ?? 'Carregando política'}</Text>
         </View>
 
+        <Pressable style={styles.actionCenterCard} onPress={() => router.push('/action-center' as never)}>
+          <View style={styles.actionCenterHeader}>
+            <View style={styles.actionCenterCopy}>
+              <Text style={styles.actionCenterEyebrow}>Central de pendências</Text>
+              <Text style={styles.actionCenterTitle}>Acompanhe documentos, férias e devolutivas do RH</Text>
+            </View>
+            <View style={styles.actionCenterIconWrap}>
+              <AppIcon color={mobileTheme.primary} name="layers-outline" size={22} />
+            </View>
+          </View>
+
+          <Text style={styles.actionCenterText}>
+            Abra uma fila única com o que depende da sua ação e com o que ainda está em análise.
+          </Text>
+
+          <View style={styles.actionCenterFooter}>
+            <Text style={styles.actionCenterLink}>Abrir central</Text>
+            <AppIcon color={mobileTheme.primary} name="arrow-forward-outline" size={16} />
+          </View>
+        </Pressable>
+
         <View style={styles.card}>
           <View style={styles.cardHeader}>
             <Text style={styles.cardTitle}>Localização confirmada</Text>
@@ -570,6 +591,35 @@ const styles = StyleSheet.create({
   policyFeedbackDescription: { fontSize: 14, lineHeight: 20, fontWeight: '700' },
   policyFeedbackHelper: { fontSize: 13, lineHeight: 19 },
   card: { borderRadius: 24, backgroundColor: mobileTheme.surfaceRaised, padding: 18, gap: 8 },
+  actionCenterCard: {
+    borderRadius: 24,
+    backgroundColor: mobileTheme.surfaceRaised,
+    padding: 18,
+    gap: 12,
+    borderWidth: 1,
+    borderColor: mobileTheme.primarySoft,
+  },
+  actionCenterHeader: { flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 },
+  actionCenterCopy: { flex: 1, gap: 4 },
+  actionCenterEyebrow: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: mobileTheme.primary,
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
+  },
+  actionCenterTitle: { fontSize: 20, fontWeight: '900', color: mobileTheme.text, lineHeight: 25 },
+  actionCenterIconWrap: {
+    width: 46,
+    height: 46,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: mobileTheme.primarySoft,
+  },
+  actionCenterText: { fontSize: 14, lineHeight: 20, color: mobileTheme.mutedText },
+  actionCenterFooter: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12 },
+  actionCenterLink: { fontSize: 13, fontWeight: '800', color: mobileTheme.primary },
   cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 12 },
   cardTitle: { fontSize: 18, fontWeight: '800', color: mobileTheme.text },
   cardLink: { fontSize: 12, fontWeight: '800', color: mobileTheme.primary, textTransform: 'uppercase' },
