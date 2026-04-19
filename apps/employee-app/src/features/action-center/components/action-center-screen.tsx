@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { useEmployeeDocuments } from '@/features/documents/hooks/use-employee-documents';
 import { documentStatusLabels } from '@/features/documents/lib/documents-mobile';
@@ -10,7 +10,10 @@ import {
   justificationStatusLabels,
   justificationTypeLabels,
 } from '@/features/justifications/lib/justification-mobile';
-import { useEmployeeNotifications } from '@/features/notifications/hooks/use-employee-notifications';
+import {
+  useEmployeeNotifications,
+  useMarkEmployeeNotificationRead,
+} from '@/features/notifications/hooks/use-employee-notifications';
 import { useEmployeeVacations } from '@/features/vacations/hooks/use-employee-vacations';
 import { formatVacationWindow, vacationStatusLabels } from '@/features/vacations/lib/vacations-mobile';
 import { AppIcon } from '@/shared/components/app-icon';
@@ -89,6 +92,30 @@ const formatActionCenterTime = (value: string) =>
     minute: '2-digit',
   }).format(new Date(value));
 
+const mapNotificationDedupeKey = (item: {
+  id: string;
+  entityName: string | null;
+  entityId: string | null;
+}) => {
+  if (!item.entityId) {
+    return `notification:${item.id}`;
+  }
+
+  if (item.entityName === 'justification') {
+    return `justification:${item.entityId}`;
+  }
+
+  if (item.entityName === 'vacation_request') {
+    return `vacation:${item.entityId}`;
+  }
+
+  if (item.entityName === 'document' || item.entityName === 'employee_document') {
+    return `document:${item.entityId}`;
+  }
+
+  return `notification:${item.id}`;
+};
+
 const createNotificationItems = (items: {
   id: string;
   title: string;
@@ -96,6 +123,8 @@ const createNotificationItems = (items: {
   href: string | null;
   status: 'unread' | 'read';
   triggeredAt: string;
+  entityName: string | null;
+  entityId: string | null;
 }[] = []): ActionCenterItem[] =>
   items
     .filter((item) => item.status === 'unread')
@@ -108,6 +137,8 @@ const createNotificationItems = (items: {
       href: item.href ?? '/notifications',
       occurredAt: item.triggeredAt,
       statusLabel: 'Não lida',
+      dedupeKey: mapNotificationDedupeKey(item),
+      notificationId: item.id,
     }));
 
 const createDocumentItems = (items: {
@@ -129,6 +160,7 @@ const createDocumentItems = (items: {
         href: `/documents/${item.id}`,
         occurredAt: item.issuedAt,
         statusLabel: documentStatusLabels[item.status] ?? 'Aguardando ciência',
+        dedupeKey: `document:${item.id}`,
       }];
     }
 
@@ -142,6 +174,7 @@ const createDocumentItems = (items: {
         href: `/documents/${item.id}`,
         occurredAt: item.acknowledgedAt,
         statusLabel: 'Ciência concluída',
+        dedupeKey: `document:${item.id}`,
       }];
     }
 
@@ -169,6 +202,7 @@ const createVacationItems = (items: {
         href: `/vacations/${item.id}`,
         occurredAt: item.requestedAt,
         statusLabel: vacationStatusLabels[item.status] ?? 'Em análise',
+        dedupeKey: `vacation:${item.id}`,
       }];
     }
 
@@ -184,6 +218,7 @@ const createVacationItems = (items: {
         href: `/vacations/${item.id}`,
         occurredAt: item.hrApprovalTimestamp ?? item.managerApprovalTimestamp ?? item.requestedAt,
         statusLabel: vacationStatusLabels[item.status] ?? 'Reprovada',
+        dedupeKey: `vacation:${item.id}`,
       }];
     }
 
@@ -201,6 +236,7 @@ const createVacationItems = (items: {
         href: `/vacations/${item.id}`,
         occurredAt: item.hrApprovalTimestamp ?? item.managerApprovalTimestamp ?? item.requestedAt,
         statusLabel: vacationStatusLabels[item.status] ?? 'Atualizada',
+        dedupeKey: `vacation:${item.id}`,
       }];
     }
 
@@ -226,6 +262,7 @@ const createJustificationItems = (items: {
         href: `/justifications/${item.id}`,
         occurredAt: new Date(item.createdAt).toISOString(),
         statusLabel: justificationStatusLabels[item.status],
+        dedupeKey: `justification:${item.id}`,
       }];
     }
 
@@ -241,6 +278,7 @@ const createJustificationItems = (items: {
         href: `/justifications/${item.id}`,
         occurredAt: new Date(item.updatedAt).toISOString(),
         statusLabel: justificationStatusLabels[item.status],
+        dedupeKey: `justification:${item.id}`,
       }];
     }
 
@@ -254,6 +292,7 @@ const createJustificationItems = (items: {
         href: `/justifications/${item.id}`,
         occurredAt: new Date(item.updatedAt).toISOString(),
         statusLabel: justificationStatusLabels[item.status],
+        dedupeKey: `justification:${item.id}`,
       }];
     }
 
@@ -263,9 +302,11 @@ const createJustificationItems = (items: {
 const ActionCenterSection = ({
   bucket,
   items,
+  onOpenItem,
 }: {
   bucket: ActionCenterStatusBucket;
   items: ActionCenterItem[];
+  onOpenItem: (item: ActionCenterItem) => Promise<void>;
 }) => {
   const meta = sectionMeta[bucket];
   const palette = bucketPalette[bucket];
@@ -295,7 +336,9 @@ const ActionCenterSection = ({
             return (
               <Pressable
                 key={item.id}
-                onPress={() => router.push(item.href as never)}
+                onPress={() => {
+                  void onOpenItem(item);
+                }}
                 style={[styles.itemCard, { borderColor: palette.soft }]}
               >
                 <View style={[styles.itemIconWrap, { backgroundColor: palette.soft }]}>
@@ -335,9 +378,25 @@ export const ActionCenterScreen = () => {
   const userId = session?.user.id ?? null;
   const employeeId = employee?.id ?? null;
   const notificationsQuery = useEmployeeNotifications(userId);
+  const markNotificationAsRead = useMarkEmployeeNotificationRead(userId);
   const documentsQuery = useEmployeeDocuments(employeeId);
   const vacationsQuery = useEmployeeVacations(employeeId);
   const { allJustifications, justificationsQuery } = useEmployeeJustifications();
+
+  const handleOpenItem = async (item: ActionCenterItem) => {
+    if (item.notificationId) {
+      try {
+        await markNotificationAsRead.mutateAsync(item.notificationId);
+      } catch {
+        Alert.alert(
+          'Não foi possível atualizar',
+          'Abrimos o item, mas a leitura da notificação não pôde ser registrada agora.',
+        );
+      }
+    }
+
+    router.push(item.href as never);
+  };
 
   const items = [
     ...createNotificationItems(notificationsQuery.data),
@@ -348,7 +407,7 @@ export const ActionCenterScreen = () => {
 
   const groups = groupActionCenterItems(items);
   const pendingTotal = groups.requiresAction.length + groups.inReview.length;
-  const hasAnyItems = items.length > 0;
+  const hasAnyItems = pendingTotal + groups.recent.length > 0;
   const queryStates = [notificationsQuery, documentsQuery, vacationsQuery, justificationsQuery];
   const isLoading = employeeQuery.isLoading || (queryStates.some((query) => query.isLoading) && !hasAnyItems);
   const hasPartialError = queryStates.some((query) => query.isError);
@@ -421,9 +480,9 @@ export const ActionCenterScreen = () => {
         />
       ) : (
         <>
-          <ActionCenterSection bucket="requires-action" items={groups.requiresAction} />
-          <ActionCenterSection bucket="in-review" items={groups.inReview} />
-          <ActionCenterSection bucket="recent" items={groups.recent} />
+          <ActionCenterSection bucket="requires-action" items={groups.requiresAction} onOpenItem={handleOpenItem} />
+          <ActionCenterSection bucket="in-review" items={groups.inReview} onOpenItem={handleOpenItem} />
+          <ActionCenterSection bucket="recent" items={groups.recent} onOpenItem={handleOpenItem} />
         </>
       )}
     </ScrollView>
