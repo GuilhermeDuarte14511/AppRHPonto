@@ -1,4 +1,4 @@
-import { fetchOnboardingJourneyDetail, fetchOnboardingOverview } from '@/features/onboarding/lib/onboarding-client';
+import { fetchOnboardingAttention } from '@/features/onboarding/lib/onboarding-client';
 
 import { fetchAdminLiveDataSnapshot } from '@/shared/lib/admin-live-data';
 
@@ -27,66 +27,11 @@ const isDueSoonItem = (
   return triggeredAt >= nowTime && triggeredAt <= sevenDaysFromNow;
 };
 
-const isOverdueOnboardingTask = (
-  task: {
-    dueDate: string | null;
-    status: 'pending' | 'in_progress' | 'blocked' | 'completed';
-  },
-  now = new Date(),
-) => {
-  if (task.status === 'completed' || !task.dueDate) {
-    return false;
-  }
-
-  return new Date(`${task.dueDate}T23:59:59.999Z`).getTime() < now.getTime();
-};
-
 export const getOperationsInboxAt = async (now: Date): Promise<OperationsInboxData> => {
   const snapshot = await fetchAdminLiveDataSnapshot();
+  const onboardingAttention = await fetchOnboardingAttention();
 
   const employeeDirectory = new Map(snapshot.employees.map((employee) => [employee.id, employee.fullName]));
-  let blockedOnboardingTasks: Array<{
-    id: string;
-    title: string;
-    status: 'blocked' | 'pending' | 'in_progress' | 'completed';
-    dueDate?: string | null;
-    employeeName: string;
-    journeyId: string;
-    updatedAt: string;
-  }> = [];
-
-  try {
-    const onboardingOverview = await fetchOnboardingOverview();
-    const journeysNeedingAttention = onboardingOverview.items.filter(
-      (journey) => journey.status === 'blocked' || journey.overdueTasksCount > 0,
-    );
-
-    const detailResults = await Promise.allSettled(
-      journeysNeedingAttention.map((journey) => fetchOnboardingJourneyDetail(journey.id)),
-    );
-
-    blockedOnboardingTasks = detailResults.flatMap((result) => {
-      if (result.status !== 'fulfilled') {
-        return [];
-      }
-
-      return result.value.sections.flatMap((section) =>
-        section.tasks
-          .filter((task) => task.status === 'blocked' || isOverdueOnboardingTask(task, now))
-          .map((task) => ({
-            id: task.id,
-            title: task.title,
-            status: task.status,
-            dueDate: task.dueDate,
-            employeeName: result.value.employeeName,
-            journeyId: result.value.id,
-            updatedAt: task.dueDate ? `${task.dueDate}T09:00:00.000Z` : now.toISOString(),
-          })),
-      );
-    });
-  } catch {
-    blockedOnboardingTasks = [];
-  }
 
   const inbox = buildOperationsInbox({
     pendingTimeRecords: snapshot.timeRecords
@@ -115,7 +60,7 @@ export const getOperationsInboxAt = async (now: Date): Promise<OperationsInboxDa
         startDate: vacation.startDate,
         endDate: vacation.endDate,
       })),
-    blockedOnboardingTasks,
+    blockedOnboardingTasks: onboardingAttention.items,
     inactiveDevices: snapshot.devices
       .filter((device) => device.isActive === false)
       .map((device) => ({

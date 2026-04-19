@@ -1,5 +1,6 @@
 import type { TimeRecordSource, TimeRecordStatus, TimeRecordType } from '@rh-ponto/types';
 
+import { fetchOnboardingAttention } from '@/features/onboarding/lib/onboarding-client';
 import { getPayrollOverview } from '@/features/payroll/lib/payroll-data-source';
 import { fetchAdminLiveDataSnapshot } from '@/shared/lib/admin-live-data';
 import {
@@ -72,7 +73,11 @@ const toTimeLabel = (hour: number, minute: number) =>
   `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
 
 export const getDashboardSummary = async () => {
-  const [snapshot, payrollOverview] = await Promise.all([fetchAdminLiveDataSnapshot(), getPayrollOverview()]);
+  const [snapshot, payrollOverview, onboardingAttention] = await Promise.all([
+    fetchAdminLiveDataSnapshot(),
+    getPayrollOverview(),
+    fetchOnboardingAttention(),
+  ]);
   const {
     employees,
     timeRecords,
@@ -171,6 +176,7 @@ export const getDashboardSummary = async () => {
   const activeEmployees = employees.filter((employee) => employee.isActive).length;
   const pendingJustifications = justifications.filter((item) => item.status === 'pending').length;
   const pendingVacations = vacationRequests.filter((item) => item.status === 'pending').length;
+  const inactiveDevices = snapshot.devices.filter((device) => device.isActive === false).length;
   const employeesWithoutSchedule = employees.filter(
     (employee) =>
       employee.isActive &&
@@ -204,6 +210,8 @@ export const getDashboardSummary = async () => {
     return currentDate >= startDate && currentDate <= endDate;
   }).length;
   const totalApprovalsPending = pendingJustifications + pendingVacations;
+  const operationsInboxTotal =
+    pendingTimeRecords + pendingJustifications + pendingVacations + onboardingAttention.total + inactiveDevices;
   const payrollStatusLabel = payrollOverview.isClosed
     ? 'Competência fechada'
     : payrollOverview.pending === 0
@@ -222,6 +230,7 @@ export const getDashboardSummary = async () => {
     pendingTimeRecords,
     pendingVacations,
     totalApprovalsPending,
+    operationsInboxTotal,
     documentsRequiringReview,
     upcomingVacations,
     vacationsInProgress,

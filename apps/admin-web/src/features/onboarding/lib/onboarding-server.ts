@@ -8,6 +8,7 @@ import { formatPhoneCompact, formatRegistrationNumber } from '@/shared/lib/admin
 import { executeAdminGraphql } from '@/shared/lib/admin-server-data-connect';
 
 import type {
+  OnboardingAttentionData,
   EmployeeOnboardingSnapshot,
   OnboardingCategorySummary,
   OnboardingCategorySummaryStatus,
@@ -132,6 +133,22 @@ interface EmployeeForOnboardingQueryData {
   }>;
 }
 
+interface OnboardingAttentionQueryData {
+  onboardingTasks: Array<{
+    id: string;
+    title: string;
+    status: OnboardingTaskStatus;
+    dueDate?: string | null;
+    updatedAt: string;
+    journey: {
+      id: string;
+      employee: {
+        fullName: string;
+      };
+    };
+  }>;
+}
+
 const onboardingOverviewQuery = `
   query GetOnboardingOverview {
     onboardingJourneys(orderBy: [{ createdAt: DESC }], limit: 120) {
@@ -248,6 +265,24 @@ const onboardingDetailQuery = `
       id
       name
       email
+    }
+  }
+`;
+
+const onboardingAttentionQuery = `
+  query GetOnboardingAttention {
+    onboardingTasks(orderBy: [{ updatedAt: DESC }, { createdAt: DESC }], limit: 1000) {
+      id
+      title
+      status
+      dueDate
+      updatedAt
+      journey {
+        id
+        employee {
+          fullName
+        }
+      }
     }
   }
 `;
@@ -682,6 +717,26 @@ export const getOnboardingOverviewForAdmin = async (): Promise<OnboardingOvervie
     },
     departments: Array.from(new Set(items.map((item) => item.department))).sort((left, right) => left.localeCompare(right)),
     statuses: ['pending', 'in_progress', 'blocked', 'completed'],
+    items,
+  };
+};
+
+export const getOnboardingAttentionForAdmin = async (): Promise<OnboardingAttentionData> => {
+  const data = await executeAdminGraphql<OnboardingAttentionQueryData>(onboardingAttentionQuery);
+  const items = data.onboardingTasks
+    .filter((task) => task.status === 'blocked' || isOverdue(task))
+    .map((task) => ({
+      id: task.id,
+      title: task.title,
+      status: task.status,
+      dueDate: task.dueDate ?? null,
+      employeeName: task.journey.employee.fullName,
+      journeyId: task.journey.id,
+      updatedAt: task.updatedAt,
+    }));
+
+  return {
+    total: items.length,
     items,
   };
 };

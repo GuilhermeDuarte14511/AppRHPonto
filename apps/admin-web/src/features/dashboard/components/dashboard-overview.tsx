@@ -207,7 +207,7 @@ export const DashboardOverview = () => {
                   <QuickActionRow
                     href="/operations"
                     label="Abrir inbox do RH"
-                    value={String(data.totalApprovalsPending + data.pendingTimeRecords)}
+                    value={String(data.operationsInboxTotal)}
                   />
                   <QuickActionRow
                     href="/justifications"

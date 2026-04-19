@@ -4,6 +4,7 @@ import type {
 } from '@rh-ponto/validations';
 
 import type {
+  OnboardingAttentionData,
   OnboardingJourneyDetailData,
   OnboardingOverviewData,
 } from './onboarding-contracts';
@@ -24,6 +25,14 @@ export const fetchOnboardingOverview = async (): Promise<OnboardingOverviewData>
   });
 
   return handleJsonResponse<{ data: OnboardingOverviewData }>(response).then((payload) => payload.data);
+};
+
+export const fetchOnboardingAttention = async (): Promise<OnboardingAttentionData> => {
+  const response = await fetch('/api/admin/onboarding/attention', {
+    credentials: 'include',
+  });
+
+  return handleJsonResponse<{ data: OnboardingAttentionData }>(response).then((payload) => payload.data);
 };
 
 export const fetchOnboardingJourneyDetail = async (

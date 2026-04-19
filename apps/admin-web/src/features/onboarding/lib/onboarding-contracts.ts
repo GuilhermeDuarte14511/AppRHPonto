@@ -53,6 +53,21 @@ export interface OnboardingOverviewData {
   items: OnboardingOverviewItem[];
 }
 
+export interface OnboardingAttentionItem {
+  id: string;
+  title: string;
+  status: OnboardingTaskStatus;
+  dueDate: string | null;
+  employeeName: string;
+  journeyId: string;
+  updatedAt: string;
+}
+
+export interface OnboardingAttentionData {
+  total: number;
+  items: OnboardingAttentionItem[];
+}
+
 export interface EmployeeOnboardingSnapshot {
   employeeId: string;
   journeyId: string | null;
