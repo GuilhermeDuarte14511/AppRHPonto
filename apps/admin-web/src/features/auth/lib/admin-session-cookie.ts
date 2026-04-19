@@ -3,9 +3,21 @@ import type { SessionDto } from '@rh-ponto/auth';
 import { ADMIN_SESSION_COOKIE_MAX_AGE_SECONDS, ADMIN_SESSION_COOKIE_NAME } from './auth-routes';
 
 const encoder = new TextEncoder();
-const defaultSecret = 'rh-ponto-admin-dev-secret';
+const defaultDevSecret = 'rh-ponto-admin-dev-secret';
 
-const getSessionSecret = (): string => process.env.ADMIN_SESSION_SECRET ?? defaultSecret;
+const getSessionSecret = (): string => {
+  const configuredSecret = process.env.ADMIN_SESSION_SECRET?.trim();
+
+  if (configuredSecret) {
+    return configuredSecret;
+  }
+
+  if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+    return defaultDevSecret;
+  }
+
+  throw new Error('ADMIN_SESSION_SECRET must be configured.');
+};
 
 const encodeBase64Url = (value: string): string => {
   if (typeof Buffer !== 'undefined') {

@@ -271,7 +271,10 @@ const onboardingDetailQuery = `
 
 const onboardingAttentionQuery = `
   query GetOnboardingAttention {
-    onboardingTasks(orderBy: [{ updatedAt: DESC }, { createdAt: DESC }], limit: 1000) {
+    onboardingTasks(
+      where: { status: { in: ["blocked", "pending", "in_progress"] } }
+      orderBy: [{ updatedAt: DESC }, { createdAt: DESC }]
+    ) {
       id
       title
       status

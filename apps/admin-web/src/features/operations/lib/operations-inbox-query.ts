@@ -28,8 +28,10 @@ const isDueSoonItem = (
 };
 
 export const getOperationsInboxAt = async (now: Date): Promise<OperationsInboxData> => {
-  const snapshot = await fetchAdminLiveDataSnapshot();
-  const onboardingAttention = await fetchOnboardingAttention();
+  const [snapshot, onboardingAttention] = await Promise.all([
+    fetchAdminLiveDataSnapshot(),
+    fetchOnboardingAttention(),
+  ]);
 
   const employeeDirectory = new Map(snapshot.employees.map((employee) => [employee.id, employee.fullName]));
 

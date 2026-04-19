@@ -6,9 +6,7 @@ import { getRequiredAdminSession } from '@/shared/lib/admin-server-session';
 
 export const GET = async () => {
   try {
-    if (process.env.NODE_ENV === 'production' || process.env.ADMIN_SESSION_SECRET?.trim()) {
-      await getRequiredAdminSession();
-    }
+    await getRequiredAdminSession();
     const data = await getOnboardingAttentionForAdmin();
 
     return NextResponse.json({ data });
