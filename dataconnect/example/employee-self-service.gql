@@ -213,6 +213,18 @@ query GetEmployeeDocumentByIdForEmployee($id: UUID!, $employeeId: UUID!)
   }
 }
 
+mutation AcknowledgeEmployeeDocument($id: UUID!, $employeeId: UUID!)
+  @auth(level: USER, insecureReason: "OperaÃ§Ã£o do aplicativo do colaborador para registrar ciÃªncia do prÃ³prio documento.") {
+  employeeDocument_updateMany(
+    where: { id: { eq: $id }, employeeId: { eq: $employeeId } }
+    data: {
+      status: "available"
+      acknowledgedAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
 query ListPayrollStatements($employeeId: UUID!)
   @auth(level: USER, insecureReason: "OperaÃ§Ã£o do aplicativo do colaborador para consultar holerites.") {
   payrollStatements(

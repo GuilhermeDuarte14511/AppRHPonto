@@ -9,6 +9,7 @@ import {
 import type { Employee } from '@rh-ponto/employees';
 
 import type { CreateVacationRequestPayload, VacationRequest } from '../types/vacation-request';
+import { attachVacationOperationalInsights, buildVacationOperationalInsight } from './vacation-operational-insights';
 
 const FALLBACK_ATTACHMENT_URL = 'https://storage.googleapis.com/pontoprecise-demo/documentos';
 const defaultActorName = 'Equipe de RH';
@@ -102,6 +103,14 @@ const mapVacationRequest = (
     reviewNotes: record.reviewNotes ?? null,
     createdAt: record.createdAt,
     updatedAt: record.updatedAt,
+    operationalInsight: {
+      overlapCount: 0,
+      overlappingApprovedCount: 0,
+      overlappingPendingCount: 0,
+      overlappingEmployeeNames: [],
+      coverageRisk: 'low',
+      summary: 'Sem conflito de cobertura na mesma área para o período selecionado.',
+    },
   };
 };
 
@@ -125,18 +134,29 @@ export const fetchVacationRequests = async (employees: Employee[]): Promise<Vaca
   const employeesById = createEmployeesDirectory(employees);
   const { data } = await listVacationRequests(getAppDataConnect());
 
-  return data.vacationRequests.map((record) => mapVacationRequest(record, employeesById));
+  return attachVacationOperationalInsights(
+    data.vacationRequests.map((record) => mapVacationRequest(record, employeesById)),
+  );
 };
 
 export const fetchVacationRequestDetail = async (id: string, employees: Employee[]): Promise<VacationRequest | null> => {
   const employeesById = createEmployeesDirectory(employees);
-  const { data } = await getVacationRequestById(getAppDataConnect(), { id });
+  const [{ data }, listResponse] = await Promise.all([
+    getVacationRequestById(getAppDataConnect(), { id }),
+    listVacationRequests(getAppDataConnect()),
+  ]);
 
   if (!data.vacationRequest) {
     return null;
   }
 
-  return mapVacationRequest(data.vacationRequest, employeesById);
+  const currentRequest = mapVacationRequest(data.vacationRequest, employeesById);
+  const mappedRequests = listResponse.data.vacationRequests.map((record) => mapVacationRequest(record, employeesById));
+
+  return {
+    ...currentRequest,
+    operationalInsight: buildVacationOperationalInsight(currentRequest, mappedRequests),
+  };
 };
 
 export const createVacationRequestRecord = async (

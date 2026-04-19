@@ -4,7 +4,7 @@ import { CalendarDays, GripVertical, PencilLine, Plus, UserRoundPlus } from 'luc
 import { useMemo, useState } from 'react';
 
 import type { WorkSchedule } from '@rh-ponto/work-schedules';
-import { Badge, Button, Card, ErrorState, PageHeader } from '@rh-ponto/ui';
+import { Badge, Button, Card, Dialog, DialogContent, ErrorState, Input, PageHeader } from '@rh-ponto/ui';
 
 import { AssignWorkScheduleDialog } from './assign-work-schedule-dialog';
 import { WorkScheduleFormDialog } from './work-schedule-form-dialog';
@@ -22,6 +22,17 @@ const shiftToneStyles = {
   neutral: 'bg-[var(--surface-container-low)] text-[var(--on-surface-variant)] border-[color:color-mix(in_srgb,var(--outline-variant)_45%,transparent)]',
 } as const;
 
+type ScheduleFilterTone = 'all' | 'primary' | 'secondary' | 'success' | 'warning' | 'neutral';
+
+const scheduleFilterLabels: Record<ScheduleFilterTone, string> = {
+  all: 'Todas as escalas',
+  primary: 'Operação padrão',
+  secondary: 'Turno noturno',
+  success: 'Atendimento e suporte',
+  warning: 'Cobertura crítica',
+  neutral: 'Folga ou apoio',
+};
+
 export const SchedulesOverview = () => {
   const { data, error, isError, isLoading, refetch } = useSchedulesOverview();
   const {
@@ -32,12 +43,34 @@ export const SchedulesOverview = () => {
   } = useScheduleCatalog();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isAssignOpen, setIsAssignOpen] = useState(false);
+  const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false);
   const [editingSchedule, setEditingSchedule] = useState<WorkSchedule | null>(null);
+  const [assignmentSearch, setAssignmentSearch] = useState('');
+  const [selectedToneFilter, setSelectedToneFilter] = useState<ScheduleFilterTone>('all');
 
   const activeSchedules = useMemo(
     () => catalog?.workSchedules.filter((schedule) => schedule.isActive).length ?? 0,
     [catalog],
   );
+  const visibleAssignments = useMemo(() => {
+    if (!data) {
+      return [];
+    }
+
+    const normalizedSearch = assignmentSearch.trim().toLocaleLowerCase('pt-BR');
+
+    return data.assignments.filter((assignment) => {
+      const matchesSearch =
+        normalizedSearch.length === 0 ||
+        assignment.employeeName.toLocaleLowerCase('pt-BR').includes(normalizedSearch) ||
+        assignment.position.toLocaleLowerCase('pt-BR').includes(normalizedSearch);
+      const matchesTone =
+        selectedToneFilter === 'all' ||
+        assignment.shifts.some((shift) => shift.tone === selectedToneFilter);
+
+      return matchesSearch && matchesTone;
+    });
+  }, [assignmentSearch, data, selectedToneFilter]);
 
   if (isLoading || isCatalogLoading) {
     return <OverviewPageSkeleton />;
@@ -89,8 +122,11 @@ export const SchedulesOverview = () => {
             <div className="rounded-full bg-[var(--surface-container-lowest)] px-4 py-2.5 text-sm font-semibold text-[var(--on-surface)]">
               Escalas ativas: {activeSchedules}
             </div>
+            <div className="rounded-full bg-[var(--surface-container-lowest)] px-4 py-2.5 text-sm font-semibold text-[var(--on-surface)]">
+              Colaboradores visíveis: {visibleAssignments.length}
+            </div>
           </div>
-          <Button size="sm" variant="outline" onClick={() => setIsAssignOpen(true)}>
+          <Button size="sm" variant="outline" onClick={() => setIsFilterDialogOpen(true)}>
             Filtrar escalas
           </Button>
         </div>
@@ -99,29 +135,35 @@ export const SchedulesOverview = () => {
       <section className="grid gap-8 xl:grid-cols-[1.08fr_0.92fr]">
         <Card className="overflow-hidden">
           <div className="grid gap-4 p-4 lg:hidden">
-            {data.assignments.map((assignment) => (
-              <div key={assignment.id} className="rounded-[1.5rem] bg-[var(--surface-container-low)] p-4">
-                <p className="font-headline text-base font-extrabold text-[var(--on-surface)]">{assignment.employeeName}</p>
-                <p className="mt-1 text-sm text-[var(--on-surface-variant)]">{assignment.position}</p>
-
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                  {assignment.shifts.map((shift, index) => (
-                    <div
-                      key={`${assignment.id}-${shift.dayId}`}
-                      className={`rounded-[1.25rem] border-l-4 px-3 py-3 ${
-                        shiftToneStyles[shift.tone as keyof typeof shiftToneStyles]
-                      }`}
-                    >
-                      <p className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-[var(--on-surface-variant)]">
-                        {data.days[index]?.label}
-                      </p>
-                      <p className="mt-2 text-[11px] font-extrabold uppercase tracking-[0.12em]">{shift.name}</p>
-                      <p className="mt-1 text-sm font-medium">{shift.hours}</p>
-                    </div>
-                  ))}
-                </div>
+            {visibleAssignments.length === 0 ? (
+              <div className="rounded-[1.5rem] bg-[var(--surface-container-low)] p-6 text-center text-sm text-[var(--on-surface-variant)]">
+                Nenhuma escala corresponde ao filtro atual. Ajuste a busca ou o tipo de turno para continuar.
               </div>
-            ))}
+            ) : (
+              visibleAssignments.map((assignment) => (
+                <div key={assignment.id} className="rounded-[1.5rem] bg-[var(--surface-container-low)] p-4">
+                  <p className="font-headline text-base font-extrabold text-[var(--on-surface)]">{assignment.employeeName}</p>
+                  <p className="mt-1 text-sm text-[var(--on-surface-variant)]">{assignment.position}</p>
+
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                    {assignment.shifts.map((shift, index) => (
+                      <div
+                        key={`${assignment.id}-${shift.dayId}`}
+                        className={`rounded-[1.25rem] border-l-4 px-3 py-3 ${
+                          shiftToneStyles[shift.tone as keyof typeof shiftToneStyles]
+                        }`}
+                      >
+                        <p className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-[var(--on-surface-variant)]">
+                          {data.days[index]?.label}
+                        </p>
+                        <p className="mt-2 text-[11px] font-extrabold uppercase tracking-[0.12em]">{shift.name}</p>
+                        <p className="mt-1 text-sm font-medium">{shift.hours}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))
+            )}
           </div>
 
           <div className="hidden lg:block">
@@ -142,7 +184,7 @@ export const SchedulesOverview = () => {
                 </div>
 
                 <div className="divide-y divide-[color:color-mix(in_srgb,var(--outline-variant)_16%,transparent)]">
-                  {data.assignments.map((assignment) => (
+                  {visibleAssignments.map((assignment) => (
                     <div key={assignment.id} className="grid grid-cols-[260px_repeat(6,minmax(0,1fr))]">
                       <div className="px-6 py-5">
                         <p className="font-headline text-sm font-extrabold text-[var(--on-surface)]">{assignment.employeeName}</p>
@@ -165,6 +207,11 @@ export const SchedulesOverview = () => {
                 </div>
               </div>
             </div>
+            {visibleAssignments.length === 0 ? (
+              <div className="border-t border-[color:color-mix(in_srgb,var(--outline-variant)_16%,transparent)] px-6 py-8 text-center text-sm text-[var(--on-surface-variant)]">
+                Nenhuma escala corresponde ao filtro atual. Ajuste a busca ou o tipo de turno para continuar.
+              </div>
+            ) : null}
           </div>
         </Card>
 
@@ -252,6 +299,83 @@ export const SchedulesOverview = () => {
         onOpenChange={setIsAssignOpen}
         schedules={catalog.workSchedules}
       />
+      <Dialog open={isFilterDialogOpen} onOpenChange={setIsFilterDialogOpen}>
+        <DialogContent className="w-[min(96vw,36rem)] rounded-[2rem] p-0">
+          <div className="space-y-6 p-6 sm:p-8">
+            <div className="space-y-2">
+              <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--primary)]">
+                Filtro operacional
+              </p>
+              <h4 className="font-headline text-2xl font-extrabold text-[var(--on-surface)]">Refinar a grade semanal</h4>
+              <p className="text-sm text-[var(--on-surface-variant)]">
+                Encontre rapidamente um colaborador, um contexto de cobertura ou um turno específico.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <label
+                className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]"
+                htmlFor="assignment-search-input"
+              >
+                Buscar colaborador ou cargo
+              </label>
+              <Input
+                id="assignment-search-input"
+                placeholder="Ex.: Ana Paula ou suporte"
+                value={assignmentSearch}
+                onChange={(event) => setAssignmentSearch(event.target.value)}
+              />
+            </div>
+
+            <div className="space-y-3">
+              <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
+                Contexto do turno
+              </p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {(Object.entries(scheduleFilterLabels) as Array<[ScheduleFilterTone, string]>).map(([tone, label]) => {
+                  const isActive = selectedToneFilter === tone;
+
+                  return (
+                    <button
+                      key={tone}
+                      type="button"
+                      onClick={() => setSelectedToneFilter(tone)}
+                      className={
+                        isActive
+                          ? 'rounded-[1.35rem] border border-[color:color-mix(in_srgb,var(--primary)_28%,transparent)] bg-[var(--primary-fixed)] px-4 py-4 text-left shadow-[var(--shadow-card)]'
+                          : 'rounded-[1.35rem] border border-[color:color-mix(in_srgb,var(--outline-variant)_18%,transparent)] bg-[var(--surface-container-lowest)] px-4 py-4 text-left transition hover:bg-[var(--surface-container-low)]'
+                      }
+                    >
+                      <span className="block font-headline text-sm font-extrabold text-[var(--on-surface)]">{label}</span>
+                      <span className="mt-1 block text-sm text-[var(--on-surface-variant)]">
+                        {tone === 'all' && 'Exibe toda a escala disponível na janela atual.'}
+                        {tone === 'primary' && 'Mostra a operação regular da semana.'}
+                        {tone === 'secondary' && 'Destaca turnos com perfil noturno.'}
+                        {tone === 'success' && 'Foca nas jornadas de atendimento e suporte.'}
+                        {tone === 'warning' && 'Ajuda a localizar coberturas críticas ou de fim de semana.'}
+                        {tone === 'neutral' && 'Reúne folgas ou alocações de apoio.'}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setAssignmentSearch('');
+                  setSelectedToneFilter('all');
+                }}
+              >
+                Limpar filtros
+              </Button>
+              <Button onClick={() => setIsFilterDialogOpen(false)}>Aplicar visualização</Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

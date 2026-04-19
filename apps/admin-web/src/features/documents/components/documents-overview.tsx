@@ -26,6 +26,7 @@ export const DocumentsOverview = () => {
   const { data, error, isError, isLoading, refetch } = useDocumentsOverview();
   const [selectedCategory, setSelectedCategory] = useState<CategoryFilter>('all');
   const [selectedDocument, setSelectedDocument] = useState<PortalDocument | null>(null);
+  const canExportSelectedDocument = Boolean(selectedDocument?.fileUrl);
 
   const documents = useMemo(() => {
     if (!data) {
@@ -66,16 +67,23 @@ export const DocumentsOverview = () => {
         <PageHeader
           eyebrow="Documentos / Conferência"
           title="Portal de documentos"
-          description="Consulte anexos do RH, acompanhe o andamento de cada item e baixe os arquivos vinculados."
+          description="Consulte documentos oficiais do colaborador, acompanhe a ciência registrada e baixe os arquivos vinculados."
           actions={
             <>
-              <Button asChild size="lg" variant="outline">
-                <a href={selectedDocument?.fileUrl ?? '#'} rel="noreferrer" target="_blank">
+              {canExportSelectedDocument ? (
+                <Button asChild size="lg" variant="outline">
+                  <a href={selectedDocument?.fileUrl ?? '#'} rel="noreferrer" target="_blank">
+                    <Download className="h-4 w-4" />
+                    Exportar documento
+                  </a>
+                </Button>
+              ) : (
+                <Button disabled size="lg" variant="outline">
                   <Download className="h-4 w-4" />
                   Exportar documento
-                </a>
-              </Button>
-              <Button size="lg" onClick={() => setSelectedDocument(data.documents[0] ?? null)}>
+                </Button>
+              )}
+              <Button disabled={data.documents.length === 0} size="lg" onClick={() => setSelectedDocument(data.documents[0] ?? null)}>
                 <FolderOpen className="h-4 w-4" />
                 Abrir documento
               </Button>
@@ -94,17 +102,17 @@ export const DocumentsOverview = () => {
               />
               <StatCard
                 badge="Conferidos"
-                hint="Documentos vinculados a fluxos já aprovados e prontos para consulta."
-                label="Prontos"
+                hint="Documentos oficiais em que a ciência do colaborador já foi registrada."
+                label="Com ciência"
                 tone="secondary"
-                value={String(data.summary.pending)}
+                value={String(data.summary.signed)}
               />
               <StatCard
                 badge="Fila operacional"
-                hint="Itens que ainda exigem leitura e decisão operacional."
-                label="Em revisão"
+                hint="Documentos oficiais aguardando ciência e anexos que ainda dependem de conferência."
+                label="Pendentes"
                 tone="tertiary"
-                value={String(data.summary.review)}
+                value={String(data.summary.pending + data.summary.review)}
               />
             </section>
 
@@ -163,7 +171,7 @@ export const DocumentsOverview = () => {
                   Fluxo central de conferência documental
                 </h3>
                 <p className="mt-2 max-w-2xl text-sm text-[var(--on-surface-variant)]">
-                  Os documentos desta central são derivados das justificativas e das solicitações de férias já persistidas no Data Connect.
+                  A central reúne documentos oficiais do colaborador com os anexos operacionais de justificativas e férias já persistidos no Data Connect.
                 </p>
                 <Button className="mt-6" variant="outline" onClick={() => setSelectedDocument(data.documents[0] ?? null)}>
                   Abrir o primeiro documento

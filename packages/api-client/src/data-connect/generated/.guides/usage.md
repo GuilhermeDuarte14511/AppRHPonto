@@ -14,38 +14,38 @@ If a user is not using a supported framework, they can use the generated SDK dir
 Here's an example of how to use it with the first 5 operations:
 
 ```js
-import { listJustifications, getJustificationById, listJustificationAttachments, createJustification, approveJustification, rejectJustification, addJustificationAttachment, listVacationRequests, getVacationRequestById, createVacationRequest } from '@rh-ponto/api-client/generated';
+import { listAdminEmployeeDocuments, listAdminPayrollStatements, listAttendancePolicies, listWorkLocations, listEmployeeAttendancePolicies, listEmployeeAllowedLocations, createAttendancePolicy, updateAttendancePolicy, createWorkLocation, createEmployeeAttendancePolicy } from '@rh-ponto/api-client/generated';
 
 
-// Operation ListJustifications: 
-const { data } = await ListJustifications(dataConnect);
+// Operation ListAdminEmployeeDocuments: 
+const { data } = await ListAdminEmployeeDocuments(dataConnect);
 
-// Operation GetJustificationById:  For variables, look at type GetJustificationByIdVars in ../index.d.ts
-const { data } = await GetJustificationById(dataConnect, getJustificationByIdVars);
+// Operation ListAdminPayrollStatements: 
+const { data } = await ListAdminPayrollStatements(dataConnect);
 
-// Operation ListJustificationAttachments: 
-const { data } = await ListJustificationAttachments(dataConnect);
+// Operation ListAttendancePolicies: 
+const { data } = await ListAttendancePolicies(dataConnect);
 
-// Operation CreateJustification:  For variables, look at type CreateJustificationVars in ../index.d.ts
-const { data } = await CreateJustification(dataConnect, createJustificationVars);
+// Operation ListWorkLocations: 
+const { data } = await ListWorkLocations(dataConnect);
 
-// Operation ApproveJustification:  For variables, look at type ApproveJustificationVars in ../index.d.ts
-const { data } = await ApproveJustification(dataConnect, approveJustificationVars);
+// Operation ListEmployeeAttendancePolicies: 
+const { data } = await ListEmployeeAttendancePolicies(dataConnect);
 
-// Operation RejectJustification:  For variables, look at type RejectJustificationVars in ../index.d.ts
-const { data } = await RejectJustification(dataConnect, rejectJustificationVars);
+// Operation ListEmployeeAllowedLocations: 
+const { data } = await ListEmployeeAllowedLocations(dataConnect);
 
-// Operation AddJustificationAttachment:  For variables, look at type AddJustificationAttachmentVars in ../index.d.ts
-const { data } = await AddJustificationAttachment(dataConnect, addJustificationAttachmentVars);
+// Operation CreateAttendancePolicy:  For variables, look at type CreateAttendancePolicyVars in ../index.d.ts
+const { data } = await CreateAttendancePolicy(dataConnect, createAttendancePolicyVars);
 
-// Operation ListVacationRequests: 
-const { data } = await ListVacationRequests(dataConnect);
+// Operation UpdateAttendancePolicy:  For variables, look at type UpdateAttendancePolicyVars in ../index.d.ts
+const { data } = await UpdateAttendancePolicy(dataConnect, updateAttendancePolicyVars);
 
-// Operation GetVacationRequestById:  For variables, look at type GetVacationRequestByIdVars in ../index.d.ts
-const { data } = await GetVacationRequestById(dataConnect, getVacationRequestByIdVars);
+// Operation CreateWorkLocation:  For variables, look at type CreateWorkLocationVars in ../index.d.ts
+const { data } = await CreateWorkLocation(dataConnect, createWorkLocationVars);
 
-// Operation CreateVacationRequest:  For variables, look at type CreateVacationRequestVars in ../index.d.ts
-const { data } = await CreateVacationRequest(dataConnect, createVacationRequestVars);
+// Operation CreateEmployeeAttendancePolicy:  For variables, look at type CreateEmployeeAttendancePolicyVars in ../index.d.ts
+const { data } = await CreateEmployeeAttendancePolicy(dataConnect, createEmployeeAttendancePolicyVars);
 
 
 ```

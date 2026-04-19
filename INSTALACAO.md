@@ -65,8 +65,9 @@ O projeto é um **monorepo** com:
 ```
 AppRHPonto/
 ├── apps/
-│   ├── admin-web/          # Aplicação principal
-│   └── mobile-app/         # App mobile
+│   ├── admin-web/          # Painel administrativo (Next.js)
+│   ├── employee-app/       # App do colaborador (Expo)
+│   └── kiosk-app/          # App de kiosk/tablet (Expo)
 ├── packages/
 │   ├── ui/                 # Componentes compartilhados
 │   ├── config/             # Configurações
@@ -80,20 +81,33 @@ AppRHPonto/
 
 ```powershell
 # Rodar apenas o admin-web
-pnpm --filter admin-web dev
+pnpm --filter @rh-ponto/admin-web dev
 
 # Rodar todos os apps
-pnpm turbo dev
+pnpm dev
 ```
 
 ### Build de Produção
 
 ```powershell
 # Build do admin-web
-pnpm --filter admin-web build
+pnpm --filter @rh-ponto/admin-web build
 
 # Build de todos os apps
-pnpm turbo build
+pnpm build
+```
+
+### Testes
+
+```powershell
+# Testes de todo o monorepo (turbo)
+pnpm test
+
+# Testes unitários do admin-web (Vitest)
+pnpm --filter @rh-ponto/admin-web test
+
+# E2E do admin-web (Playwright)
+pnpm --filter @rh-ponto/admin-web e2e
 ```
 
 ### Adicionar Nova Dependência
@@ -103,7 +117,7 @@ pnpm turbo build
 pnpm add <pacote>
 
 # Em um app específico
-pnpm add <pacote> --filter admin-web
+pnpm add <pacote> --filter @rh-ponto/admin-web
 
 # Em um package específico
 pnpm add <pacote> --filter @rh-ponto/ui
@@ -145,13 +159,14 @@ npm install -g pnpm
 
 **Solução:** Use outra porta:
 ```powershell
-PORT=3001 pnpm --filter admin-web dev
+$env:PORT=3001
+pnpm --filter @rh-ponto/admin-web dev
 ```
 
 ## 📚 Documentação Adicional
 
 - [Documentação do pnpm](https://pnpm.io/)
-- [Next.js 14 Docs](https://nextjs.org/docs)
+- [Next.js 15 Docs](https://nextjs.org/docs)
 - [Turborepo Docs](https://turbo.build/repo/docs)
 
 ## ✅ Checklist de Instalação
@@ -161,7 +176,7 @@ PORT=3001 pnpm --filter admin-web dev
 - [ ] Dependências instaladas (`pnpm install`)
 - [ ] VS Code recarregado
 - [ ] Erros do TypeScript desapareceram
-- [ ] Projeto rodando (`pnpm --filter admin-web dev`)
+- [ ] Projeto rodando (`pnpm --filter @rh-ponto/admin-web dev`)
 
 ## 🎉 Pronto!
 

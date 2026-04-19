@@ -77,10 +77,12 @@ export const NotificationsScreen = () => {
 
       <View style={styles.hero}>
         <Text selectable style={styles.heroEyebrow}>
-          Centro de mensagens
+          Central de pendências
         </Text>
         <Text selectable style={styles.heroTitle}>
-          {employee?.fullName?.split(' ')[0] ?? 'Colaborador'}, você tem {unreadNotifications.length} item(ns) que podem exigir ação
+          {unreadNotifications.length > 0
+            ? `${employee?.fullName?.split(' ')[0] ?? 'Colaborador'}, você tem ${unreadNotifications.length} item(ns) que podem exigir ação`
+            : `${employee?.fullName?.split(' ')[0] ?? 'Colaborador'}, você está em dia com os retornos do RH`}
         </Text>
         <Pressable
           disabled={unreadNotifications.length === 0 || markAllAsRead.isPending}

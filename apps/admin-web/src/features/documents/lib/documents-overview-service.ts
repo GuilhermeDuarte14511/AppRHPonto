@@ -54,12 +54,12 @@ const statusMeta: Record<
   }
 > = {
   assinado: {
-    label: 'Assinado',
-    description: 'Status reservado para a futura persistência de assinatura administrativa.',
+    label: 'Ciência registrada',
+    description: 'O colaborador já registrou leitura ou ciência para este documento oficial.',
   },
   pendente_assinatura: {
-    label: 'Conferido',
-    description: 'Documento já validado no fluxo principal e disponível para consulta administrativa.',
+    label: 'Aguardando ciência',
+    description: 'Documento oficial já publicado, mas ainda sem confirmação de leitura pelo colaborador.',
   },
   em_revisao: {
     label: 'Em revisão',
@@ -81,6 +81,24 @@ const resolvePortalStatus = (sourceStatus: 'approved' | 'pending' | 'rejected'):
   }
 
   return 'em_revisao';
+};
+
+const resolveEmployeeDocumentPortalStatus = ({
+  status,
+  acknowledgedAt,
+}: {
+  status: string;
+  acknowledgedAt: string | null;
+}): PortalDocumentStatus => {
+  if (status === 'archived') {
+    return 'arquivado';
+  }
+
+  if (acknowledgedAt) {
+    return 'assinado';
+  }
+
+  return 'pendente_assinatura';
 };
 
 const buildHistory = ({
@@ -136,6 +154,64 @@ export const getDocumentsOverview = async (): Promise<DocumentsOverviewData> => 
   const justificationDirectory = new Map(snapshot.justifications.map((item) => [item.id, item]));
 
   const documents = [
+    ...snapshot.employeeDocuments.map((document) => {
+      const employee = employeeDirectory.get(document.employeeId);
+      const category = inferDocumentCategory(document.fileName, 'outros');
+      const status = resolveEmployeeDocumentPortalStatus(document);
+
+      return withSections({
+        id: document.id,
+        sourceId: document.id,
+        sourceType: 'employee_document',
+        title: document.title,
+        type: inferDocumentType(document.fileName),
+        category,
+        categoryLabel: categoryLabels[category],
+        size: 'Documento oficial',
+        employeeId: employee?.id ?? null,
+        employeeName: employee?.fullName ?? 'Colaborador não identificado',
+        employeeRole: employee?.position ?? null,
+        employeeDepartment: employee?.department ?? null,
+        uploadedAt: document.issuedAt,
+        uploadedAtLabel: formatDate(document.issuedAt),
+        status,
+        statusLabel: statusMeta[status].label,
+        statusDescription: statusMeta[status].description,
+        fileUrl: document.fileUrl,
+        fileName: document.fileName,
+        description:
+          document.description ??
+          'Documento oficial publicado pelo RH no arquivo digital do colaborador.',
+        tags: ['Arquivo digital', inferDocumentType(document.fileName)],
+        isSignable: false,
+        previewTitle: document.title,
+        previewSubtitle: `Arquivo digital • ${employee?.fullName ?? 'Colaborador não identificado'}`,
+        signatureHint: document.acknowledgedAt
+          ? 'A ciência do colaborador já foi registrada neste documento oficial.'
+          : 'Assim que o colaborador registrar a ciência, o status deste documento será atualizado aqui.',
+        history: [
+          {
+            id: 'published',
+            icon: 'upload',
+            title: 'Documento publicado no arquivo digital',
+            description: 'O RH disponibilizou este documento oficial para consulta do colaborador.',
+            occurredAtLabel: formatDateTime(document.issuedAt),
+          },
+          ...(document.acknowledgedAt
+            ? [
+                {
+                  id: 'acknowledged',
+                  icon: 'signature' as const,
+                  title: 'Ciência registrada pelo colaborador',
+                  description: 'A leitura foi confirmada e preservada no histórico do documento.',
+                  occurredAtLabel: formatDateTime(document.acknowledgedAt),
+                },
+              ]
+            : []),
+        ],
+        signedArtifact: null,
+      });
+    }),
     ...snapshot.justificationAttachments.map((attachment) => {
       const justification = justificationDirectory.get(attachment.justificationId);
       const employee = justification ? employeeDirectory.get(justification.employeeId) : null;
@@ -228,7 +304,7 @@ export const getDocumentsOverview = async (): Promise<DocumentsOverviewData> => 
       }),
   ].sort((left, right) => new Date(right.uploadedAt).getTime() - new Date(left.uploadedAt).getTime());
 
-  const signed = 0;
+  const signed = documents.filter((item) => item.status === 'assinado').length;
   const review = documents.filter((item) => item.status === 'em_revisao').length;
   const pending = documents.filter((item) => item.status === 'pendente_assinatura').length;
   const archived = documents.filter((item) => item.status === 'arquivado').length;
@@ -266,8 +342,8 @@ export const getDocumentsOverview = async (): Promise<DocumentsOverviewData> => 
     alerts: [
       {
         id: 'documents-alert-approved',
-        title: `${pending} documentos já concluíram a etapa principal`,
-        description: 'Os arquivos aprovados seguem disponíveis para consulta e download no portal administrativo.',
+        title: `${pending} documentos aguardam ciência do colaborador`,
+        description: 'O portal agora mostra documentos oficiais publicados pelo RH junto com os anexos operacionais.',
       },
       {
         id: 'documents-alert-review',

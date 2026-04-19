@@ -10,7 +10,8 @@ import { useAppSession } from '@/shared/providers/app-providers';
 import { mobileTheme } from '@/shared/theme/tokens';
 
 import { useEmployeeVacations } from '../hooks/use-employee-vacations';
-import { formatVacationWindow, vacationStatusLabels } from '../lib/vacations-mobile';
+import { buildVacationEntitlementSnapshot } from '../lib/vacation-entitlement';
+import { formatVacationAllowance, formatVacationDate, formatVacationWindow, vacationStatusLabels } from '../lib/vacations-mobile';
 
 const paletteByStatus: Record<string, { accent: string; soft: string }> = {
   pending: { accent: mobileTheme.warning, soft: mobileTheme.warningSoft },
@@ -25,7 +26,12 @@ export const VacationsScreen = () => {
   const employeeId = employee?.id ?? null;
   const vacationsQuery = useEmployeeVacations(employeeId);
   const vacations = vacationsQuery.data ?? [];
-  const upcomingVacation = vacations.find((item) => item.status === 'approved') ?? vacations[0] ?? null;
+  const entitlement = buildVacationEntitlementSnapshot(employee, vacations);
+  const upcomingVacation =
+    vacations.find((item) => item.status === 'approved' && new Date(item.startDate) >= new Date()) ??
+    vacations.find((item) => item.status === 'approved') ??
+    vacations[0] ??
+    null;
 
   return (
     <ScrollView
@@ -49,14 +55,28 @@ export const VacationsScreen = () => {
           Planejamento pessoal
         </Text>
         <Text selectable style={styles.heroTitle}>
-          {vacations.length} solicitação(ões) registradas
+          {entitlement.isEligible
+            ? `${formatVacationAllowance(entitlement.availableDays)} disponíveis`
+            : 'Período aquisitivo em formação'}
         </Text>
         <Text selectable style={styles.heroSubtitle}>
-          {upcomingVacation
-            ? `Próximo período em destaque: ${formatVacationWindow(upcomingVacation)}.`
-            : 'Você ainda não tem períodos registrados no autosserviço.'}
+          {entitlement.isEligible
+            ? `Período ${entitlement.accrualPeriodLabel ?? 'não identificado'} · ${vacations.length} solicitação(ões) registradas.`
+            : entitlement.availabilityDate
+              ? `Sua elegibilidade inicial começa em ${formatVacationDate(entitlement.availabilityDate)}.`
+              : 'Ainda não foi possível identificar seu período aquisitivo automaticamente.'}
         </Text>
       </View>
+
+      {upcomingVacation ? (
+        <View style={styles.highlightCard}>
+          <Text style={styles.highlightLabel}>Próximo período em destaque</Text>
+          <Text style={styles.highlightTitle}>{formatVacationWindow(upcomingVacation)}</Text>
+          <Text style={styles.highlightText}>
+            Status atual: {vacationStatusLabels[upcomingVacation.status] ?? 'Em análise'}.
+          </Text>
+        </View>
+      ) : null}
 
       {vacationsQuery.isLoading ? (
         <MobileListSkeleton itemCount={3} showHero={false} />
@@ -87,7 +107,7 @@ export const VacationsScreen = () => {
                     {formatVacationWindow(item)}
                   </Text>
                   <Text selectable style={styles.description}>
-                    {item.totalDays} dia(s) solicitados · saldo informado: {item.availableDays} dia(s)
+                    {formatVacationAllowance(item.totalDays)} solicitados · saldo remanescente no pedido: {formatVacationAllowance(item.availableDays)}
                   </Text>
                   <View style={styles.metaRow}>
                     <Text selectable style={[styles.statusPill, { color: palette.accent, backgroundColor: palette.soft }]}>
@@ -149,6 +169,29 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 21,
     color: mobileTheme.mutedText,
+  },
+  highlightCard: {
+    borderRadius: 26,
+    backgroundColor: mobileTheme.primarySoft,
+    padding: 18,
+    gap: 6,
+  },
+  highlightLabel: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: mobileTheme.primary,
+    letterSpacing: 0.8,
+    textTransform: 'uppercase',
+  },
+  highlightTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: mobileTheme.text,
+  },
+  highlightText: {
+    fontSize: 13,
+    lineHeight: 20,
+    color: mobileTheme.text,
   },
   loadingCard: {
     minHeight: 150,

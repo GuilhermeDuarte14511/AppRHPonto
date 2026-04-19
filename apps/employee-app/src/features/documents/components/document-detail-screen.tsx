@@ -1,5 +1,5 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { AppIcon } from '@/shared/components/app-icon';
 import { MobileEmptyState } from '@/shared/components/mobile-empty-state';
@@ -9,10 +9,10 @@ import { useAppSession } from '@/shared/providers/app-providers';
 import { mobileTheme } from '@/shared/theme/tokens';
 import { useCurrentEmployee } from '@/features/employee/hooks/use-current-employee';
 
-import { useEmployeeDocumentDetail } from '../hooks/use-employee-documents';
+import { useAcknowledgeEmployeeDocument, useEmployeeDocumentDetail } from '../hooks/use-employee-documents';
+import { resolveEmployeeDocumentAttention } from '../lib/document-attention';
 import {
   documentCategoryLabels,
-  documentStatusLabels,
   formatDocumentDate,
 } from '../lib/documents-mobile';
 
@@ -21,7 +21,33 @@ export const DocumentDetailScreen = () => {
   const { session } = useAppSession();
   const { employee } = useCurrentEmployee(session);
   const detailQuery = useEmployeeDocumentDetail(params.id, employee?.id);
+  const acknowledgeDocument = useAcknowledgeEmployeeDocument(employee?.id, params.id);
   const document = detailQuery.data;
+  const attention = document ? resolveEmployeeDocumentAttention(document) : null;
+
+  const handlePrimaryAction = async () => {
+    if (!document || !attention) {
+      return;
+    }
+
+    if (!attention.requiresAcknowledgement) {
+      await Linking.openURL(document.fileUrl);
+      return;
+    }
+
+    try {
+      await acknowledgeDocument.mutateAsync();
+      Alert.alert(
+        'Ciência registrada',
+        'Atualizamos o documento no seu histórico e ele já saiu da fila de pendências.',
+      );
+    } catch {
+      Alert.alert(
+        'Não foi possível registrar a ciência',
+        'Tente novamente em instantes. Se o problema continuar, fale com o RH.',
+      );
+    }
+  };
 
   return (
     <ScrollView
@@ -65,7 +91,7 @@ export const DocumentDetailScreen = () => {
               <View style={styles.infoRow}>
                 <Text style={styles.infoLabel}>Status</Text>
                 <Text selectable style={styles.infoValue}>
-                  {documentStatusLabels[document.status] ?? 'Disponível'}
+                  {attention?.statusHeadline ?? 'Documento disponível'}
                 </Text>
               </View>
               <View style={styles.infoRow}>
@@ -97,9 +123,30 @@ export const DocumentDetailScreen = () => {
 
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Ações</Text>
-            <Pressable style={styles.primaryAction} onPress={() => void Linking.openURL(document.fileUrl)}>
-              <AppIcon color="#ffffff" name="download-outline" size={18} />
-              <Text style={styles.primaryActionText}>Abrir arquivo</Text>
+            <View style={styles.highlightCard}>
+              <Text style={styles.highlightTitle}>{attention?.statusHeadline ?? 'Documento disponível'}</Text>
+              <Text style={styles.highlightText}>
+                {attention?.statusDescription ?? 'Esse arquivo já está disponível para consulta no seu portal.'}
+              </Text>
+            </View>
+            <Pressable
+              disabled={acknowledgeDocument.isPending}
+              style={[
+                styles.primaryAction,
+                acknowledgeDocument.isPending ? styles.primaryActionDisabled : null,
+              ]}
+              onPress={() => {
+                void handlePrimaryAction();
+              }}
+            >
+              <AppIcon
+                color="#ffffff"
+                name={attention?.requiresAcknowledgement ? 'checkmark-done-outline' : 'download-outline'}
+                size={18}
+              />
+              <Text style={styles.primaryActionText}>
+                {acknowledgeDocument.isPending ? 'Registrando...' : attention?.primaryActionLabel ?? 'Abrir arquivo'}
+              </Text>
             </Pressable>
             <Pressable style={styles.secondaryAction} onPress={() => router.replace('/documents' as never)}>
               <Text style={styles.secondaryActionText}>Voltar para documentos</Text>
@@ -172,6 +219,22 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: mobileTheme.text,
   },
+  highlightCard: {
+    borderRadius: 20,
+    backgroundColor: mobileTheme.primarySoft,
+    padding: 16,
+    gap: 6,
+  },
+  highlightTitle: {
+    fontSize: 15,
+    fontWeight: '800',
+    color: mobileTheme.primary,
+  },
+  highlightText: {
+    fontSize: 13,
+    lineHeight: 20,
+    color: mobileTheme.text,
+  },
   infoList: {
     gap: 12,
   },
@@ -198,6 +261,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     gap: 8,
+  },
+  primaryActionDisabled: {
+    opacity: 0.72,
   },
   primaryActionText: {
     fontSize: 14,

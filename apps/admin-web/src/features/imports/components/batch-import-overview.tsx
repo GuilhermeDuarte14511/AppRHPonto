@@ -18,6 +18,7 @@ import { useCreateEmployee } from '@/features/employees/hooks/use-create-employe
 type ImportKind = 'employees' | 'devices';
 
 type ImportRow = Record<string, string>;
+type PreviewRow = { __rowKey: string } & ImportRow;
 
 const splitCsvLine = (line: string): string[] => {
   const separator = line.includes(';') && !line.includes(',') ? ';' : ',';
@@ -97,7 +98,7 @@ const BatchImportPanel = ({ title, description, kind, csvExample }: BatchImportP
   const [csvText, setCsvText] = useState(csvExample);
   const [lastImported, setLastImported] = useState<number>(0);
   const rows = useMemo(() => parseCsvText(csvText), [csvText]);
-  const previewRows = rows.slice(0, 5).map((row, index) => ({ __rowKey: `${kind}-${index}`, ...row }));
+  const previewRows: PreviewRow[] = rows.slice(0, 5).map((row, index) => ({ __rowKey: `${kind}-${index}`, ...row }));
 
   const isEmployeeKind = kind === 'employees';
   const isPending = isEmployeeKind ? employeeImport.isPending : deviceImport.isPending;
@@ -151,8 +152,9 @@ const BatchImportPanel = ({ title, description, kind, csvExample }: BatchImportP
 
       setLastImported(rows.length);
       toast.success(`${rows.length} registro(s) importado(s) com sucesso.`);
-    } catch {
-      return;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Não foi possível concluir a importação em lote.';
+      toast.error(message);
     }
   };
 
@@ -199,7 +201,7 @@ const BatchImportPanel = ({ title, description, kind, csvExample }: BatchImportP
       </div>
 
       <div className="mt-6">
-        <DataTable
+        <DataTable<PreviewRow>
           columns={
             kind === 'employees'
               ? [

@@ -1,6 +1,14 @@
 import type { CreateVacationRequestPayload, VacationRequest, VacationRequestStatus } from '../types/vacation-request';
 
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
+const defaultOperationalInsight: VacationRequest['operationalInsight'] = {
+  overlapCount: 0,
+  overlappingApprovedCount: 0,
+  overlappingPendingCount: 0,
+  overlappingEmployeeNames: [],
+  coverageRisk: 'low',
+  summary: 'Sem conflito de cobertura na mesma área para o período selecionado.',
+};
 
 const calculateTotalDays = (startDate: string, endDate: string): number => {
   const start = new Date(startDate);
@@ -9,7 +17,7 @@ const calculateTotalDays = (startDate: string, endDate: string): number => {
   return Math.max(1, Math.floor((end.getTime() - start.getTime()) / MS_PER_DAY) + 1);
 };
 
-let vacationRequests: VacationRequest[] = [
+const vacationRequestSeeds = [
   {
     id: 'vac-2026-082',
     employeeId: 'emp-4',
@@ -322,7 +330,12 @@ let vacationRequests: VacationRequest[] = [
     createdAt: '2026-03-05T11:45:00.000Z',
     updatedAt: '2026-03-06T09:40:00.000Z',
   },
-];
+] satisfies Array<Omit<VacationRequest, 'operationalInsight'>>;
+
+let vacationRequests: VacationRequest[] = vacationRequestSeeds.map((item) => ({
+  ...item,
+  operationalInsight: { ...defaultOperationalInsight },
+}));
 
 export const listVacationRequests = async (): Promise<VacationRequest[]> => vacationRequests;
 
@@ -375,6 +388,7 @@ export const createVacationRequest = async (payload: CreateVacationRequestPayloa
     reviewNotes: null,
     createdAt: timestamp,
     updatedAt: timestamp,
+    operationalInsight: { ...defaultOperationalInsight },
   };
 
   vacationRequests = [request, ...vacationRequests];

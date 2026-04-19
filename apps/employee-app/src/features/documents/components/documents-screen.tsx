@@ -10,9 +10,9 @@ import { useAppSession } from '@/shared/providers/app-providers';
 import { mobileTheme } from '@/shared/theme/tokens';
 
 import { useEmployeeDocuments } from '../hooks/use-employee-documents';
+import { resolveEmployeeDocumentAttention } from '../lib/document-attention';
 import {
   buildDocumentEyebrow,
-  documentStatusLabels,
 } from '../lib/documents-mobile';
 
 const statusPalette: Record<string, { accent: string; soft: string }> = {
@@ -76,6 +76,7 @@ export const DocumentsScreen = () => {
         <View style={styles.list}>
           {documents.map((item) => {
             const palette = statusPalette[item.status] ?? statusPalette.available;
+            const attention = resolveEmployeeDocumentAttention(item);
 
             return (
               <Pressable
@@ -99,10 +100,12 @@ export const DocumentsScreen = () => {
                   </Text>
                   <View style={styles.metaRow}>
                     <Text selectable style={[styles.statusPill, { color: palette.accent, backgroundColor: palette.soft }]}>
-                      {documentStatusLabels[item.status] ?? 'Disponível'}
+                      {attention.statusHeadline}
                     </Text>
                     <Pressable onPress={() => void Linking.openURL(item.fileUrl)} style={styles.inlineLink}>
-                      <Text style={styles.inlineLinkText}>Abrir arquivo</Text>
+                      <Text style={styles.inlineLinkText}>
+                        {attention.requiresAcknowledgement ? 'Ler agora' : 'Abrir arquivo'}
+                      </Text>
                     </Pressable>
                   </View>
                 </View>

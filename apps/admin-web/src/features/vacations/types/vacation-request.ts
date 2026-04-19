@@ -14,6 +14,15 @@ export interface VacationApprovalStep {
   notes: string;
 }
 
+export interface VacationOperationalInsight {
+  overlapCount: number;
+  overlappingApprovedCount: number;
+  overlappingPendingCount: number;
+  overlappingEmployeeNames: string[];
+  coverageRisk: 'low' | 'medium' | 'high';
+  summary: string;
+}
+
 export interface VacationRequest {
   id: string;
   employeeId: string;
@@ -37,6 +46,7 @@ export interface VacationRequest {
   reviewNotes: string | null;
   createdAt: string;
   updatedAt: string;
+  operationalInsight: VacationOperationalInsight;
 }
 
 export interface CreateVacationRequestPayload {

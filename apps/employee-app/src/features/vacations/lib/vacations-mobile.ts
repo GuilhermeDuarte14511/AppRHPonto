@@ -33,3 +33,5 @@ export const calculateDaysBetween = (startDate: string, endDate: string) => {
 
   return Math.max(Math.round(milliseconds / (1000 * 60 * 60 * 24)) + 1, 1);
 };
+
+export const formatVacationAllowance = (days: number) => `${days} dia(s)`;

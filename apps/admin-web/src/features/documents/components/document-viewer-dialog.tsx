@@ -64,7 +64,7 @@ export const DocumentViewerDialog = ({ document, open, onOpenChange }: DocumentV
               <div className="flex items-center justify-between rounded-[1.4rem] bg-[rgba(255,255,255,0.74)] px-4 py-3 text-sm text-[var(--on-surface-variant)] shadow-[var(--shadow-card)]">
                 <div className="flex items-center gap-2">
                   <Eye className="h-4 w-4 text-[var(--primary)]" />
-                  <span>Visualização operacional derivada dos registros persistidos no Data Connect.</span>
+                  <span>Visualização administrativa montada a partir dos registros persistidos no Data Connect.</span>
                 </div>
                 <div className="hidden items-center gap-2 lg:flex">
                   <FileText className="h-4 w-4" />
@@ -101,7 +101,7 @@ export const DocumentViewerDialog = ({ document, open, onOpenChange }: DocumentV
 
                     <div className="grid gap-5 border-t border-[color:color-mix(in_srgb,var(--outline-variant)_22%,transparent)] pt-14 sm:grid-cols-2">
                       <div className="rounded-[1.25rem] border-2 border-dashed border-[color:color-mix(in_srgb,var(--outline-variant)_34%,transparent)] px-5 py-7 text-center text-sm font-semibold text-[var(--on-surface-variant)]">
-                        Ciente do colaborador
+                        {document.status === 'assinado' ? 'Ciência registrada no histórico' : 'Aguardando ciência do colaborador'}
                       </div>
                       <div className="rounded-[1.25rem] border-2 border-dashed border-[color:color-mix(in_srgb,var(--outline-variant)_34%,transparent)] px-5 py-7 text-center text-sm font-semibold text-[var(--on-surface-variant)]">
                         Conferência administrativa
@@ -189,7 +189,7 @@ export const DocumentViewerDialog = ({ document, open, onOpenChange }: DocumentV
               <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-sky-300">Origem dos dados</p>
               <h3 className="mt-3 font-headline text-base font-extrabold">Leitura administrativa conectada ao banco</h3>
               <p className="mt-2 text-sm leading-6 text-slate-300">
-                O status, o colaborador vinculado e o histórico exibidos aqui são derivados das justificativas e das solicitações de férias persistidas no Data Connect.
+                O status, o colaborador vinculado e o histórico exibidos aqui são compostos a partir do arquivo digital do colaborador e dos anexos operacionais persistidos no Data Connect.
               </p>
             </div>
           </aside>

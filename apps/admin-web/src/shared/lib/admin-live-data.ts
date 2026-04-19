@@ -1,5 +1,7 @@
 import { getAppDataConnect } from '@rh-ponto/api-client';
 import {
+  listAdminEmployeeDocuments,
+  listAdminPayrollStatements,
   listEmployeeScheduleHistory,
   listJustificationAttachments,
   listTimeRecordPhotos,
@@ -64,13 +66,47 @@ export interface TimeRecordPhotoRecord {
   createdAt: string;
 }
 
+export interface EmployeeDocumentRecord {
+  id: string;
+  employeeId: string;
+  category: string;
+  title: string;
+  description: string | null;
+  status: string;
+  fileName: string;
+  fileUrl: string;
+  issuedAt: string;
+  acknowledgedAt: string | null;
+  expiresAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PayrollStatementRecord {
+  id: string;
+  employeeId: string;
+  referenceLabel: string;
+  referenceYear: number;
+  referenceMonth: number;
+  status: string;
+  grossAmount: number;
+  netAmount: number;
+  fileName: string;
+  fileUrl: string;
+  issuedAt: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface AdminLiveDataSnapshot {
   auditLogs: AuditLog[];
   devices: Device[];
+  employeeDocuments: EmployeeDocumentRecord[];
   employeeScheduleHistories: EmployeeScheduleHistory[];
   employees: Employee[];
   justificationAttachments: JustificationAttachmentRecord[];
   justifications: Justification[];
+  payrollStatements: PayrollStatementRecord[];
   timeRecordPhotos: TimeRecordPhotoRecord[];
   timeRecords: TimeRecord[];
   vacationRequests: VacationRequestRecord[];
@@ -136,6 +172,44 @@ const mapTimeRecordPhotos = (
     createdAt: record.createdAt,
   }));
 
+const mapEmployeeDocuments = (
+  records: Awaited<ReturnType<typeof listAdminEmployeeDocuments>>['data']['employeeDocuments'],
+): EmployeeDocumentRecord[] =>
+  records.map((record) => ({
+    id: record.id,
+    employeeId: record.employee.id,
+    category: record.category,
+    title: record.title,
+    description: record.description ?? null,
+    status: record.status,
+    fileName: record.fileName,
+    fileUrl: record.fileUrl,
+    issuedAt: record.issuedAt,
+    acknowledgedAt: record.acknowledgedAt ?? null,
+    expiresAt: record.expiresAt ?? null,
+    createdAt: record.createdAt,
+    updatedAt: record.updatedAt,
+  }));
+
+const mapPayrollStatements = (
+  records: Awaited<ReturnType<typeof listAdminPayrollStatements>>['data']['payrollStatements'],
+): PayrollStatementRecord[] =>
+  records.map((record) => ({
+    id: record.id,
+    employeeId: record.employee.id,
+    referenceLabel: record.referenceLabel,
+    referenceYear: record.referenceYear,
+    referenceMonth: record.referenceMonth,
+    status: record.status,
+    grossAmount: record.grossAmount,
+    netAmount: record.netAmount,
+    fileName: record.fileName,
+    fileUrl: record.fileUrl,
+    issuedAt: record.issuedAt,
+    createdAt: record.createdAt,
+    updatedAt: record.updatedAt,
+  }));
+
 export const fetchAdminLiveDataSnapshot = async (): Promise<AdminLiveDataSnapshot> => {
   const dataConnect = getAppDataConnect();
   const [
@@ -149,6 +223,8 @@ export const fetchAdminLiveDataSnapshot = async (): Promise<AdminLiveDataSnapsho
     vacationRequestsResult,
     justificationAttachmentsResult,
     timeRecordPhotosResult,
+    employeeDocumentsResult,
+    payrollStatementsResult,
   ] = await Promise.all([
     services.employees.listEmployeesUseCase.execute(),
     services.timeRecords.listTimeRecordsUseCase.execute(),
@@ -160,6 +236,8 @@ export const fetchAdminLiveDataSnapshot = async (): Promise<AdminLiveDataSnapsho
     listVacationRequests(dataConnect),
     listJustificationAttachments(dataConnect),
     listTimeRecordPhotos(dataConnect),
+    listAdminEmployeeDocuments(dataConnect),
+    listAdminPayrollStatements(dataConnect),
   ]);
 
   return {
@@ -169,6 +247,7 @@ export const fetchAdminLiveDataSnapshot = async (): Promise<AdminLiveDataSnapsho
     auditLogs,
     workSchedules,
     devices,
+    employeeDocuments: mapEmployeeDocuments(employeeDocumentsResult.data.employeeDocuments),
     employeeScheduleHistories: scheduleHistoryResult.data.employeeScheduleHistories.map((item) => ({
       id: item.id,
       employeeId: item.employee.id,
@@ -181,6 +260,7 @@ export const fetchAdminLiveDataSnapshot = async (): Promise<AdminLiveDataSnapsho
     })),
     vacationRequests: mapVacationRequests(vacationRequestsResult.data.vacationRequests),
     justificationAttachments: mapJustificationAttachments(justificationAttachmentsResult.data.justificationAttachments),
+    payrollStatements: mapPayrollStatements(payrollStatementsResult.data.payrollStatements),
     timeRecordPhotos: mapTimeRecordPhotos(timeRecordPhotosResult.data.timeRecordPhotos),
   };
 };

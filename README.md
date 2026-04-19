@@ -15,6 +15,7 @@ Monorepo inicial do MVP de controle de ponto com foco no administrativo web e ba
 - `pnpm build`
 - `pnpm lint`
 - `pnpm typecheck`
+- `pnpm test`
 - `pnpm format`
 
 ## Apps

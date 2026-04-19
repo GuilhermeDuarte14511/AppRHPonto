@@ -1,4 +1,5 @@
 import {
+  acknowledgeEmployeeDocument,
   createVacationRequest,
   getCurrentEmployeeByEmail,
   getCurrentEmployeeByUserId,
@@ -327,6 +328,24 @@ export const fetchEmployeeDocumentByIdForEmployee = async (
   const item = data.employeeDocuments[0];
 
   return item ? createEmployeeDocumentItem(item) : null;
+};
+
+export const acknowledgeEmployeeDocumentForEmployee = async (
+  id: string,
+  employeeId: string,
+): Promise<EmployeeDocumentItem> => {
+  await acknowledgeEmployeeDocument(getAppDataConnect(), { id, employeeId });
+
+  const updated = await fetchEmployeeDocumentByIdForEmployee(id, employeeId);
+
+  if (!updated) {
+    throw new AppError(
+      'EMPLOYEE_DOCUMENT_NOT_FOUND_AFTER_ACKNOWLEDGE',
+      'Documento não encontrado após registrar a ciência.',
+    );
+  }
+
+  return updated;
 };
 
 export const fetchPayrollStatements = async (employeeId: string): Promise<PayrollStatementItem[]> => {

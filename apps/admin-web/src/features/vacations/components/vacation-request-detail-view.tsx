@@ -30,6 +30,24 @@ import {
   type VacationDetailTabId,
 } from './vacation-request-context-tabs';
 
+const coverageRiskMeta = {
+  low: {
+    label: 'Baixo',
+    badgeClassName:
+      'bg-[var(--secondary-fixed)] text-[var(--secondary)]',
+  },
+  medium: {
+    label: 'Moderado',
+    badgeClassName:
+      'bg-[var(--tertiary-fixed)] text-[var(--on-tertiary-fixed-variant)]',
+  },
+  high: {
+    label: 'Alto',
+    badgeClassName:
+      'bg-[var(--error-container)] text-[var(--on-error-container)]',
+  },
+} as const;
+
 const DecisionPanel = ({
   disabled,
   onApprove,
@@ -195,17 +213,73 @@ export const VacationRequestDetailView = ({ vacationId }: { vacationId: string }
               </div>
             </Card>
 
-            <Card className="p-5 sm:p-6">
-              <div className="flex items-start gap-3 rounded-[1.5rem] bg-[var(--tertiary-fixed)]/40 p-4">
-                <Info className="mt-0.5 h-4 w-4 text-[var(--on-tertiary-fixed-variant)]" />
-                <div>
-                  <p className="font-headline text-sm font-extrabold text-[var(--on-surface)]">Observação operacional</p>
-                  <p className="mt-2 text-sm leading-6 text-[var(--on-surface-variant)]">
-                    {data.coverageNotes ?? 'Sem observações adicionais para esta solicitação.'}
-                  </p>
+            <div className="space-y-6">
+              <Card className="p-5 sm:p-6">
+                <div className="flex items-start gap-3 rounded-[1.5rem] bg-[var(--tertiary-fixed)]/40 p-4">
+                  <Info className="mt-0.5 h-4 w-4 text-[var(--on-tertiary-fixed-variant)]" />
+                  <div>
+                    <p className="font-headline text-sm font-extrabold text-[var(--on-surface)]">Observação operacional</p>
+                    <p className="mt-2 text-sm leading-6 text-[var(--on-surface-variant)]">
+                      {data.coverageNotes ?? 'Sem observações adicionais para esta solicitação.'}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+
+              <Card className="p-5 sm:p-6">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="font-headline text-lg font-extrabold text-[var(--on-surface)]">Impacto de cobertura</p>
+                    <p className="mt-1 text-sm text-[var(--on-surface-variant)]">
+                      Leitura automática da mesma área para o período solicitado.
+                    </p>
+                  </div>
+                  <span
+                    className={`rounded-full px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] ${coverageRiskMeta[data.operationalInsight.coverageRisk].badgeClassName}`}
+                  >
+                    Risco {coverageRiskMeta[data.operationalInsight.coverageRisk].label}
+                  </span>
+                </div>
+
+                <div className="mt-5 grid gap-4 sm:grid-cols-3">
+                  <div className="rounded-[1.5rem] bg-[var(--surface-container-low)] p-4">
+                    <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">Conflitos</p>
+                    <p className="mt-2 font-headline text-3xl font-extrabold text-[var(--on-surface)]">
+                      {data.operationalInsight.overlapCount}
+                    </p>
+                  </div>
+                  <div className="rounded-[1.5rem] bg-[var(--surface-container-low)] p-4">
+                    <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">Aprovados</p>
+                    <p className="mt-2 font-headline text-3xl font-extrabold text-[var(--on-surface)]">
+                      {data.operationalInsight.overlappingApprovedCount}
+                    </p>
+                  </div>
+                  <div className="rounded-[1.5rem] bg-[var(--surface-container-low)] p-4">
+                    <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">Pendentes</p>
+                    <p className="mt-2 font-headline text-3xl font-extrabold text-[var(--on-surface)]">
+                      {data.operationalInsight.overlappingPendingCount}
+                    </p>
+                  </div>
+                </div>
+
+                <p className="mt-5 text-sm leading-6 text-[var(--on-surface-variant)]">
+                  {data.operationalInsight.summary}
+                </p>
+
+                {data.operationalInsight.overlappingEmployeeNames.length > 0 ? (
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {data.operationalInsight.overlappingEmployeeNames.map((employeeName) => (
+                      <span
+                        key={employeeName}
+                        className="rounded-full bg-[var(--surface-container-low)] px-3 py-2 text-xs font-semibold text-[var(--on-surface)]"
+                      >
+                        {employeeName}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
+              </Card>
+            </div>
           </section>
         ) : null}
 
@@ -313,6 +387,7 @@ export const VacationRequestDetailView = ({ vacationId }: { vacationId: string }
           { label: 'Período', value: formatVacationPeriod(data.startDate, data.endDate) },
           { label: 'Saldo disponível', value: `${data.availableDays} dias` },
           { label: 'Departamento', value: data.department },
+          { label: 'Risco de cobertura', value: coverageRiskMeta[data.operationalInsight.coverageRisk].label },
         ]}
         onConfirm={async (notes) => {
           await handleReview('approved', notes || 'Solicitação aprovada pelo RH.');
@@ -334,6 +409,7 @@ export const VacationRequestDetailView = ({ vacationId }: { vacationId: string }
           { label: 'Período', value: formatVacationPeriod(data.startDate, data.endDate) },
           { label: 'Saldo disponível', value: `${data.availableDays} dias` },
           { label: 'Cobertura', value: data.coverageNotes ?? 'Sem observação operacional' },
+          { label: 'Conflitos no período', value: String(data.operationalInsight.overlapCount) },
         ]}
         onConfirm={async (notes) => {
           await handleReview('rejected', notes);

@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from 'expo-router';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import {
   ActivityIndicator,
@@ -24,25 +24,31 @@ import { MobilePageHeader } from '@/shared/components/mobile-page-header';
 import { useAppSession } from '@/shared/providers/app-providers';
 import { mobileTheme } from '@/shared/theme/tokens';
 
-import { useCreateEmployeeVacation } from '../hooks/use-employee-vacations';
+import { useCreateEmployeeVacation, useEmployeeVacations } from '../hooks/use-employee-vacations';
+import { buildVacationEntitlementSnapshot } from '../lib/vacation-entitlement';
 import {
   getVacationTotalDays,
   vacationFormSchema,
   type VacationFormValues,
 } from '../lib/vacation-form-schema';
+import { formatVacationAllowance, formatVacationDate } from '../lib/vacations-mobile';
 
 export const NewVacationScreen = () => {
   const { session } = useAppSession();
   const { employee } = useCurrentEmployee(session);
   const employeeId = employee?.id ?? null;
   const createVacation = useCreateEmployeeVacation(employeeId);
+  const vacationsQuery = useEmployeeVacations(employeeId);
+  const entitlement = useMemo(
+    () => buildVacationEntitlementSnapshot(employee, vacationsQuery.data ?? []),
+    [employee, vacationsQuery.data],
+  );
 
   const form = useForm<z.input<typeof vacationFormSchema>, unknown, VacationFormValues>({
     resolver: zodResolver(vacationFormSchema),
     defaultValues: {
       startDate: '',
       endDate: '',
-      accrualPeriod: '2025/2026',
       coverageNotes: '',
       advanceThirteenthSalary: false,
       cashBonus: false,
@@ -51,7 +57,6 @@ export const NewVacationScreen = () => {
 
   const startDateField = useController({ control: form.control, name: 'startDate' });
   const endDateField = useController({ control: form.control, name: 'endDate' });
-  const accrualPeriodField = useController({ control: form.control, name: 'accrualPeriod' });
   const coverageNotesField = useController({ control: form.control, name: 'coverageNotes' });
   const advanceThirteenthField = useController({ control: form.control, name: 'advanceThirteenthSalary' });
   const cashBonusField = useController({ control: form.control, name: 'cashBonus' });
@@ -72,10 +77,41 @@ export const NewVacationScreen = () => {
           endDate: watchedEndDate,
         })
       : 0;
+  const remainingAfterRequest = entitlement.remainingDaysAfterRequest(totalDays);
 
   const handleSubmit = form.handleSubmit(async (values) => {
     if (!employeeId) {
       Alert.alert('Cadastro indisponível', 'Não encontramos seu vínculo para enviar a solicitação.');
+      return;
+    }
+
+    if (!entitlement.isEligible) {
+      Alert.alert(
+        'Período ainda indisponível',
+        entitlement.availabilityDate
+          ? `Suas férias ficam elegíveis a partir de ${formatVacationDate(entitlement.availabilityDate)}.`
+          : 'Ainda não foi possível validar sua elegibilidade para férias.',
+      );
+      return;
+    }
+
+    if (!entitlement.accrualPeriodLabel) {
+      Alert.alert('Período não identificado', 'Não conseguimos definir o período aquisitivo atual para esta solicitação.');
+      return;
+    }
+
+    if (totalDays <= 0) {
+      Alert.alert('Período inválido', 'Informe um intervalo válido para calcular a quantidade de dias solicitados.');
+      return;
+    }
+
+    if (totalDays > entitlement.availableDays) {
+      Alert.alert(
+        'Saldo insuficiente',
+        `Você está solicitando ${formatVacationAllowance(totalDays)}, mas possui ${formatVacationAllowance(
+          entitlement.availableDays,
+        )} disponíveis no período atual.`,
+      );
       return;
     }
 
@@ -85,8 +121,8 @@ export const NewVacationScreen = () => {
         startDate: values.startDate,
         endDate: values.endDate,
         totalDays,
-        availableDays: 20,
-        accrualPeriod: values.accrualPeriod || null,
+        availableDays: remainingAfterRequest,
+        accrualPeriod: entitlement.accrualPeriodLabel,
         advanceThirteenthSalary: values.advanceThirteenthSalary,
         cashBonus: values.cashBonus,
         coverageNotes: values.coverageNotes || null,
@@ -114,11 +150,46 @@ export const NewVacationScreen = () => {
             Planeje com antecedência
           </Text>
           <Text selectable style={styles.heroTitle}>
-            Pedido com {totalDays > 0 ? `${totalDays} dia(s)` : 'período em aberto'}
+            {entitlement.isEligible
+              ? `${formatVacationAllowance(entitlement.availableDays)} disponíveis`
+              : 'Elegibilidade em andamento'}
           </Text>
           <Text selectable style={styles.heroSubtitle}>
-            Use o formato AAAA-MM-DD nas datas para facilitar a leitura no app.
+            {entitlement.isEligible
+              ? `Período aquisitivo ${entitlement.accrualPeriodLabel ?? 'não identificado'} · reserva prevista de ${formatVacationAllowance(
+                  totalDays,
+                )}.`
+              : entitlement.availabilityDate
+                ? `Seu primeiro ciclo fica disponível em ${formatVacationDate(entitlement.availabilityDate)}.`
+                : 'Ainda não foi possível validar seu período aquisitivo automaticamente.'}
           </Text>
+        </View>
+
+        <View style={styles.card}>
+          <Text style={styles.cardTitle}>Saldo e elegibilidade</Text>
+          <View style={styles.infoGrid}>
+            <View style={styles.infoCard}>
+              <Text style={styles.infoLabel}>Período atual</Text>
+              <Text style={styles.infoValue}>{entitlement.accrualPeriodLabel ?? 'Não identificado'}</Text>
+            </View>
+            <View style={styles.infoCard}>
+              <Text style={styles.infoLabel}>Saldo disponível</Text>
+              <Text style={styles.infoValue}>{formatVacationAllowance(entitlement.availableDays)}</Text>
+            </View>
+            <View style={styles.infoCard}>
+              <Text style={styles.infoLabel}>Já reservado</Text>
+              <Text style={styles.infoValue}>{formatVacationAllowance(entitlement.reservedDays)}</Text>
+            </View>
+            <View style={styles.infoCard}>
+              <Text style={styles.infoLabel}>Após este pedido</Text>
+              <Text style={styles.infoValue}>{formatVacationAllowance(remainingAfterRequest)}</Text>
+            </View>
+          </View>
+          {!entitlement.isEligible && entitlement.availabilityDate ? (
+            <Text style={styles.helperText}>
+              Você poderá abrir o pedido a partir de {formatVacationDate(entitlement.availabilityDate)}.
+            </Text>
+          ) : null}
         </View>
 
         <View style={styles.card}>
@@ -147,18 +218,11 @@ export const NewVacationScreen = () => {
               style={styles.input}
             />
             {endDateField.fieldState.error ? <Text style={styles.errorText}>{endDateField.fieldState.error.message}</Text> : null}
-          </View>
-
-          <View style={styles.fieldGroup}>
-            <Text style={styles.fieldLabel}>Período aquisitivo</Text>
-            <TextInput
-              placeholder="2025/2026"
-              placeholderTextColor={mobileTheme.subtleText}
-              value={accrualPeriodField.field.value ?? ''}
-              onBlur={accrualPeriodField.field.onBlur}
-              onChangeText={accrualPeriodField.field.onChange}
-              style={styles.input}
-            />
+            <Text style={styles.helperText}>
+              {totalDays > 0
+                ? `O período selecionado representa ${formatVacationAllowance(totalDays)}.`
+                : 'Use o formato AAAA-MM-DD para calcular automaticamente a quantidade de dias.'}
+            </Text>
           </View>
         </View>
 
@@ -208,17 +272,26 @@ export const NewVacationScreen = () => {
 
         <View style={styles.actions}>
           <Pressable
-            disabled={createVacation.isPending}
+            disabled={createVacation.isPending || !entitlement.isEligible || vacationsQuery.isLoading}
             onPress={() => void handleSubmit()}
-            style={[styles.primaryAction, createVacation.isPending && styles.actionDisabled]}
+            style={[
+              styles.primaryAction,
+              (createVacation.isPending || !entitlement.isEligible || vacationsQuery.isLoading) && styles.actionDisabled,
+            ]}
           >
-            {createVacation.isPending ? (
+            {createVacation.isPending || vacationsQuery.isLoading ? (
               <ActivityIndicator color="#ffffff" />
             ) : (
               <AppIcon color="#ffffff" name="send-outline" size={18} />
             )}
             <Text style={styles.primaryActionText}>
-              {createVacation.isPending ? 'Enviando...' : 'Enviar solicitação'}
+              {createVacation.isPending
+                ? 'Enviando...'
+                : vacationsQuery.isLoading
+                  ? 'Calculando saldo...'
+                  : !entitlement.isEligible
+                    ? 'Aguardando elegibilidade'
+                    : 'Enviar solicitação'}
             </Text>
           </Pressable>
           <Pressable style={styles.secondaryAction} onPress={() => router.back()}>
@@ -280,6 +353,27 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: mobileTheme.text,
   },
+  infoGrid: {
+    gap: 12,
+  },
+  infoCard: {
+    borderRadius: 18,
+    backgroundColor: mobileTheme.surfaceLow,
+    padding: 14,
+    gap: 4,
+  },
+  infoLabel: {
+    fontSize: 11,
+    fontWeight: '800',
+    letterSpacing: 0.8,
+    color: mobileTheme.subtleText,
+    textTransform: 'uppercase',
+  },
+  infoValue: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: mobileTheme.text,
+  },
   fieldGroup: {
     gap: 8,
   },
@@ -329,6 +423,11 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 12,
     color: mobileTheme.danger,
+  },
+  helperText: {
+    fontSize: 12,
+    lineHeight: 19,
+    color: mobileTheme.mutedText,
   },
   actions: {
     gap: 12,

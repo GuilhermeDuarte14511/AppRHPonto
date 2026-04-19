@@ -1,22 +1,10 @@
 import { NextResponse } from 'next/server';
 
-import { AppError } from '@rh-ponto/core';
 import { adminSettingsFormSchema } from '@rh-ponto/validations';
 
 import { getRequiredAdminSession } from '@/shared/lib/admin-server-session';
+import { handleApiRouteError } from '@/shared/lib/api-route-error';
 import { getSettingsOverviewForAdmin, updateSettingsForAdmin } from '@/features/settings/lib/settings-server';
-
-const handleRouteError = (error: unknown) => {
-  if (error instanceof AppError) {
-    const status = error.code === 'AUTH_UNAUTHORIZED' ? 401 : 400;
-
-    return NextResponse.json({ message: error.message }, { status });
-  }
-
-  const message = error instanceof Error ? error.message : 'Não foi possível concluir a operação.';
-
-  return NextResponse.json({ message }, { status: 500 });
-};
 
 export const GET = async () => {
   try {
@@ -25,7 +13,7 @@ export const GET = async () => {
 
     return NextResponse.json({ data });
   } catch (error) {
-    return handleRouteError(error);
+    return handleApiRouteError(error, 'Não foi possível concluir a operação.');
   }
 };
 
@@ -37,6 +25,6 @@ export const PUT = async (request: Request) => {
 
     return NextResponse.json({ data });
   } catch (error) {
-    return handleRouteError(error);
+    return handleApiRouteError(error, 'Não foi possível concluir a operação.');
   }
 };

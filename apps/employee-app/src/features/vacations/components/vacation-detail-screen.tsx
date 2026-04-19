@@ -9,9 +9,11 @@ import { useAppSession } from '@/shared/providers/app-providers';
 import { mobileTheme } from '@/shared/theme/tokens';
 import { useCurrentEmployee } from '@/features/employee/hooks/use-current-employee';
 
-import { useEmployeeVacationDetail } from '../hooks/use-employee-vacations';
+import { useEmployeeVacationDetail, useEmployeeVacations } from '../hooks/use-employee-vacations';
+import { buildVacationEntitlementSnapshot } from '../lib/vacation-entitlement';
 import {
   approvalStatusLabels,
+  formatVacationAllowance,
   formatVacationDate,
   formatVacationWindow,
   vacationStatusLabels,
@@ -21,8 +23,10 @@ export const VacationDetailScreen = () => {
   const params = useLocalSearchParams<{ id?: string }>();
   const { session } = useAppSession();
   const { employee } = useCurrentEmployee(session);
+  const vacationsQuery = useEmployeeVacations(employee?.id ?? null);
   const detailQuery = useEmployeeVacationDetail(params.id, employee?.id);
   const vacation = detailQuery.data;
+  const entitlement = buildVacationEntitlementSnapshot(employee, vacationsQuery.data ?? []);
 
   return (
     <ScrollView
@@ -56,7 +60,7 @@ export const VacationDetailScreen = () => {
               {formatVacationWindow(vacation)}
             </Text>
             <Text selectable style={styles.heroSubtitle}>
-              {vacation.totalDays} dia(s) solicitados · saldo informado no pedido: {vacation.availableDays} dia(s).
+              {formatVacationAllowance(vacation.totalDays)} solicitados · saldo remanescente informado no pedido: {formatVacationAllowance(vacation.availableDays)}.
             </Text>
           </View>
 
@@ -67,6 +71,12 @@ export const VacationDetailScreen = () => {
                 <Text style={styles.infoLabel}>Período aquisitivo</Text>
                 <Text selectable style={styles.infoValue}>
                   {vacation.accrualPeriod ?? 'Não informado'}
+                </Text>
+              </View>
+              <View style={styles.infoRow}>
+                <Text style={styles.infoLabel}>Saldo atual do período</Text>
+                <Text selectable style={styles.infoValue}>
+                  {formatVacationAllowance(entitlement.availableDays)}
                 </Text>
               </View>
               <View style={styles.infoRow}>

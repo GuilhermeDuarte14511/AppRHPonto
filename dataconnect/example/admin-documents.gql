@@ -1,0 +1,41 @@
+query ListAdminEmployeeDocuments
+  @auth(level: USER, insecureReason: "Operação administrativa do MVP para o portal documental do RH.") {
+  employeeDocuments(orderBy: [{ issuedAt: DESC }], limit: 300) {
+    id
+    employee {
+      id
+    }
+    category
+    title
+    description
+    status
+    fileName
+    fileUrl
+    issuedAt
+    acknowledgedAt
+    expiresAt
+    createdAt
+    updatedAt
+  }
+}
+
+query ListAdminPayrollStatements
+  @auth(level: USER, insecureReason: "Operação administrativa do MVP para o portal documental do RH.") {
+  payrollStatements(orderBy: [{ issuedAt: DESC }], limit: 300) {
+    id
+    employee {
+      id
+    }
+    referenceLabel
+    referenceYear
+    referenceMonth
+    status
+    grossAmount
+    netAmount
+    fileName
+    fileUrl
+    issuedAt
+    createdAt
+    updatedAt
+  }
+}

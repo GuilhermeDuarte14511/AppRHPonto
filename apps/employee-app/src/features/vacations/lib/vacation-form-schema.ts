@@ -6,7 +6,6 @@ export const vacationFormSchema = z
   .object({
     startDate: z.string().trim().min(10, 'Informe a data inicial no formato AAAA-MM-DD.'),
     endDate: z.string().trim().min(10, 'Informe a data final no formato AAAA-MM-DD.'),
-    accrualPeriod: z.string().trim().max(40, 'Use um período de aquisição curto.').optional().or(z.literal('')),
     coverageNotes: z.string().trim().max(300, 'Escreva um resumo mais curto.').optional().or(z.literal('')),
     advanceThirteenthSalary: z.boolean(),
     cashBonus: z.boolean(),
