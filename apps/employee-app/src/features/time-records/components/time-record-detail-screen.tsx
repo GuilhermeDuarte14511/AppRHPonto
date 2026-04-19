@@ -117,6 +117,16 @@ export const TimeRecordDetailScreen = () => {
   const photo = photosQuery.data?.[0] ?? null;
   const auditItems = buildAuditItems(record);
   const nextExpectedType = resolveNextTimeRecordTypeAfter(record.recordType);
+  const handleRequestAdjustment = () => {
+    router.push({
+      pathname: '/justifications/new',
+      params: {
+        timeRecordId: record.id,
+        requestedRecordType: record.recordType,
+        requestedRecordedAt: new Date(record.recordedAt).toISOString(),
+      },
+    });
+  };
 
   return (
     <ScrollView
@@ -162,9 +172,9 @@ export const TimeRecordDetailScreen = () => {
               <Text style={styles.infoValue}>{timeRecordStatusDescriptions[record.status]}</Text>
             </View>
             <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>PrÃ³xima etapa</Text>
+              <Text style={styles.infoLabel}>Próxima etapa</Text>
               <Text style={styles.infoValue}>
-                {nextExpectedType ? timeRecordTypeLabels[nextExpectedType] : 'Jornada concluÃ­da'}
+                {nextExpectedType ? timeRecordTypeLabels[nextExpectedType] : 'Jornada concluída'}
               </Text>
             </View>
           </View>
@@ -250,7 +260,7 @@ export const TimeRecordDetailScreen = () => {
       </View>
 
       <View style={styles.actions}>
-        <Pressable style={styles.primaryAction} onPress={() => router.push('/(tabs)/justifications')}>
+        <Pressable style={styles.primaryAction} onPress={handleRequestAdjustment}>
           <AppIcon color="#ffffff" name="create-outline" size={18} />
           <Text style={styles.primaryActionText}>Solicitar ajuste</Text>
         </Pressable>

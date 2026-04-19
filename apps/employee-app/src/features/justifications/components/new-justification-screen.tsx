@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as DocumentPicker from 'expo-document-picker';
-import { router } from 'expo-router';
-import { useMemo, useState } from 'react';
+import { router, useLocalSearchParams } from 'expo-router';
+import { useEffect, useMemo, useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import {
   ActivityIndicator,
@@ -44,6 +44,47 @@ const justificationTypeOptions = [
 
 const requestedTypeOptions = ['entry', 'break_start', 'break_end', 'exit'] as const satisfies readonly TimeRecordType[];
 
+const routeDateTimeFormatter = new Intl.DateTimeFormat('pt-BR', {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+});
+
+const getSingleRouteParam = (value?: string | string[]) => (Array.isArray(value) ? value[0] : value);
+
+const parseRequestedRecordTypeParam = (value?: string) =>
+  requestedTypeOptions.includes(value as TimeRecordType) ? (value as TimeRecordType) : undefined;
+
+const formatRequestedRecordedAtInput = (value?: string) => {
+  if (!value) {
+    return '';
+  }
+
+  const parsed = new Date(value);
+
+  return Number.isNaN(parsed.getTime()) ? value : routeDateTimeFormatter.format(parsed);
+};
+
+const buildInitialFormValues = ({
+  isContextualAdjustmentFlow,
+  requestedRecordType,
+  requestedRecordedAt,
+  timeRecordId,
+}: {
+  isContextualAdjustmentFlow: boolean;
+  timeRecordId?: string;
+  requestedRecordType?: TimeRecordType;
+  requestedRecordedAt?: string;
+}): z.input<typeof employeeJustificationFormSchema> => ({
+  type: isContextualAdjustmentFlow ? 'adjustment_request' : 'missing_record',
+  timeRecordId: timeRecordId ?? '',
+  requestedRecordType: requestedRecordType ?? '',
+  requestedRecordedAt: formatRequestedRecordedAtInput(requestedRecordedAt),
+  reason: '',
+});
+
 interface SelectedAttachment {
   uri: string;
   name: string;
@@ -52,6 +93,11 @@ interface SelectedAttachment {
 }
 
 export const NewJustificationScreen = () => {
+  const params = useLocalSearchParams<{
+    timeRecordId?: string | string[];
+    requestedRecordType?: string | string[];
+    requestedRecordedAt?: string | string[];
+  }>();
   const { session } = useAppSession();
   const { employee } = useCurrentEmployee(session);
   const employeeId = employee?.id ?? null;
@@ -60,17 +106,38 @@ export const NewJustificationScreen = () => {
   const addAttachment = useAddJustificationAttachment();
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [selectedAttachments, setSelectedAttachments] = useState<SelectedAttachment[]>([]);
+  const contextualTimeRecordId = getSingleRouteParam(params.timeRecordId);
+  const contextualRequestedRecordType = parseRequestedRecordTypeParam(getSingleRouteParam(params.requestedRecordType));
+  const contextualRequestedRecordedAt = getSingleRouteParam(params.requestedRecordedAt);
+  const isContextualAdjustmentFlow = Boolean(
+    contextualTimeRecordId || contextualRequestedRecordType || contextualRequestedRecordedAt,
+  );
+  const initialFormValues = useMemo(
+    () =>
+      buildInitialFormValues({
+        isContextualAdjustmentFlow,
+        timeRecordId: contextualTimeRecordId,
+        requestedRecordType: contextualRequestedRecordType,
+        requestedRecordedAt: contextualRequestedRecordedAt,
+      }),
+    [
+      contextualRequestedRecordedAt,
+      contextualRequestedRecordType,
+      contextualTimeRecordId,
+      isContextualAdjustmentFlow,
+    ],
+  );
 
   const form = useForm<z.input<typeof employeeJustificationFormSchema>, unknown, EmployeeJustificationFormValues>({
     resolver: zodResolver(employeeJustificationFormSchema),
-    defaultValues: {
-      type: 'missing_record',
-      timeRecordId: '',
-      requestedRecordType: '',
-      requestedRecordedAt: '',
-      reason: '',
-    },
+    defaultValues: initialFormValues,
   });
+
+  useEffect(() => {
+    form.reset(initialFormValues);
+    setSelectedAttachments([]);
+    setSubmitError(null);
+  }, [form, initialFormValues]);
 
   const typeField = useController({
     control: form.control,
@@ -94,6 +161,15 @@ export const NewJustificationScreen = () => {
   });
 
   const recentRecords = useMemo(() => records.slice(0, 6), [records]);
+  const linkedRecord = useMemo(
+    () => records.find((record) => record.id === contextualTimeRecordId) ?? null,
+    [contextualTimeRecordId, records],
+  );
+  const linkedRecordTypeLabel =
+    linkedRecord ? timeRecordTypeLabels[linkedRecord.recordType] : contextualRequestedRecordType
+      ? timeRecordTypeLabels[contextualRequestedRecordType]
+      : null;
+  const linkedRecordedAt = linkedRecord?.recordedAt ?? contextualRequestedRecordedAt;
 
   const handlePickAttachments = async () => {
     const result = await DocumentPicker.getDocumentAsync({
@@ -190,6 +266,21 @@ export const NewJustificationScreen = () => {
             Descreva o motivo, relacione uma batida quando fizer sentido e anexe documentos que ajudem o RH a analisar.
           </Text>
         </View>
+
+        {isContextualAdjustmentFlow && linkedRecordTypeLabel && linkedRecordedAt ? (
+          <View style={styles.contextCard}>
+            <View style={styles.contextIcon}>
+              <AppIcon color={mobileTheme.primary} name="time-outline" size={18} />
+            </View>
+            <View style={styles.contextCopy}>
+              <Text style={styles.contextEyebrow}>Ajuste vinculado à marcação</Text>
+              <Text style={styles.contextTitle}>{linkedRecordTypeLabel}</Text>
+              <Text style={styles.contextText}>
+                Registrada em {formatTimeRecordDateTime(linkedRecordedAt)}. Você pode complementar o pedido antes de enviar.
+              </Text>
+            </View>
+          </View>
+        ) : null}
 
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Tipo da solicitação</Text>
@@ -444,6 +535,43 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 21,
     color: mobileTheme.mutedText,
+  },
+  contextCard: {
+    borderRadius: 24,
+    backgroundColor: mobileTheme.primarySoft,
+    padding: 18,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 12,
+  },
+  contextIcon: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ffffff',
+  },
+  contextCopy: {
+    flex: 1,
+    gap: 4,
+  },
+  contextEyebrow: {
+    fontSize: 11,
+    fontWeight: '800',
+    letterSpacing: 0.8,
+    textTransform: 'uppercase',
+    color: mobileTheme.primary,
+  },
+  contextTitle: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: mobileTheme.text,
+  },
+  contextText: {
+    fontSize: 13,
+    lineHeight: 20,
+    color: mobileTheme.text,
   },
   card: {
     borderRadius: 24,

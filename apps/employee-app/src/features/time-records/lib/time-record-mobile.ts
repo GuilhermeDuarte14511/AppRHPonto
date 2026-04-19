@@ -3,14 +3,14 @@ import type { TimeRecordSource, TimeRecordStatus, TimeRecordType } from '@rh-pon
 
 export const timeRecordTypeLabels: Record<TimeRecordType, string> = {
   entry: 'Entrada',
-  break_start: 'Saida almoco',
-  break_end: 'Volta almoco',
-  exit: 'Saida',
+  break_start: 'Saída para almoço',
+  break_end: 'Volta do almoço',
+  exit: 'Saída',
 };
 
 export const timeRecordStatusLabels: Record<TimeRecordStatus, string> = {
-  valid: 'Valido',
-  pending_review: 'Em revisao',
+  valid: 'Válido',
+  pending_review: 'Em revisão',
   adjusted: 'Ajustado',
   rejected: 'Rejeitado',
 };
@@ -22,10 +22,10 @@ export const timeRecordSourceLabels: Record<TimeRecordSource, string> = {
 };
 
 export const timeRecordStatusDescriptions: Record<TimeRecordStatus, string> = {
-  valid: 'A marcacao entrou normalmente na jornada e nao exige acao adicional.',
-  pending_review: 'O registro foi aceito, mas seguira para analise operacional do RH.',
+  valid: 'A marcação entrou normalmente na jornada e não exige ação adicional.',
+  pending_review: 'O registro foi aceito, mas seguirá para análise operacional do RH.',
   adjusted: 'A batida passou por ajuste posterior com trilha de auditoria preservada.',
-  rejected: 'A marcacao foi rejeitada e pode precisar de justificativa complementar.',
+  rejected: 'A marcação foi rejeitada e pode precisar de justificativa complementar.',
 };
 
 export const orderedTimeRecordTypes: TimeRecordType[] = ['entry', 'break_start', 'break_end', 'exit'];
@@ -37,22 +37,22 @@ const dayStepCopyByNextType: Record<
   entry: {
     dayStatusLabel: 'Aguardando entrada',
     currentStepLabel: 'Entrada do dia',
-    currentStepDescription: 'Esta sera a primeira batida da sua jornada hoje.',
+    currentStepDescription: 'Esta será a primeira batida da sua jornada hoje.',
   },
   break_start: {
-    dayStatusLabel: 'Aguardando saida para almoco',
-    currentStepLabel: 'Saida para almoco',
-    currentStepDescription: 'A entrada de hoje ja foi registrada. A proxima batida esperada e a saida para o almoco.',
+    dayStatusLabel: 'Aguardando saída para almoço',
+    currentStepLabel: 'Saída para almoço',
+    currentStepDescription: 'A entrada de hoje já foi registrada. A próxima batida esperada é a saída para o almoço.',
   },
   break_end: {
-    dayStatusLabel: 'Aguardando volta do almoco',
-    currentStepLabel: 'Volta do almoco',
-    currentStepDescription: 'A saida para almoco ja foi registrada. Agora o sistema espera a volta do intervalo.',
+    dayStatusLabel: 'Aguardando volta do almoço',
+    currentStepLabel: 'Volta do almoço',
+    currentStepDescription: 'A saída para almoço já foi registrada. Agora o sistema espera a volta do intervalo.',
   },
   exit: {
-    dayStatusLabel: 'Aguardando saida',
-    currentStepLabel: 'Saida do dia',
-    currentStepDescription: 'A jornada esta em andamento e a proxima batida esperada e a saida.',
+    dayStatusLabel: 'Aguardando saída',
+    currentStepLabel: 'Saída do dia',
+    currentStepDescription: 'A jornada está em andamento e a próxima batida esperada é a saída.',
   },
 };
 
@@ -146,8 +146,8 @@ export const resolveDailyTimeRecordFlow = (
       completedTypes,
       currentStepLabel: 'Jornada encerrada',
       currentStepDescription:
-        'As quatro batidas esperadas para hoje ja foram registradas. Se precisar registrar algo fora do fluxo, escolha manualmente o tipo da batida.',
-      dayStatusLabel: 'Jornada concluida',
+        'As quatro batidas esperadas para hoje já foram registradas. Se precisar registrar algo fora do fluxo, escolha manualmente o tipo da batida.',
+      dayStatusLabel: 'Jornada concluída',
       isComplete: true,
       hasUnexpectedSequence,
       lastAcceptedRecordType,
@@ -162,9 +162,9 @@ export const resolveDailyTimeRecordFlow = (
     completedTypes,
     currentStepLabel: stepCopy.currentStepLabel,
     currentStepDescription: hasUnexpectedSequence
-      ? 'Ha uma divergencia na sequencia das batidas do dia. O tipo abaixo segue a proxima etapa esperada, mas o RH pode revisar esse fluxo.'
+      ? 'Há uma divergência na sequência das batidas do dia. O tipo abaixo segue a próxima etapa esperada, mas o RH pode revisar esse fluxo.'
       : stepCopy.currentStepDescription,
-    dayStatusLabel: hasUnexpectedSequence ? `${stepCopy.dayStatusLabel} com revisao` : stepCopy.dayStatusLabel,
+    dayStatusLabel: hasUnexpectedSequence ? `${stepCopy.dayStatusLabel} com revisão` : stepCopy.dayStatusLabel,
     isComplete: false,
     hasUnexpectedSequence,
     lastAcceptedRecordType,
