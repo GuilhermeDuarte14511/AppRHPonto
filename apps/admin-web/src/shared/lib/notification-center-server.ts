@@ -51,8 +51,10 @@ interface NotificationsQueryData {
     id: string;
     recordType: string;
     recordedAt: string;
+    originalRecordedAt?: string | null;
     source: string;
     notes?: string | null;
+    isManual?: boolean;
     latitude?: number | null;
     longitude?: number | null;
     resolvedAddress?: string | null;
@@ -164,8 +166,10 @@ const notificationsQuery = `
       id
       recordType
       recordedAt
+      originalRecordedAt
       source
       notes
+      isManual
       latitude
       longitude
       resolvedAddress
@@ -290,9 +294,11 @@ const buildDerivedNotifications = (data: NotificationsQueryData): DerivedNotific
         employeeId: timeRecord.employee.id,
         employeeName: timeRecord.employee.fullName,
         recordedAt: timeRecord.recordedAt,
+        originalRecordedAt: timeRecord.originalRecordedAt ?? null,
         recordType: timeRecord.recordType as never,
         source: timeRecord.source as never,
         notes: timeRecord.notes ?? null,
+        isManual: timeRecord.isManual ?? false,
         latitude: timeRecord.latitude ?? null,
         longitude: timeRecord.longitude ?? null,
         resolvedAddress: timeRecord.resolvedAddress ?? null,
@@ -303,9 +309,11 @@ const buildDerivedNotifications = (data: NotificationsQueryData): DerivedNotific
       employeeId: timeRecord.employee.id,
       employeeName: timeRecord.employee.fullName,
       recordedAt: timeRecord.recordedAt,
+      originalRecordedAt: timeRecord.originalRecordedAt ?? null,
       recordType: timeRecord.recordType as never,
       source: timeRecord.source as never,
       notes: timeRecord.notes ?? null,
+      isManual: timeRecord.isManual ?? false,
       latitude: timeRecord.latitude ?? null,
       longitude: timeRecord.longitude ?? null,
       resolvedAddress: timeRecord.resolvedAddress ?? null,
@@ -350,7 +358,7 @@ const buildDerivedNotifications = (data: NotificationsQueryData): DerivedNotific
           endDate: vacation.endDate,
         }))
       : [],
-    pendingDocumentAcknowledgements: data.employeeDocuments
+    pendingDocumentAcknowledgements: (data.employeeDocuments ?? [])
       .filter((document) => !document.acknowledgedAt)
       .map((document) => ({
         id: document.id,

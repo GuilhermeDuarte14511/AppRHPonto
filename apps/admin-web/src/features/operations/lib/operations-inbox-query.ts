@@ -45,9 +45,11 @@ export const getOperationsInboxAt = async (now: Date): Promise<OperationsInboxDa
     employeeId: record.employeeId,
     employeeName: employeeDirectory.get(record.employeeId) ?? 'Colaborador nao identificado',
     recordedAt: toIsoString(record.recordedAt) ?? new Date(0).toISOString(),
+    originalRecordedAt: toIsoString(record.originalRecordedAt),
     recordType: record.recordType,
     source: record.source,
     notes: record.notes ?? null,
+    isManual: record.isManual,
     latitude: record.latitude ?? null,
     longitude: record.longitude ?? null,
     resolvedAddress: record.resolvedAddress ?? null,
@@ -61,6 +63,10 @@ export const getOperationsInboxAt = async (now: Date): Promise<OperationsInboxDa
   const assistedReviewCases = buildTimeAdjustmentAssistedReviewCases({
     pendingRecords: pendingTimeRecords,
     allTimeRecords: timeRecordContext,
+    scheduleContext: {
+      employeeScheduleHistories: snapshot.employeeScheduleHistories,
+      workSchedules: snapshot.workSchedules,
+    },
   });
   const assistedReviewMap = new Map(assistedReviewCases.map((item) => [item.recordId, item]));
 

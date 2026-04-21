@@ -14,38 +14,38 @@ If a user is not using a supported framework, they can use the generated SDK dir
 Here's an example of how to use it with the first 5 operations:
 
 ```js
-import { listDepartments, getDepartmentById, createDepartment, updateDepartment, deleteDepartment, listJustifications, getJustificationById, listJustificationAttachments, createJustification, approveJustification } from '@rh-ponto/api-client/generated';
+import { getUserByFirebaseUid, getUserByEmail, touchUserLastLogin, linkUserFirebaseUid, listEmployeeNotifications, markEmployeeNotificationAsRead, getEmployeeNotificationPreferences, updateEmployeeNotificationPreferences, getCurrentEmployeeByUserId, getCurrentEmployeeByEmail } from '@rh-ponto/api-client/generated';
 
 
-// Operation ListDepartments: 
-const { data } = await ListDepartments(dataConnect);
+// Operation GetUserByFirebaseUid:  For variables, look at type GetUserByFirebaseUidVars in ../index.d.ts
+const { data } = await GetUserByFirebaseUid(dataConnect, getUserByFirebaseUidVars);
 
-// Operation GetDepartmentById:  For variables, look at type GetDepartmentByIdVars in ../index.d.ts
-const { data } = await GetDepartmentById(dataConnect, getDepartmentByIdVars);
+// Operation GetUserByEmail:  For variables, look at type GetUserByEmailVars in ../index.d.ts
+const { data } = await GetUserByEmail(dataConnect, getUserByEmailVars);
 
-// Operation CreateDepartment:  For variables, look at type CreateDepartmentVars in ../index.d.ts
-const { data } = await CreateDepartment(dataConnect, createDepartmentVars);
+// Operation TouchUserLastLogin:  For variables, look at type TouchUserLastLoginVars in ../index.d.ts
+const { data } = await TouchUserLastLogin(dataConnect, touchUserLastLoginVars);
 
-// Operation UpdateDepartment:  For variables, look at type UpdateDepartmentVars in ../index.d.ts
-const { data } = await UpdateDepartment(dataConnect, updateDepartmentVars);
+// Operation LinkUserFirebaseUid:  For variables, look at type LinkUserFirebaseUidVars in ../index.d.ts
+const { data } = await LinkUserFirebaseUid(dataConnect, linkUserFirebaseUidVars);
 
-// Operation DeleteDepartment:  For variables, look at type DeleteDepartmentVars in ../index.d.ts
-const { data } = await DeleteDepartment(dataConnect, deleteDepartmentVars);
+// Operation ListEmployeeNotifications:  For variables, look at type ListEmployeeNotificationsVars in ../index.d.ts
+const { data } = await ListEmployeeNotifications(dataConnect, listEmployeeNotificationsVars);
 
-// Operation ListJustifications: 
-const { data } = await ListJustifications(dataConnect);
+// Operation MarkEmployeeNotificationAsRead:  For variables, look at type MarkEmployeeNotificationAsReadVars in ../index.d.ts
+const { data } = await MarkEmployeeNotificationAsRead(dataConnect, markEmployeeNotificationAsReadVars);
 
-// Operation GetJustificationById:  For variables, look at type GetJustificationByIdVars in ../index.d.ts
-const { data } = await GetJustificationById(dataConnect, getJustificationByIdVars);
+// Operation GetEmployeeNotificationPreferences:  For variables, look at type GetEmployeeNotificationPreferencesVars in ../index.d.ts
+const { data } = await GetEmployeeNotificationPreferences(dataConnect, getEmployeeNotificationPreferencesVars);
 
-// Operation ListJustificationAttachments: 
-const { data } = await ListJustificationAttachments(dataConnect);
+// Operation UpdateEmployeeNotificationPreferences:  For variables, look at type UpdateEmployeeNotificationPreferencesVars in ../index.d.ts
+const { data } = await UpdateEmployeeNotificationPreferences(dataConnect, updateEmployeeNotificationPreferencesVars);
 
-// Operation CreateJustification:  For variables, look at type CreateJustificationVars in ../index.d.ts
-const { data } = await CreateJustification(dataConnect, createJustificationVars);
+// Operation GetCurrentEmployeeByUserId:  For variables, look at type GetCurrentEmployeeByUserIdVars in ../index.d.ts
+const { data } = await GetCurrentEmployeeByUserId(dataConnect, getCurrentEmployeeByUserIdVars);
 
-// Operation ApproveJustification:  For variables, look at type ApproveJustificationVars in ../index.d.ts
-const { data } = await ApproveJustification(dataConnect, approveJustificationVars);
+// Operation GetCurrentEmployeeByEmail:  For variables, look at type GetCurrentEmployeeByEmailVars in ../index.d.ts
+const { data } = await GetCurrentEmployeeByEmail(dataConnect, getCurrentEmployeeByEmailVars);
 
 
 ```

@@ -748,7 +748,7 @@ mutation SeedRhPontoData
         status: "adjusted"
         recordedAt: "2026-04-03T11:05:00.000Z"
         originalRecordedAt: "2026-04-03T11:33:00.000Z"
-        notes: "Ajuste manual após comprovação de indisponibilidade no kiosk."
+        notes: "Ajuste manual após comprovação de indisponibilidade no kiosk da recepção. Histórico original preservado."
         isManual: true
         latitude: null
         longitude: null
@@ -767,7 +767,7 @@ mutation SeedRhPontoData
         status: "adjusted"
         recordedAt: "2026-04-02T12:00:00.000Z"
         originalRecordedAt: null
-        notes: "Registro criado manualmente após declaração de reunião externa."
+        notes: "Registro criado manualmente após declaração de reunião externa. Histórico original preservado."
         isManual: true
         latitude: null
         longitude: null
@@ -786,7 +786,7 @@ mutation SeedRhPontoData
         status: "pending_review"
         recordedAt: "2026-04-02T12:14:00.000Z"
         originalRecordedAt: null
-        notes: "Selfie com baixa iluminação. Validação humana solicitada."
+        notes: "Selfie com baixa iluminação e coordenada fora do raio autorizado. Validação humana solicitada."
         isManual: false
         latitude: -23.56415
         longitude: -46.65242
@@ -805,7 +805,7 @@ mutation SeedRhPontoData
         status: "pending_review"
         recordedAt: "2026-03-31T12:17:00.000Z"
         originalRecordedAt: null
-        notes: "Entrada fora da tolerância."
+        notes: "Entrada fora da tolerância e sem comprovação de geofence."
         isManual: false
         latitude: null
         longitude: null
@@ -824,11 +824,11 @@ mutation SeedRhPontoData
         status: "rejected"
         recordedAt: "2026-04-02T21:41:00.000Z"
         originalRecordedAt: null
-        notes: "Solicitação rejeitada por divergência com geolocalização informada."
+        notes: "Solicitação rejeitada por divergência de geolocalização e inconsistências com a política."
         isManual: false
         latitude: -23.5912
         longitude: -46.6761
-        resolvedAddress: null
+        resolvedAddress: "Rua Vergueiro, 3185 - Vila Mariana - São Paulo - SP"
         ipAddress: "177.55.10.14"
         createdAt: "2026-04-02T21:41:00.000Z"
         updatedAt: "2026-04-02T22:12:00.000Z"
@@ -862,7 +862,7 @@ mutation SeedRhPontoData
         status: "valid"
         recordedAt: "2026-04-01T12:31:00.000Z"
         originalRecordedAt: null
-        notes: "Trabalho híbrido aprovado para discovery com fornecedor."
+        notes: "Trabalho híbrido aprovado para discovery com fornecedor. Registro válido no employee app."
         isManual: false
         latitude: -23.567
         longitude: -46.648
@@ -881,7 +881,7 @@ mutation SeedRhPontoData
         status: "valid"
         recordedAt: "2026-04-01T21:06:00.000Z"
         originalRecordedAt: null
-        notes: "Fechamento remoto do dia com cerimônia de produto."
+        notes: "Saída validada no employee app após conferência de política híbrida."
         isManual: false
         latitude: -23.567
         longitude: -46.648
@@ -1032,6 +1032,26 @@ mutation SeedRhPontoData
         isPrimary: true
         createdAt: "2026-04-01T08:04:00.000Z"
       }
+      {
+        id: "ffffffff-ffff-4fff-8fff-fffffffffff9"
+        timeRecord: { id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee8" }
+        fileUrl: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1"
+        fileName: "entry-juliana-contexto.jpg"
+        contentType: "image/jpeg"
+        fileSizeBytes: 176240
+        isPrimary: false
+        createdAt: "2026-04-02T12:15:00.000Z"
+      }
+      {
+        id: "ffffffff-ffff-4fff-8fff-ffffffffff10"
+        timeRecord: { id: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeee10" }
+        fileUrl: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1"
+        fileName: "exit-ana-evidence.jpg"
+        contentType: "image/jpeg"
+        fileSizeBytes: 187440
+        isPrimary: false
+        createdAt: "2026-04-02T21:41:00.000Z"
+      }
     ]
   )
 
@@ -1042,7 +1062,7 @@ mutation SeedRhPontoData
         employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2" }
         timeRecordId: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee9"
         type: "late"
-        reason: "Trânsito intenso devido a acidente na marginal."
+        reason: "Trânsito intenso devido a acidente na marginal, com comprovante anexado."
         status: "pending"
         requestedRecordType: "entry"
         requestedRecordedAt: "2026-03-31T12:00:00.000Z"
@@ -1057,7 +1077,7 @@ mutation SeedRhPontoData
         employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1" }
         timeRecordId: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee1"
         type: "adjustment_request"
-        reason: "Saída registrada com horário incorreto."
+        reason: "Saída registrada com horário incorreto e comprovante do turno anexado."
         status: "approved"
         requestedRecordType: "exit"
         requestedRecordedAt: "2026-03-31T21:05:00.000Z"
@@ -1102,13 +1122,13 @@ mutation SeedRhPontoData
         employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa7" }
         timeRecordId: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee2"
         type: "late"
-        reason: "Atraso por acidente no trajeto, sem documento comprobatório suficiente."
+        reason: "Atraso por acidente no trajeto, com anexos que não sustentaram integralmente o horário informado."
         status: "rejected"
         requestedRecordType: "entry"
         requestedRecordedAt: "2026-04-03T12:18:00.000Z"
         reviewedByUserId: "11111111-1111-4111-8111-111111111111"
         reviewedAt: "2026-04-03T13:00:00.000Z"
-        reviewNotes: "Justificativa rejeitada por falta de evidências anexas."
+        reviewNotes: "Justificativa rejeitada por falta de evidências consistentes para o horário informado."
         createdAt: "2026-04-03T12:30:00.000Z"
         updatedAt: "2026-04-03T13:00:00.000Z"
       }
@@ -1221,6 +1241,26 @@ mutation SeedRhPontoData
         fileSizeBytes: 255780
         uploadedByUser: { id: "22222222-2222-4222-8222-222222222222" }
         createdAt: "2026-04-01T08:03:00.000Z"
+      }
+      {
+        id: "abababab-abab-4bab-8bab-ababababab07"
+        justification: { id: "99999999-9999-4999-8999-999999999992" }
+        fileName: "escala-turno.pdf"
+        fileUrl: "https://example.com/escala-turno.pdf"
+        contentType: "application/pdf"
+        fileSizeBytes: 243210
+        uploadedByUser: { id: "33333333-3333-4333-8333-333333333333" }
+        createdAt: "2026-03-31T20:59:00.000Z"
+      }
+      {
+        id: "abababab-abab-4bab-8bab-ababababab08"
+        justification: { id: "99999999-9999-4999-8999-999999999992" }
+        fileName: "print-linha-tempo.jpg"
+        fileUrl: "https://example.com/print-linha-tempo.jpg"
+        contentType: "image/jpeg"
+        fileSizeBytes: 162090
+        uploadedByUser: { id: "33333333-3333-4333-8333-333333333333" }
+        createdAt: "2026-03-31T20:59:00.000Z"
       }
     ]
   )
