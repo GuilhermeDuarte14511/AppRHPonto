@@ -8,8 +8,8 @@ import { mobileTheme } from '@/shared/theme/tokens';
 
 import { useEmployeeJustifications } from '../hooks/use-employee-justifications';
 import {
+  buildJustificationOperationalSummary,
   formatJustificationDate,
-  justificationStatusDescriptions,
   justificationStatusLabels,
   justificationTypeLabels,
 } from '../lib/justification-mobile';
@@ -96,44 +96,69 @@ export const EmployeeJustificationsScreen = () => {
         </View>
       ) : (
         <View style={styles.list}>
-          {justifications.map((item) => (
-            <Pressable key={item.id} onPress={() => router.push(`/justifications/${item.id}`)} style={styles.card}>
-              <View style={styles.cardHeader}>
-                <View style={styles.cardHeaderCopy}>
-                  <Text style={styles.cardDate}>{formatJustificationDate(item.createdAt)}</Text>
-                  <Text style={styles.cardTitle}>{justificationTypeLabels[item.type]}</Text>
-                </View>
-                <View
-                  style={[
-                    styles.badge,
-                    {
-                      backgroundColor: `${statusColorByStatus[item.status]}20`,
-                    },
-                  ]}
-                >
-                  <Text style={[styles.badgeText, { color: statusColorByStatus[item.status] }]}>
-                    {justificationStatusLabels[item.status]}
-                  </Text>
-                </View>
-              </View>
+          {justifications.map((item) => {
+            const operational = buildJustificationOperationalSummary(item);
 
-              <Text numberOfLines={3} style={styles.cardReason}>
-                {item.reason}
-              </Text>
-
-              {item.reviewNotes ? (
-                <View style={styles.reviewBox}>
-                  <AppIcon color={mobileTheme.danger} name="chatbubble-ellipses-outline" size={16} />
-                  <Text style={styles.reviewText}>{item.reviewNotes}</Text>
+            return (
+              <Pressable key={item.id} onPress={() => router.push(`/justifications/${item.id}`)} style={styles.card}>
+                <View style={styles.cardHeader}>
+                  <View style={styles.cardHeaderCopy}>
+                    <Text style={styles.cardDate}>{formatJustificationDate(item.createdAt)}</Text>
+                    <Text style={styles.cardTitle}>{justificationTypeLabels[item.type]}</Text>
+                  </View>
+                  <View
+                    style={[
+                      styles.badge,
+                      {
+                        backgroundColor: `${statusColorByStatus[item.status]}20`,
+                      },
+                    ]}
+                  >
+                    <Text style={[styles.badgeText, { color: statusColorByStatus[item.status] }]}>
+                      {justificationStatusLabels[item.status]}
+                    </Text>
+                  </View>
                 </View>
-              ) : null}
 
-              <View style={styles.cardFooter}>
-                <Text style={styles.cardFooterText}>{justificationStatusDescriptions[item.status]}</Text>
-                <AppIcon color={mobileTheme.primary} name="arrow-forward-outline" size={16} />
-              </View>
-            </Pressable>
-          ))}
+                <View style={styles.cardMetaRow}>
+                  <Text style={styles.cardMetaText}>{operational.linkedRecordLabel}</Text>
+                  <Text style={styles.cardMetaText}>{operational.requestedRecordedAtLabel}</Text>
+                </View>
+
+                <Text numberOfLines={3} style={styles.cardReason}>
+                  {item.reason}
+                </Text>
+
+                {item.reviewNotes || item.status === 'pending' ? (
+                  <View
+                    style={[
+                      styles.reviewBox,
+                      item.status === 'rejected' ? styles.reviewBoxRejected : styles.reviewBoxPending,
+                    ]}
+                  >
+                    <AppIcon
+                      color={item.status === 'rejected' ? mobileTheme.danger : mobileTheme.warning}
+                      name="chatbubble-ellipses-outline"
+                      size={16}
+                    />
+                    <Text
+                      style={[
+                        styles.reviewText,
+                        item.status === 'rejected' ? styles.reviewTextRejected : styles.reviewTextPending,
+                      ]}
+                    >
+                      {item.reviewNotes ?? operational.reviewFocus}
+                    </Text>
+                  </View>
+                ) : null}
+
+                <View style={styles.cardFooter}>
+                  <Text style={styles.cardFooterText}>{operational.statusAction}</Text>
+                  <AppIcon color={mobileTheme.primary} name="arrow-forward-outline" size={16} />
+                </View>
+              </Pressable>
+            );
+          })}
         </View>
       )}
 
@@ -280,18 +305,36 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     color: mobileTheme.mutedText,
   },
+  cardMetaRow: {
+    gap: 4,
+  },
+  cardMetaText: {
+    fontSize: 12,
+    lineHeight: 18,
+    color: mobileTheme.subtleText,
+  },
   reviewBox: {
     borderRadius: 16,
-    backgroundColor: mobileTheme.dangerSoft,
     padding: 12,
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
   },
+  reviewBoxPending: {
+    backgroundColor: mobileTheme.warningSoft,
+  },
+  reviewBoxRejected: {
+    backgroundColor: mobileTheme.dangerSoft,
+  },
   reviewText: {
     flex: 1,
     fontSize: 12,
     lineHeight: 18,
+  },
+  reviewTextPending: {
+    color: mobileTheme.warning,
+  },
+  reviewTextRejected: {
     color: mobileTheme.danger,
   },
   cardFooter: {

@@ -6,6 +6,7 @@ import { useEmployeeAttendancePolicy } from '@/features/attendance/hooks/use-emp
 import { useCurrentEmployee } from '@/features/employee/hooks/use-current-employee';
 import { useEmployeeTimeRecords } from '@/features/time-records/hooks/use-employee-time-records';
 import {
+  buildTimeRecordOperationalInsight,
   filterTimeRecordsByPreset,
   formatDurationFromMinutes,
   formatTimeRecordDate,
@@ -119,54 +120,60 @@ export const EmployeeTimeRecordsScreen = () => {
         </View>
       ) : (
         <View style={styles.list}>
-          {filteredRecords.map((record) => (
-            <Pressable
-              key={record.id}
-              onPress={() => router.push(`/time-records/${record.id}`)}
-              style={styles.recordCard}
-            >
-              <View style={styles.recordHeader}>
-                <View style={styles.recordIcon}>
-                  <AppIcon
-                    color={mobileTheme.primary}
-                    name={record.recordType.includes('break') ? 'restaurant-outline' : 'time-outline'}
-                    size={18}
-                  />
-                </View>
-                <View style={styles.recordHeaderCopy}>
-                  <Text style={styles.recordTitle}>{timeRecordTypeLabels[record.recordType]}</Text>
-                  <Text style={styles.recordMeta}>
-                    {formatTimeRecordDate(record.recordedAt)} · {formatTimeRecordTime(record.recordedAt)}
-                  </Text>
-                </View>
-                <View
-                  style={[
-                    styles.statusBadge,
-                    {
-                      backgroundColor: `${statusColorByRecordStatus[record.status]}22`,
-                    },
-                  ]}
-                >
-                  <Text
+          {filteredRecords.map((record) => {
+            const insight = buildTimeRecordOperationalInsight(record);
+
+            return (
+              <Pressable
+                key={record.id}
+                onPress={() => router.push(`/time-records/${record.id}`)}
+                style={styles.recordCard}
+              >
+                <View style={styles.recordHeader}>
+                  <View style={styles.recordIcon}>
+                    <AppIcon
+                      color={mobileTheme.primary}
+                      name={record.recordType.includes('break') ? 'restaurant-outline' : 'time-outline'}
+                      size={18}
+                    />
+                  </View>
+                  <View style={styles.recordHeaderCopy}>
+                    <Text style={styles.recordTitle}>{timeRecordTypeLabels[record.recordType]}</Text>
+                    <Text style={styles.recordMeta}>
+                      {formatTimeRecordDate(record.recordedAt)} · {formatTimeRecordTime(record.recordedAt)}
+                    </Text>
+                  </View>
+                  <View
                     style={[
-                      styles.statusBadgeText,
+                      styles.statusBadge,
                       {
-                        color: statusColorByRecordStatus[record.status],
+                        backgroundColor: `${statusColorByRecordStatus[record.status]}22`,
                       },
                     ]}
                   >
-                    {timeRecordStatusLabels[record.status]}
-                  </Text>
+                    <Text
+                      style={[
+                        styles.statusBadgeText,
+                        {
+                          color: statusColorByRecordStatus[record.status],
+                        },
+                      ]}
+                    >
+                      {timeRecordStatusLabels[record.status]}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-              <Text style={styles.recordSource}>{timeRecordSourceLabels[record.source]}</Text>
-              <Text style={styles.recordText}>{record.notes ?? 'Registro sem observações adicionais.'}</Text>
-              <View style={styles.recordFooter}>
-                <Text style={styles.recordFooterText}>Abrir detalhes</Text>
-                <AppIcon color={mobileTheme.primary} name="arrow-forward-outline" size={16} />
-              </View>
-            </Pressable>
-          ))}
+                <Text style={styles.recordSource}>{timeRecordSourceLabels[record.source]}</Text>
+                <Text style={styles.recordInsightTitle}>{insight.headline}</Text>
+                <Text style={styles.recordText}>{insight.summary}</Text>
+                <Text style={styles.recordAction}>{insight.employeeActionLabel}</Text>
+                <View style={styles.recordFooter}>
+                  <Text style={styles.recordFooterText}>Abrir detalhes</Text>
+                  <AppIcon color={mobileTheme.primary} name="arrow-forward-outline" size={16} />
+                </View>
+              </Pressable>
+            );
+          })}
         </View>
       )}
     </ScrollView>
@@ -347,9 +354,19 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '700',
   },
+  recordInsightTitle: {
+    color: mobileTheme.text,
+    fontSize: 14,
+    fontWeight: '800',
+  },
   recordText: {
     color: mobileTheme.mutedText,
     lineHeight: 20,
+  },
+  recordAction: {
+    color: mobileTheme.primary,
+    fontSize: 12,
+    fontWeight: '700',
   },
   recordFooter: {
     flexDirection: 'row',

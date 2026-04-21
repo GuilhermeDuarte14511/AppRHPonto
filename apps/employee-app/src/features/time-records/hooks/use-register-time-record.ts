@@ -38,6 +38,7 @@ const buildPunchNotes = (
   coordinates: AttendanceCoordinates,
 ) => {
   const fragments = ['Registro feito pelo aplicativo do colaborador.'];
+  fragments.push(`Resultado da política: ${evaluation.title}.`);
 
   if (evaluation.matchedLocation) {
     fragments.push(`Local validado: ${evaluation.matchedLocation.name}.`);
@@ -51,11 +52,17 @@ const buildPunchNotes = (
   );
 
   if (evaluation.status !== 'allowed' || evaluation.reasonCode !== 'within_allowed_area') {
-    fragments.push(evaluation.description);
+    fragments.push(`Motivo operacional: ${evaluation.description}`);
   }
 
   if (evaluation.requiresPhoto) {
     fragments.push('A política atual sinaliza exigência de foto para auditoria.');
+  }
+
+  if (evaluation.status === 'pending_review') {
+    fragments.push('Status operacional: marcação enviada para revisão do RH.');
+  } else if (evaluation.status === 'allowed') {
+    fragments.push('Status operacional: marcação apta para entrar diretamente na jornada.');
   }
 
   return fragments.join(' ');

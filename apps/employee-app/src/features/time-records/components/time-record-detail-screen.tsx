@@ -7,6 +7,7 @@ import { mobileTheme } from '@/shared/theme/tokens';
 
 import { useTimeRecordDetail } from '../hooks/use-time-record-detail';
 import {
+  buildTimeRecordOperationalInsight,
   formatTimeRecordDate,
   formatTimeRecordDateTime,
   formatTimeRecordTime,
@@ -116,6 +117,7 @@ export const TimeRecordDetailScreen = () => {
   const palette = statusPalette[record.status];
   const photo = photosQuery.data?.[0] ?? null;
   const auditItems = buildAuditItems(record);
+  const operationalInsight = buildTimeRecordOperationalInsight(record);
   const nextExpectedType = resolveNextTimeRecordTypeAfter(record.recordType);
   const handleRequestAdjustment = () => {
     router.push({
@@ -203,6 +205,30 @@ export const TimeRecordDetailScreen = () => {
             </View>
           </View>
         </View>
+      </View>
+
+      <View style={styles.card}>
+        <View style={styles.cardHeader}>
+          <Text style={styles.cardTitle}>Leitura operacional</Text>
+        </View>
+        <View style={[styles.operationalCallout, { backgroundColor: palette.soft }]}>
+          <Text style={styles.operationalHeadline}>{operationalInsight.headline}</Text>
+          <Text style={styles.operationalText}>{operationalInsight.summary}</Text>
+        </View>
+        {operationalInsight.reviewReasonTitle ? (
+          <View style={styles.infoRow}>
+            <Text style={styles.infoLabel}>O que o RH está olhando</Text>
+            <Text style={styles.infoValue}>{operationalInsight.reviewReasonTitle}</Text>
+          </View>
+        ) : null}
+        {operationalInsight.reviewReasonDescription ? (
+          <Text style={styles.bodyMuted}>{operationalInsight.reviewReasonDescription}</Text>
+        ) : null}
+        <View style={styles.infoRow}>
+          <Text style={styles.infoLabel}>Próxima ação sugerida</Text>
+          <Text style={styles.infoValue}>{operationalInsight.employeeActionLabel}</Text>
+        </View>
+        <Text style={styles.bodyMuted}>{operationalInsight.employeeActionDescription}</Text>
       </View>
 
       <View style={styles.card}>
@@ -408,6 +434,26 @@ const styles = StyleSheet.create({
   bodyText: {
     fontSize: 14,
     lineHeight: 21,
+    color: mobileTheme.text,
+  },
+  bodyMuted: {
+    fontSize: 13,
+    lineHeight: 20,
+    color: mobileTheme.mutedText,
+  },
+  operationalCallout: {
+    borderRadius: 18,
+    padding: 14,
+    gap: 6,
+  },
+  operationalHeadline: {
+    fontSize: 15,
+    fontWeight: '800',
+    color: mobileTheme.text,
+  },
+  operationalText: {
+    fontSize: 13,
+    lineHeight: 20,
     color: mobileTheme.text,
   },
   placeholder: {

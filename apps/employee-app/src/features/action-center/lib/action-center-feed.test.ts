@@ -79,4 +79,42 @@ describe('buildActionCenterItems', () => {
       notificationId: 'notification-1',
     });
   });
+
+  it('usa linguagem operacional para justificativas em análise e recusadas', () => {
+    const items = buildActionCenterItems({
+      justifications: [
+        {
+          id: 'justification-1',
+          type: 'adjustment_request',
+          status: 'pending',
+          createdAt: '2026-04-20T10:00:00.000Z',
+          updatedAt: '2026-04-20T10:00:00.000Z',
+          reviewNotes: null,
+        },
+        {
+          id: 'justification-2',
+          type: 'missing_record',
+          status: 'rejected',
+          createdAt: '2026-04-19T10:00:00.000Z',
+          updatedAt: '2026-04-20T08:00:00.000Z',
+          reviewNotes: 'Falta vincular a marcação ao turno.',
+        },
+      ],
+    });
+
+    expect(items).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          id: 'justification:justification-1',
+          statusBucket: 'in-review',
+          description: expect.stringContaining('RH'),
+        }),
+        expect.objectContaining({
+          id: 'justification:justification-2',
+          statusBucket: 'requires-action',
+          description: 'Falta vincular a marcação ao turno.',
+        }),
+      ]),
+    );
+  });
 });

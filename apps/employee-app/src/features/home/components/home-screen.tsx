@@ -22,6 +22,8 @@ import { PunchTypeSheet } from '@/features/home/components/punch-type-sheet';
 import { useEmployeeTimeRecords } from '@/features/time-records/hooks/use-employee-time-records';
 import { useRegisterTimeRecord } from '@/features/time-records/hooks/use-register-time-record';
 import {
+  buildPunchPolicyExperience,
+  buildPunchReadinessSummary,
   formatDurationFromMinutes,
   formatTimeRecordDateTime,
   formatTimeRecordTime,
@@ -89,6 +91,9 @@ const buildConfirmationParams = (
   status?: 'valid' | 'pending_review' | 'adjusted' | 'rejected',
   coordinates?: AttendanceCoordinates | null,
   resolvedAddress?: string | null,
+  reviewReasonTitle?: string | null,
+  reviewReasonDescription?: string | null,
+  nextStepLabel?: string | null,
 ) => ({
   recordedAt: typeof recordedAt === 'string' ? recordedAt : recordedAt.toISOString(),
   type: recordType,
@@ -97,50 +102,10 @@ const buildConfirmationParams = (
   locationName: matchedLocationName ?? '',
   coordinates: formatCoordinatesLabel(coordinates),
   address: resolvedAddress ?? '',
+  reviewReasonTitle: reviewReasonTitle ?? '',
+  reviewReasonDescription: reviewReasonDescription ?? '',
+  nextStepLabel: nextStepLabel ?? '',
 });
-
-const getEvaluationExperienceCopy = (
-  status: 'allowed' | 'pending_review' | 'blocked',
-  reasonCode?: string | null,
-) => {
-  if (status === 'allowed' && reasonCode === 'allow_any_location') {
-    return {
-      headline: 'Sua política permite marcar de qualquer local',
-      description: 'Esta batida entra direto na jornada e não precisa passar pela revisão do RH.',
-      helper: 'Você ainda precisa confirmar foto, coordenadas e endereço antes de enviar.',
-    };
-  }
-
-  if (status === 'allowed') {
-    return {
-      headline: 'Sua batida entra direto na jornada',
-      description: 'Você está dentro da regra configurada para o seu vínculo e o ponto não depende de revisão do RH.',
-      helper: 'Confira foto, coordenadas e endereço antes de confirmar o envio.',
-    };
-  }
-
-  if (status === 'pending_review') {
-    return {
-      headline: 'Você pode registrar, mas o RH vai revisar',
-      description: 'A marcação será salva normalmente, porém ficará sinalizada para conferência operacional do RH.',
-      helper: 'Isso acontece quando a política permite exceção fora do perímetro, mas exige rastreabilidade.',
-    };
-  }
-
-  if (reasonCode === 'location_missing') {
-    return {
-      headline: 'Sua localização precisa ser confirmada',
-      description: 'Sem GPS e endereço validados, esta política não permite concluir a batida agora.',
-      helper: 'Atualize sua localização e tente novamente antes de abrir a câmera.',
-    };
-  }
-
-  return {
-    headline: 'Esta batida está fora da regra atual',
-    description: 'Sua política exige um perímetro autorizado para este registro, então o envio está bloqueado neste momento.',
-    helper: 'Se você estiver no local certo, atualize o GPS. Caso contrário, fale com o RH para revisar sua política.',
-  };
-};
 
 export const HomeScreen = () => {
   const { session } = useAppSession();
@@ -177,16 +142,17 @@ export const HomeScreen = () => {
   const resolvedAddress = address?.displayAddress ?? null;
   const hasResolvedLocation = Boolean(activeCoordinates && resolvedAddress);
   const statusKey = evaluation?.status ?? 'pending_review';
-  const evaluationCopy = getEvaluationExperienceCopy(statusKey, evaluation?.reasonCode ?? null);
+  const policyExperience = buildPunchPolicyExperience(evaluation);
+  const readinessSummary = buildPunchReadinessSummary({
+    evaluation,
+    hasCoordinates: Boolean(activeCoordinates),
+    hasResolvedAddress: hasResolvedLocation,
+    selectedRecordType,
+  });
   const evaluationPalette = evaluationDetailPalette[statusKey];
   const selectedRecordLabel = selectedRecordType ? timeRecordTypeLabels[selectedRecordType] : 'Escolha manualmente';
   const recommendedRecordLabel = nextRecordType ? timeRecordTypeLabels[nextRecordType] : 'Jornada concluída';
-  const canRegister =
-    Boolean(employeeId) &&
-    Boolean(selectedRecordType) &&
-    Boolean(evaluation?.canSubmitPunch) &&
-    hasResolvedLocation &&
-    !registerTimeRecord.isPending;
+  const canRegister = Boolean(employeeId) && readinessSummary.canProceed && !registerTimeRecord.isPending;
 
   if (employeeQuery.isLoading || policyQuery.isLoading || timeRecordsQuery.isLoading) {
     return (
@@ -282,11 +248,14 @@ export const HomeScreen = () => {
         params: buildConfirmationParams(
           createdRecord.recordedAt,
           selectedRecordType,
-          evaluation?.title ?? evaluation?.description ?? null,
+          policyExperience.headline,
           evaluation?.matchedLocation?.name ?? evaluation?.nearestAllowedLocation?.name ?? null,
           createdRecord.status,
           activeCoordinates,
           resolvedAddress,
+          policyExperience.reviewReasonTitle,
+          policyExperience.reviewReasonDescription,
+          policyExperience.nextStepLabel,
         ),
       });
     } catch (error) {
@@ -318,6 +287,7 @@ export const HomeScreen = () => {
           <Text style={styles.heroTitle}>{selectedRecordLabel}</Text>
           <Text style={styles.heroText}>Próxima etapa sugerida: {recommendedRecordLabel}</Text>
           <Text style={styles.heroText}>{dayFlow.currentStepLabel}</Text>
+          <Text style={styles.heroText}>{policyExperience.nextStepLabel}</Text>
           <View style={styles.chipRow}>
             {orderedTimeRecordTypes.map((recordType) => (
               <View key={recordType} style={styles.chip}>
@@ -334,7 +304,9 @@ export const HomeScreen = () => {
               disabled={!canRegister}
               onPress={() => void openCameraFlow()}
             >
-              <Text style={styles.primaryButtonText}>{registerTimeRecord.isPending ? 'Enviando...' : 'Capturar foto'}</Text>
+              <Text style={styles.primaryButtonText}>
+                {registerTimeRecord.isPending ? 'Enviando...' : canRegister ? 'Capturar foto' : 'Revise os requisitos'}
+              </Text>
             </Pressable>
           </View>
         </View>
@@ -364,16 +336,42 @@ export const HomeScreen = () => {
                 Resultado da política
               </Text>
               <Text style={[styles.policyFeedbackTitle, { color: evaluationPalette.titleColor }]}>
-                {evaluationCopy.headline}
+                {policyExperience.headline}
               </Text>
             </View>
           </View>
           <Text style={[styles.policyFeedbackDescription, { color: evaluationPalette.textColor }]}>
-            {evaluation?.description ?? evaluationCopy.description}
+            {policyExperience.description}
           </Text>
           <Text style={[styles.policyFeedbackHelper, { color: evaluationPalette.textColor }]}>
-            {evaluationCopy.helper}
+            {policyExperience.helper}
           </Text>
+        </View>
+
+        <View style={styles.card}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.cardTitle}>Antes de registrar</Text>
+            <Text style={styles.cardLink}>{readinessSummary.canProceed ? 'Pronto' : 'Ajustar'}</Text>
+          </View>
+          {readinessSummary.checklist.map((item) => (
+            <View key={item.id} style={styles.readinessRow}>
+              <View
+                style={[
+                  styles.readinessDot,
+                  item.state === 'ready'
+                    ? styles.readinessDotReady
+                    : item.state === 'warning'
+                      ? styles.readinessDotWarning
+                      : styles.readinessDotBlocked,
+                ]}
+              />
+              <View style={styles.readinessCopy}>
+                <Text style={styles.readinessTitle}>{item.label}</Text>
+                <Text style={styles.readinessText}>{item.description}</Text>
+              </View>
+            </View>
+          ))}
+          <Text style={styles.cardText}>{readinessSummary.helperText}</Text>
         </View>
 
         <View style={styles.card}>
@@ -412,6 +410,15 @@ export const HomeScreen = () => {
             </Pressable>
           </View>
           <Text style={styles.cardText}>{evaluation?.title ?? 'Validação de geofence em andamento.'}</Text>
+          {policyExperience.reviewReasonTitle ? (
+            <>
+              <Text style={styles.infoLabel}>Leitura operacional</Text>
+              <Text style={styles.infoValue}>{policyExperience.reviewReasonTitle}</Text>
+              {policyExperience.reviewReasonDescription ? (
+                <Text style={styles.cardText}>{policyExperience.reviewReasonDescription}</Text>
+              ) : null}
+            </>
+          ) : null}
           <Text style={styles.infoLabel}>Coordenadas</Text>
           <Text style={styles.infoValue}>{formatCoordinatesLabel(activeCoordinates)}</Text>
           <Text style={styles.infoLabel}>Endereço</Text>
@@ -471,9 +478,17 @@ export const HomeScreen = () => {
 
               <View style={styles.summaryBox}>
                 <Text style={styles.infoLabel}>Resultado da política</Text>
-                <Text style={styles.infoValue}>{evaluationCopy.headline}</Text>
+                <Text style={styles.infoValue}>{policyExperience.headline}</Text>
                 <Text style={styles.infoLabel}>Tipo</Text>
                 <Text style={styles.infoValue}>{selectedRecordLabel}</Text>
+                <Text style={styles.infoLabel}>O que acontece depois</Text>
+                <Text style={styles.infoValue}>{policyExperience.nextStepLabel}</Text>
+                {policyExperience.reviewReasonTitle ? (
+                  <>
+                    <Text style={styles.infoLabel}>Motivo operacional</Text>
+                    <Text style={styles.infoValue}>{policyExperience.reviewReasonTitle}</Text>
+                  </>
+                ) : null}
                 <Text style={styles.infoLabel}>Coordenadas</Text>
                 <Text style={styles.infoValue}>{formatCoordinatesLabel(activeCoordinates)}</Text>
                 <Text style={styles.infoLabel}>Endereço</Text>
@@ -626,6 +641,14 @@ const styles = StyleSheet.create({
   cardText: { fontSize: 14, lineHeight: 20, color: mobileTheme.mutedText },
   infoLabel: { marginTop: 6, fontSize: 11, fontWeight: '800', color: mobileTheme.mutedText, textTransform: 'uppercase' },
   infoValue: { fontSize: 14, lineHeight: 20, fontWeight: '700', color: mobileTheme.text },
+  readinessRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 10 },
+  readinessDot: { width: 12, height: 12, borderRadius: 999, marginTop: 4 },
+  readinessDotReady: { backgroundColor: mobileTheme.success },
+  readinessDotWarning: { backgroundColor: mobileTheme.warning },
+  readinessDotBlocked: { backgroundColor: mobileTheme.danger },
+  readinessCopy: { flex: 1, gap: 2 },
+  readinessTitle: { fontSize: 13, fontWeight: '800', color: mobileTheme.text },
+  readinessText: { fontSize: 13, lineHeight: 19, color: mobileTheme.mutedText },
   errorText: { fontSize: 13, lineHeight: 19, color: mobileTheme.danger },
   recordRow: {
     flexDirection: 'row',

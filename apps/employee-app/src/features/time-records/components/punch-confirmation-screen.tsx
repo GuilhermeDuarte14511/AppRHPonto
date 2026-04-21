@@ -49,6 +49,9 @@ export const PunchConfirmationScreen = () => {
     recordedAt?: string;
     locationName?: string;
     reason?: string;
+    reviewReasonTitle?: string;
+    reviewReasonDescription?: string;
+    nextStepLabel?: string;
     coordinates?: string;
     address?: string;
   }>();
@@ -75,7 +78,10 @@ export const PunchConfirmationScreen = () => {
         <Row label="Tipo selecionado" value={typeLabel} />
         <Row label="Status" value={timeRecordStatusLabels[statusKey]} />
         <Row label="Horário" value={recordedAtLabel} />
-        <Row label="Próxima etapa" value={nextExpectedType ? timeRecordTypeLabels[nextExpectedType] : 'Jornada concluída'} />
+        <Row
+          label="Próxima etapa"
+          value={params.nextStepLabel || (nextExpectedType ? timeRecordTypeLabels[nextExpectedType] : 'Jornada concluída')}
+        />
         {params.locationName ? <Row label="Local validado" value={params.locationName} /> : null}
         {params.coordinates ? <Row label="Coordenadas" value={params.coordinates} /> : null}
         {params.address ? <Row label="Endereço" value={params.address} multiline /> : null}
@@ -85,6 +91,13 @@ export const PunchConfirmationScreen = () => {
         <View style={styles.card}>
           <Text style={styles.eyebrow}>Contexto da validação</Text>
           <Text style={styles.reason}>{params.reason}</Text>
+          {params.reviewReasonTitle ? (
+            <>
+              <Text style={styles.eyebrow}>Motivo operacional</Text>
+              <Text style={styles.reasonTitle}>{params.reviewReasonTitle}</Text>
+            </>
+          ) : null}
+          {params.reviewReasonDescription ? <Text style={styles.reason}>{params.reviewReasonDescription}</Text> : null}
         </View>
       ) : null}
 
@@ -122,6 +135,7 @@ const styles = StyleSheet.create({
   value: { flex: 1, textAlign: 'right', fontSize: 14, fontWeight: '700', color: mobileTheme.text },
   valueMultiline: { textAlign: 'left', width: '100%' },
   reason: { fontSize: 14, lineHeight: 21, color: mobileTheme.mutedText },
+  reasonTitle: { fontSize: 14, fontWeight: '800', color: mobileTheme.text },
   actions: { gap: 12 },
   primaryButton: {
     minHeight: 54,

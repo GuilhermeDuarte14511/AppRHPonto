@@ -43,21 +43,21 @@ const sectionMeta: Record<
 > = {
   'requires-action': {
     title: 'Precisa da sua ação',
-    description: 'Itens que dependem de leitura, resposta ou ajuste da sua parte.',
+    description: 'Itens que precisam de leitura, resposta ou ajuste da sua parte antes de avançar.',
     emptyTitle: 'Nenhuma ação pendente',
-    emptyDescription: 'Quando houver algo para responder, assinar ou ajustar, ele aparecerá aqui.',
+    emptyDescription: 'Quando houver algo para responder, assinar ou ajustar, ele vai aparecer nesta fila.',
   },
   'in-review': {
     title: 'Em análise',
-    description: 'Solicitações já enviadas e que ainda estão passando pela conferência do RH.',
+    description: 'Solicitações já enviadas e que ainda estão passando pela conferência operacional do RH.',
     emptyTitle: 'Nada em análise agora',
-    emptyDescription: 'Novas solicitações de férias ou justificativas entram aqui enquanto aguardam retorno.',
+    emptyDescription: 'Novas solicitações de férias ou justificativas entram aqui enquanto aguardam retorno do RH.',
   },
   recent: {
     title: 'Resolvido recentemente',
-    description: 'Últimos retornos que já saíram da etapa de análise.',
+    description: 'Últimos retornos que já saíram da etapa de análise e ajudam a fechar o ciclo.',
     emptyTitle: 'Sem movimentações recentes',
-    emptyDescription: 'Assim que houver aprovações, recusas ou confirmações recentes, vamos reunir tudo aqui.',
+    emptyDescription: 'Assim que houver aprovações, recusas ou confirmações recentes, reunimos tudo aqui.',
   },
 };
 
@@ -218,7 +218,7 @@ export const ActionCenterScreen = () => {
     >
       <MobilePageHeader
         title="Central de pendências"
-        subtitle="Tudo o que precisa da sua ação ou ainda está em análise pelo RH, sem trocar de tela a cada assunto."
+        subtitle="Tudo o que precisa da sua ação ou ainda está em análise operacional pelo RH, sem trocar de tela a cada assunto."
         onBack={() => router.back()}
       />
 

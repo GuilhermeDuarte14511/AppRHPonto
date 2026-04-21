@@ -33,7 +33,11 @@ import {
   parseRequestedDateTime,
   type EmployeeJustificationFormValues,
 } from '../lib/justification-form-schema';
-import { justificationTypeLabels, requestedRecordTypeLabels } from '../lib/justification-mobile';
+import {
+  getJustificationTypeOperationalCopy,
+  justificationTypeLabels,
+  requestedRecordTypeLabels,
+} from '../lib/justification-mobile';
 
 const justificationTypeOptions = [
   'missing_record',
@@ -159,6 +163,7 @@ export const NewJustificationScreen = () => {
     control: form.control,
     name: 'reason',
   });
+  const selectedTypeCopy = getJustificationTypeOperationalCopy(typeField.field.value);
 
   const recentRecords = useMemo(() => records.slice(0, 6), [records]);
   const linkedRecord = useMemo(
@@ -263,7 +268,7 @@ export const NewJustificationScreen = () => {
         <View style={styles.hero}>
           <Text style={styles.heroTitle}>Explique a ocorrência</Text>
           <Text style={styles.heroSubtitle}>
-            Descreva o motivo, relacione uma batida quando fizer sentido e anexe documentos que ajudem o RH a analisar.
+            Escolha o tipo correto, relacione a batida quando houver e anexe evidências para o RH ler o caso sem ruído.
           </Text>
         </View>
 
@@ -281,6 +286,12 @@ export const NewJustificationScreen = () => {
             </View>
           </View>
         ) : null}
+
+        <View style={styles.guidanceCard}>
+          <Text style={styles.guidanceEyebrow}>Leitura operacional</Text>
+          <Text style={styles.guidanceTitle}>{selectedTypeCopy.summary}</Text>
+          <Text style={styles.guidanceText}>{selectedTypeCopy.nextAction}</Text>
+        </View>
 
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Tipo da solicitação</Text>
@@ -404,7 +415,7 @@ export const NewJustificationScreen = () => {
           <View style={[styles.inputContainer, styles.textAreaContainer]}>
             <TextInput
               multiline
-              placeholder="Explique o que aconteceu e traga contexto suficiente para o RH analisar."
+              placeholder={selectedTypeCopy.reasonHint}
               placeholderTextColor={mobileTheme.subtleText}
               style={styles.textArea}
               textAlignVertical="top"
@@ -420,7 +431,7 @@ export const NewJustificationScreen = () => {
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Anexos</Text>
           <Text style={styles.sectionHint}>
-            Envie PDFs, comprovantes ou imagens para fortalecer sua justificativa.
+            {selectedTypeCopy.attachmentHint}
           </Text>
           <Pressable style={styles.attachmentAction} onPress={() => void handlePickAttachments()}>
             <AppIcon color={mobileTheme.primary} name="attach-outline" size={18} />
@@ -569,6 +580,30 @@ const styles = StyleSheet.create({
     color: mobileTheme.text,
   },
   contextText: {
+    fontSize: 13,
+    lineHeight: 20,
+    color: mobileTheme.text,
+  },
+  guidanceCard: {
+    borderRadius: 24,
+    backgroundColor: mobileTheme.primarySoft,
+    padding: 18,
+    gap: 6,
+  },
+  guidanceEyebrow: {
+    fontSize: 11,
+    fontWeight: '800',
+    letterSpacing: 0.8,
+    textTransform: 'uppercase',
+    color: mobileTheme.primary,
+  },
+  guidanceTitle: {
+    fontSize: 15,
+    lineHeight: 22,
+    fontWeight: '800',
+    color: mobileTheme.text,
+  },
+  guidanceText: {
     fontSize: 13,
     lineHeight: 20,
     color: mobileTheme.text,

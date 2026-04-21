@@ -7,10 +7,9 @@ import { mobileTheme } from '@/shared/theme/tokens';
 
 import { useJustificationDetail } from '../hooks/use-justification-detail';
 import {
+  buildJustificationOperationalSummary,
   formatAttachmentMeta,
   formatJustificationDate,
-  formatJustificationDateTime,
-  justificationStatusDescriptions,
   justificationStatusLabels,
   justificationTypeLabels,
   requestedRecordTypeLabels,
@@ -57,6 +56,7 @@ export const JustificationDetailScreen = () => {
   }
 
   const palette = statusPalette[justification.status];
+  const operational = buildJustificationOperationalSummary(justification);
 
   return (
     <ScrollView
@@ -81,8 +81,27 @@ export const JustificationDetailScreen = () => {
           </Text>
         </View>
         <Text style={styles.heroTitle}>{justificationTypeLabels[justification.type]}</Text>
-        <Text style={styles.heroSubtitle}>{justificationStatusDescriptions[justification.status]}</Text>
+        <Text style={styles.heroSubtitle}>{operational.statusDescription}</Text>
         <Text style={styles.heroDate}>Aberta em {formatJustificationDate(justification.createdAt)}</Text>
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Leitura operacional</Text>
+        <Text style={styles.bodyText}>{operational.typeSummary}</Text>
+        <View style={styles.infoList}>
+          <View style={styles.infoRow}>
+            <Text style={styles.infoLabel}>O RH confere</Text>
+            <Text style={styles.infoValue}>{operational.reviewFocus}</Text>
+          </View>
+          <View style={styles.infoRow}>
+            <Text style={styles.infoLabel}>Próxima ação</Text>
+            <Text style={styles.infoValue}>{operational.statusAction}</Text>
+          </View>
+          <View style={styles.infoRow}>
+            <Text style={styles.infoLabel}>Situação da pendência</Text>
+            <Text style={styles.infoValue}>{operational.decisionLabel}</Text>
+          </View>
+        </View>
       </View>
 
       <View style={styles.card}>
@@ -103,7 +122,7 @@ export const JustificationDetailScreen = () => {
           </View>
           <View style={styles.infoRow}>
             <Text style={styles.infoLabel}>Batida vinculada</Text>
-            <Text style={styles.infoValue}>{justification.timeRecordId ?? 'Sem vínculo com marcação específica'}</Text>
+            <Text style={styles.infoValue}>{operational.linkedRecordLabel}</Text>
           </View>
           <View style={styles.infoRow}>
             <Text style={styles.infoLabel}>Tipo solicitado</Text>
@@ -115,11 +134,7 @@ export const JustificationDetailScreen = () => {
           </View>
           <View style={styles.infoRow}>
             <Text style={styles.infoLabel}>Data solicitada</Text>
-            <Text style={styles.infoValue}>
-              {justification.requestedRecordedAt
-                ? formatJustificationDateTime(justification.requestedRecordedAt)
-                : 'Não informada'}
-            </Text>
+            <Text style={styles.infoValue}>{operational.requestedRecordedAtLabel}</Text>
           </View>
         </View>
       </View>
@@ -129,18 +144,16 @@ export const JustificationDetailScreen = () => {
         {justification.reviewedAt || justification.reviewNotes ? (
           <View style={styles.reviewBox}>
             <Text style={styles.reviewTitle}>
-              {justification.reviewedAt
-                ? `Analisada em ${formatJustificationDateTime(justification.reviewedAt)}`
-                : 'Aguardando atualização de data'}
+              {operational.reviewedAtLabel ?? 'Resposta do RH'}
             </Text>
             <Text style={styles.reviewText}>
-              {justification.reviewNotes ?? 'O RH concluiu a análise sem observações adicionais.'}
+              {justification.reviewNotes ?? operational.statusAction}
             </Text>
           </View>
         ) : (
           <View style={styles.placeholder}>
             <AppIcon color={mobileTheme.subtleText} name="time-outline" size={22} />
-            <Text style={styles.placeholderText}>Sua solicitação ainda aguarda uma decisão do RH.</Text>
+            <Text style={styles.placeholderText}>{operational.reviewFocus}</Text>
           </View>
         )}
       </View>

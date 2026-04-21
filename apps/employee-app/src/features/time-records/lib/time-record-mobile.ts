@@ -241,3 +241,5 @@ export const formatDurationFromMinutes = (minutes: number) => {
 
   return `${String(hours).padStart(2, '0')}h ${String(remainingMinutes).padStart(2, '0')}m`;
 };
+
+export * from './time-record-operational-insights';

@@ -1,6 +1,6 @@
 import { documentStatusLabels } from '../../documents/lib/documents-mobile';
 import {
-  justificationStatusDescriptions,
+  buildJustificationOperationalSummary,
   justificationStatusLabels,
   justificationTypeLabels,
 } from '../../justifications/lib/justification-mobile';
@@ -210,13 +210,24 @@ const createVacationItems = (items: VacationInput[] = []): ActionCenterItem[] =>
 
 const createJustificationItems = (items: JustificationInput[] = []): ActionCenterItem[] =>
   items.flatMap<ActionCenterItem>((item) => {
+    const operational = buildJustificationOperationalSummary({
+      id: item.id,
+      status: item.status,
+      type: item.type,
+      reviewNotes: item.reviewNotes,
+      reviewedAt: null,
+      requestedRecordType: null,
+      requestedRecordedAt: null,
+      timeRecordId: null,
+    });
+
     if (item.status === 'pending') {
       return [{
         id: `justification:${item.id}`,
         source: 'justification',
         statusBucket: 'in-review',
         title: justificationTypeLabels[item.type],
-        description: justificationStatusDescriptions[item.status],
+        description: operational.reviewFocus,
         href: `/justifications/${item.id}`,
         occurredAt: new Date(item.createdAt).toISOString(),
         statusLabel: justificationStatusLabels[item.status],
@@ -232,7 +243,7 @@ const createJustificationItems = (items: JustificationInput[] = []): ActionCente
         title: `${justificationTypeLabels[item.type]} recusada`,
         description:
           item.reviewNotes?.trim() ||
-          'Revise a devolutiva do RH e complemente as informações, se necessário.',
+          operational.statusAction,
         href: `/justifications/${item.id}`,
         occurredAt: new Date(item.updatedAt).toISOString(),
         statusLabel: justificationStatusLabels[item.status],
@@ -246,7 +257,7 @@ const createJustificationItems = (items: JustificationInput[] = []): ActionCente
         source: 'justification',
         statusBucket: 'recent',
         title: `${justificationTypeLabels[item.type]} aprovada`,
-        description: justificationStatusDescriptions[item.status],
+        description: operational.statusDescription,
         href: `/justifications/${item.id}`,
         occurredAt: new Date(item.updatedAt).toISOString(),
         statusLabel: justificationStatusLabels[item.status],
