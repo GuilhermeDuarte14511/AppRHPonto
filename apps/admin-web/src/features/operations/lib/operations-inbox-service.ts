@@ -2,6 +2,8 @@ import { formatDateTime } from '@rh-ponto/core';
 
 import { formatJustificationTypeLabel, formatTimeRecordTypeLabel } from '@/shared/lib/admin-formatters';
 
+import type { AssistedReviewCase } from './time-adjustment-assisted-review';
+
 export type OperationsInboxCategory =
   | 'time-record'
   | 'justification'
@@ -33,6 +35,7 @@ export interface OperationsInboxItem {
   href: string;
   occurredAt: string;
   notification: OperationsInboxNotification;
+  assistedReview?: AssistedReviewCase;
 }
 
 export interface OperationsInboxGroup {
@@ -44,6 +47,10 @@ export interface OperationsInboxSummary {
   total: number;
   highPriority: number;
   dueSoon: number;
+  batchEligible?: number;
+  routedToHr?: number;
+  lowConfidence?: number;
+  closureImpact?: number;
 }
 
 export interface OperationsInboxData {
@@ -55,10 +62,18 @@ export interface OperationsInboxData {
 export interface BuildOperationsInboxInput {
   pendingTimeRecords: Array<{
     id: string;
+    employeeId?: string;
     employeeName: string;
     recordedAt: string;
     status: 'pending_review';
     recordType: string;
+    source?: string;
+    notes?: string | null;
+    latitude?: number | null;
+    longitude?: number | null;
+    resolvedAddress?: string | null;
+    referenceRecordId?: string | null;
+    assistedReview?: AssistedReviewCase;
   }>;
   pendingJustifications: Array<{
     id: string;
@@ -107,26 +122,35 @@ const compareInboxItems = (left: OperationsInboxItem, right: OperationsInboxItem
 
 const createTimeRecordItem = (
   record: BuildOperationsInboxInput['pendingTimeRecords'][number],
-): OperationsInboxItem => ({
-  id: record.id,
-  category: 'time-record',
-  priority: 'high',
-  title: `Marcacao em revisao: ${record.employeeName}`,
-  description: 'Exige validacao antes do fechamento.',
-  href: '/time-records',
-  occurredAt: record.recordedAt,
-  notification: {
-    referenceKey: `time-record:${record.id}:review`,
-    category: 'time_record',
-    title: 'Marcacao em revisao',
-    description: `${record.employeeName} registrou ${formatTimeRecordTypeLabel(record.recordType as never).toLowerCase()} em ${formatDateTime(record.recordedAt)}.`,
-    href: '/time-records',
-    entityName: 'time_record',
-    entityId: record.id,
-    severity: 'warning',
-    triggeredAt: record.recordedAt,
-  },
-});
+): OperationsInboxItem => {
+  const assistedReview = record.assistedReview;
+  const defaultTitle = `Marcacao em revisao: ${record.employeeName}`;
+  const defaultDescription = 'Exige validacao antes do fechamento.';
+
+  return {
+    id: record.id,
+    category: 'time-record',
+    priority: assistedReview?.priority ?? 'high',
+    title: assistedReview?.title ?? defaultTitle,
+    description: assistedReview?.description ?? defaultDescription,
+    href: `/operations?case=${record.id}`,
+    occurredAt: record.recordedAt,
+    assistedReview,
+    notification: {
+      referenceKey: `time-record:${record.id}:review`,
+      category: 'time_record',
+      title: assistedReview?.title ?? 'Marcacao em revisao',
+      description:
+        assistedReview?.suggestionReason ??
+        `${record.employeeName} registrou ${formatTimeRecordTypeLabel(record.recordType as never).toLowerCase()} em ${formatDateTime(record.recordedAt)}.`,
+      href: `/operations?case=${record.id}`,
+      entityName: 'time_record',
+      entityId: record.id,
+      severity: assistedReview?.confidence === 'low' ? 'danger' : 'warning',
+      triggeredAt: record.recordedAt,
+    },
+  };
+};
 
 const createJustificationItem = (
   justification: BuildOperationsInboxInput['pendingJustifications'][number],

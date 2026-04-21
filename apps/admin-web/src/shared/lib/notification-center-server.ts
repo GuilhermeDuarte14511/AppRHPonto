@@ -1,4 +1,5 @@
 import { buildOperationsInbox } from '@/features/operations/lib/operations-inbox-service';
+import { buildTimeAdjustmentAssistedReviewCases } from '@/features/operations/lib/time-adjustment-assisted-review';
 
 import { executeAdminGraphql } from './admin-server-data-connect';
 import type { AdminNotificationFeed, AdminNotificationItem, AdminNotificationSeverity } from './notification-center-contracts';
@@ -49,7 +50,13 @@ interface NotificationsQueryData {
     id: string;
     recordType: string;
     recordedAt: string;
-    employee: { fullName: string };
+    source: string;
+    notes?: string | null;
+    latitude?: number | null;
+    longitude?: number | null;
+    resolvedAddress?: string | null;
+    referenceRecordId?: string | null;
+    employee: { id: string; fullName: string };
   }>;
   devices: Array<{
     id: string;
@@ -156,7 +163,14 @@ const notificationsQuery = `
       id
       recordType
       recordedAt
+      source
+      notes
+      latitude
+      longitude
+      resolvedAddress
+      referenceRecordId
       employee {
+        id
         fullName
       }
     }
@@ -267,14 +281,51 @@ const toItem = (item: NotificationsQueryData['adminNotifications'][number]): Adm
 const buildDerivedNotifications = (data: NotificationsQueryData): DerivedNotificationDefinition[] => {
   const settings = data.adminSettings;
   const items: DerivedNotificationDefinition[] = [];
+  const timeRecordCases = buildTimeAdjustmentAssistedReviewCases({
+    pendingRecords: data.timeRecords.map((timeRecord) => ({
+      id: timeRecord.id,
+      employeeId: timeRecord.employee.id,
+      employeeName: timeRecord.employee.fullName,
+      recordedAt: timeRecord.recordedAt,
+      recordType: timeRecord.recordType as never,
+      source: timeRecord.source as never,
+      notes: timeRecord.notes ?? null,
+      latitude: timeRecord.latitude ?? null,
+      longitude: timeRecord.longitude ?? null,
+      resolvedAddress: timeRecord.resolvedAddress ?? null,
+      referenceRecordId: timeRecord.referenceRecordId ?? null,
+    })),
+    allTimeRecords: data.timeRecords.map((timeRecord) => ({
+      id: timeRecord.id,
+      employeeId: timeRecord.employee.id,
+      employeeName: timeRecord.employee.fullName,
+      recordedAt: timeRecord.recordedAt,
+      recordType: timeRecord.recordType as never,
+      source: timeRecord.source as never,
+      notes: timeRecord.notes ?? null,
+      latitude: timeRecord.latitude ?? null,
+      longitude: timeRecord.longitude ?? null,
+      resolvedAddress: timeRecord.resolvedAddress ?? null,
+      referenceRecordId: timeRecord.referenceRecordId ?? null,
+    })),
+  });
+  const timeRecordCaseMap = new Map(timeRecordCases.map((item) => [item.recordId, item]));
   const inbox = buildOperationsInbox({
     pendingTimeRecords: settings?.notifyOvertimeSummary
       ? data.timeRecords.map((timeRecord) => ({
           id: timeRecord.id,
+          employeeId: timeRecord.employee.id,
           employeeName: timeRecord.employee.fullName,
           recordedAt: timeRecord.recordedAt,
           status: 'pending_review' as const,
           recordType: timeRecord.recordType,
+          source: timeRecord.source,
+          notes: timeRecord.notes ?? null,
+          latitude: timeRecord.latitude ?? null,
+          longitude: timeRecord.longitude ?? null,
+          resolvedAddress: timeRecord.resolvedAddress ?? null,
+          referenceRecordId: timeRecord.referenceRecordId ?? null,
+          assistedReview: timeRecordCaseMap.get(timeRecord.id),
         }))
       : [],
     pendingJustifications: settings?.notifyPendingVacations
