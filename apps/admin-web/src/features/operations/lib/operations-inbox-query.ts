@@ -2,6 +2,7 @@ import { fetchOnboardingAttention } from '@/features/onboarding/lib/onboarding-c
 
 import { fetchAdminLiveDataSnapshot } from '@/shared/lib/admin-live-data';
 
+import { getLatestAssistedReviewDecision } from './assisted-review-audit';
 import {
   buildTimeAdjustmentAssistedReviewCases,
   type AssistedReviewSourceRecord,
@@ -52,8 +53,10 @@ export const getOperationsInboxAt = async (now: Date): Promise<OperationsInboxDa
     resolvedAddress: record.resolvedAddress ?? null,
     referenceRecordId: record.referenceRecordId ?? null,
   }));
-  const pendingTimeRecords = timeRecordContext.filter((record) =>
-    snapshot.timeRecords.some((snapshotRecord) => snapshotRecord.id === record.id && snapshotRecord.status === 'pending_review'),
+  const pendingTimeRecords = timeRecordContext.filter(
+    (record) =>
+      snapshot.timeRecords.some((snapshotRecord) => snapshotRecord.id === record.id && snapshotRecord.status === 'pending_review') &&
+      !getLatestAssistedReviewDecision(snapshot.auditLogs, record.id),
   );
   const assistedReviewCases = buildTimeAdjustmentAssistedReviewCases({
     pendingRecords: pendingTimeRecords,
@@ -63,7 +66,9 @@ export const getOperationsInboxAt = async (now: Date): Promise<OperationsInboxDa
 
   const inbox = buildOperationsInbox({
     pendingTimeRecords: snapshot.timeRecords
-      .filter((record) => record.status === 'pending_review')
+      .filter(
+        (record) => record.status === 'pending_review' && !getLatestAssistedReviewDecision(snapshot.auditLogs, record.id),
+      )
       .map((record) => ({
         id: record.id,
         employeeId: record.employeeId,

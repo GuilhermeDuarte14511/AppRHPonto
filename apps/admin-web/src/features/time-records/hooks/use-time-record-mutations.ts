@@ -50,7 +50,7 @@ const synchronizeAdjustedTimeRecordCache = (
   });
 };
 
-const invalidateTimeRecordQueries = async (queryClient: ReturnType<typeof useQueryClient>) => {
+export const invalidateTimeRecordQueries = async (queryClient: ReturnType<typeof useQueryClient>) => {
   await Promise.all([
     queryClient.invalidateQueries({ queryKey: queryKeys.timeRecords }),
     queryClient.invalidateQueries({ queryKey: queryKeys.timeRecordCatalog }),

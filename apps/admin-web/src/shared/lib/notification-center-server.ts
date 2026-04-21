@@ -1,4 +1,5 @@
 import { buildOperationsInbox } from '@/features/operations/lib/operations-inbox-service';
+import { getLatestAssistedReviewDecision } from '@/features/operations/lib/assisted-review-audit';
 import { buildTimeAdjustmentAssistedReviewCases } from '@/features/operations/lib/time-adjustment-assisted-review';
 
 import { executeAdminGraphql } from './admin-server-data-connect';
@@ -282,19 +283,21 @@ const buildDerivedNotifications = (data: NotificationsQueryData): DerivedNotific
   const settings = data.adminSettings;
   const items: DerivedNotificationDefinition[] = [];
   const timeRecordCases = buildTimeAdjustmentAssistedReviewCases({
-    pendingRecords: data.timeRecords.map((timeRecord) => ({
-      id: timeRecord.id,
-      employeeId: timeRecord.employee.id,
-      employeeName: timeRecord.employee.fullName,
-      recordedAt: timeRecord.recordedAt,
-      recordType: timeRecord.recordType as never,
-      source: timeRecord.source as never,
-      notes: timeRecord.notes ?? null,
-      latitude: timeRecord.latitude ?? null,
-      longitude: timeRecord.longitude ?? null,
-      resolvedAddress: timeRecord.resolvedAddress ?? null,
-      referenceRecordId: timeRecord.referenceRecordId ?? null,
-    })),
+    pendingRecords: data.timeRecords
+      .filter((timeRecord) => !getLatestAssistedReviewDecision(data.auditLogs as never, timeRecord.id))
+      .map((timeRecord) => ({
+        id: timeRecord.id,
+        employeeId: timeRecord.employee.id,
+        employeeName: timeRecord.employee.fullName,
+        recordedAt: timeRecord.recordedAt,
+        recordType: timeRecord.recordType as never,
+        source: timeRecord.source as never,
+        notes: timeRecord.notes ?? null,
+        latitude: timeRecord.latitude ?? null,
+        longitude: timeRecord.longitude ?? null,
+        resolvedAddress: timeRecord.resolvedAddress ?? null,
+        referenceRecordId: timeRecord.referenceRecordId ?? null,
+      })),
     allTimeRecords: data.timeRecords.map((timeRecord) => ({
       id: timeRecord.id,
       employeeId: timeRecord.employee.id,
@@ -312,7 +315,9 @@ const buildDerivedNotifications = (data: NotificationsQueryData): DerivedNotific
   const timeRecordCaseMap = new Map(timeRecordCases.map((item) => [item.recordId, item]));
   const inbox = buildOperationsInbox({
     pendingTimeRecords: settings?.notifyOvertimeSummary
-      ? data.timeRecords.map((timeRecord) => ({
+      ? data.timeRecords
+          .filter((timeRecord) => !getLatestAssistedReviewDecision(data.auditLogs as never, timeRecord.id))
+          .map((timeRecord) => ({
           id: timeRecord.id,
           employeeId: timeRecord.employee.id,
           employeeName: timeRecord.employee.fullName,
