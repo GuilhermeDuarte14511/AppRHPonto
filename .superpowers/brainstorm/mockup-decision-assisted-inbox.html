@@ -1,0 +1,102 @@
+<h2>Inbox assistida por decisão</h2>
+<p class="subtitle">Objetivo: transformar ajuste de ponto de fila manual em revisão guiada por exceção, confiança e impacto.</p>
+
+<div class="split">
+  <div class="mockup">
+    <div class="mockup-header">Hoje: fila de pendências</div>
+    <div class="mockup-body">
+      <div class="section">
+        <div class="mock-content" style="margin-bottom:12px;">Marcação em revisão: Maria</div>
+        <div class="mock-content" style="margin-bottom:12px;">Marcação em revisão: João</div>
+        <div class="mock-content" style="margin-bottom:12px;">Marcação em revisão: Ana</div>
+      </div>
+      <p class="subtitle">Itens parecidos entram quase com o mesmo peso. O RH precisa abrir caso a caso para entender motivo, risco e ação.</p>
+    </div>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-header">Proposto: casos explicados e priorizados</div>
+    <div class="mockup-body">
+      <div class="section" style="display:grid; gap:12px;">
+        <div class="card" data-choice="missing-exit" onclick="toggleSelect(this)">
+          <div class="card-body">
+            <h3>Esqueceu saída</h3>
+            <p>Compatível com jornada contratual e histórico recente.</p>
+            <p><strong>Sugestão:</strong> completar com horário esperado</p>
+            <p><strong>Confiança:</strong> alta</p>
+            <p><strong>Ação:</strong> aprovar em lote</p>
+          </div>
+        </div>
+        <div class="card" data-choice="outside-window" onclick="toggleSelect(this)">
+          <div class="card-body">
+            <h3>Fora da regra</h3>
+            <p>Entrada 47 min antes da janela permitida.</p>
+            <p><strong>Sugestão:</strong> pedir justificativa</p>
+            <p><strong>Confiança:</strong> média</p>
+            <p><strong>Ação:</strong> revisar individualmente</p>
+          </div>
+        </div>
+        <div class="card" data-choice="location-divergence" onclick="toggleSelect(this)">
+          <div class="card-body">
+            <h3>Divergência de local</h3>
+            <p>Registro fora da cerca e sem exceção conhecida.</p>
+            <p><strong>Sugestão:</strong> escalonar para gestor</p>
+            <p><strong>Confiança:</strong> baixa</p>
+            <p><strong>Ação:</strong> bloquear autoaprovação</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Como o fluxo passa a funcionar</h3>
+  <div class="options">
+    <div class="option" data-choice="classify" onclick="toggleSelect(this)">
+      <div class="letter">1</div>
+      <div class="content">
+        <h3>Classificar</h3>
+        <p>O sistema identifica o tipo de exceção e o contexto operacional.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="suggest" onclick="toggleSelect(this)">
+      <div class="letter">2</div>
+      <div class="content">
+        <h3>Sugerir</h3>
+        <p>Define ação recomendada, nível de confiança e risco para folha/compliance.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="review" onclick="toggleSelect(this)">
+      <div class="letter">3</div>
+      <div class="content">
+        <h3>Revisar rápido</h3>
+        <p>RH confirma em lote os casos previsíveis e só aprofunda o que fugir do padrão.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Primeiro escopo recomendado</h3>
+  <div class="cards">
+    <div class="card">
+      <div class="card-body">
+        <h3>Tipos cobertos</h3>
+        <p>Esqueci de bater ponto, marcação incompleta, fora da regra e divergência de local.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h3>Resultado esperado</h3>
+        <p>RH deixa de decidir do zero e passa a revisar casos já preparados pelo sistema.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h3>Guard rail</h3>
+        <p>Sem autoexecução no início. Tudo com trilha de auditoria e explicação da sugestão.</p>
+      </div>
+    </div>
+  </div>
+</div>

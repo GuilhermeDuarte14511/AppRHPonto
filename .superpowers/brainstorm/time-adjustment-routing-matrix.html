@@ -1,0 +1,152 @@
+<h2>Matriz de confiança, prioridade e roteamento</h2>
+<p class="subtitle">A automação assistida só funciona bem quando cada tipo de ajuste entra com uma regra clara de destino, risco e esforço operacional.</p>
+
+<div class="section">
+  <div class="cards">
+    <div class="card">
+      <div class="card-body">
+        <h3>Alta confiança</h3>
+        <p>O sistema tem padrão suficiente para sugerir solução e permitir revisão em lote.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h3>Média confiança</h3>
+        <p>Há sugestão útil, mas ainda depende de contexto humano para fechar a decisão.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h3>Baixa confiança</h3>
+        <p>Existe risco operacional ou jurídico. O sistema só organiza e sinaliza.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>1. Esqueci de bater ponto</h3>
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>Quando ir para lote</h4>
+      <ul>
+        <li>Há jornada prevista para o dia.</li>
+        <li>Sequência faltante é compatível com o padrão recente.</li>
+        <li>Não há reincidência acima do limite.</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>Quando não automatizar</h4>
+      <ul>
+        <li>Dia com horas extras atípicas.</li>
+        <li>Colaborador sem escala definida.</li>
+        <li>Conflito com outra marcação no mesmo intervalo.</li>
+      </ul>
+    </div>
+  </div>
+  <p><strong>Prioridade:</strong> média</p>
+  <p><strong>Roteamento:</strong> gestor primeiro; RH só revisa lote, reincidência ou bloqueio de fechamento.</p>
+  <p><strong>Sugestão padrão:</strong> completar com horário esperado ou pedir confirmação do colaborador.</p>
+</div>
+
+<div class="section">
+  <h3>2. Marcação incompleta</h3>
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>Sinais de confiança</h4>
+      <ul>
+        <li>Falta apenas saída ou retorno.</li>
+        <li>Existe contexto de jornada parcial conhecido.</li>
+        <li>Histórico da pessoa mostra padrão semelhante.</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>Sinais de risco</h4>
+      <ul>
+        <li>Múltiplas lacunas no mesmo dia.</li>
+        <li>Intervalo legal potencialmente comprometido.</li>
+        <li>Impacto direto em banco de horas ou adicional.</li>
+      </ul>
+    </div>
+  </div>
+  <p><strong>Prioridade:</strong> alta quando impacta cálculo; média nos demais casos.</p>
+  <p><strong>Roteamento:</strong> revisão assistida; RH entra antes do fechamento quando houver impacto financeiro.</p>
+  <p><strong>Sugestão padrão:</strong> reconstruir sequência provável e solicitar validação.</p>
+</div>
+
+<div class="section">
+  <h3>3. Fora da regra</h3>
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>Casos tratáveis</h4>
+      <ul>
+        <li>Atraso ou adiantamento pequeno dentro de tolerância configurável.</li>
+        <li>Há justificativa conhecida ou ocorrência recorrente autorizada.</li>
+        <li>Não afeta limite legal ou política crítica.</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>Casos sensíveis</h4>
+      <ul>
+        <li>Entrada muito fora da janela.</li>
+        <li>Horas extras não previstas.</li>
+        <li>Possível infração de política de jornada.</li>
+      </ul>
+    </div>
+  </div>
+  <p><strong>Prioridade:</strong> alta</p>
+  <p><strong>Roteamento:</strong> gestor para contexto operacional; RH para exceção crítica, reincidência ou policy breach.</p>
+  <p><strong>Sugestão padrão:</strong> aceitar dentro da tolerância, pedir justificativa ou escalonar.</p>
+</div>
+
+<div class="section">
+  <h3>4. Divergência de local</h3>
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>Quando aliviar</h4>
+      <ul>
+        <li>Existe exceção cadastrada para trabalho externo.</li>
+        <li>Há evidência operacional prevista para o turno.</li>
+        <li>O desvio é pequeno e dentro de margem geográfica aceitável.</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>Quando travar</h4>
+      <ul>
+        <li>Sem permissão conhecida para o local.</li>
+        <li>Desvio expressivo de geofence.</li>
+        <li>Conflito com dispositivo, escala ou histórico recente.</li>
+      </ul>
+    </div>
+  </div>
+  <p><strong>Prioridade:</strong> alta</p>
+  <p><strong>Roteamento:</strong> não vai para lote no início; gestor ou operação valida contexto, RH atua em conflito e auditoria.</p>
+  <p><strong>Sugestão padrão:</strong> pedir evidência, validar exceção conhecida ou bloquear aprovação.</p>
+</div>
+
+<div class="section">
+  <h3>Recomendação de rollout</h3>
+  <div class="options">
+    <div class="option" data-choice="rollout-a" onclick="toggleSelect(this)">
+      <div class="letter">A</div>
+      <div class="content">
+        <h3>Entrar com alta confiança primeiro</h3>
+        <p>Começar por esqueci de bater ponto e parte das marcações incompletas.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="rollout-b" onclick="toggleSelect(this)">
+      <div class="letter">B</div>
+      <div class="content">
+        <h3>Depois ampliar para média confiança</h3>
+        <p>Fora da regra com tolerância e contextos recorrentes aprováveis.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="rollout-c" onclick="toggleSelect(this)">
+      <div class="letter">C</div>
+      <div class="content">
+        <h3>Manter baixa confiança fora do lote</h3>
+        <p>Divergência de local e policy breach seguem assistidos, não automatizados.</p>
+      </div>
+    </div>
+  </div>
+</div>

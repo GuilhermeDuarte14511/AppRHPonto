@@ -1,0 +1,100 @@
+<h2>Modelo operacional do RH no admin</h2>
+<p class="subtitle">Depois de classificar e sugerir, o ganho real vem de separar os casos por risco e forma de tratamento.</p>
+
+<div class="cards">
+  <div class="card" data-choice="lane-batch" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup-header">Fila 1</div>
+      <div class="mockup-body">
+        <h3>Lote rápido</h3>
+        <p>Casos previsíveis, mesma causa, confiança alta.</p>
+        <p><strong>Exemplos:</strong> saída esquecida compatível com jornada, falta de marcação isolada com padrão conhecido.</p>
+        <p><strong>Ação do RH:</strong> revisar resumo e aprovar em lote.</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Baixo esforço</h3>
+      <p>Onde a produtividade realmente aparece primeiro.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="lane-review" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup-header">Fila 2</div>
+      <div class="mockup-body">
+        <h3>Revisão assistida</h3>
+        <p>Casos com contexto suficiente para sugestão, mas que ainda pedem olhar humano.</p>
+        <p><strong>Exemplos:</strong> fora da janela, sequência incompleta recorrente, justificativa ainda não enviada.</p>
+        <p><strong>Ação do RH:</strong> comparar sugestão, histórico e decidir rápido.</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Maior volume controlado</h3>
+      <p>O sistema reduz análise, mas não substitui a validação.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="lane-escalation" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup-header">Fila 3</div>
+      <div class="mockup-body">
+        <h3>Escalação e bloqueio</h3>
+        <p>Casos com risco trabalhista, geográfico ou disciplinar.</p>
+        <p><strong>Exemplos:</strong> divergência de local sem exceção conhecida, horário muito fora da regra, conflito com gestor.</p>
+        <p><strong>Ação do RH:</strong> escalonar, pedir evidência ou bloquear fechamento.</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Baixo volume, alto risco</h3>
+      <p>Esses casos não devem se misturar com o restante.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Decisão recomendada por faixa</h3>
+  <div class="options">
+    <div class="option" data-choice="batch-first" onclick="toggleSelect(this)">
+      <div class="letter">A</div>
+      <div class="content">
+        <h3>Começar pelo lote rápido</h3>
+        <p>Entrega ganho operacional mais cedo e aumenta confiança interna no modelo.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="balanced" onclick="toggleSelect(this)">
+      <div class="letter">B</div>
+      <div class="content">
+        <h3>Equilibrar as 3 filas</h3>
+        <p>Melhor desenho de produto, mas com mais esforço inicial de implementação.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="risk-first" onclick="toggleSelect(this)">
+      <div class="letter">C</div>
+      <div class="content">
+        <h3>Focar no alto risco primeiro</h3>
+        <p>Melhora governança, mas reduz menos trabalho manual no curto prazo.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>Por que isso funciona em RH</h4>
+      <ul>
+        <li>Evita tratar casos simples e casos sensíveis com o mesmo fluxo.</li>
+        <li>Cria previsibilidade para o fechamento sem esconder exceções críticas.</li>
+        <li>Permite maturar regras antes de pensar em autoaprovação.</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>O que evitar</h4>
+      <ul>
+        <li>Jogar tudo como alta prioridade.</li>
+        <li>Automatizar sem mostrar o motivo da sugestão.</li>
+        <li>Misturar revisão em lote com casos de risco jurídico.</li>
+      </ul>
+    </div>
+  </div>
+</div>
