@@ -130,4 +130,60 @@ describe('buildOperationsInbox', () => {
     expect(result.items[0]?.notification.triggeredAt).toBe('2026-05-20T09:00:00.000Z');
     expect(result.items[1]?.notification.triggeredAt).toBe('2026-06-10T09:00:00.000Z');
   });
+
+  it('preserves assisted review metadata on time record items', () => {
+    const result = buildOperationsInbox({
+      pendingTimeRecords: [
+        {
+          id: 'tr-assisted',
+          employeeId: 'emp-1',
+          employeeName: 'Helena',
+          recordedAt: '2026-04-19T08:05:00.000Z',
+          status: 'pending_review',
+          recordType: 'entry',
+          assistedReview: {
+            recordId: 'tr-assisted',
+            employeeId: 'emp-1',
+            employeeName: 'Helena',
+            recordedAt: '2026-04-19T08:05:00.000Z',
+            recordType: 'entry',
+            priority: 'high',
+            exceptionType: 'outside_rule_window',
+            confidence: 'medium',
+            recommendedAction: 'request_justification',
+            routingTarget: 'manager',
+            batchEligible: false,
+            batchGroupKey: null,
+            closureImpact: 'payroll',
+            title: 'Marcacao fora da regra: Helena',
+            description: 'Solicite justificativa antes de decidir.',
+            confidenceReason: 'A batida exige contexto operacional adicional.',
+            suggestionReason: 'O desvio temporal deve ser justificado antes do fechamento.',
+            decisionSummary: 'Confianca media com sugestao de request_justification.',
+          },
+        },
+      ],
+      pendingJustifications: [],
+      pendingVacations: [],
+      pendingDocumentAcknowledgements: [],
+      blockedOnboardingTasks: [],
+      inactiveDevices: [],
+    });
+
+    expect(result.items[0]).toMatchObject({
+      priority: 'high',
+      title: 'Marcacao fora da regra: Helena',
+      description: 'Solicite justificativa antes de decidir.',
+      href: '/operations?case=tr-assisted',
+      assistedReview: {
+        exceptionType: 'outside_rule_window',
+        recommendedAction: 'request_justification',
+      },
+      notification: {
+        title: 'Marcacao fora da regra: Helena',
+        description: 'O desvio temporal deve ser justificado antes do fechamento.',
+        href: '/operations?case=tr-assisted',
+      },
+    });
+  });
 });
