@@ -2,6 +2,10 @@ import { fetchOnboardingAttention } from '@/features/onboarding/lib/onboarding-c
 
 import { fetchAdminLiveDataSnapshot } from '@/shared/lib/admin-live-data';
 
+import {
+  buildTimeAdjustmentAssistedReviewCases,
+  type AssistedReviewSourceRecord,
+} from './time-adjustment-assisted-review';
 import { buildOperationsInbox, type OperationsInboxData } from './operations-inbox-service';
 
 const toIsoString = (value: string | Date | null | undefined) => {
@@ -35,16 +39,45 @@ export const getOperationsInboxAt = async (now: Date): Promise<OperationsInboxDa
 
   const employeeDirectory = new Map(snapshot.employees.map((employee) => [employee.id, employee.fullName]));
   const employeeDocuments = snapshot.employeeDocuments ?? [];
+  const timeRecordContext: AssistedReviewSourceRecord[] = snapshot.timeRecords.map((record) => ({
+    id: record.id,
+    employeeId: record.employeeId,
+    employeeName: employeeDirectory.get(record.employeeId) ?? 'Colaborador nao identificado',
+    recordedAt: toIsoString(record.recordedAt) ?? new Date(0).toISOString(),
+    recordType: record.recordType,
+    source: record.source,
+    notes: record.notes ?? null,
+    latitude: record.latitude ?? null,
+    longitude: record.longitude ?? null,
+    resolvedAddress: record.resolvedAddress ?? null,
+    referenceRecordId: record.referenceRecordId ?? null,
+  }));
+  const pendingTimeRecords = timeRecordContext.filter((record) =>
+    snapshot.timeRecords.some((snapshotRecord) => snapshotRecord.id === record.id && snapshotRecord.status === 'pending_review'),
+  );
+  const assistedReviewCases = buildTimeAdjustmentAssistedReviewCases({
+    pendingRecords: pendingTimeRecords,
+    allTimeRecords: timeRecordContext,
+  });
+  const assistedReviewMap = new Map(assistedReviewCases.map((item) => [item.recordId, item]));
 
   const inbox = buildOperationsInbox({
     pendingTimeRecords: snapshot.timeRecords
       .filter((record) => record.status === 'pending_review')
       .map((record) => ({
         id: record.id,
-        employeeName: employeeDirectory.get(record.employeeId) ?? 'Colaborador não identificado',
+        employeeId: record.employeeId,
+        employeeName: employeeDirectory.get(record.employeeId) ?? 'Colaborador nao identificado',
         recordedAt: toIsoString(record.recordedAt) ?? new Date(0).toISOString(),
         status: 'pending_review' as const,
         recordType: record.recordType,
+        source: record.source,
+        notes: record.notes ?? null,
+        latitude: record.latitude ?? null,
+        longitude: record.longitude ?? null,
+        resolvedAddress: record.resolvedAddress ?? null,
+        referenceRecordId: record.referenceRecordId ?? null,
+        assistedReview: assistedReviewMap.get(record.id),
       })),
     pendingJustifications: snapshot.justifications
       .filter((justification) => justification.status === 'pending')
@@ -87,6 +120,14 @@ export const getOperationsInboxAt = async (now: Date): Promise<OperationsInboxDa
       total: inbox.summary.total,
       highPriority: inbox.items.filter((item) => item.priority === 'high').length,
       dueSoon: inbox.items.filter((item) => isDueSoonItem(item, now)).length,
+      batchEligible: inbox.items.filter((item) => item.assistedReview?.batchEligible).length,
+      routedToHr: inbox.items.filter((item) => item.assistedReview?.routingTarget === 'hr').length,
+      lowConfidence: inbox.items.filter((item) => item.assistedReview?.confidence === 'low').length,
+      closureImpact: inbox.items.filter((item) => {
+        const closureImpact = item.assistedReview?.closureImpact;
+
+        return closureImpact === 'payroll' || closureImpact === 'compliance' || closureImpact === 'payroll_and_compliance';
+      }).length,
     },
     items: inbox.items,
     groups: inbox.groups,
