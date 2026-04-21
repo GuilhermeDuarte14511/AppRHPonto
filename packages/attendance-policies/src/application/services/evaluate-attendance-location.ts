@@ -130,7 +130,7 @@ export const evaluateAttendanceLocation = (
 
   if (input.policyAssignment?.allowAnyLocation || !input.policy.requiresAllowedLocations) {
     return {
-      status: validationStrategy === 'pending_review' ? 'pending_review' : 'allowed',
+      status: 'allowed',
       reasonCode: 'allow_any_location',
       title: 'Marcação liberada',
       description: 'A política atual permite registrar o ponto sem restringir a geofence a um local específico.',

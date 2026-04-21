@@ -14,38 +14,38 @@ If a user is not using a supported framework, they can use the generated SDK dir
 Here's an example of how to use it with the first 5 operations:
 
 ```js
-import { getUserByFirebaseUid, getUserByEmail, touchUserLastLogin, linkUserFirebaseUid, listEmployeeNotifications, markEmployeeNotificationAsRead, getEmployeeNotificationPreferences, updateEmployeeNotificationPreferences, getCurrentEmployeeByUserId, getCurrentEmployeeByEmail } from '@rh-ponto/api-client/generated';
+import { listTimeRecords, getTimeRecordById, listTimeRecordPhotos, createTimeRecord, adjustTimeRecord, createTimeRecordPhoto, listAttendancePolicies, listWorkLocations, listEmployeeAttendancePolicies, listEmployeeAllowedLocations } from '@rh-ponto/api-client/generated';
 
 
-// Operation GetUserByFirebaseUid:  For variables, look at type GetUserByFirebaseUidVars in ../index.d.ts
-const { data } = await GetUserByFirebaseUid(dataConnect, getUserByFirebaseUidVars);
+// Operation ListTimeRecords: 
+const { data } = await ListTimeRecords(dataConnect);
 
-// Operation GetUserByEmail:  For variables, look at type GetUserByEmailVars in ../index.d.ts
-const { data } = await GetUserByEmail(dataConnect, getUserByEmailVars);
+// Operation GetTimeRecordById:  For variables, look at type GetTimeRecordByIdVars in ../index.d.ts
+const { data } = await GetTimeRecordById(dataConnect, getTimeRecordByIdVars);
 
-// Operation TouchUserLastLogin:  For variables, look at type TouchUserLastLoginVars in ../index.d.ts
-const { data } = await TouchUserLastLogin(dataConnect, touchUserLastLoginVars);
+// Operation ListTimeRecordPhotos: 
+const { data } = await ListTimeRecordPhotos(dataConnect);
 
-// Operation LinkUserFirebaseUid:  For variables, look at type LinkUserFirebaseUidVars in ../index.d.ts
-const { data } = await LinkUserFirebaseUid(dataConnect, linkUserFirebaseUidVars);
+// Operation CreateTimeRecord:  For variables, look at type CreateTimeRecordVars in ../index.d.ts
+const { data } = await CreateTimeRecord(dataConnect, createTimeRecordVars);
 
-// Operation ListEmployeeNotifications:  For variables, look at type ListEmployeeNotificationsVars in ../index.d.ts
-const { data } = await ListEmployeeNotifications(dataConnect, listEmployeeNotificationsVars);
+// Operation AdjustTimeRecord:  For variables, look at type AdjustTimeRecordVars in ../index.d.ts
+const { data } = await AdjustTimeRecord(dataConnect, adjustTimeRecordVars);
 
-// Operation MarkEmployeeNotificationAsRead:  For variables, look at type MarkEmployeeNotificationAsReadVars in ../index.d.ts
-const { data } = await MarkEmployeeNotificationAsRead(dataConnect, markEmployeeNotificationAsReadVars);
+// Operation CreateTimeRecordPhoto:  For variables, look at type CreateTimeRecordPhotoVars in ../index.d.ts
+const { data } = await CreateTimeRecordPhoto(dataConnect, createTimeRecordPhotoVars);
 
-// Operation GetEmployeeNotificationPreferences:  For variables, look at type GetEmployeeNotificationPreferencesVars in ../index.d.ts
-const { data } = await GetEmployeeNotificationPreferences(dataConnect, getEmployeeNotificationPreferencesVars);
+// Operation ListAttendancePolicies: 
+const { data } = await ListAttendancePolicies(dataConnect);
 
-// Operation UpdateEmployeeNotificationPreferences:  For variables, look at type UpdateEmployeeNotificationPreferencesVars in ../index.d.ts
-const { data } = await UpdateEmployeeNotificationPreferences(dataConnect, updateEmployeeNotificationPreferencesVars);
+// Operation ListWorkLocations: 
+const { data } = await ListWorkLocations(dataConnect);
 
-// Operation GetCurrentEmployeeByUserId:  For variables, look at type GetCurrentEmployeeByUserIdVars in ../index.d.ts
-const { data } = await GetCurrentEmployeeByUserId(dataConnect, getCurrentEmployeeByUserIdVars);
+// Operation ListEmployeeAttendancePolicies: 
+const { data } = await ListEmployeeAttendancePolicies(dataConnect);
 
-// Operation GetCurrentEmployeeByEmail:  For variables, look at type GetCurrentEmployeeByEmailVars in ../index.d.ts
-const { data } = await GetCurrentEmployeeByEmail(dataConnect, getCurrentEmployeeByEmailVars);
+// Operation ListEmployeeAllowedLocations: 
+const { data } = await ListEmployeeAllowedLocations(dataConnect);
 
 
 ```

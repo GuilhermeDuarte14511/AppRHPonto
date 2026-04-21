@@ -41,33 +41,33 @@ const categoryMeta: Record<
   }
 > = {
   'time-record': {
-    title: 'Marcacoes em revisao',
-    description: 'Excecoes de jornada que precisam de conferencia antes do fechamento.',
+    title: 'Marcações em revisão',
+    description: 'Exceções de jornada que precisam de conferência antes do fechamento.',
     icon: TimerReset,
   },
   justification: {
     title: 'Justificativas pendentes',
-    description: 'Solicitacoes aguardando leitura e decisao administrativa.',
+    description: 'Solicitações aguardando leitura e decisão administrativa.',
     icon: ClipboardList,
   },
   vacation: {
-    title: 'Ferias aguardando decisao',
+    title: 'Férias aguardando decisão',
     description: 'Pedidos que afetam cobertura e planejamento do time.',
     icon: CalendarClock,
   },
   document: {
-    title: 'Ciencias documentais pendentes',
-    description: 'Documentos oficiais publicados que ainda aguardam confirmacao do colaborador.',
+    title: 'Ciências documentais pendentes',
+    description: 'Documentos oficiais publicados que ainda aguardam confirmação do colaborador.',
     icon: FileClock,
   },
   onboarding: {
     title: 'Onboarding com bloqueios',
-    description: 'Jornadas com entraves ou prazos criticos para continuidade.',
+    description: 'Jornadas com entraves ou prazos críticos para continuidade.',
     icon: BriefcaseBusiness,
   },
   device: {
-    title: 'Dispositivos com atencao',
-    description: 'Pontos de captura que exigem verificacao operacional.',
+    title: 'Dispositivos com atenção',
+    description: 'Pontos de captura que exigem verificação operacional.',
     icon: HardDriveDownload,
   },
 };
@@ -160,8 +160,8 @@ export const OperationsInboxView = () => {
   if (isError || !data) {
     return (
       <ErrorState
-        title="Nao foi possivel carregar o inbox operacional"
-        description={getActionErrorMessage(error, 'Tente novamente para abrir a fila unificada de excecoes do RH.')}
+        title="Não foi possível carregar o inbox operacional"
+        description={getActionErrorMessage(error, 'Tente novamente para abrir a fila unificada de exceções do RH.')}
         actionLabel="Tentar novamente"
         onAction={() => {
           void refetch();
@@ -237,7 +237,7 @@ export const OperationsInboxView = () => {
     for (const item of selectedItems) {
       await decisions.approveSuggested.mutateAsync({
         item,
-        notes: 'Aprovacao em lote a partir do inbox assistido.',
+        notes: 'Aprovação em lote a partir do inbox assistido.',
         reviewerUserId,
         reviewerName,
       });
@@ -250,27 +250,27 @@ export const OperationsInboxView = () => {
   return (
     <div className="space-y-8 sm:space-y-10">
       <PageHeader
-        eyebrow="Operacao / Inbox"
+        eyebrow="Operação / Inbox"
         title="Inbox operacional do RH"
-        description="Fila unica das excecoes que exigem decisao humana antes do fechamento, do atendimento ou da continuidade da jornada."
+        description="Fila única das exceções que exigem decisão humana antes do fechamento, do atendimento ou da continuidade da jornada."
       />
 
       <section className="grid gap-6 md:grid-cols-3">
         <StatCard
-          hint="Total consolidado de excecoes aguardando alguma acao administrativa."
+          hint="Total consolidado de exceções aguardando alguma ação administrativa."
           icon={BellRing}
           label="Total pendente"
           value={String(data.summary.total)}
         />
         <StatCard
-          hint="Itens com impacto direto na continuidade da operacao ou no fechamento."
+          hint="Itens com impacto direto na continuidade da operação ou no fechamento."
           icon={AlertTriangle}
           label="Alta prioridade"
           tone="danger"
           value={String(data.summary.highPriority)}
         />
         <StatCard
-          hint="Casos com gatilho temporal proximo, principalmente ferias e onboarding."
+          hint="Casos com gatilho temporal próximo, principalmente férias e onboarding."
           icon={CalendarClock}
           label="Com prazo vencendo"
           tone="tertiary"
@@ -280,21 +280,21 @@ export const OperationsInboxView = () => {
 
       <section className="grid gap-6 md:grid-cols-3">
         <StatCard
-          hint="Casos previsiveis com sugestao forte o suficiente para revisao em lote."
+          hint="Casos previsíveis com sugestão forte o suficiente para revisão em lote."
           icon={TimerReset}
-          label="Elegiveis para lote"
+          label="Elegíveis para lote"
           tone="secondary"
           value={String(data.summary.batchEligible ?? 0)}
         />
         <StatCard
-          hint="Casos com maior risco e baixa capacidade de automacao assistida."
+          hint="Casos com maior risco e baixa capacidade de automação assistida."
           icon={AlertTriangle}
-          label="Baixa confianca"
+          label="Baixa confiança"
           tone="danger"
           value={String(data.summary.lowConfidence ?? 0)}
         />
         <StatCard
-          hint="Excecoes com impacto direto no fechamento da folha ou em compliance."
+          hint="Exceções com impacto direto no fechamento da folha ou em compliance."
           icon={BellRing}
           label="Impacto no fechamento"
           tone="tertiary"
@@ -304,8 +304,8 @@ export const OperationsInboxView = () => {
 
       {data.items.length === 0 ? (
         <EmptyState
-          title="Nenhuma excecao no inbox"
-          description="A fila operacional esta vazia neste momento. Novas excecoes aparecerao aqui assim que exigirem acao humana."
+          title="Nenhuma exceção no inbox"
+          description="A fila operacional está vazia neste momento. Novas exceções aparecerão aqui assim que exigirem ação humana."
         />
       ) : (
         <div className="space-y-6">
@@ -321,8 +321,8 @@ export const OperationsInboxView = () => {
                       Ajustes de ponto assistidos
                     </h2>
                     <p className="mt-2 text-sm leading-7 text-[var(--on-surface-variant)]">
-                      Casos de ponto preparados com classificacao, confianca, sugestao e roteamento para reduzir
-                      decisao manual repetitiva.
+                      Casos de ponto preparados com classificação, confiança, sugestão e roteamento para reduzir
+                      decisão manual repetitiva.
                     </p>
                   </div>
                 </div>

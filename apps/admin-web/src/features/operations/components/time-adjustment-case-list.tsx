@@ -21,9 +21,9 @@ const priorityMeta: Record<OperationsInboxPriority, { label: string; variant: 'd
 
 const exceptionLabel: Record<AssistedReviewExceptionType, string> = {
   missing_punch: 'Esqueci de bater ponto',
-  incomplete_sequence: 'Marcacao incompleta',
+  incomplete_sequence: 'Marcação incompleta',
   outside_rule_window: 'Fora da regra',
-  location_divergence: 'Divergencia de local',
+  location_divergence: 'Divergência de local',
 };
 
 const impactMeta: Record<AssistedReviewClosureImpact, { label: string; variant: 'neutral' | 'warning' | 'danger' }> = {
@@ -34,11 +34,11 @@ const impactMeta: Record<AssistedReviewClosureImpact, { label: string; variant: 
 };
 
 const actionLabel: Record<string, string> = {
-  complete_with_expected_time: 'Completar com horario esperado',
-  request_employee_confirmation: 'Pedir confirmacao adicional',
-  review_daily_sequence: 'Revisar sequencia do dia',
+  complete_with_expected_time: 'Completar com horário esperado',
+  request_employee_confirmation: 'Pedir confirmação adicional',
+  review_daily_sequence: 'Revisar sequência do dia',
   request_justification: 'Solicitar justificativa',
-  escalate_for_compliance_review: 'Escalar para revisao',
+  escalate_for_compliance_review: 'Escalar para revisão',
 };
 
 export const TimeAdjustmentCaseList = ({
@@ -96,8 +96,8 @@ export const TimeAdjustmentCaseList = ({
   if (items.length === 0) {
     return (
       <EmptyState
-        title="Nenhum ajuste assistido disponivel"
-        description="As marcacoes de ponto ainda nao possuem contexto suficiente para entrar na fila assistida."
+        title="Nenhum ajuste assistido disponível"
+        description="As marcações de ponto ainda não possuem contexto suficiente para entrar na fila assistida."
       />
     );
   }
@@ -114,7 +114,7 @@ export const TimeAdjustmentCaseList = ({
               <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--on-surface-variant)]" />
               <input
                 className="h-12 w-full rounded-[1rem] border border-[color:color-mix(in_srgb,var(--outline-variant)_18%,transparent)] bg-[var(--surface-container-low)] pl-11 pr-4 text-sm text-[var(--on-surface)] outline-none transition focus:border-[var(--primary)]"
-                placeholder="Colaborador, motivo ou sugestao"
+                placeholder="Colaborador, motivo ou sugestão"
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
               />
@@ -123,7 +123,7 @@ export const TimeAdjustmentCaseList = ({
 
           <label className="space-y-2">
             <span className="px-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
-              Excecao
+              Exceção
             </span>
             <select
               className="h-12 w-full rounded-[1rem] border border-[color:color-mix(in_srgb,var(--outline-variant)_18%,transparent)] bg-[var(--surface-container-low)] px-4 text-sm text-[var(--on-surface)] outline-none transition focus:border-[var(--primary)]"
@@ -132,15 +132,15 @@ export const TimeAdjustmentCaseList = ({
             >
               <option value="all">Todas</option>
               <option value="missing_punch">Esqueci de bater</option>
-              <option value="incomplete_sequence">Marcacao incompleta</option>
+              <option value="incomplete_sequence">Marcação incompleta</option>
               <option value="outside_rule_window">Fora da regra</option>
-              <option value="location_divergence">Divergencia de local</option>
+              <option value="location_divergence">Divergência de local</option>
             </select>
           </label>
 
           <label className="space-y-2">
             <span className="px-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
-              Confianca
+              Confiança
             </span>
             <select
               className="h-12 w-full rounded-[1rem] border border-[color:color-mix(in_srgb,var(--outline-variant)_18%,transparent)] bg-[var(--surface-container-low)] px-4 text-sm text-[var(--on-surface)] outline-none transition focus:border-[var(--primary)]"
@@ -149,7 +149,7 @@ export const TimeAdjustmentCaseList = ({
             >
               <option value="all">Todas</option>
               <option value="high">Alta</option>
-              <option value="medium">Media</option>
+              <option value="medium">Média</option>
               <option value="low">Baixa</option>
             </select>
           </label>
@@ -166,7 +166,7 @@ export const TimeAdjustmentCaseList = ({
               <option value="all">Todos</option>
               <option value="manager">Gestor</option>
               <option value="hr">RH</option>
-              <option value="operations">Operacao</option>
+              <option value="operations">Operação</option>
             </select>
           </label>
 
@@ -199,7 +199,7 @@ export const TimeAdjustmentCaseList = ({
       {filteredItems.length === 0 ? (
         <EmptyState
           title="Nenhum caso encontrado"
-          description="Os filtros atuais nao encontraram casos de ajuste assistido. Ajuste os filtros para continuar."
+            description="Os filtros atuais não encontraram casos de ajuste assistido. Ajuste os filtros para continuar."
         />
       ) : (
         <div className="grid gap-4">
@@ -242,13 +242,13 @@ export const TimeAdjustmentCaseList = ({
                     <div className="grid gap-3 xl:grid-cols-[1fr_1fr]">
                       <div className="rounded-[1.2rem] bg-[var(--surface-container-low)] p-4">
                         <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
-                          Motivo da confianca
+                            Motivo da confiança
                         </p>
                         <p className="mt-2 text-sm leading-6 text-[var(--on-surface)]">{assistedReview.confidenceReason}</p>
                       </div>
                       <div className="rounded-[1.2rem] bg-[var(--surface-container-low)] p-4">
                         <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
-                          Sugestao
+                            Sugestão
                         </p>
                         <p className="mt-2 text-sm font-semibold text-[var(--on-surface)]">
                           {actionLabel[assistedReview.recommendedAction] ?? assistedReview.recommendedAction}

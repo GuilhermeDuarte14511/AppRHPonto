@@ -2058,14 +2058,14 @@ mutation SeedRhPontoData
       {
         id: "b2b2b2b2-b2b2-42b2-82b2-b2b2b2b2b205"
         code: "field-mobile"
-        name: "Externo com validação posterior"
+        name: "Externo livre com auditoria"
         mode: "field"
-        validationStrategy: "pending_review"
+        validationStrategy: "allow"
         geolocationRequired: true
         photoRequired: true
         allowOffsiteClocking: true
         requiresAllowedLocations: false
-        description: "Permite marcar fora da base, exigindo foto e revisão."
+        description: "Permite marcar fora da base com foto obrigatória e trilha de auditoria."
         isActive: true
         createdAt: "2026-04-01T08:00:00.000Z"
         updatedAt: "2026-04-01T08:00:00.000Z"
@@ -2148,12 +2148,12 @@ mutation SeedRhPontoData
         employee: { id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1" }
         attendancePolicy: { id: "b2b2b2b2-b2b2-42b2-82b2-b2b2b2b2b205" }
         mode: "field"
-        validationStrategy: "pending_review"
+        validationStrategy: "allow"
         geolocationRequired: true
         photoRequired: true
         allowAnyLocation: true
         blockOutsideAllowedLocations: false
-        notes: "Atuação em campo com revisão posterior para locais fora da rota."
+        notes: "Atuação em campo com trilha de auditoria e sem revisão."
         startsAt: "2026-01-01"
         endsAt: null
         isCurrent: true

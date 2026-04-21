@@ -7,7 +7,7 @@ import type { AssistedReviewRoutingTarget } from '../lib/time-adjustment-assiste
 const meta: Record<AssistedReviewRoutingTarget, { label: string; variant: 'info' | 'neutral' | 'warning' }> = {
   manager: { label: 'Destino: Gestor', variant: 'info' },
   hr: { label: 'Destino: RH', variant: 'warning' },
-  operations: { label: 'Destino: Operacao', variant: 'neutral' },
+  operations: { label: 'Destino: Operação', variant: 'neutral' },
 };
 
 export const TimeAdjustmentRoutingBadge = ({ routingTarget }: { routingTarget: AssistedReviewRoutingTarget }) => (

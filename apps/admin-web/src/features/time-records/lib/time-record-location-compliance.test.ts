@@ -129,4 +129,48 @@ describe('resolveTimeRecordLocationCompliance', () => {
       badgeLabel: 'Livre pela política',
     });
   });
+
+  it('continua liberando marcações livres mesmo quando a policy pede revisão para outros fluxos', () => {
+    const result = resolveTimeRecordLocationCompliance(
+      createRecord({
+        latitude: -22.9009,
+        longitude: -43.2096,
+      }),
+      createPolicyData({
+        policyCatalog: [
+          {
+            id: 'policy-1',
+            code: 'HYB',
+            name: 'Híbrido',
+            mode: 'hybrid',
+            validationStrategy: 'pending_review',
+            geolocationRequired: true,
+            photoRequired: false,
+            allowOffsiteClocking: false,
+            requiresAllowedLocations: false,
+            description: 'Permite registrar sem geofence fixa.',
+            isActive: true,
+          },
+        ],
+        assignment: {
+          assignmentId: 'assignment-1',
+          attendancePolicyId: 'policy-1',
+          mode: 'free',
+          validationStrategy: 'pending_review',
+          geolocationRequired: true,
+          photoRequired: false,
+          allowAnyLocation: true,
+          blockOutsideAllowedLocations: false,
+          notes: '',
+          selectedLocations: [],
+        },
+      }),
+    );
+
+    expect(result).toMatchObject({
+      status: 'allowed',
+      reasonCode: 'allow_any_location',
+      badgeLabel: 'Livre pela política',
+    });
+  });
 });

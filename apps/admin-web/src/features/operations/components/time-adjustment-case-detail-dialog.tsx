@@ -5,6 +5,7 @@ import { ClipboardList, ExternalLink, ShieldAlert, Sparkles, Workflow } from 'lu
 import { useState } from 'react';
 
 import { ReviewDecisionDialog } from '@/shared/components/review-decision-dialog';
+import { formatTimeRecordTypeLabel } from '@/shared/lib/admin-formatters';
 import { TimeRecordDetailsDialog } from '@/features/time-records/components/time-record-details-dialog';
 import type { TimeRecordListItem } from '@/features/time-records/components/time-record-list-item';
 
@@ -13,11 +14,11 @@ import { TimeAdjustmentConfidenceBadge } from './time-adjustment-confidence-badg
 import { TimeAdjustmentRoutingBadge } from './time-adjustment-routing-badge';
 
 const actionLabel: Record<string, string> = {
-  complete_with_expected_time: 'Completar com horario esperado',
-  request_employee_confirmation: 'Pedir confirmacao adicional',
-  review_daily_sequence: 'Revisar sequencia do dia',
+  complete_with_expected_time: 'Completar com horário esperado',
+  request_employee_confirmation: 'Pedir confirmação adicional',
+  review_daily_sequence: 'Revisar sequência do dia',
   request_justification: 'Solicitar justificativa',
-  escalate_for_compliance_review: 'Escalar para revisao',
+  escalate_for_compliance_review: 'Escalar para revisão',
 };
 
 const impactLabel: Record<string, string> = {
@@ -25,6 +26,18 @@ const impactLabel: Record<string, string> = {
   payroll: 'Impacto no fechamento da folha',
   compliance: 'Impacto de compliance',
   payroll_and_compliance: 'Impacto em fechamento e compliance',
+};
+
+const confidenceLabel: Record<'high' | 'medium' | 'low', string> = {
+  high: 'Alta',
+  medium: 'Média',
+  low: 'Baixa',
+};
+
+const routingTargetLabel: Record<'manager' | 'hr' | 'operations', string> = {
+  manager: 'Gestor',
+  hr: 'RH',
+  operations: 'Operação',
 };
 
 export const TimeAdjustmentCaseDetailDialog = ({
@@ -84,7 +97,7 @@ export const TimeAdjustmentCaseDetailDialog = ({
                 {timeRecord ? (
                   <Button variant="outline" onClick={() => setFullDetailOpen(true)}>
                     <ExternalLink className="h-4 w-4" />
-                    Ver marcacao completa
+                    Ver marcação completa
                   </Button>
                 ) : null}
               </div>
@@ -98,7 +111,7 @@ export const TimeAdjustmentCaseDetailDialog = ({
                   <Sparkles className="h-5 w-5 text-[var(--primary)]" />
                   <div>
                     <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
-                      Sugestao
+                      Sugestão
                     </p>
                     <p className="mt-1 text-sm font-semibold text-[var(--on-surface)]">
                       {actionLabel[assistedReview.recommendedAction] ?? assistedReview.recommendedAction}
@@ -139,9 +152,9 @@ export const TimeAdjustmentCaseDetailDialog = ({
                 <div className="flex items-center gap-3">
                   <ClipboardList className="h-5 w-5 text-[var(--primary)]" />
                   <div>
-                    <p className="font-headline text-lg font-extrabold text-[var(--on-surface)]">Motivo da confianca</p>
+                    <p className="font-headline text-lg font-extrabold text-[var(--on-surface)]">Motivo da confiança</p>
                     <p className="mt-1 text-sm text-[var(--on-surface-variant)]">
-                      O que sustenta o nivel de automacao assistida deste caso.
+                      O que sustenta o nível de automação assistida deste caso.
                     </p>
                   </div>
                 </div>
@@ -152,9 +165,9 @@ export const TimeAdjustmentCaseDetailDialog = ({
                 <div className="flex items-center gap-3">
                   <Sparkles className="h-5 w-5 text-[var(--primary)]" />
                   <div>
-                    <p className="font-headline text-lg font-extrabold text-[var(--on-surface)]">Por que esta sugestao</p>
+                    <p className="font-headline text-lg font-extrabold text-[var(--on-surface)]">Por que esta sugestão</p>
                     <p className="mt-1 text-sm text-[var(--on-surface-variant)]">
-                      Explicacao operacional para a acao recomendada.
+                      Explicação operacional para a ação recomendada.
                     </p>
                   </div>
                 </div>
@@ -172,13 +185,15 @@ export const TimeAdjustmentCaseDetailDialog = ({
                 </div>
                 <div className="rounded-[1.2rem] bg-[var(--surface-container-low)] p-4">
                   <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
-                    Marcacao
+                    Marcação
                   </p>
-                  <p className="mt-2 text-sm font-semibold text-[var(--on-surface)]">{timeRecord?.recordType ?? assistedReview.recordType}</p>
+                  <p className="mt-2 text-sm font-semibold text-[var(--on-surface)]">
+                    {formatTimeRecordTypeLabel(timeRecord?.recordType ?? assistedReview.recordType)}
+                  </p>
                 </div>
                 <div className="rounded-[1.2rem] bg-[var(--surface-container-low)] p-4">
                   <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
-                    Horario
+                    Horário
                   </p>
                   <p className="mt-2 text-sm font-semibold text-[var(--on-surface)]">{item.occurredAt}</p>
                 </div>
@@ -187,7 +202,7 @@ export const TimeAdjustmentCaseDetailDialog = ({
                     Lote
                   </p>
                   <p className="mt-2 text-sm font-semibold text-[var(--on-surface)]">
-                    {assistedReview.batchEligible ? 'Elegivel' : 'Fora do lote inicial'}
+                    {assistedReview.batchEligible ? 'Elegível' : 'Fora do lote inicial'}
                   </p>
                 </div>
               </div>
@@ -197,16 +212,16 @@ export const TimeAdjustmentCaseDetailDialog = ({
               <div className="flex items-center gap-3">
                 <ShieldAlert className="h-5 w-5 text-[var(--primary)]" />
                 <div>
-                  <p className="font-headline text-lg font-extrabold text-[var(--on-surface)]">Decisao administrativa</p>
+                  <p className="font-headline text-lg font-extrabold text-[var(--on-surface)]">Decisão administrativa</p>
                   <p className="mt-1 text-sm text-[var(--on-surface-variant)]">
-                    Registre a decisao do caso usando a mesma trilha de confirmacao do restante do admin.
+                    Registre a decisão do caso usando a mesma trilha de confirmação do restante do admin.
                   </p>
                 </div>
               </div>
 
               <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                 <Button disabled={isPending} onClick={() => setApproveOpen(true)}>
-                  Aprovar sugestao
+                  Aprovar sugestão
                 </Button>
                 <Button disabled={isPending} variant="outline" onClick={() => setJustificationOpen(true)}>
                   Solicitar justificativa
@@ -215,7 +230,7 @@ export const TimeAdjustmentCaseDetailDialog = ({
                   Escalar caso
                 </Button>
                 <Button disabled={isPending} variant="destructive" onClick={() => setRejectOpen(true)}>
-                  Rejeitar sugestao
+                  Rejeitar sugestão
                 </Button>
               </div>
             </Card>
@@ -224,18 +239,18 @@ export const TimeAdjustmentCaseDetailDialog = ({
       </Dialog>
 
       <ReviewDecisionDialog
-        confirmLabel="Aprovar sugestao"
-        description="Confirme a aprovacao desta sugestao assistida e registre uma observacao para a trilha operacional."
+        confirmLabel="Aprovar sugestão"
+        description="Confirme a aprovação desta sugestão assistida e registre uma observação para a trilha operacional."
         isPending={isPending}
-        noteLabel="Observacao da aprovacao"
-        notePlaceholder="Ex.: sugestao coerente com a jornada e sem risco adicional."
+        noteLabel="Observação da aprovação"
+        notePlaceholder="Ex.: sugestão coerente com a jornada e sem risco adicional."
         onConfirm={(notes) => onApprove(item, notes)}
         onOpenChange={setApproveOpen}
         open={approveOpen}
         summary={[
           { label: 'Colaborador', value: assistedReview.employeeName },
-          { label: 'Sugestao', value: actionLabel[assistedReview.recommendedAction] ?? assistedReview.recommendedAction },
-          { label: 'Destino', value: assistedReview.routingTarget },
+          { label: 'Sugestão', value: actionLabel[assistedReview.recommendedAction] ?? assistedReview.recommendedAction },
+          { label: 'Destino', value: routingTargetLabel[assistedReview.routingTarget] },
           { label: 'Impacto', value: impactLabel[assistedReview.closureImpact] ?? assistedReview.closureImpact },
         ]}
         title="Aprovar caso assistido"
@@ -243,9 +258,9 @@ export const TimeAdjustmentCaseDetailDialog = ({
 
       <ReviewDecisionDialog
         confirmLabel="Solicitar justificativa"
-        description="Registre o motivo da solicitacao adicional para o historico do caso."
+        description="Registre o motivo da solicitação adicional para o histórico do caso."
         isPending={isPending}
-        noteLabel="Orientacao para a justificativa"
+        noteLabel="Orientação para a justificativa"
         notePlaceholder="Ex.: detalhe por que a batida precisa de contexto adicional antes do fechamento."
         onConfirm={(notes) => onRequestJustification(item, notes)}
         onOpenChange={setJustificationOpen}
@@ -253,47 +268,47 @@ export const TimeAdjustmentCaseDetailDialog = ({
         requireReason
         summary={[
           { label: 'Colaborador', value: assistedReview.employeeName },
-          { label: 'Excecao', value: item.title },
-          { label: 'Confianca', value: assistedReview.confidence },
+          { label: 'Exceção', value: item.title },
+          { label: 'Confiança', value: confidenceLabel[assistedReview.confidence] },
         ]}
         title="Solicitar justificativa adicional"
       />
 
       <ReviewDecisionDialog
         confirmLabel="Escalar caso"
-        description="Explique por que este caso precisa subir de nivel antes de qualquer aprovacao."
+        description="Explique por que este caso precisa subir de nível antes de qualquer aprovação."
         isPending={isPending}
-        noteLabel="Motivo da escalacao"
-        notePlaceholder="Ex.: risco de compliance, divergencia operacional ou necessidade de validacao extra."
+        noteLabel="Motivo da escalação"
+        notePlaceholder="Ex.: risco de compliance, divergência operacional ou necessidade de validação extra."
         onConfirm={(notes) => onEscalate(item, notes)}
         onOpenChange={setEscalateOpen}
         open={escalateOpen}
         requireReason
         summary={[
           { label: 'Colaborador', value: assistedReview.employeeName },
-          { label: 'Destino recomendado', value: assistedReview.routingTarget },
+          { label: 'Destino recomendado', value: routingTargetLabel[assistedReview.routingTarget] },
           { label: 'Impacto', value: impactLabel[assistedReview.closureImpact] ?? assistedReview.closureImpact },
         ]}
         title="Escalar caso assistido"
       />
 
       <ReviewDecisionDialog
-        confirmLabel="Rejeitar sugestao"
+        confirmLabel="Rejeitar sugestão"
         confirmVariant="destructive"
-        description="Registre o motivo da rejeicao da sugestao assistida para manter rastreabilidade."
+        description="Registre o motivo da rejeição da sugestão assistida para manter rastreabilidade."
         isPending={isPending}
-        noteLabel="Motivo da rejeicao"
-        notePlaceholder="Ex.: contexto inconsistente, evidencias insuficientes ou conflito com outra ocorrencia."
+        noteLabel="Motivo da rejeição"
+        notePlaceholder="Ex.: contexto inconsistente, evidências insuficientes ou conflito com outra ocorrência."
         onConfirm={(notes) => onReject(item, notes)}
         onOpenChange={setRejectOpen}
         open={rejectOpen}
         requireReason
         summary={[
           { label: 'Colaborador', value: assistedReview.employeeName },
-          { label: 'Sugestao rejeitada', value: actionLabel[assistedReview.recommendedAction] ?? assistedReview.recommendedAction },
-          { label: 'Confianca', value: assistedReview.confidence },
+          { label: 'Sugestão rejeitada', value: actionLabel[assistedReview.recommendedAction] ?? assistedReview.recommendedAction },
+          { label: 'Confiança', value: confidenceLabel[assistedReview.confidence] },
         ]}
-        title="Rejeitar sugestao assistida"
+        title="Rejeitar sugestão assistida"
       />
 
       {timeRecord ? (
