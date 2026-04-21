@@ -103,7 +103,7 @@ export const EmployeeListView = () => {
         title="Base de colaboradores"
         description="Acompanhe a base ativa, revise vínculo organizacional e entre rapidamente no detalhe de cada ficha."
         actions={
-          <Button asChild size="lg">
+          <Button asChild className="w-full sm:w-auto" size="lg">
             <Link href="/employees/new">
               <Plus className="h-4 w-4" />
               Novo funcionário
@@ -312,14 +312,14 @@ export const EmployeeListView = () => {
                 headerClassName: 'text-right',
                 cellClassName: 'text-right',
                 render: (item) => (
-                  <div className="flex justify-end gap-2">
-                    <Button asChild size="sm" variant="outline">
+                  <div className="flex flex-col gap-2 sm:flex-row sm:justify-end">
+                    <Button asChild className="w-full sm:w-auto" size="sm" variant="outline">
                       <Link href={`/employees/${item.id}`}>
                         <Eye className="h-4 w-4" />
                         Ver ficha
                       </Link>
                     </Button>
-                    <Button asChild className="h-9 w-9 rounded-full p-0" size="sm" variant="ghost">
+                    <Button asChild className="h-9 w-full justify-center rounded-full p-0 sm:w-9" size="sm" variant="ghost">
                       <Link href={`/employees/${item.id}/edit`}>
                         <PencilLine className="h-4 w-4" />
                       </Link>

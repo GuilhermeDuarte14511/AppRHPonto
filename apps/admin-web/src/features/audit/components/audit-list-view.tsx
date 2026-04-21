@@ -96,9 +96,9 @@ export const AuditListView = () => {
       />
 
       <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-        <Card className="primary-gradient p-8 text-white">
+        <Card className="primary-gradient p-6 text-white sm:p-8">
           <p className="font-headline text-[11px] font-extrabold uppercase tracking-[0.16em] text-white/76">Eventos</p>
-          <p className="mt-3 font-headline text-5xl font-extrabold">{data.metrics.total}</p>
+          <p className="mt-3 font-headline text-4xl font-extrabold sm:text-5xl">{data.metrics.total}</p>
           <p className="mt-4 text-sm text-white/82">
             Eventos que ajudam o RH a entender quem fez cada alteração e quando isso aconteceu.
           </p>
@@ -130,7 +130,7 @@ export const AuditListView = () => {
       </section>
 
       <Card className="p-5 sm:p-6">
-        <div className="grid gap-4 xl:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr_auto]">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr_auto]">
           <label className="space-y-2">
             <span className="px-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
               Buscar evento
@@ -195,9 +195,9 @@ export const AuditListView = () => {
             </select>
           </label>
 
-          <div className="flex items-end">
+          <div className="flex items-end sm:col-span-2 xl:col-span-1">
             <Button
-              className="h-12 w-full justify-center xl:w-auto"
+              className="h-12 w-full justify-center"
               variant="ghost"
               onClick={() => {
                 setSearch('');
@@ -270,7 +270,7 @@ export const AuditListView = () => {
             headerClassName: 'text-right',
             cellClassName: 'text-right',
             render: (item) => (
-              <Button asChild className="whitespace-nowrap" size="sm" variant="outline">
+              <Button asChild className="w-full justify-center whitespace-nowrap" size="sm" variant="outline">
                 <Link href={`/audit/${item.id}`}>
                   <Eye className="h-4 w-4" />
                   Ver detalhes

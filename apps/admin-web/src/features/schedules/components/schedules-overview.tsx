@@ -113,7 +113,7 @@ export const SchedulesOverview = () => {
       />
 
       <section className="rounded-[1.75rem] bg-[var(--surface-container-low)] p-4 shadow-[var(--shadow-card)]">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap items-center gap-3">
             <Badge variant="info">Semanal</Badge>
             <div className="rounded-full bg-[var(--surface-container-lowest)] px-4 py-2.5 text-sm font-semibold text-[var(--on-surface)]">
@@ -126,7 +126,7 @@ export const SchedulesOverview = () => {
               Colaboradores visíveis: {visibleAssignments.length}
             </div>
           </div>
-          <Button size="sm" variant="outline" onClick={() => setIsFilterDialogOpen(true)}>
+          <Button className="w-full justify-center sm:w-auto" size="sm" variant="outline" onClick={() => setIsFilterDialogOpen(true)}>
             Filtrar escalas
           </Button>
         </div>
@@ -217,7 +217,7 @@ export const SchedulesOverview = () => {
 
         <div className="space-y-6">
           <Card className="p-5 sm:p-6">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <h3 className="font-headline text-lg font-extrabold text-[var(--on-surface)]">Biblioteca de turnos</h3>
               <CalendarDays className="h-5 w-5 text-[var(--primary)]" />
             </div>
@@ -229,12 +229,12 @@ export const SchedulesOverview = () => {
                     shiftToneStyles[(shift.isActive ? 'primary' : 'neutral') as keyof typeof shiftToneStyles]
                   }`}
                 >
-                  <div className="flex items-center justify-between gap-3">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                       <span className="text-[11px] font-extrabold uppercase tracking-[0.12em]">{shift.name}</span>
                       <p className="mt-2 text-sm font-medium">{`${shift.startTime} - ${shift.endTime}`}</p>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 self-end sm:self-auto">
                       <Button className="h-9 w-9 rounded-full p-0" size="sm" variant="ghost" onClick={() => setEditingSchedule(shift)}>
                         <PencilLine className="h-4 w-4" />
                       </Button>
@@ -250,33 +250,33 @@ export const SchedulesOverview = () => {
           </Card>
 
           <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-1">
-            <Card className="p-6">
+            <Card className="p-5 sm:p-6">
               <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
                 Equipe alocada
               </p>
-              <p className="mt-3 font-headline text-4xl font-extrabold text-[var(--on-surface)]">
+              <p className="mt-3 font-headline text-3xl font-extrabold text-[var(--on-surface)] sm:text-4xl">
                 {data.summary.allocatedTeam}
               </p>
             </Card>
-            <Card className="p-6">
+            <Card className="p-5 sm:p-6">
               <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
                 Conflitos
               </p>
-              <p className="mt-3 font-headline text-4xl font-extrabold text-[var(--on-surface)]">
+              <p className="mt-3 font-headline text-3xl font-extrabold text-[var(--on-surface)] sm:text-4xl">
                 {String(data.summary.conflicts).padStart(2, '0')}
               </p>
             </Card>
-            <Card className="p-6">
+            <Card className="p-5 sm:p-6">
               <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
                 Horas planejadas
               </p>
-              <p className="mt-3 font-headline text-4xl font-extrabold text-[var(--on-surface)]">
+              <p className="mt-3 font-headline text-3xl font-extrabold text-[var(--on-surface)] sm:text-4xl">
                 {data.summary.plannedHours}
               </p>
             </Card>
-            <Card className="primary-gradient p-6 text-white">
+            <Card className="primary-gradient p-5 text-white sm:p-6">
               <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-white/76">Status</p>
-              <p className="mt-3 font-headline text-4xl font-extrabold">{data.summary.status}</p>
+              <p className="mt-3 font-headline text-3xl font-extrabold sm:text-4xl">{data.summary.status}</p>
             </Card>
           </section>
 

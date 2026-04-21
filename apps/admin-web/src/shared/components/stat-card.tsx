@@ -27,19 +27,19 @@ export const StatCard = ({
   tone = 'primary',
 }: StatCardProps) => (
   <Card className="overflow-hidden border-transparent bg-[var(--surface-container-lowest)]">
-    <CardHeader className="flex-row items-start justify-between space-y-0 pb-4">
-      <div>
+    <CardHeader className="flex-col gap-4 pb-4 sm:flex-row sm:items-start sm:justify-between">
+      <div className="min-w-0">
         <p className="font-headline text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
           {label}
         </p>
-        <CardTitle className="mt-3 text-3xl sm:text-4xl">{value}</CardTitle>
+        <CardTitle className="mt-2 text-2xl sm:mt-3 sm:text-4xl">{value}</CardTitle>
       </div>
-      <div className={cn('rounded-2xl p-2.5 sm:p-3', toneStyles[tone])}>
+      <div className={cn('self-start rounded-2xl p-2.5 sm:p-3', toneStyles[tone])}>
         <Icon className="h-5 w-5" />
       </div>
     </CardHeader>
     <CardContent className="space-y-3">
-      <p className="text-sm text-[var(--on-surface-variant)]">{hint}</p>
+      <p className="text-sm leading-6 text-[var(--on-surface-variant)]">{hint}</p>
       {badge ? (
         <div className="inline-flex rounded-full bg-[var(--surface-container-low)] px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
           {badge}

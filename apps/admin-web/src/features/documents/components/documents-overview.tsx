@@ -72,19 +72,24 @@ export const DocumentsOverview = () => {
           actions={
             <>
               {canExportSelectedDocument ? (
-                <Button asChild size="lg" variant="outline">
+                <Button asChild className="w-full sm:w-auto" size="lg" variant="outline">
                   <a href={selectedDocument?.fileUrl ?? '#'} rel="noreferrer" target="_blank">
                     <Download className="h-4 w-4" />
                     Exportar documento
                   </a>
                 </Button>
               ) : (
-                <Button disabled size="lg" variant="outline">
+                <Button className="w-full sm:w-auto" disabled size="lg" variant="outline">
                   <Download className="h-4 w-4" />
                   Exportar documento
                 </Button>
               )}
-              <Button disabled={data.documents.length === 0} size="lg" onClick={() => setSelectedDocument(data.documents[0] ?? null)}>
+              <Button
+                className="w-full sm:w-auto"
+                disabled={data.documents.length === 0}
+                size="lg"
+                onClick={() => setSelectedDocument(data.documents[0] ?? null)}
+              >
                 <FolderOpen className="h-4 w-4" />
                 Abrir documento
               </Button>
@@ -151,8 +156,8 @@ export const DocumentsOverview = () => {
                     key={category.id}
                     className={
                       selectedCategory === category.id
-                        ? 'flex w-full items-center justify-between rounded-[1.25rem] bg-[var(--surface-container-lowest)] px-4 py-4 text-left shadow-[var(--shadow-card)]'
-                        : 'flex w-full items-center justify-between rounded-[1.25rem] px-4 py-4 text-left text-[var(--on-surface-variant)] transition hover:bg-[var(--surface-container-low)]'
+                        ? 'flex w-full flex-col items-start gap-1 rounded-[1.25rem] bg-[var(--surface-container-lowest)] px-4 py-4 text-left shadow-[var(--shadow-card)] sm:flex-row sm:items-center sm:justify-between'
+                        : 'flex w-full flex-col items-start gap-1 rounded-[1.25rem] px-4 py-4 text-left text-[var(--on-surface-variant)] transition hover:bg-[var(--surface-container-low)] sm:flex-row sm:items-center sm:justify-between'
                     }
                     type="button"
                     onClick={() => setSelectedCategory(category.id as CategoryFilter)}
@@ -179,7 +184,7 @@ export const DocumentsOverview = () => {
                 <p className="mt-2 max-w-2xl text-sm text-[var(--on-surface-variant)]">
                   A central reúne documentos oficiais do colaborador com os anexos operacionais de justificativas e férias já persistidos no Data Connect.
                 </p>
-                <Button className="mt-6" variant="outline" onClick={() => setSelectedDocument(data.documents[0] ?? null)}>
+                <Button className="mt-6 w-full sm:w-auto" variant="outline" onClick={() => setSelectedDocument(data.documents[0] ?? null)}>
                   Abrir o primeiro documento
                 </Button>
               </div>
@@ -222,7 +227,7 @@ export const DocumentsOverview = () => {
                   label: 'Ações',
                   render: (item) => (
                     <div className="flex flex-wrap gap-2">
-                      <Button size="sm" variant="outline" onClick={() => setSelectedDocument(item)}>
+                      <Button className="w-full sm:w-auto" size="sm" variant="outline" onClick={() => setSelectedDocument(item)}>
                         <Eye className="h-4 w-4" />
                         Visualizar
                       </Button>

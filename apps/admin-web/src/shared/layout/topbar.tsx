@@ -24,8 +24,8 @@ export const Topbar = ({ onOpenSidebar }: TopbarProps) => {
 
   return (
     <header className="fixed left-0 right-0 top-0 z-30 h-16 border-b border-[color:color-mix(in_srgb,var(--outline-variant)_18%,transparent)] bg-[rgba(255,255,255,0.82)] backdrop-blur-xl lg:left-[var(--admin-sidebar-width)]">
-      <div className="mx-auto flex h-full w-full max-w-[calc(1440px+4rem)] items-center justify-between gap-3 px-4 sm:px-5 md:gap-4 md:px-6 lg:px-8">
-        <div className="flex min-w-0 flex-1 items-center gap-3 md:gap-4">
+      <div className="mx-auto flex h-full w-full max-w-[calc(1440px+4rem)] items-center justify-between gap-2 px-4 sm:gap-3 sm:px-5 md:gap-4 md:px-6 lg:px-8">
+        <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3 md:gap-4">
           <Button
             aria-label="Abrir menu lateral"
             className="h-10 w-10 shrink-0 rounded-full p-0 lg:hidden"

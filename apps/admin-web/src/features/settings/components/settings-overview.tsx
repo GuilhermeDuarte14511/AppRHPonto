@@ -105,12 +105,12 @@ const ToggleField = ({
   description: string;
   onChange: (nextValue: boolean) => void;
 }) => (
-  <div className="flex items-start justify-between gap-4 rounded-[1.25rem] bg-[var(--surface-container-low)] p-4">
+  <div className="flex flex-col gap-4 rounded-[1.25rem] bg-[var(--surface-container-low)] p-4 sm:flex-row sm:items-start sm:justify-between">
     <div>
       <p className="font-headline text-sm font-extrabold text-[var(--on-surface)]">{label}</p>
       <p className="mt-2 text-sm leading-6 text-[var(--on-surface-variant)]">{description}</p>
     </div>
-    <label className="mt-1 inline-flex cursor-pointer items-center gap-2">
+    <label className="inline-flex cursor-pointer items-center gap-2 self-start sm:mt-1 sm:self-auto">
       <span className="sr-only">{label}</span>
       <input
         checked={checked}
@@ -133,7 +133,7 @@ const SectionHeader = ({
   description: string;
   toneClass: string;
 }) => (
-  <div className="flex items-center gap-4">
+  <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
     <div className={toneClass}>{icon}</div>
     <div>
       <h3 className="font-headline text-xl font-extrabold text-[var(--on-surface)]">{title}</h3>
@@ -151,7 +151,7 @@ const SettingsContextTabs = ({
   onChange: (tab: SettingsTabId) => void;
   tabsetId: string;
 }) => (
-  <div className="grid gap-3 xl:grid-cols-4" role="tablist" aria-label="Contextos das configurações">
+  <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4" role="tablist" aria-label="Contextos das configurações">
     {settingsTabs.map((tab) => {
       const isActive = tab.id === activeTab;
 
@@ -163,8 +163,8 @@ const SettingsContextTabs = ({
           aria-selected={isActive}
           className={
             isActive
-              ? 'flex min-h-[5.5rem] items-start gap-3 rounded-[1.5rem] border border-[color:color-mix(in_srgb,var(--primary)_24%,transparent)] bg-[var(--primary-fixed)] px-4 py-4 text-left shadow-[var(--shadow-card)]'
-              : 'flex min-h-[5.5rem] items-start gap-3 rounded-[1.5rem] border border-[color:color-mix(in_srgb,var(--outline-variant)_16%,transparent)] bg-[var(--surface-container-lowest)] px-4 py-4 text-left transition hover:border-[color:color-mix(in_srgb,var(--primary)_18%,transparent)] hover:bg-[var(--surface-container-low)]'
+              ? 'flex min-h-[5rem] items-start gap-3 rounded-[1.5rem] border border-[color:color-mix(in_srgb,var(--primary)_24%,transparent)] bg-[var(--primary-fixed)] px-4 py-4 text-left shadow-[var(--shadow-card)]'
+              : 'flex min-h-[5rem] items-start gap-3 rounded-[1.5rem] border border-[color:color-mix(in_srgb,var(--outline-variant)_16%,transparent)] bg-[var(--surface-container-lowest)] px-4 py-4 text-left transition hover:border-[color:color-mix(in_srgb,var(--primary)_18%,transparent)] hover:bg-[var(--surface-container-low)]'
           }
           role="tab"
           type="button"
@@ -291,26 +291,26 @@ export const SettingsOverview = () => {
         <div aria-labelledby={`${tabsetId}-${activeTab}-tab`} id={`${tabsetId}-${activeTab}-panel`} role="tabpanel" className="space-y-8">
           {activeTab === 'overview' ? (
             <>
-              <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-                <Card className="p-5">
+              <section className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+                <Card className="p-4 sm:p-5">
                   <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">Colaboradores ativos</p>
-                  <p className="mt-3 font-headline text-4xl font-extrabold text-[var(--on-surface)]">{data.summary.activeEmployees}</p>
+                  <p className="mt-3 font-headline text-3xl font-extrabold text-[var(--on-surface)] sm:text-4xl">{data.summary.activeEmployees}</p>
                 </Card>
-                <Card className="p-5">
+                <Card className="p-4 sm:p-5">
                   <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">Jornadas ativas</p>
-                  <p className="mt-3 font-headline text-4xl font-extrabold text-[var(--on-surface)]">{data.summary.activeSchedules}</p>
+                  <p className="mt-3 font-headline text-3xl font-extrabold text-[var(--on-surface)] sm:text-4xl">{data.summary.activeSchedules}</p>
                 </Card>
-                <Card className="p-5">
+                <Card className="p-4 sm:p-5">
                   <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">Dispositivos ativos</p>
-                  <p className="mt-3 font-headline text-4xl font-extrabold text-[var(--on-surface)]">{data.summary.activeDevices}</p>
+                  <p className="mt-3 font-headline text-3xl font-extrabold text-[var(--on-surface)] sm:text-4xl">{data.summary.activeDevices}</p>
                 </Card>
-                <Card className="p-5">
+                <Card className="p-4 sm:p-5">
                   <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">Aprovações pendentes</p>
-                  <p className="mt-3 font-headline text-4xl font-extrabold text-[var(--on-surface)]">{data.summary.pendingApprovals}</p>
+                  <p className="mt-3 font-headline text-3xl font-extrabold text-[var(--on-surface)] sm:text-4xl">{data.summary.pendingApprovals}</p>
                 </Card>
               </section>
 
-              <section className="grid gap-4 md:grid-cols-3">
+              <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
                 {data.policies.map((policy) => (
                   <Card key={policy.id} className="p-5">
                     <p className="font-headline text-sm font-extrabold text-[var(--on-surface)]">{policy.title}</p>
@@ -319,7 +319,7 @@ export const SettingsOverview = () => {
                 ))}
               </section>
 
-              <section className="grid gap-4 md:grid-cols-3">
+              <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
                 {data.integrity.map((item) => (
                   <Card key={item.id} className="p-5">
                     <div className="flex items-center gap-3">
@@ -407,7 +407,7 @@ export const SettingsOverview = () => {
                     />
                   </div>
 
-                  <div className="grid gap-5 md:grid-cols-2">
+                  <div className="grid gap-5 sm:grid-cols-2">
                     <FormField label="Início" error={form.formState.errors.startTime?.message}>
                       <Input type="time" {...form.register('startTime')} />
                     </FormField>
@@ -428,7 +428,7 @@ export const SettingsOverview = () => {
                     </FormField>
                   </div>
 
-                  <div className="grid gap-3 md:grid-cols-2">
+                  <div className="grid gap-3 sm:grid-cols-2">
                     <div className="inline-flex rounded-full bg-[var(--primary-fixed)] px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--primary)]">
                       {data.workPolicy.activeSchedulesCount} jornada(s) ativa(s) · {data.workPolicy.employeesWithoutSchedule} colaborador(es) sem escala atual
                     </div>
@@ -476,7 +476,7 @@ export const SettingsOverview = () => {
                     />
                   </div>
 
-                  <div className="grid gap-5 md:grid-cols-2">
+                  <div className="grid gap-5 sm:grid-cols-2">
                     <FormField label="Área principal" error={form.formState.errors.geofenceMainArea?.message}>
                       <Input {...form.register('geofenceMainArea')} />
                     </FormField>
@@ -517,7 +517,7 @@ export const SettingsOverview = () => {
                 description="Controle o que chega no sininho do painel para o RH acompanhar o que realmente importa."
               />
 
-              <div className="mt-8 grid gap-5 md:grid-cols-2">
+              <div className="mt-8 grid gap-5 sm:grid-cols-2">
                 <Controller
                   control={form.control}
                   name="notifyOvertimeSummary"
@@ -571,10 +571,10 @@ export const SettingsOverview = () => {
           ) : null}
 
           {activeTab === 'access-control' ? (
-            <section className="grid gap-6 xl:grid-cols-3">
+            <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {accessControlRoles.map((item) => (
                 <Card key={item.role} className="p-5 sm:p-8">
-                  <div className="flex items-start justify-between gap-4">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div>
                       <p className="font-headline text-sm font-extrabold text-[var(--on-surface)]">{item.label}</p>
                       <p className="mt-2 text-sm leading-6 text-[var(--on-surface-variant)]">
@@ -585,7 +585,9 @@ export const SettingsOverview = () => {
                             : 'Acesso restrito ao fluxo de batida e validação do terminal.'}
                       </p>
                     </div>
-                    <Badge variant="neutral">{item.permissions.length} permissões</Badge>
+                    <Badge className="self-start" variant="neutral">
+                      {item.permissions.length} permissões
+                    </Badge>
                   </div>
 
                   <div className="mt-6 flex flex-wrap gap-2">

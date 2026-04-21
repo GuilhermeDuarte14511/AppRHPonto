@@ -43,13 +43,13 @@ export const DataTable = <TItem,>({
       ) : (
         <div className="divide-y divide-[color:color-mix(in_srgb,var(--outline-variant)_14%,transparent)]">
           {items.map((item) => (
-            <article key={getRowKey(item)} className="space-y-4 px-4 py-5">
+            <article key={getRowKey(item)} className="space-y-3 px-4 py-5">
               {columns.map((column) => (
                 <div key={String(column.key)} className="space-y-1.5">
                   <p className="font-headline text-[10px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
                     {column.label}
                   </p>
-                  <div className="text-sm text-[var(--on-surface)]">{getColumnContent(column, item)}</div>
+                  <div className="break-words text-sm leading-6 text-[var(--on-surface)]">{getColumnContent(column, item)}</div>
                 </div>
               ))}
             </article>

@@ -152,7 +152,7 @@ export const VacationRequestListView = () => {
         }
       />
 
-      <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
+      <section className="grid gap-6 sm:grid-cols-2 xl:grid-cols-5">
         <StatCard badge="Fila ativa" hint="Solicitações aguardando aprovação final do RH" icon={CalendarClock} label="Pendentes" tone="tertiary" value={String(pending)} />
         <StatCard badge="Planejado" hint="Pedidos aprovados e comunicados ao colaborador" icon={CalendarCheck2} label="Aprovadas" tone="secondary" value={String(approved)} />
         <StatCard badge="Controle" hint="Solicitações negadas por saldo ou indisponibilidade" icon={CircleOff} label="Reprovadas" tone="danger" value={String(rejected)} />
@@ -161,7 +161,7 @@ export const VacationRequestListView = () => {
       </section>
 
       <Card className="overflow-hidden">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[color:color-mix(in_srgb,var(--outline-variant)_16%,transparent)] px-5 py-5 sm:px-8 sm:py-6">
+        <div className="flex flex-col gap-4 border-b border-[color:color-mix(in_srgb,var(--outline-variant)_16%,transparent)] px-5 py-5 sm:flex-row sm:items-start sm:justify-between sm:px-8 sm:py-6">
           <div>
             <h3 className="font-headline text-xl font-extrabold text-[var(--on-surface)]">Solicitações recentes</h3>
             <p className="mt-1 text-sm text-[var(--on-surface-variant)]">
@@ -228,9 +228,10 @@ export const VacationRequestListView = () => {
               headerClassName: 'text-right',
               cellClassName: 'text-right',
               render: (item) => (
-                <Button asChild className="h-9 w-9 rounded-full p-0" size="sm" variant="ghost">
+                <Button asChild className="h-10 w-full justify-center rounded-full px-4 sm:h-9 sm:w-9 sm:px-0" size="sm" variant="ghost">
                   <Link href={`/vacations/${item.id}`}>
                     <Eye className="h-4 w-4" />
+                    <span className="sm:hidden">Detalhes</span>
                   </Link>
                 </Button>
               ),
@@ -275,7 +276,7 @@ export const VacationRequestListView = () => {
             </p>
           </div>
           <div className="text-right">
-            <p className="font-headline text-4xl font-extrabold text-[var(--primary)]">
+            <p className="font-headline text-3xl font-extrabold text-[var(--primary)] sm:text-4xl">
               {nextApprovedDaysUntilStart == null ? '--' : `${nextApprovedDaysUntilStart} dias`}
             </p>
             <p className="mt-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">Para o evento</p>

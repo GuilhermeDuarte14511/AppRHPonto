@@ -125,7 +125,7 @@ export const DashboardOverview = () => {
 
       <section className="grid gap-8 xl:grid-cols-[1.15fr_0.85fr]">
         <Card className="overflow-hidden p-6 sm:p-8">
-          <div className="flex items-start justify-between gap-4">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <p className="font-headline text-[11px] font-extrabold uppercase tracking-[0.16em] text-[var(--primary)]">
                 Atividade semanal
@@ -137,7 +137,7 @@ export const DashboardOverview = () => {
                 Pico operacional previsto para {data.weeklyActivity.peakTimeLabel}
               </p>
             </div>
-            <Button asChild size="sm" variant="ghost">
+            <Button asChild className="w-full sm:w-auto" size="sm" variant="ghost">
               <Link href={data.weeklyActivity.detailHref}>
                 Ver detalhes
                 <ArrowRight className="h-4 w-4" />
@@ -145,7 +145,7 @@ export const DashboardOverview = () => {
             </Button>
           </div>
 
-          <div className="mt-8 h-[280px] min-w-0">
+          <div className="mt-8 h-[240px] min-w-0 sm:h-[280px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={weeklyChartData} margin={{ top: 10, right: 8, left: -18, bottom: 0 }}>
                 <CartesianGrid stroke="var(--outline-variant)" strokeDasharray="3 3" vertical={false} opacity={0.18} />
@@ -335,8 +335,8 @@ export const DashboardOverview = () => {
       </section>
 
       <section className="grid gap-6 md:grid-cols-3">
-        <Card className="p-6">
-          <div className="flex items-start gap-4">
+        <Card className="p-5 sm:p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
             <div className="rounded-[1.25rem] bg-[var(--tertiary-fixed)] p-3 text-[var(--on-tertiary-fixed-variant)]">
               <AlertTriangle className="h-5 w-5" />
             </div>
@@ -344,7 +344,7 @@ export const DashboardOverview = () => {
               <p className="font-headline text-[11px] font-extrabold uppercase tracking-[0.16em] text-[var(--on-surface-variant)]">
                 Aprovações
               </p>
-              <p className="mt-3 font-headline text-4xl font-extrabold text-[var(--on-surface)]">
+              <p className="mt-3 font-headline text-3xl font-extrabold text-[var(--on-surface)] sm:text-4xl">
                 {data.totalApprovalsPending}
               </p>
               <p className="mt-2 text-sm leading-7 text-[var(--on-surface-variant)]">
@@ -354,8 +354,8 @@ export const DashboardOverview = () => {
           </div>
         </Card>
 
-        <Card className="p-6">
-          <div className="flex items-start gap-4">
+        <Card className="p-5 sm:p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
             <div className="rounded-[1.25rem] bg-[var(--surface-container-high)] p-3 text-[var(--primary)]">
               <FileClock className="h-5 w-5" />
             </div>
@@ -363,7 +363,7 @@ export const DashboardOverview = () => {
               <p className="font-headline text-[11px] font-extrabold uppercase tracking-[0.16em] text-[var(--on-surface-variant)]">
                 Férias próximas
               </p>
-              <p className="mt-3 font-headline text-4xl font-extrabold text-[var(--on-surface)]">
+              <p className="mt-3 font-headline text-3xl font-extrabold text-[var(--on-surface)] sm:text-4xl">
                 {data.upcomingVacations}
               </p>
               <p className="mt-2 text-sm leading-7 text-[var(--on-surface-variant)]">
@@ -373,8 +373,8 @@ export const DashboardOverview = () => {
           </div>
         </Card>
 
-        <Card className="p-6">
-          <div className="flex items-start gap-4">
+        <Card className="p-5 sm:p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
             <div className="rounded-[1.25rem] bg-[var(--primary-fixed)] p-3 text-[var(--primary)]">
               <Activity className="h-5 w-5" />
             </div>
@@ -382,7 +382,7 @@ export const DashboardOverview = () => {
               <p className="font-headline text-[11px] font-extrabold uppercase tracking-[0.16em] text-[var(--on-surface-variant)]">
                 Cadência operacional
               </p>
-              <p className="mt-3 font-headline text-4xl font-extrabold text-[var(--on-surface)]">
+              <p className="mt-3 font-headline text-3xl font-extrabold text-[var(--on-surface)] sm:text-4xl">
                 {data.cadenceMetrics.attendanceTodayPercent}%
               </p>
               <p className="mt-2 text-sm leading-7 text-[var(--on-surface-variant)]">
@@ -398,12 +398,12 @@ export const DashboardOverview = () => {
 
 const QuickActionRow = ({ href, label, value }: { href: string; label: string; value: string }) => (
   <Link
-    className="flex items-center justify-between rounded-[1rem] border border-[color:color-mix(in_srgb,var(--outline-variant)_14%,transparent)] bg-[var(--surface-container-low)] px-4 py-3 transition hover:bg-[var(--surface-container-high)]"
+    className="flex flex-col gap-3 rounded-[1rem] border border-[color:color-mix(in_srgb,var(--outline-variant)_14%,transparent)] bg-[var(--surface-container-low)] px-4 py-3 transition hover:bg-[var(--surface-container-high)] sm:flex-row sm:items-center sm:justify-between"
     href={href}
   >
-    <span className="text-sm font-semibold text-[var(--on-surface)]">{label}</span>
-    <div className="flex items-center gap-2">
-      <span className="font-headline text-lg font-extrabold text-[var(--primary)]">{value}</span>
+    <span className="min-w-0 text-sm font-semibold leading-6 text-[var(--on-surface)]">{label}</span>
+    <div className="flex items-center gap-2 self-end sm:self-auto">
+      <span className="font-headline text-base font-extrabold text-[var(--primary)] sm:text-lg">{value}</span>
       <ArrowRight className="h-4 w-4 text-[var(--on-surface-variant)]" />
     </div>
   </Link>

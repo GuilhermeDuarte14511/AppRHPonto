@@ -113,7 +113,7 @@ export const AnalyticsOverview = () => {
             <p className="font-headline text-[11px] font-extrabold uppercase tracking-[0.16em] text-[var(--primary)]">
               Tendência de presença vs atrasos
             </p>
-            <h2 className="mt-3 font-headline text-2xl font-extrabold text-[var(--on-surface)]">
+            <h2 className="mt-3 font-headline text-xl font-extrabold text-[var(--on-surface)] sm:text-2xl">
               Variação operacional em últimos 30 dias
             </h2>
             <p className="mt-2 text-sm text-[var(--on-surface-variant)]">
@@ -121,7 +121,7 @@ export const AnalyticsOverview = () => {
             </p>
           </div>
 
-          <div className="mt-8 h-[300px] min-w-0">
+          <div className="mt-8 h-[240px] min-w-0 sm:h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={data.trend} margin={{ top: 10, right: 8, left: -18, bottom: 0 }}>
                 <CartesianGrid stroke="var(--outline-variant)" strokeDasharray="3 3" vertical={false} opacity={0.18} />
@@ -171,7 +171,7 @@ export const AnalyticsOverview = () => {
             <p className="font-headline text-[11px] font-extrabold uppercase tracking-[0.16em] text-[var(--primary)]">
               Horas extras por área
             </p>
-            <h2 className="mt-3 font-headline text-2xl font-extrabold text-[var(--on-surface)]">
+            <h2 className="mt-3 font-headline text-xl font-extrabold text-[var(--on-surface)] sm:text-2xl">
               Departamentos com maior carga excedente
             </h2>
             <p className="mt-2 text-sm text-[var(--on-surface-variant)]">
@@ -179,7 +179,7 @@ export const AnalyticsOverview = () => {
             </p>
           </div>
 
-          <div className="mt-8 h-[300px] min-w-0">
+          <div className="mt-8 h-[240px] min-w-0 sm:h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data.overtimeByDepartment} layout="vertical" margin={{ top: 8, right: 8, left: 10, bottom: 0 }}>
                 <CartesianGrid stroke="var(--outline-variant)" strokeDasharray="3 3" horizontal={false} opacity={0.16} />
@@ -247,29 +247,31 @@ export const AnalyticsOverview = () => {
             </p>
           </div>
 
-          <div className="mt-8 space-y-3">
-            <div className="grid grid-cols-[80px_repeat(7,minmax(0,1fr))] gap-2 px-1 text-[11px] font-extrabold uppercase tracking-[0.12em] text-[var(--on-surface-variant)]">
-              <span>Dia</span>
-              {['07h', '08h', '09h', '10h', '11h', '12h', '13h'].map((slot) => (
-                <span key={slot} className="text-center">
-                  {slot}
-                </span>
-              ))}
-            </div>
-
-            {data.delayHeatmap.map((row) => (
-              <div key={row.day} className="grid grid-cols-[80px_repeat(7,minmax(0,1fr))] gap-2">
-                <div className="flex items-center font-semibold text-[var(--on-surface)]">{row.day}</div>
-                {row.values.map((value, index) => (
-                  <div
-                    key={`${row.day}-${index}`}
-                    className={`flex h-12 items-center justify-center rounded-[0.9rem] text-xs font-bold ${heatmapIntensityClass(value)}`}
-                  >
-                    {value > 0 ? value : '—'}
-                  </div>
+          <div className="mt-8 overflow-x-auto pb-2">
+            <div className="min-w-[640px] space-y-3 pr-1">
+              <div className="grid grid-cols-[80px_repeat(7,minmax(0,1fr))] gap-2 px-1 text-[11px] font-extrabold uppercase tracking-[0.12em] text-[var(--on-surface-variant)]">
+                <span>Dia</span>
+                {['07h', '08h', '09h', '10h', '11h', '12h', '13h'].map((slot) => (
+                  <span key={slot} className="text-center">
+                    {slot}
+                  </span>
                 ))}
               </div>
-            ))}
+
+              {data.delayHeatmap.map((row) => (
+                <div key={row.day} className="grid grid-cols-[80px_repeat(7,minmax(0,1fr))] gap-2">
+                  <div className="flex items-center font-semibold text-[var(--on-surface)]">{row.day}</div>
+                  {row.values.map((value, index) => (
+                    <div
+                      key={`${row.day}-${index}`}
+                      className={`flex h-10 items-center justify-center rounded-[0.9rem] text-xs font-bold sm:h-12 ${heatmapIntensityClass(value)}`}
+                    >
+                      {value > 0 ? value : '—'}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </Card>
 
@@ -310,7 +312,7 @@ export const AnalyticsOverview = () => {
         </Card>
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-3">
+      <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {data.insights.map((insight, index) => (
           <Card key={insight.id} className="p-6">
             <div className="flex items-start gap-4">

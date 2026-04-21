@@ -76,7 +76,7 @@ export const OnboardingOverview = () => {
         title="Monitoramento de onboarding"
         description="Acompanhe a admissão passo a passo, com visão consolidada das etapas críticas de documentação, acessos, equipamentos e assinatura."
         actions={
-          <Button asChild size="lg">
+          <Button asChild className="w-full sm:w-auto" size="lg">
             <Link href="/employees/new">
               <UserPlus className="h-4 w-4" />
               Novo colaborador
@@ -278,7 +278,7 @@ export const OnboardingOverview = () => {
                 headerClassName: 'text-right',
                 cellClassName: 'text-right',
                 render: (item) => (
-                  <Button asChild size="sm" variant="outline">
+                  <Button asChild className="w-full sm:w-auto" size="sm" variant="outline">
                     <Link href={`/onboarding/${item.id}`}>
                       Abrir checklist
                       <ArrowRight className="h-4 w-4" />

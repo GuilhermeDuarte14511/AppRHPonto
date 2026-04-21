@@ -46,11 +46,11 @@ export const ReportsOverview = () => {
         description="Concentre a saída de dados da operação em exportações prontas para auditoria, análise e conferência externa."
         actions={
           <>
-            <Button size="lg" variant="outline" onClick={() => downloadRecentTimeRecordsCsv(dashboard.recentTimeRecords)}>
+            <Button className="w-full sm:w-auto" size="lg" variant="outline" onClick={() => downloadRecentTimeRecordsCsv(dashboard.recentTimeRecords)}>
               <FileClock className="h-4 w-4" />
               Exportar marcações
             </Button>
-            <Button size="lg" variant="outline" onClick={() => downloadAuditRecordsCsv(audit.records)}>
+            <Button className="w-full sm:w-auto" size="lg" variant="outline" onClick={() => downloadAuditRecordsCsv(audit.records)}>
               <Download className="h-4 w-4" />
               Exportar auditoria
             </Button>
@@ -82,9 +82,9 @@ export const ReportsOverview = () => {
           tone="tertiary"
           value={String(dashboard.totalApprovalsPending)}
         />
-        <Card className="primary-gradient p-6 text-white">
+        <Card className="primary-gradient p-6 text-white sm:p-8">
           <p className="font-headline text-[11px] font-extrabold uppercase tracking-[0.14em] text-white/78">Exportação</p>
-          <p className="mt-3 font-headline text-4xl font-extrabold">{dashboard.payrollSnapshot.progress}%</p>
+          <p className="mt-3 font-headline text-3xl font-extrabold sm:text-4xl">{dashboard.payrollSnapshot.progress}%</p>
           <p className="mt-4 text-sm text-white/82">
             {dashboard.payrollSnapshot.statusLabel} · {dashboard.payrollSnapshot.statusHint}
           </p>
@@ -105,7 +105,7 @@ export const ReportsOverview = () => {
             <Badge variant="warning">{dashboard.recentTimeRecordsMeta.pending} em revisão</Badge>
             <Badge variant="info">{dashboard.recentTimeRecordsMeta.manual} manuais</Badge>
           </div>
-          <Button className="mt-6" variant="outline" onClick={() => downloadRecentTimeRecordsCsv(dashboard.recentTimeRecords)}>
+          <Button className="mt-6 w-full sm:w-auto" variant="outline" onClick={() => downloadRecentTimeRecordsCsv(dashboard.recentTimeRecords)}>
             <Download className="h-4 w-4" />
             Baixar CSV
           </Button>
@@ -124,7 +124,7 @@ export const ReportsOverview = () => {
             <Badge variant="warning">{audit.metrics.manualAdjustments} ajustes</Badge>
             <Badge variant="danger">{audit.metrics.criticalEvents} críticos</Badge>
           </div>
-          <Button className="mt-6" variant="outline" onClick={() => downloadAuditRecordsCsv(audit.records)}>
+          <Button className="mt-6 w-full sm:w-auto" variant="outline" onClick={() => downloadAuditRecordsCsv(audit.records)}>
             <Download className="h-4 w-4" />
             Baixar CSV
           </Button>

@@ -217,7 +217,7 @@ export const EmployeeAttendancePolicyCard = ({ employeeId }: { employeeId: strin
   return (
     <Card className="p-5 sm:p-6">
       <CardHeader className="px-0 pt-0">
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <CardTitle>Política de marcação</CardTitle>
             <CardDescription className="mt-2">
@@ -231,7 +231,7 @@ export const EmployeeAttendancePolicyCard = ({ employeeId }: { employeeId: strin
       </CardHeader>
 
       <CardContent className="space-y-6 px-0 pb-0">
-        <div className="grid gap-3 md:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-3">
           <div className="rounded-[1.25rem] bg-[var(--surface-container-low)] p-4">
             <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--on-surface-variant)]">
               Regra ativa
@@ -322,12 +322,12 @@ export const EmployeeAttendancePolicyCard = ({ employeeId }: { employeeId: strin
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <Controller
               control={form.control}
               name="geolocationRequired"
               render={({ field }) => (
-                <div className="flex items-start justify-between gap-4 rounded-[1.25rem] bg-[var(--surface-container-low)] p-4">
+                <div className="flex flex-col gap-4 rounded-[1.25rem] bg-[var(--surface-container-low)] p-4 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <p className="font-headline text-sm font-extrabold text-[var(--on-surface)]">Geolocalização</p>
                     <p className="mt-2 text-sm text-[var(--on-surface-variant)]">Exige latitude e longitude na marcação.</p>
@@ -347,7 +347,7 @@ export const EmployeeAttendancePolicyCard = ({ employeeId }: { employeeId: strin
               control={form.control}
               name="photoRequired"
               render={({ field }) => (
-                <div className="flex items-start justify-between gap-4 rounded-[1.25rem] bg-[var(--surface-container-low)] p-4">
+                <div className="flex flex-col gap-4 rounded-[1.25rem] bg-[var(--surface-container-low)] p-4 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <p className="font-headline text-sm font-extrabold text-[var(--on-surface)]">Foto obrigatória</p>
                     <p className="mt-2 text-sm text-[var(--on-surface-variant)]">Força captura visual no momento do ponto.</p>
@@ -367,7 +367,7 @@ export const EmployeeAttendancePolicyCard = ({ employeeId }: { employeeId: strin
               control={form.control}
               name="allowAnyLocation"
               render={({ field }) => (
-                <div className="flex items-start justify-between gap-4 rounded-[1.25rem] bg-[var(--surface-container-low)] p-4">
+                <div className="flex flex-col gap-4 rounded-[1.25rem] bg-[var(--surface-container-low)] p-4 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <p className="font-headline text-sm font-extrabold text-[var(--on-surface)]">Permitir qualquer local</p>
                     <p className="mt-2 text-sm text-[var(--on-surface-variant)]">Libera marcação fora de geofence específica.</p>
@@ -388,7 +388,7 @@ export const EmployeeAttendancePolicyCard = ({ employeeId }: { employeeId: strin
               control={form.control}
               name="blockOutsideAllowedLocations"
               render={({ field }) => (
-                <div className="flex items-start justify-between gap-4 rounded-[1.25rem] bg-[var(--surface-container-low)] p-4">
+                <div className="flex flex-col gap-4 rounded-[1.25rem] bg-[var(--surface-container-low)] p-4 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <p className="font-headline text-sm font-extrabold text-[var(--on-surface)]">Bloquear fora da área</p>
                     <p className="mt-2 text-sm text-[var(--on-surface-variant)]">Quando desligado, envia a marcação para revisão.</p>

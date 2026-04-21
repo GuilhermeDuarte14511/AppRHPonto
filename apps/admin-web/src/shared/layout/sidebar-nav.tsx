@@ -1,6 +1,5 @@
 'use client';
 
-import { appConfig } from '@rh-ponto/config';
 import { Button, cn } from '@rh-ponto/ui';
 import {
   Activity,
@@ -77,10 +76,10 @@ export const SidebarNav = ({ mobileOpen = false, onCloseMobile }: SidebarNavProp
       <aside
         className={cn(
           'fixed inset-y-0 left-0 z-50 flex min-h-screen flex-col overflow-y-auto bg-[color:color-mix(in_srgb,var(--surface-container-low)_92%,white)] px-4 py-5 text-[var(--on-surface)] shadow-[var(--shadow-float)] transition-transform duration-300 lg:z-40 lg:px-4 lg:py-6 lg:shadow-none',
+          'w-[85vw] max-w-[20rem] lg:w-[var(--admin-sidebar-width)] lg:max-w-none',
           mobileOpen ? 'translate-x-0' : '-translate-x-full',
           'lg:translate-x-0',
         )}
-        style={{ width: appConfig.admin.sidebarWidth }}
       >
         <div className="flex items-start justify-between gap-3 px-1 lg:px-2">
           <div className="flex min-w-0 items-center gap-3">

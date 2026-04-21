@@ -59,10 +59,10 @@ export const GlobalSearchAutocomplete = () => {
   const shouldShowPanel = isOpen && term.trim().length >= 2;
 
   return (
-    <div ref={containerRef} className="relative w-full max-w-xl">
+    <div ref={containerRef} className="relative w-full min-w-0 max-w-none sm:max-w-xl">
       <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--outline)]" />
       <Input
-        className="h-10 rounded-full border-transparent bg-[var(--surface-container-low)] pl-11 sm:h-11"
+        className="h-10 w-full min-w-0 rounded-full border-transparent bg-[var(--surface-container-low)] pl-11 sm:h-11"
         placeholder="Buscar colaboradores, documentos, escalas ou auditoria"
         value={term}
         onChange={(event) => {
@@ -79,7 +79,7 @@ export const GlobalSearchAutocomplete = () => {
           </div>
 
           {data?.items.length ? (
-            <div className="max-h-[28rem] overflow-y-auto p-2">
+            <div className="max-h-[22rem] overflow-y-auto p-2 sm:max-h-[28rem]">
               {groupedItems.map(([category, items]) => (
                 <div key={category} className="mb-2">
                   <p className="px-3 py-2 text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--primary)]">
