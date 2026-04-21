@@ -82,7 +82,7 @@ export const CreateOnboardingTaskDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[min(96vw,52rem)] rounded-[2rem] overflow-hidden p-0">
+      <DialogContent className="w-[min(96vw,64rem)] rounded-[2rem] overflow-hidden p-0">
         <div className="bg-[rgba(255,255,255,0.76)] px-5 py-5 backdrop-blur-[14px] sm:px-8 sm:py-7">
           <div className="flex items-start gap-4">
             <div className="flex h-14 w-14 items-center justify-center rounded-[1.4rem] bg-[var(--primary-fixed)] text-[var(--primary)]">

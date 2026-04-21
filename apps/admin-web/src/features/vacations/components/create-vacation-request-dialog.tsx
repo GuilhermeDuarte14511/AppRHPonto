@@ -109,7 +109,7 @@ export const CreateVacationRequestDialog = ({ open, onOpenChange }: CreateVacati
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="w-[min(96vw,56rem)] rounded-[2rem] p-0">
+        <DialogContent className="w-[min(96vw,64rem)] rounded-[2rem] p-0">
           <div className="border-b border-[color:color-mix(in_srgb,var(--outline-variant)_16%,transparent)] px-5 py-5 sm:px-8 sm:py-7">
             <h2 className="font-headline text-3xl font-extrabold tracking-tight text-[var(--on-surface)]">
               Nova solicitação de férias

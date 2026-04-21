@@ -79,7 +79,7 @@ export const AssignWorkScheduleDialog = ({
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="w-[min(96vw,48rem)] rounded-[2rem] p-0">
+        <DialogContent className="w-[min(96vw,56rem)] rounded-[2rem] p-0">
           <div className="border-b border-[color:color-mix(in_srgb,var(--outline-variant)_16%,transparent)] px-5 py-5 sm:px-8 sm:py-7">
             <p className="font-headline text-[11px] font-extrabold uppercase tracking-[0.16em] text-[var(--primary)]">
               Planejamento operacional

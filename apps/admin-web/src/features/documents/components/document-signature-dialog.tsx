@@ -176,7 +176,7 @@ export const DocumentSignatureDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[min(96vw,54rem)] overflow-hidden rounded-[2rem] p-0">
+      <DialogContent className="w-[min(96vw,64rem)] overflow-hidden rounded-[2rem] p-0">
         <div className="bg-[rgba(255,255,255,0.78)] px-6 pb-5 pt-8 backdrop-blur-[16px] sm:px-8">
           <p className="font-headline text-[11px] font-extrabold uppercase tracking-[0.18em] text-[var(--primary)]">
             Assinatura digital

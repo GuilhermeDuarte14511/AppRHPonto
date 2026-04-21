@@ -136,7 +136,7 @@ export const ActionConfirmationDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[min(96vw,48rem)] rounded-[2rem] overflow-hidden p-0">
+      <DialogContent className="w-[min(96vw,56rem)] rounded-[2rem] overflow-hidden p-0">
         <div className={cn('px-5 py-5 backdrop-blur-[14px] sm:px-8 sm:py-7', styles.panel)}>
           <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
             <div className="flex items-start gap-4">

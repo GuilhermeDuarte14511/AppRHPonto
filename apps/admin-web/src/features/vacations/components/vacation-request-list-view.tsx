@@ -285,7 +285,7 @@ export const VacationRequestListView = () => {
 
       <CreateVacationRequestDialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen} />
       <Dialog open={isFilterDialogOpen} onOpenChange={setIsFilterDialogOpen}>
-        <DialogContent className="w-[min(96vw,34rem)] rounded-[2rem] p-0">
+        <DialogContent className="w-[min(96vw,48rem)] rounded-[2rem] p-0">
           <div className="space-y-6 p-6 sm:p-8">
             <div className="space-y-2">
               <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--primary)]">

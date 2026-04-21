@@ -65,7 +65,7 @@ export const TimeAdjustmentCaseDetailDialog = ({
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="w-[min(96vw,72rem)] rounded-[2rem] p-0">
+        <DialogContent className="w-[min(96vw,84rem)] rounded-[2rem] p-0">
           <div className="border-b border-[color:color-mix(in_srgb,var(--outline-variant)_16%,transparent)] bg-[linear-gradient(135deg,rgba(226,232,240,0.92),rgba(255,255,255,0.97))] px-5 py-5 sm:px-8 sm:py-7">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
               <div>
